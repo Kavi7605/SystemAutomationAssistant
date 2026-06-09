@@ -1,0 +1,23 @@
+# Virtual Environment
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Generated Content
+screenshots/
+logs/
+generated_files/
+
+# Environment
+.env
+
+# Windows
+Thumbs.db
+Desktop.ini
