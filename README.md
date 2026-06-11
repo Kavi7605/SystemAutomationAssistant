@@ -66,21 +66,23 @@ The project aims to evolve from a simple desktop automation tool into a fully ca
 
 ## System Architecture
 
-User Command
-↓
-Command Parser
-↓
-Ollama
-↓
-Gemma 3
-↓
-Structured JSON
-↓
-Executor Engine
-↓
-System Action
-↓
-Logger
+```mermaid
+graph TD
+    User([User]) <-->|Text/Voice| Interface[Interface Layer]
+    
+    subgraph Core System
+        Interface <--> Context[Context & Memory Manager]
+        Context <--> Planner[Planner / Reasoning Engine]
+        Planner <--> LLM[LLM Client / Ollama]
+    end
+    
+    subgraph Action & Tooling
+        Planner <-->|Tool Request| Registry[Tool Registry]
+        Registry <--> AppDiscovery[(App Discovery Index)]
+    end
+    
+    Registry --> OS[System OS / Shell]
+```
 
 ---
 
@@ -111,24 +113,13 @@ SystemAutomationAssistant/
 
 ## Current Features
 
-### AI Command Understanding
+### AI Agent Planning Loop
 
-Convert natural language into structured JSON.
-
-Example:
-
-Input:
-
-Open Notepad
-
-Output:
-
-{
-"action": "open_application",
-"parameters": {
-"application_name": "notepad"
-}
-}
+The system now runs an autonomous ReAct (Reason + Act) loop. It is capable of:
+* Maintaining conversation history to understand context (e.g., "Open discord... now close it")
+* Asking follow-up questions for missing information
+* Generating multi-step execution plans
+* Dynamically resolving vague application names (e.g., "calc" -> "calc.exe") using an App Discovery component
 
 ### Automation Engine
 
@@ -180,7 +171,7 @@ Status: Completed
 * Multi-step commands
 * Action validation
 
-Status: In Progress
+Status: Completed
 
 ### Phase 4 — Voice Assistant
 

@@ -1,0 +1,398 @@
+[
+    {
+        "timestamp": "2026-06-11T10:05:12.730930",
+        "user_command": "open discord",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "discord"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "discord"
+            }
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Failed to open application: The system cannot find the file C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start.\n"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:12:24.485797",
+        "user_command": "start discord",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "discord"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "discord"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Discord opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:25:35.683115",
+        "user_command": "start discord",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "discord"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "discord"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Discord opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:25:59.929430",
+        "user_command": "open oracle virtualbox",
+        "generated_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "resolved_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:26:13.253626",
+        "user_command": "start oraclevirtualbox",
+        "generated_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "resolved_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:26:35.472181",
+        "user_command": "open intelliJ",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "intellij"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "intellij"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Intellij opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:26:52.157121",
+        "user_command": "open github desktop",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "github desktop"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "github desktop"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Github desktop opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:27:58.010001",
+        "user_command": "start Counter-Strike",
+        "generated_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "resolved_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:28:03.178347",
+        "user_command": "Start steam",
+        "generated_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "resolved_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:28:09.588423",
+        "user_command": "open steam",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "steam"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "steam"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Steam opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:28:24.557729",
+        "user_command": "open OBS studio",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "OBS Studio"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "OBS Studio"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Obs studio opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:28:51.625145",
+        "user_command": "start ExLoader",
+        "generated_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "resolved_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:28:58.998725",
+        "user_command": "open ExLoader",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "ExLoader"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "ExLoader"
+            }
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Application ExLoader failed to launch or verify."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:31:40.299361",
+        "user_command": "open recycle bin",
+        "generated_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "resolved_json": {
+            "action": "unknown",
+            "parameters": {}
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:31:49.100441",
+        "user_command": "open calc",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "calc"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "calc"
+            }
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Application calc failed to launch or verify."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:32:03.384692",
+        "user_command": "open visual studio code",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "visual studio code"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "visual studio code"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Visual studio code opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:32:43.587266",
+        "user_command": "start visual studio code",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "visual studio code"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "visual studio code"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Visual studio code opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:33:07.140288",
+        "user_command": "open chrome",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "chrome"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "chrome"
+            }
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Application chrome failed to launch or verify."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:33:12.947859",
+        "user_command": "open edge",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "edge"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "edge"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Edge opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:33:33.556599",
+        "user_command": "open elden ring",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "elden ring"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "elden ring"
+            }
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Application elden ring failed to launch or verify."
+        }
+    },
+    {
+        "timestamp": "2026-06-11T10:34:03.932612",
+        "user_command": "open elden ring which is in Kavi\\Games\\",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "elden ring"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "elden ring"
+            }
+        },
+        "execution_result": {
+            "status": "failed",
+            "message": "Application elden ring failed to launch or verify."
+        }
+    }
+]

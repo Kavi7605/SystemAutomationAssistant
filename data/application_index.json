@@ -1,0 +1,1266 @@
+{
+    "7zfm": {
+        "path": "C:\\Program Files\\7-Zip\\7zFM.exe",
+        "arguments": ""
+    },
+    "brave": {
+        "path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+        "arguments": ""
+    },
+    "excel": {
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
+        "arguments": ""
+    },
+    "iediag": {
+        "path": "C:\\Program Files\\Internet Explorer\\IEDIAGCMD.EXE",
+        "arguments": ""
+    },
+    "iediagcmd": {
+        "path": "C:\\Program Files\\Internet Explorer\\IEDIAGCMD.EXE",
+        "arguments": ""
+    },
+    "iexplore": {
+        "path": "C:\\Program Files\\Internet Explorer\\IEXPLORE.EXE",
+        "arguments": ""
+    },
+    "javaws": {
+        "path": "C:\\Program Files\\Java\\jre-1.8\\bin\\javaws.exe",
+        "arguments": ""
+    },
+    "msedge": {
+        "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        "arguments": ""
+    },
+    "msoadfsb": {
+        "path": "C:\\Program Files\\Microsoft Office\\Root\\Office16\\msoadfsb.exe",
+        "arguments": ""
+    },
+    "msoasb": {
+        "path": "C:\\Program Files\\Microsoft Office\\Root\\Office16\\msoasb.exe",
+        "arguments": ""
+    },
+    "msoxmled": {
+        "path": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\ProgramFilesCommonX64\\Microsoft Shared\\OFFICE16\\MSOXMLED.EXE",
+        "arguments": ""
+    },
+    "onenote": {
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.EXE",
+        "arguments": ""
+    },
+    "powerpnt": {
+        "path": "C:\\Program Files\\Microsoft Office\\Root\\Office16\\POWERPNT.EXE",
+        "arguments": ""
+    },
+    "sdxhelper": {
+        "path": "C:\\Program Files\\Microsoft Office\\Root\\Office16\\SDXHelper.exe",
+        "arguments": ""
+    },
+    "skypeserver": {
+        "path": "C:\\Program Files\\Microsoft Office\\Root\\Office16\\SkypeSrv\\SKYPESERVER.EXE",
+        "arguments": ""
+    },
+    "winword": {
+        "path": "C:\\Program Files\\Microsoft Office\\Root\\Office16\\WINWORD.EXE",
+        "arguments": ""
+    },
+    "accesschk": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\accesschk.exe",
+        "arguments": ""
+    },
+    "accessenum": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\AccessEnum.exe",
+        "arguments": ""
+    },
+    "adexplorer": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ADExplorer.exe",
+        "arguments": ""
+    },
+    "adinsight": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ADInsight.exe",
+        "arguments": ""
+    },
+    "adrestore": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\adrestore.exe",
+        "arguments": ""
+    },
+    "autologon": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Autologon.exe",
+        "arguments": ""
+    },
+    "autoruns": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Autoruns.exe",
+        "arguments": ""
+    },
+    "autorunsc": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\autorunsc.exe",
+        "arguments": ""
+    },
+    "bginfo": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Bginfo.exe",
+        "arguments": ""
+    },
+    "cacheset": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Cacheset.exe",
+        "arguments": ""
+    },
+    "clockres": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Clockres.exe",
+        "arguments": ""
+    },
+    "code": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "arguments": ""
+    },
+    "contig": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Contig.exe",
+        "arguments": ""
+    },
+    "coreinfo": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Coreinfo.exe",
+        "arguments": ""
+    },
+    "coreinfoex": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\CoreInfoEx.exe",
+        "arguments": ""
+    },
+    "cpustres": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\CPUSTRES.EXE",
+        "arguments": ""
+    },
+    "ctrl2cap": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ctrl2cap.exe",
+        "arguments": ""
+    },
+    "dbgview": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Dbgview.exe",
+        "arguments": ""
+    },
+    "desktops": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Desktops.exe",
+        "arguments": ""
+    },
+    "disk2vhd": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\disk2vhd.exe",
+        "arguments": ""
+    },
+    "diskext": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\diskext.exe",
+        "arguments": ""
+    },
+    "diskmon": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Diskmon.exe",
+        "arguments": ""
+    },
+    "diskview": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\DiskView.exe",
+        "arguments": ""
+    },
+    "du": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\du.exe",
+        "arguments": ""
+    },
+    "efsdump": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\efsdump.exe",
+        "arguments": ""
+    },
+    "findlinks": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\FindLinks.exe",
+        "arguments": ""
+    },
+    "gethelp": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.GetHelp_10.2409.33293.0_x64__8wekyb3d8bbwe\\GetHelp.exe",
+        "arguments": ""
+    },
+    "handle": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\handle.exe",
+        "arguments": ""
+    },
+    "hex2dec": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\hex2dec.exe",
+        "arguments": ""
+    },
+    "junction": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\junction.exe",
+        "arguments": ""
+    },
+    "listdlls": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Listdlls.exe",
+        "arguments": ""
+    },
+    "livekd": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\livekd.exe",
+        "arguments": ""
+    },
+    "loadord": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\LoadOrd.exe",
+        "arguments": ""
+    },
+    "loadordc": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\LoadOrdC.exe",
+        "arguments": ""
+    },
+    "logonsessions": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\logonsessions.exe",
+        "arguments": ""
+    },
+    "movefile": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\movefile.exe",
+        "arguments": ""
+    },
+    "ms-teams": {
+        "path": "C:\\Program Files\\WindowsApps\\MSTeams_26106.1906.4665.7308_x64__8wekyb3d8bbwe\\ms-teams.exe",
+        "arguments": ""
+    },
+    "ms-teamsupdate": {
+        "path": "C:\\Program Files\\WindowsApps\\MSTeams_26106.1906.4665.7308_x64__8wekyb3d8bbwe\\ms-teamsupdate.exe",
+        "arguments": ""
+    },
+    "mspaint": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.Paint_11.2511.291.0_x64__8wekyb3d8bbwe\\PaintApp\\mspaint.exe",
+        "arguments": ""
+    },
+    "notepad": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2510.14.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe",
+        "arguments": ""
+    },
+    "notmyfault": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\notmyfault.exe",
+        "arguments": ""
+    },
+    "notmyfaultc": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\notmyfaultc.exe",
+        "arguments": ""
+    },
+    "ntfsinfo": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ntfsinfo.exe",
+        "arguments": ""
+    },
+    "pendmoves": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\pendmoves.exe",
+        "arguments": ""
+    },
+    "pipelist": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\pipelist.exe",
+        "arguments": ""
+    },
+    "procdump": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\procdump.exe",
+        "arguments": ""
+    },
+    "procexp": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\procexp.exe",
+        "arguments": ""
+    },
+    "procmon": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Procmon.exe",
+        "arguments": ""
+    },
+    "psexec": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\PsExec.exe",
+        "arguments": ""
+    },
+    "psfile": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\psfile.exe",
+        "arguments": ""
+    },
+    "psgetsid": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\PsGetsid.exe",
+        "arguments": ""
+    },
+    "psinfo": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\PsInfo.exe",
+        "arguments": ""
+    },
+    "pskill": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\pskill.exe",
+        "arguments": ""
+    },
+    "pslist": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\pslist.exe",
+        "arguments": ""
+    },
+    "psloggedon": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\PsLoggedon.exe",
+        "arguments": ""
+    },
+    "psloglist": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\psloglist.exe",
+        "arguments": ""
+    },
+    "pspasswd": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\pspasswd.exe",
+        "arguments": ""
+    },
+    "psping": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\psping.exe",
+        "arguments": ""
+    },
+    "psservice": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\PsService.exe",
+        "arguments": ""
+    },
+    "psshutdown": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\psshutdown.exe",
+        "arguments": ""
+    },
+    "pssuspend": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\pssuspend.exe",
+        "arguments": ""
+    },
+    "rammap": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\RAMMap.exe",
+        "arguments": ""
+    },
+    "rdcman": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\RDCMan.exe",
+        "arguments": ""
+    },
+    "regdelnull": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\RegDelNull.exe",
+        "arguments": ""
+    },
+    "regjump": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\regjump.exe",
+        "arguments": ""
+    },
+    "ru": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ru.exe",
+        "arguments": ""
+    },
+    "sdelete": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\sdelete.exe",
+        "arguments": ""
+    },
+    "shareenum": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ShareEnum.exe",
+        "arguments": ""
+    },
+    "shellrunas": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ShellRunas.exe",
+        "arguments": ""
+    },
+    "sigcheck": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\sigcheck.exe",
+        "arguments": ""
+    },
+    "snippingtool": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.ScreenSketch_11.2511.47.0_x64__8wekyb3d8bbwe\\SnippingTool\\SnippingTool.exe",
+        "arguments": ""
+    },
+    "store": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsStore_22512.1401.1101.0_x64__8wekyb3d8bbwe\\store.exe",
+        "arguments": ""
+    },
+    "streams": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\streams.exe",
+        "arguments": ""
+    },
+    "strings": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\strings.exe",
+        "arguments": ""
+    },
+    "sync": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\sync.exe",
+        "arguments": ""
+    },
+    "sysmon": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Sysmon.exe",
+        "arguments": ""
+    },
+    "tcpvcon": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\tcpvcon.exe",
+        "arguments": ""
+    },
+    "tcpview": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\tcpview.exe",
+        "arguments": ""
+    },
+    "testlimit": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Testlimit.exe",
+        "arguments": ""
+    },
+    "vmmap": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\vmmap.exe",
+        "arguments": ""
+    },
+    "volumeid": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Volumeid.exe",
+        "arguments": ""
+    },
+    "whois": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\whois.exe",
+        "arguments": ""
+    },
+    "windowspackagemanagerserver": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.DesktopAppInstaller_1.27.460.0_x64__8wekyb3d8bbwe\\WindowsPackageManagerServer.exe",
+        "arguments": ""
+    },
+    "winget": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.DesktopAppInstaller_1.27.460.0_x64__8wekyb3d8bbwe\\winget.exe",
+        "arguments": ""
+    },
+    "winobj": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Winobj.exe",
+        "arguments": ""
+    },
+    "wsl": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WSL.lnk",
+        "arguments": ""
+    },
+    "wt": {
+        "path": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsTerminal_1.23.20211.0_x64__8wekyb3d8bbwe\\wt.exe",
+        "arguments": ""
+    },
+    "7-zip 24.05 (x64)": {
+        "path": "C:\\Program Files\\7-Zip\\7zFM.exe",
+        "arguments": ""
+    },
+    "armoury crate service": {
+        "path": "C:\\Program Files\\ASUS\\Armoury Crate Service\\ArmouryCrate.Service.exe",
+        "arguments": ""
+    },
+    "cheat engine 7.6": {
+        "path": "C:\\Program Files\\Cheat Engine\\Cheat Engine.exe",
+        "arguments": ""
+    },
+    "microsoft office home and student 2019 - en-us": {
+        "path": "C:\\Program Files\\Common Files\\Microsoft Shared\\ClickToRun\\OfficeClickToRun.exe",
+        "arguments": ""
+    },
+    "intel(r) graphics software & drivers": {
+        "path": "C:\\Program Files\\Intel\\Intel(R) Graphics Software & Drivers\\Uninstaller.exe",
+        "arguments": ""
+    },
+    "microsoft onedrive": {
+        "path": "C:\\Program Files\\Microsoft OneDrive\\OneDrive.App.exe",
+        "arguments": ""
+    },
+    "intel\u00ae software installer": {
+        "path": "C:\\ProgramData\\Package Cache\\{0216C9DD-CB2D-43A3-A29B-060391A4677F}\\WirelessSetup.exe",
+        "arguments": ""
+    },
+    "intel\u00ae graphics software": {
+        "path": "C:\\Program Files\\Intel\\Intel Graphics Software\\IntelGraphicsSoftware.exe",
+        "arguments": ""
+    },
+    "xbox 360 controller emulator": {
+        "path": "C:\\ProgramData\\Package Cache\\{6B45AA6A-7060-4A48-91B9-A085A897E483}\\Xbox360ControllerEmulator.exe",
+        "arguments": ""
+    },
+    "microsoft visual studio installer": {
+        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\setup.exe",
+        "arguments": ""
+    },
+    "visual studio community 2026": {
+        "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\devenv.exe",
+        "arguments": ""
+    },
+    "intellij idea 2025.1.1.1": {
+        "path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1.1.1\\bin\\idea64.exe",
+        "arguments": ""
+    },
+    "microsoft edge": {
+        "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        "arguments": ""
+    },
+    "microsoft edge webview2 runtime": {
+        "path": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\132.0.2957.115\\msedgewebview2.exe",
+        "arguments": ""
+    },
+    "npcap": {
+        "path": "C:\\Program Files\\Npcap\\DriverQuery.exe",
+        "arguments": ""
+    },
+    "obs studio": {
+        "path": "C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe",
+        "arguments": ""
+    },
+    "steam": {
+        "path": "C:\\Program Files (x86)\\Steam\\steam.exe",
+        "arguments": ""
+    },
+    "gamesdk service": {
+        "path": "C:\\ProgramData\\Package Cache\\{021d69c3-d686-4a94-8fb5-fd1ee782fb14}\\GameSDK.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ 2013 redistributable (x64) - 12.0.30501": {
+        "path": "C:\\ProgramData\\Package Cache\\{050d4fc8-5d48-4b8f-8972-47c82c46020f}\\vcredist_x64.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ v14 redistributable (x86) - 14.50.35719": {
+        "path": "C:\\ProgramData\\Package Cache\\{0e4ccf1b-d073-4cfe-8a24-e86185719b56}\\VC_redist.x86.exe",
+        "arguments": ""
+    },
+    "asus aac_nbdt hal": {
+        "path": "C:\\ProgramData\\Package Cache\\{1162e2c9-0bec-46c9-9c54-b09a2f5dee17}\\AacNBDTSetup.exe",
+        "arguments": ""
+    },
+    "asus mb peripheral products": {
+        "path": "C:\\ProgramData\\Package Cache\\{193a2068-8738-4276-ab1b-9133f9403487}\\AacTerminalHal.exe",
+        "arguments": ""
+    },
+    "microsoft .net runtime - 6.0.16 (x64)": {
+        "path": "C:\\ProgramData\\Package Cache\\{2a8d0f2b-911b-4b58-8252-46b29e7a4590}\\dotnet-runtime-6.0.16-win-x64.exe",
+        "arguments": ""
+    },
+    "asus framework service": {
+        "path": "C:\\Program Files (x86)\\ASUS\\ArmouryDevice\\asus_framework.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ 2012 redistributable (x86) - 11.0.61030": {
+        "path": "C:\\ProgramData\\Package Cache\\{33d1fd90-4274-48a1-9bc1-97e33d9c2d6f}\\vcredist_x86.exe",
+        "arguments": ""
+    },
+    "launcher prerequisites (x64)": {
+        "path": "C:\\ProgramData\\Package Cache\\{43a03b9c-4770-409c-a999-587b60700b63}\\LauncherPrereqSetup_x64.exe",
+        "arguments": ""
+    },
+    "aura service": {
+        "path": "C:\\ProgramData\\Package Cache\\{4fd68e38-4176-4fea-82f8-0b52bf9db34b}\\AuraServiceSetup.exe",
+        "arguments": ""
+    },
+    "microsoft windows desktop runtime - 6.0.9 (x64)": {
+        "path": "C:\\ProgramData\\Package Cache\\{569b351b-451b-48db-a2c7-7beb63411666}\\windowsdesktop-runtime-6.0.9-win-x64.exe",
+        "arguments": ""
+    },
+    "microsoft windows desktop runtime - 9.0.7 (x64)": {
+        "path": "C:\\ProgramData\\Package Cache\\{59aa3818-803e-4002-9605-c9c98f3366ea}\\windowsdesktop-runtime-9.0.7-win-x64.exe",
+        "arguments": ""
+    },
+    "microsoft windows desktop runtime - 8.0.17 (x64)": {
+        "path": "C:\\ProgramData\\Package Cache\\{5b3e202b-e0c9-4d25-84df-5f687c3b7c47}\\windowsdesktop-runtime-8.0.17-win-x64.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ 2013 redistributable (x86) - 12.0.40660": {
+        "path": "C:\\ProgramData\\Package Cache\\{61087a79-ac85-455c-934d-1fa22cc64f36}\\vcredist_x86.exe",
+        "arguments": ""
+    },
+    "asus mouse hal": {
+        "path": "C:\\ProgramData\\Package Cache\\{68c8d933-6396-47f8-93fa-ad8a27c1ed54}\\AacMouseSetup.exe",
+        "arguments": ""
+    },
+    "asus ambient hal": {
+        "path": "C:\\ProgramData\\Package Cache\\{784f961c-218c-4905-b79d-bce3f01d3626}\\AacAmbientSetup.exe",
+        "arguments": ""
+    },
+    "microsoft windows desktop runtime 10.0.0 (x64)": {
+        "path": "C:\\ProgramData\\Package Cache\\{8AEAF75D-B0A1-4814-BDED-4D25BD3AA6B4}\\windowsdesktop-runtime-10.0.0-win-x64.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ v14 redistributable (x64) - 14.50.35719": {
+        "path": "C:\\ProgramData\\Package Cache\\{91ee571b-0e8a-4c65-9eaf-2e2f5fc60c00}\\VC_redist.x64.exe",
+        "arguments": ""
+    },
+    "ai noise cancelation audio software": {
+        "path": "C:\\Program Files (x86)\\InstallShield Installation Information\\{ab5f014e-883d-470d-bc2d-127ef91e5611}\\Setup.exe",
+        "arguments": ""
+    },
+    "microsoft asp.net core 8.0.14 - shared framework (x86)": {
+        "path": "C:\\ProgramData\\Package Cache\\{b4843496-41d3-405c-b4c6-2ff39b7609ed}\\AspNetCoreSharedFrameworkBundle-x86.exe",
+        "arguments": ""
+    },
+    "windows software development kit - windows 10.0.22621.5040": {
+        "path": "C:\\ProgramData\\Package Cache\\{b72d4013-dd88-405a-9f9d-e88c278dcefe}\\winsdksetup.exe",
+        "arguments": ""
+    },
+    "windows software development kit - windows 10.0.26100.7705": {
+        "path": "C:\\ProgramData\\Package Cache\\{c0b93b80-d0a4-47fc-a4d1-21a4008a63ca}\\winsdksetup.exe",
+        "arguments": ""
+    },
+    "asus aura display component": {
+        "path": "C:\\ProgramData\\Package Cache\\{c5669622-d369-4e19-ae7b-d6b33d469f2d}\\AacDisplaySetup.exe",
+        "arguments": ""
+    },
+    "intel\u00ae driver & support assistant": {
+        "path": "C:\\ProgramData\\Package Cache\\{C8093AA3-B113-4F81-9A87-B1C41929B346}\\Intel-Driver-and-Support-Assistant-Installer.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ 2012 redistributable (x64) - 11.0.61030": {
+        "path": "C:\\ProgramData\\Package Cache\\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}\\vcredist_x64.exe",
+        "arguments": ""
+    },
+    "microsoft .net runtime - 8.0.21 (x64)": {
+        "path": "C:\\ProgramData\\Package Cache\\{cf83f56a-4c10-4d97-9594-0764dfeb96e3}\\dotnet-runtime-8.0.21-win-x64.exe",
+        "arguments": ""
+    },
+    "asus keyboard hal": {
+        "path": "C:\\ProgramData\\Package Cache\\{d08bf14a-b40b-40e3-ae73-ae60a6b60ee0}\\AacKbSetup.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ 2013 redistributable (x64) - 12.0.40660": {
+        "path": "C:\\ProgramData\\Package Cache\\{ef6b00ec-13e1-4c25-9064-b2f383cb8412}\\vcredist_x64.exe",
+        "arguments": ""
+    },
+    "asus aura headset component": {
+        "path": "C:\\ProgramData\\Package Cache\\{efdbf1f5-b708-4e32-ac7c-28574b7b810e}\\AacHeadSetSetup.exe",
+        "arguments": ""
+    },
+    "microsoft visual c++ 2013 redistributable (x86) - 12.0.30501": {
+        "path": "C:\\ProgramData\\Package Cache\\{f65db027-aff3-4070-886a-0d87064aabb1}\\vcredist_x86.exe",
+        "arguments": ""
+    },
+    "microsoft windows desktop runtime - 8.0.14 (x86)": {
+        "path": "C:\\ProgramData\\Package Cache\\{f70d61fa-5d61-4582-bf8d-07dec8e4fcda}\\windowsdesktop-runtime-8.0.14-win-x86.exe",
+        "arguments": ""
+    },
+    "antigravity 2.0.11": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\antigravity\\Antigravity.exe",
+        "arguments": ""
+    },
+    "roblox studio for anony": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Roblox\\Versions\\version-981c8a3157934eec\\RobloxStudioInstaller.exe",
+        "arguments": ""
+    },
+    "python 3.14.0a3 (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Package Cache\\{03edcef6-91a6-42af-a1e6-a4dbcf3c7c23}\\python-3.14.0a3-amd64.exe",
+        "arguments": ""
+    },
+    "ollama version 0.30.7": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Ollama\\unins000.exe",
+        "arguments": ""
+    },
+    "telegram desktop": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe",
+        "arguments": ""
+    },
+    "microsoft visual studio code (user)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "arguments": ""
+    },
+    "python 3.13.7 (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Package Cache\\{9a46f6d0-8f11-4f8f-a23d-d617db01bbb6}\\python-3.13.7-amd64.exe",
+        "arguments": ""
+    },
+    "antigravity ide (user)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Antigravity IDE\\Antigravity IDE.exe",
+        "arguments": ""
+    },
+    "stremio version 5.0.21": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Stremio\\stremio-shell-ng.exe",
+        "arguments": ""
+    },
+    "7-zip": {
+        "path": "C:\\Program Files\\7-Zip\\7z.exe",
+        "arguments": ""
+    },
+    "cheat engine": {
+        "path": "C:\\Program Files\\Cheat Engine\\Cheat Engine.exe",
+        "arguments": ""
+    },
+    "dotnet": {
+        "path": "C:\\Program Files\\dotnet\\dotnet.exe",
+        "arguments": ""
+    },
+    "exloader": {
+        "path": "C:\\Program Files\\ExLoader\\ExLoader.exe",
+        "arguments": ""
+    },
+    "git": {
+        "path": "C:\\Program Files\\Git\\git-bash.exe",
+        "arguments": ""
+    },
+    "internet explorer": {
+        "path": "C:\\Program Files\\Internet Explorer\\ExtExport.exe",
+        "arguments": ""
+    },
+    "microsoft update health tools": {
+        "path": "C:\\Program Files\\Microsoft Update Health Tools\\uhssvc.exe",
+        "arguments": ""
+    },
+    "nodejs": {
+        "path": "C:\\Program Files\\nodejs\\node.exe",
+        "arguments": ""
+    },
+    "riot vanguard": {
+        "path": "C:\\Program Files\\Riot Vanguard\\installer.exe",
+        "arguments": ""
+    },
+    "vxkex": {
+        "path": "C:\\Program Files\\VxKex\\CMDSUS32.EXE",
+        "arguments": ""
+    },
+    "windirstat": {
+        "path": "C:\\Program Files\\WinDirStat\\WinDirStat.exe",
+        "arguments": ""
+    },
+    "windows defender": {
+        "path": "C:\\Program Files\\Windows Defender\\ConfigSecurityPolicy.exe",
+        "arguments": ""
+    },
+    "windows mail": {
+        "path": "C:\\Program Files\\Windows Mail\\wab.exe",
+        "arguments": ""
+    },
+    "windows media player": {
+        "path": "C:\\Program Files\\Windows Media Player\\setup_wm.exe",
+        "arguments": ""
+    },
+    "windows photo viewer": {
+        "path": "C:\\Program Files\\Windows Photo Viewer\\ImagingDevices.exe",
+        "arguments": ""
+    },
+    "aoe url helper": {
+        "path": "C:\\Program Files (x86)\\AOE URL Helper\\AOEURLHelper.exe",
+        "arguments": ""
+    },
+    "lightingservice": {
+        "path": "C:\\Program Files (x86)\\LightingService\\LightingService.exe",
+        "arguments": ""
+    },
+    "antigravity-updater": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\antigravity-updater\\installer.exe",
+        "arguments": ""
+    },
+    "bluestacks-services-updater": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\bluestacks-services-updater\\installer.exe",
+        "arguments": ""
+    },
+    "githubdesktop": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe",
+        "arguments": ""
+    },
+    "gitkrakencli": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\GitKrakenCLI\\gk.exe",
+        "arguments": ""
+    },
+    "postman": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Postman\\Postman.exe",
+        "arguments": ""
+    },
+    "slobs-client-updater": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\slobs-client-updater\\installer.exe",
+        "arguments": ""
+    },
+    "temp": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Temp\\antigravity-ide-download.exe",
+        "arguments": ""
+    },
+    "unityhub-updater": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\unityhub-updater\\installer.exe",
+        "arguments": ""
+    },
+    "antigravity": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Antigravity\\Antigravity.exe",
+        "arguments": ""
+    },
+    "antigravity ide": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Antigravity IDE\\Antigravity IDE.exe",
+        "arguments": ""
+    },
+    "microsoft vs code": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "arguments": ""
+    },
+    "ollama": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Ollama\\ollama app.exe",
+        "arguments": ""
+    },
+    "stremio": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Stremio\\stremio-shell-ng.exe",
+        "arguments": ""
+    },
+    "utorrent web": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\uTorrent Web\\utweb.exe",
+        "arguments": ""
+    },
+    "administrative tools": {
+        "path": "C:\\WINDOWS\\system32\\control.exe",
+        "arguments": "/name Microsoft.AdministrativeTools"
+    },
+    "file explorer": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk",
+        "arguments": ""
+    },
+    "legacylauncher_portable": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\LegacyLauncher_portable.lnk",
+        "arguments": ""
+    },
+    "livecaptions": {
+        "path": "C:\\WINDOWS\\system32\\LiveCaptions.exe",
+        "arguments": ""
+    },
+    "magnify": {
+        "path": "C:\\WINDOWS\\system32\\magnify.exe",
+        "arguments": ""
+    },
+    "narrator": {
+        "path": "C:\\WINDOWS\\system32\\narrator.exe",
+        "arguments": ""
+    },
+    "on-screen keyboard": {
+        "path": "C:\\WINDOWS\\system32\\osk.exe",
+        "arguments": ""
+    },
+    "voiceaccess": {
+        "path": "C:\\WINDOWS\\system32\\voiceaccess.exe",
+        "arguments": ""
+    },
+    "discord": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Discord\\Update.exe",
+        "arguments": "--processStart Discord.exe"
+    },
+    "github desktop": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe",
+        "arguments": ""
+    },
+    "clash of clans": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Google Play Games\\Clash of Clans.lnk",
+        "arguments": ""
+    },
+    "idle (python 3.13 64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+        "arguments": "\"C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\idlelib\\idle.pyw\""
+    },
+    "python 3.13 (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "arguments": ""
+    },
+    "python 3.13 manuals (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Python 3.13\\Python 3.13 Manuals (64-bit).lnk",
+        "arguments": ""
+    },
+    "python 3.13 module docs (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "arguments": "-m pydoc -b"
+    },
+    "idle (python 3.14 64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\pythonw.exe",
+        "arguments": "\"C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\idlelib\\idle.pyw\""
+    },
+    "python 3.14 (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "arguments": ""
+    },
+    "python 3.14 manuals (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Python 3.14\\Python 3.14 Manuals (64-bit).lnk",
+        "arguments": ""
+    },
+    "python 3.14 module docs (64-bit)": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "arguments": "-m pydoc -b"
+    },
+    "roblox studio": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Roblox\\Versions\\version-981c8a3157934eec\\RobloxStudioBeta.exe",
+        "arguments": ""
+    },
+    "command prompt": {
+        "path": "C:\\WINDOWS\\system32\\cmd.exe",
+        "arguments": ""
+    },
+    "control panel": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Control Panel.lnk",
+        "arguments": ""
+    },
+    "run": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Run.lnk",
+        "arguments": ""
+    },
+    "telegram": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe",
+        "arguments": ""
+    },
+    "uninstall telegram": {
+        "path": "C:\\Users\\anony\\AppData\\Roaming\\Telegram Desktop\\unins000.exe",
+        "arguments": ""
+    },
+    "visual studio code": {
+        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "arguments": ""
+    },
+    "windows powershell (x86)": {
+        "path": "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "arguments": ""
+    },
+    "windows powershell": {
+        "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "arguments": ""
+    },
+    "blend for visual studio": {
+        "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\Blend.exe",
+        "arguments": ""
+    },
+    "epic games launcher": {
+        "path": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win32\\EpicGamesLauncher.exe",
+        "arguments": ""
+    },
+    "intel driver & support assistant": {
+        "path": "C:\\Program Files (x86)\\Intel\\Driver and Support Assistant\\x86\\DSAServiceHelper.exe",
+        "arguments": "installstartup"
+    },
+    "microsoft edge beta": {
+        "path": "C:\\Program Files (x86)\\Microsoft\\Edge Beta\\Application\\msedge.exe",
+        "arguments": ""
+    },
+    "onedrive": {
+        "path": "C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe",
+        "arguments": ""
+    },
+    "powerpoint": {
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE",
+        "arguments": ""
+    },
+    "sticky notes (new)": {
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.EXE",
+        "arguments": "/memoryWindow start"
+    },
+    "streamlabs desktop": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Streamlabs Desktop.lnk",
+        "arguments": ""
+    },
+    "visual studio installer": {
+        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\setup.exe",
+        "arguments": ""
+    },
+    "visual studio": {
+        "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\devenv.exe",
+        "arguments": ""
+    },
+    "wireshark": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Wireshark.lnk",
+        "arguments": ""
+    },
+    "word": {
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+        "arguments": ""
+    },
+    "wsl settings": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WSL Settings.lnk",
+        "arguments": ""
+    },
+    "7-zip file manager": {
+        "path": "C:\\Program Files\\7-Zip\\7zFM.exe",
+        "arguments": ""
+    },
+    "7-zip help": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\7-Zip\\7-Zip Help.lnk",
+        "arguments": ""
+    },
+    "remote desktop connection": {
+        "path": "C:\\WINDOWS\\system32\\mstsc.exe",
+        "arguments": ""
+    },
+    "steps recorder": {
+        "path": "C:\\WINDOWS\\system32\\psr.exe",
+        "arguments": ""
+    },
+    "windows fax and scan": {
+        "path": "C:\\WINDOWS\\system32\\WFS.exe",
+        "arguments": ""
+    },
+    "windows media player legacy": {
+        "path": "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe",
+        "arguments": "/prefetch:1"
+    },
+    "character map": {
+        "path": "C:\\WINDOWS\\system32\\charmap.exe",
+        "arguments": ""
+    },
+    "component services": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Component Services.lnk",
+        "arguments": ""
+    },
+    "computer management": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Computer Management.lnk",
+        "arguments": ""
+    },
+    "dfrgui": {
+        "path": "C:\\WINDOWS\\system32\\dfrgui.exe",
+        "arguments": ""
+    },
+    "disk cleanup": {
+        "path": "C:\\WINDOWS\\system32\\cleanmgr.exe",
+        "arguments": ""
+    },
+    "event viewer": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Event Viewer.lnk",
+        "arguments": ""
+    },
+    "iscsi initiator": {
+        "path": "C:\\WINDOWS\\system32\\iscsicpl.exe",
+        "arguments": ""
+    },
+    "memory diagnostics tool": {
+        "path": "C:\\WINDOWS\\system32\\MdSched.exe",
+        "arguments": ""
+    },
+    "odbc data sources (32-bit)": {
+        "path": "C:\\WINDOWS\\syswow64\\odbcad32.exe",
+        "arguments": ""
+    },
+    "odbc data sources (64-bit)": {
+        "path": "C:\\WINDOWS\\system32\\odbcad32.exe",
+        "arguments": ""
+    },
+    "performance monitor": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Performance Monitor.lnk",
+        "arguments": ""
+    },
+    "recoverydrive": {
+        "path": "C:\\WINDOWS\\system32\\RecoveryDrive.exe",
+        "arguments": ""
+    },
+    "registry editor": {
+        "path": "C:\\WINDOWS\\regedit.exe",
+        "arguments": ""
+    },
+    "resource monitor": {
+        "path": "C:\\WINDOWS\\system32\\perfmon.exe",
+        "arguments": "/res"
+    },
+    "services": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\services.lnk",
+        "arguments": ""
+    },
+    "system configuration": {
+        "path": "C:\\WINDOWS\\system32\\msconfig.exe",
+        "arguments": ""
+    },
+    "system information": {
+        "path": "C:\\WINDOWS\\system32\\msinfo32.exe",
+        "arguments": ""
+    },
+    "task scheduler": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Task Scheduler.lnk",
+        "arguments": ""
+    },
+    "windows defender firewall with advanced security": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Windows Defender Firewall with Advanced Security.lnk",
+        "arguments": ""
+    },
+    "android studio": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Android Studio\\Android Studio.lnk",
+        "arguments": ""
+    },
+    "cheat engine (32-bit)": {
+        "path": "C:\\Program Files\\Cheat Engine\\cheatengine-i386.exe",
+        "arguments": ""
+    },
+    "cheat engine (64-bit sse4-avx2)": {
+        "path": "C:\\Program Files\\Cheat Engine\\cheatengine-x86_64-SSE4-AVX2.exe",
+        "arguments": ""
+    },
+    "cheat engine (64-bit)": {
+        "path": "C:\\Program Files\\Cheat Engine\\cheatengine-x86_64.exe",
+        "arguments": ""
+    },
+    "cheat engine help": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Cheat Engine\\Cheat Engine help.lnk",
+        "arguments": ""
+    },
+    "cheat engine tutorial (64-bit)": {
+        "path": "C:\\Program Files\\Cheat Engine\\Tutorial-x86_64.exe",
+        "arguments": ""
+    },
+    "cheat engine tutorial": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Cheat Engine\\Cheat Engine tutorial.lnk",
+        "arguments": ""
+    },
+    "lua documentation": {
+        "path": "C:\\WINDOWS\\system32\\notepad.exe",
+        "arguments": "C:\\Program Files\\Cheat Engine\\celua.txt"
+    },
+    "reset settings": {
+        "path": "C:\\Program Files\\Cheat Engine\\ceregreset.exe",
+        "arguments": ""
+    },
+    "uninstall cheat engine": {
+        "path": "C:\\Program Files\\Cheat Engine\\unins000.exe",
+        "arguments": ""
+    },
+    "unload kernel module": {
+        "path": "C:\\Program Files\\Cheat Engine\\Kernelmoduleunloader.exe",
+        "arguments": ""
+    },
+    "git bash": {
+        "path": "C:\\Program Files\\Git\\git-bash.exe",
+        "arguments": "--cd-to-home"
+    },
+    "git cmd": {
+        "path": "C:\\Program Files\\Git\\git-cmd.exe",
+        "arguments": "--cd-to-home"
+    },
+    "git gui": {
+        "path": "C:\\Program Files\\Git\\cmd\\git-gui.exe",
+        "arguments": ""
+    },
+    "git release notes": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Git\\Git Release Notes.lnk",
+        "arguments": ""
+    },
+    "about java": {
+        "path": "C:\\Program Files\\Java\\jre-1.8\\bin\\javacpl.exe",
+        "arguments": "-tab about"
+    },
+    "check for updates": {
+        "path": "C:\\Program Files\\Java\\jre-1.8\\bin\\javacpl.exe",
+        "arguments": "-tab update"
+    },
+    "configure java": {
+        "path": "C:\\Program Files\\Java\\jre-1.8\\bin\\javacpl.exe",
+        "arguments": ""
+    },
+    "office language preferences": {
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\SETLANG.EXE",
+        "arguments": ""
+    },
+    "power bi desktop": {
+        "path": "C:\\Program Files\\Microsoft Power BI Desktop\\bin\\PBIDesktop.exe",
+        "arguments": ""
+    },
+    "install additional tools for node.js": {
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "arguments": "/d /c \"C:\\Program Files\\nodejs\\install_tools.bat\""
+    },
+    "node.js command prompt": {
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "arguments": "/k \"C:\\Program Files\\nodejs\\nodevars.bat\""
+    },
+    "node.js": {
+        "path": "C:\\Program Files\\nodejs\\node.exe",
+        "arguments": ""
+    },
+    "uninstall node.js": {
+        "path": "C:\\Windows\\SysWOW64\\msiexec.exe",
+        "arguments": "/x {4BF45774-4D5D-4AED-BA3E-F56EA448FF86}"
+    },
+    "nvidia app": {
+        "path": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\CEF\\NVIDIA App.exe",
+        "arguments": ""
+    },
+    "license (english)": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Oracle VirtualBox\\License (English).lnk",
+        "arguments": ""
+    },
+    "oracle virtualbox": {
+        "path": "C:\\Program Files\\Oracle\\VirtualBox\\VirtualBox.exe",
+        "arguments": ""
+    },
+    "user manual (pdf, english)": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Oracle VirtualBox\\User manual (PDF, English).lnk",
+        "arguments": ""
+    },
+    "application stack builder": {
+        "path": "C:\\Program Files\\PostgreSQL\\17\\bin\\stackbuilder.exe",
+        "arguments": ""
+    },
+    "pgadmin 4": {
+        "path": "C:\\Program Files\\PostgreSQL\\17\\pgAdmin 4\\runtime\\pgAdmin4.exe",
+        "arguments": ""
+    },
+    "reload configuration": {
+        "path": "C:\\Program Files\\PostgreSQL\\17\\bin\\pg_ctl.exe",
+        "arguments": "-D \"C:\\Program Files\\PostgreSQL\\17\\data\" reload"
+    },
+    "sql shell (psql)": {
+        "path": "C:\\Program Files\\PostgreSQL\\17\\scripts\\runpsql.bat",
+        "arguments": ""
+    },
+    "razer synapse": {
+        "path": "C:\\Program Files (x86)\\Razer\\Synapse3\\WPFUI\\Framework\\Razer Synapse 3 Host\\Razer Synapse 3.exe",
+        "arguments": ""
+    },
+    "riot client": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Riot Games\\Riot Client.lnk",
+        "arguments": ""
+    },
+    "valorant": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Riot Games\\VALORANT.lnk",
+        "arguments": ""
+    },
+    "task manager": {
+        "path": "C:\\WINDOWS\\system32\\taskmgr.exe",
+        "arguments": "/7"
+    },
+    "developer command prompt for vs": {
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\Tools\\VsDevCmd.bat\""
+    },
+    "developer powershell for vs": {
+        "path": "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "arguments": "-noe -c \"&{Import-Module \"\"\"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll\"\"\"; Enter-VsDevShell 3a764e1a}\""
+    },
+    "debuggable package manager": {
+        "path": "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "arguments": "-NoExit -Command \"& { Import-Module Appx; Import-Module .\\AppxDebug.dll; Show-AppxDebug}\""
+    },
+    "x64 native tools command prompt for vs": {
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat\""
+    },
+    "x64_x86 cross tools command prompt for vs": {
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvarsamd64_x86.bat\""
+    },
+    "x86 native tools command prompt for vs": {
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvars32.bat\""
+    },
+    "x86_x64 cross tools command prompt for vs": {
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvarsx86_amd64.bat\""
+    },
+    "application verifier (x64)": {
+        "path": "C:\\Windows\\System32\\appverif.exe",
+        "arguments": ""
+    },
+    "application verifier help": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Application Verifier (X64)\\Application Verifier Help.lnk",
+        "arguments": ""
+    },
+    "application verifier (wow)": {
+        "path": "C:\\Windows\\SysWOW64\\appverif.exe",
+        "arguments": ""
+    },
+    "windows app cert kit": {
+        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\App Certification Kit\\appcertui.exe",
+        "arguments": ""
+    },
+    "gpuview": {
+        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\gpuview\\GPUView.exe",
+        "arguments": ""
+    },
+    "windows performance analyzer": {
+        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\wpa.exe",
+        "arguments": ""
+    },
+    "windows performance recorder": {
+        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\WPRUI.exe",
+        "arguments": ""
+    },
+    "documentation for desktop apps": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Documentation for Desktop Apps.lnk",
+        "arguments": ""
+    },
+    "documentation for uwp apps": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Documentation for UWP Apps.lnk",
+        "arguments": ""
+    },
+    "sample desktop apps": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Sample Desktop Apps.lnk",
+        "arguments": ""
+    },
+    "sample uwp apps": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Sample UWP Apps.lnk",
+        "arguments": ""
+    },
+    "tools for desktop apps": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Tools for Desktop Apps.lnk",
+        "arguments": ""
+    },
+    "tools for uwp apps": {
+        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Tools for UWP Apps.lnk",
+        "arguments": ""
+    },
+    "windows software development kit": {
+        "path": "C:\\WINDOWS\\explorer.exe",
+        "arguments": "\"C:\\Program Files (x86)\\Windows Kits\\10\\\""
+    },
+    "windows powershell ise (x86)": {
+        "path": "C:\\WINDOWS\\syswow64\\WindowsPowerShell\\v1.0\\PowerShell_ISE.exe",
+        "arguments": ""
+    },
+    "windows powershell ise": {
+        "path": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\PowerShell_ISE.exe",
+        "arguments": ""
+    }
+}
