@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, Union, List
 from src.utils.browser_utils import get_default_browser
 
 logger = logging.getLogger(__name__)
@@ -28,15 +28,38 @@ class CommandResolver:
             "terminal": "cmd",
             "music": "spotify"
         }
+        
+        # Configurable clarification messages
+        self.clarification_messages = {
+            "search_web": "What would you like me to search for?",
+            "open_application": "Which application would you like to open?",
+            "create_folder": "What should the folder name be?",
+            "close_application": "Which application would you like to close?"
+        }
 
-    def resolve(self, command_json: Dict[str, Any]) -> Dict[str, Any]:
+    def resolve(self, command_json: Union[Dict[str, Any], List[Dict[str, Any]]]) -> Union[Dict[str, Any], List[Dict[str, Any]]]:
         """
-        Takes a parsed JSON command from the LLM, resolves vague entities,
+        Takes a parsed JSON command or list of commands from the LLM, resolves vague entities,
         and returns an enhanced/resolved JSON command for the Executor.
         """
-        if not command_json or not isinstance(command_json, dict):
+        if not command_json:
             return command_json
 
+        if isinstance(command_json, list):
+            resolved_list = []
+            for cmd in command_json:
+                resolved_list.append(self._resolve_single(cmd))
+            return resolved_list
+            
+        if isinstance(command_json, dict):
+            return self._resolve_single(command_json)
+
+        return command_json
+
+    def _resolve_single(self, command_json: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Core resolution logic for a single command dictionary.
+        """
         # Create a copy to avoid mutating the original
         resolved_command = command_json.copy()
         
@@ -48,24 +71,51 @@ class CommandResolver:
             query = parameters.get("query", "").strip()
             
             # Correction: "I want to search the web" -> open default browser
-            if query.lower() in ["", "search", "the web", "internet"]:
-                if query.lower() in ["the web", "internet"]:
-                    resolved_command["action"] = "open_application"
-                    resolved_command["parameters"] = {"application_name": "browser"}
-                    # Re-route to standard open_application logic
-                    action = "open_application"
-                    parameters = resolved_command["parameters"]
-                else:
-                    # Missing query -> Clarification Request
-                    return {
-                        "action": "clarify",
-                        "parameters": {
-                            "message": "What would you like me to search for?"
-                        }
+            if query.lower() in ["search", "the web", "internet"]:
+                resolved_command["action"] = "open_application"
+                resolved_command["parameters"] = {"application_name": "browser"}
+                action = "open_application"
+                parameters = resolved_command["parameters"]
+            elif not query or query.lower() == "web":
+                # Missing query -> Clarification Request
+                return {
+                    "action": "clarify",
+                    "parameters": {
+                        "message": self.clarification_messages.get("search_web", "What would you like me to search for?")
                     }
+                }
 
-        if action in ["open_application", "close_application"]:
+        if action == "open_application":
+            app_name = parameters.get("application_name", "").strip()
+            if not app_name or app_name.lower() in ["application", "app", "program"]:
+                return {
+                    "action": "clarify",
+                    "parameters": {
+                        "message": self.clarification_messages.get("open_application", "Which application would you like to open?")
+                    }
+                }
             self._resolve_application_name(parameters)
+
+        elif action == "close_application":
+            app_name = parameters.get("application_name", "").strip()
+            if not app_name or app_name.lower() in ["application", "app", "program"]:
+                return {
+                    "action": "clarify",
+                    "parameters": {
+                        "message": self.clarification_messages.get("close_application", "Which application would you like to close?")
+                    }
+                }
+            self._resolve_application_name(parameters)
+            
+        elif action == "create_folder":
+            folder_name = parameters.get("folder_name", "").strip()
+            if not folder_name or folder_name.lower() in ["folder", "directory"]:
+                return {
+                    "action": "clarify",
+                    "parameters": {
+                        "message": self.clarification_messages.get("create_folder", "What should the folder name be?")
+                    }
+                }
             
         resolved_command["parameters"] = parameters
         return resolved_command

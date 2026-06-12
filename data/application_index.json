@@ -4,11 +4,11 @@
         "arguments": ""
     },
     "brave": {
-        "path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+        "path": "shell:AppsFolder\\Brave",
         "arguments": ""
     },
     "excel": {
-        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
+        "path": "shell:AppsFolder\\Microsoft.Office.EXCEL.EXE.15",
         "arguments": ""
     },
     "iediag": {
@@ -44,7 +44,7 @@
         "arguments": ""
     },
     "onenote": {
-        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.EXE",
+        "path": "shell:AppsFolder\\Microsoft.Office.ONENOTE.EXE.15",
         "arguments": ""
     },
     "powerpnt": {
@@ -68,15 +68,15 @@
         "arguments": ""
     },
     "accessenum": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\AccessEnum.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!AccessEnum",
         "arguments": ""
     },
     "adexplorer": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ADExplorer.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!ADExplorer",
         "arguments": ""
     },
     "adinsight": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ADInsight.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!ADInsight",
         "arguments": ""
     },
     "adrestore": {
@@ -84,11 +84,11 @@
         "arguments": ""
     },
     "autologon": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Autologon.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Autologon",
         "arguments": ""
     },
     "autoruns": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Autoruns.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Autoruns",
         "arguments": ""
     },
     "autorunsc": {
@@ -96,11 +96,11 @@
         "arguments": ""
     },
     "bginfo": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Bginfo.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Bginfo",
         "arguments": ""
     },
     "cacheset": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Cacheset.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Cacheset",
         "arguments": ""
     },
     "clockres": {
@@ -120,7 +120,7 @@
         "arguments": ""
     },
     "coreinfoex": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\CoreInfoEx.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!CoreInfoEx",
         "arguments": ""
     },
     "cpustres": {
@@ -136,11 +136,11 @@
         "arguments": ""
     },
     "desktops": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Desktops.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Desktops",
         "arguments": ""
     },
     "disk2vhd": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\disk2vhd.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!disk2vhd",
         "arguments": ""
     },
     "diskext": {
@@ -148,11 +148,11 @@
         "arguments": ""
     },
     "diskmon": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Diskmon.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Diskmon",
         "arguments": ""
     },
     "diskview": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\DiskView.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!DiskView",
         "arguments": ""
     },
     "du": {
@@ -220,11 +220,11 @@
         "arguments": ""
     },
     "notepad": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2510.14.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe",
+        "path": "shell:AppsFolder\\Microsoft.WindowsNotepad_8wekyb3d8bbwe!App",
         "arguments": ""
     },
     "notmyfault": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\notmyfault.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!notmyfault",
         "arguments": ""
     },
     "notmyfaultc": {
@@ -308,11 +308,11 @@
         "arguments": ""
     },
     "rammap": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\RAMMap.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!RAMMap",
         "arguments": ""
     },
     "rdcman": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\RDCMan.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!RDCMan",
         "arguments": ""
     },
     "regdelnull": {
@@ -332,11 +332,11 @@
         "arguments": ""
     },
     "shareenum": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ShareEnum.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!ShareEnum",
         "arguments": ""
     },
     "shellrunas": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\ShellRunas.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!ShellRunas",
         "arguments": ""
     },
     "sigcheck": {
@@ -372,7 +372,7 @@
         "arguments": ""
     },
     "tcpview": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\tcpview.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!tcpview",
         "arguments": ""
     },
     "testlimit": {
@@ -380,7 +380,7 @@
         "arguments": ""
     },
     "vmmap": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\vmmap.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!vmmap",
         "arguments": ""
     },
     "volumeid": {
@@ -400,11 +400,11 @@
         "arguments": ""
     },
     "winobj": {
-        "path": "C:\\Program Files\\WindowsApps\\Microsoft.SysinternalsSuite_2026.3.1.0_x64__8wekyb3d8bbwe\\Tools\\Winobj.exe",
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Winobj",
         "arguments": ""
     },
     "wsl": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WSL.lnk",
+        "path": "shell:AppsFolder\\Microsoft.WSL",
         "arguments": ""
     },
     "wt": {
@@ -456,11 +456,11 @@
         "arguments": ""
     },
     "intellij idea 2025.1.1.1": {
-        "path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2025.1.1.1\\bin\\idea64.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\JetBrains\\IntelliJ IDEA 2025.1.1.1\\bin\\idea64.exe",
         "arguments": ""
     },
     "microsoft edge": {
-        "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+        "path": "shell:AppsFolder\\MSEdge",
         "arguments": ""
     },
     "microsoft edge webview2 runtime": {
@@ -472,11 +472,11 @@
         "arguments": ""
     },
     "obs studio": {
-        "path": "C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\obs-studio\\bin\\64bit\\obs64.exe",
         "arguments": ""
     },
     "steam": {
-        "path": "C:\\Program Files (x86)\\Steam\\steam.exe",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Steam\\steam.exe",
         "arguments": ""
     },
     "gamesdk service": {
@@ -644,7 +644,7 @@
         "arguments": ""
     },
     "cheat engine": {
-        "path": "C:\\Program Files\\Cheat Engine\\Cheat Engine.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine\\Cheat Engine.exe",
         "arguments": ""
     },
     "dotnet": {
@@ -680,7 +680,7 @@
         "arguments": ""
     },
     "windirstat": {
-        "path": "C:\\Program Files\\WinDirStat\\WinDirStat.exe",
+        "path": "shell:AppsFolder\\WinDirStat",
         "arguments": ""
     },
     "windows defender": {
@@ -724,15 +724,11 @@
         "arguments": ""
     },
     "postman": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Postman\\Postman.exe",
+        "path": "shell:AppsFolder\\com.squirrel.Postman.Postman",
         "arguments": ""
     },
     "slobs-client-updater": {
         "path": "C:\\Users\\anony\\AppData\\Local\\slobs-client-updater\\installer.exe",
-        "arguments": ""
-    },
-    "temp": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Temp\\antigravity-ide-download.exe",
         "arguments": ""
     },
     "unityhub-updater": {
@@ -740,11 +736,11 @@
         "arguments": ""
     },
     "antigravity": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Antigravity\\Antigravity.exe",
+        "path": "shell:AppsFolder\\Google.Antigravity",
         "arguments": ""
     },
     "antigravity ide": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Antigravity IDE\\Antigravity IDE.exe",
+        "path": "shell:AppsFolder\\Google.AntigravityIDE",
         "arguments": ""
     },
     "microsoft vs code": {
@@ -752,15 +748,15 @@
         "arguments": ""
     },
     "ollama": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Ollama\\ollama app.exe",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Local\\Programs\\Ollama\\ollama app.exe",
         "arguments": ""
     },
     "stremio": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Stremio\\stremio-shell-ng.exe",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Local\\Programs\\Stremio\\stremio-shell-ng.exe",
         "arguments": ""
     },
     "utorrent web": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\uTorrent Web\\utweb.exe",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Roaming\\uTorrent Web\\utweb.exe",
         "arguments": ""
     },
     "administrative tools": {
@@ -768,11 +764,11 @@
         "arguments": "/name Microsoft.AdministrativeTools"
     },
     "file explorer": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\File Explorer.lnk",
+        "path": "shell:AppsFolder\\Microsoft.Windows.Explorer",
         "arguments": ""
     },
     "legacylauncher_portable": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\LegacyLauncher_portable.lnk",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\Downloads\\LegacyLauncher_portable.zip",
         "arguments": ""
     },
     "livecaptions": {
@@ -784,11 +780,11 @@
         "arguments": ""
     },
     "narrator": {
-        "path": "C:\\WINDOWS\\system32\\narrator.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\narrator.exe",
         "arguments": ""
     },
     "on-screen keyboard": {
-        "path": "C:\\WINDOWS\\system32\\osk.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\osk.exe",
         "arguments": ""
     },
     "voiceaccess": {
@@ -796,67 +792,67 @@
         "arguments": ""
     },
     "discord": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Discord\\Update.exe",
-        "arguments": "--processStart Discord.exe"
+        "path": "shell:AppsFolder\\com.squirrel.Discord.Discord",
+        "arguments": ""
     },
     "github desktop": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\GitHubDesktop\\GitHubDesktop.exe",
+        "path": "shell:AppsFolder\\com.squirrel.GitHubDesktop.GitHubDesktop",
         "arguments": ""
     },
     "clash of clans": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Google Play Games\\Clash of Clans.lnk",
+        "path": "shell:AppsFolder\\googleplaygames://launch/?id=com.supercell.clashofclans&lid=1&pid=1",
         "arguments": ""
     },
     "idle (python 3.13 64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
-        "arguments": "\"C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\idlelib\\idle.pyw\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{7783DBB2-AAA8-20FB-2BDB-223376FCF6B7}",
+        "arguments": ""
     },
     "python 3.13 (64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
         "arguments": ""
     },
     "python 3.13 manuals (64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Python 3.13\\Python 3.13 Manuals (64-bit).lnk",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\Doc\\html\\index.html",
         "arguments": ""
     },
     "python 3.13 module docs (64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
-        "arguments": "-m pydoc -b"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{41CF256A-6BB7-1060-F891-FB393EC7C426}",
+        "arguments": ""
     },
     "idle (python 3.14 64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\pythonw.exe",
-        "arguments": "\"C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\Lib\\idlelib\\idle.pyw\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{0BFF5A20-B9FD-14CD-51D7-34C56195552C}",
+        "arguments": ""
     },
     "python 3.14 (64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
         "arguments": ""
     },
     "python 3.14 manuals (64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Python 3.14\\Python 3.14 Manuals (64-bit).lnk",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\Doc\\html\\index.html",
         "arguments": ""
     },
     "python 3.14 module docs (64-bit)": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "arguments": "-m pydoc -b"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{CA8B1B3A-064C-2A70-DCBF-5B2F0F82A573}",
+        "arguments": ""
     },
     "roblox studio": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Roblox\\Versions\\version-981c8a3157934eec\\RobloxStudioBeta.exe",
+        "path": "shell:AppsFolder\\C:\\Users\\anony\\AppData\\Local\\Roblox\\Versions\\version-981c8a3157934eec\\RobloxStudioBeta.exe",
         "arguments": ""
     },
     "command prompt": {
-        "path": "C:\\WINDOWS\\system32\\cmd.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\cmd.exe",
         "arguments": ""
     },
     "control panel": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Control Panel.lnk",
+        "path": "shell:AppsFolder\\Microsoft.Windows.ControlPanel",
         "arguments": ""
     },
     "run": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\System Tools\\Run.lnk",
+        "path": "shell:AppsFolder\\Microsoft.Windows.Shell.RunDialog",
         "arguments": ""
     },
     "telegram": {
-        "path": "C:\\Users\\anony\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe",
+        "path": "shell:AppsFolder\\Telegram.TelegramDesktop",
         "arguments": ""
     },
     "uninstall telegram": {
@@ -864,103 +860,103 @@
         "arguments": ""
     },
     "visual studio code": {
-        "path": "C:\\Users\\anony\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+        "path": "shell:AppsFolder\\Microsoft.VisualStudioCode",
         "arguments": ""
     },
     "windows powershell (x86)": {
-        "path": "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "path": "shell:AppsFolder\\{D65231B0-B2F1-4857-A4CE-A8E7C6EA7D27}\\WindowsPowerShell\\v1.0\\powershell.exe",
         "arguments": ""
     },
     "windows powershell": {
-        "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WindowsPowerShell\\v1.0\\powershell.exe",
         "arguments": ""
     },
     "blend for visual studio": {
-        "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\Blend.exe",
+        "path": "shell:AppsFolder\\Blend.3a764e1a",
         "arguments": ""
     },
     "epic games launcher": {
-        "path": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Portal\\Binaries\\Win32\\EpicGamesLauncher.exe",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Epic Games\\Launcher\\Portal\\Binaries\\Win32\\EpicGamesLauncher.exe",
         "arguments": ""
     },
     "intel driver & support assistant": {
-        "path": "C:\\Program Files (x86)\\Intel\\Driver and Support Assistant\\x86\\DSAServiceHelper.exe",
-        "arguments": "installstartup"
+        "path": "shell:AppsFolder\\Intel.Dsa.Tray",
+        "arguments": ""
     },
     "microsoft edge beta": {
-        "path": "C:\\Program Files (x86)\\Microsoft\\Edge Beta\\Application\\msedge.exe",
+        "path": "shell:AppsFolder\\MSEdgeBeta",
         "arguments": ""
     },
     "onedrive": {
-        "path": "C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe",
+        "path": "shell:AppsFolder\\Microsoft.SkyDrive.Desktop",
         "arguments": ""
     },
     "powerpoint": {
-        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE",
+        "path": "shell:AppsFolder\\Microsoft.Office.POWERPNT.EXE.15",
         "arguments": ""
     },
     "sticky notes (new)": {
-        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.EXE",
-        "arguments": "/memoryWindow start"
+        "path": "shell:AppsFolder\\Microsoft.Office.OneNote.MemoryPreview",
+        "arguments": ""
     },
     "streamlabs desktop": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Streamlabs Desktop.lnk",
+        "path": "shell:AppsFolder\\com.streamlabs.slobs",
         "arguments": ""
     },
     "visual studio installer": {
-        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\setup.exe",
+        "path": "shell:AppsFolder\\Microsoft.VisualStudio.Installer",
         "arguments": ""
     },
     "visual studio": {
-        "path": "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\IDE\\devenv.exe",
+        "path": "shell:AppsFolder\\VisualStudio.3a764e1a",
         "arguments": ""
     },
     "wireshark": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Wireshark.lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Wireshark\\Wireshark.exe",
         "arguments": ""
     },
     "word": {
-        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+        "path": "shell:AppsFolder\\Microsoft.Office.WINWORD.EXE.15",
         "arguments": ""
     },
     "wsl settings": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\WSL Settings.lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\WSL\\wslsettings\\wslsettings.exe",
         "arguments": ""
     },
     "7-zip file manager": {
-        "path": "C:\\Program Files\\7-Zip\\7zFM.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\7-Zip\\7zFM.exe",
         "arguments": ""
     },
     "7-zip help": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\7-Zip\\7-Zip Help.lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\7-Zip\\7-zip.chm",
         "arguments": ""
     },
     "remote desktop connection": {
-        "path": "C:\\WINDOWS\\system32\\mstsc.exe",
+        "path": "shell:AppsFolder\\Microsoft.Windows.RemoteDesktop",
         "arguments": ""
     },
     "steps recorder": {
-        "path": "C:\\WINDOWS\\system32\\psr.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\psr.exe",
         "arguments": ""
     },
     "windows fax and scan": {
-        "path": "C:\\WINDOWS\\system32\\WFS.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WFS.exe",
         "arguments": ""
     },
     "windows media player legacy": {
-        "path": "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe",
-        "arguments": "/prefetch:1"
+        "path": "shell:AppsFolder\\Microsoft.Windows.MediaPlayer32",
+        "arguments": ""
     },
     "character map": {
-        "path": "C:\\WINDOWS\\system32\\charmap.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\charmap.exe",
         "arguments": ""
     },
     "component services": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Component Services.lnk",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\comexp.msc",
         "arguments": ""
     },
     "computer management": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Computer Management.lnk",
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{8ABD94FB-E7D6-84A6-A997-C918EDDE0AE5}",
         "arguments": ""
     },
     "dfrgui": {
@@ -968,15 +964,15 @@
         "arguments": ""
     },
     "disk cleanup": {
-        "path": "C:\\WINDOWS\\system32\\cleanmgr.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\cleanmgr.exe",
         "arguments": ""
     },
     "event viewer": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Event Viewer.lnk",
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{BB044BFD-25B7-2FAA-22A8-6371A93E0456}",
         "arguments": ""
     },
     "iscsi initiator": {
-        "path": "C:\\WINDOWS\\system32\\iscsicpl.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\iscsicpl.exe",
         "arguments": ""
     },
     "memory diagnostics tool": {
@@ -984,15 +980,15 @@
         "arguments": ""
     },
     "odbc data sources (32-bit)": {
-        "path": "C:\\WINDOWS\\syswow64\\odbcad32.exe",
+        "path": "shell:AppsFolder\\{D65231B0-B2F1-4857-A4CE-A8E7C6EA7D27}\\odbcad32.exe",
         "arguments": ""
     },
     "odbc data sources (64-bit)": {
-        "path": "C:\\WINDOWS\\system32\\odbcad32.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\odbcad32.exe",
         "arguments": ""
     },
     "performance monitor": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Performance Monitor.lnk",
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{8AA47365-B2B3-1961-69EB-F866E376B12F}",
         "arguments": ""
     },
     "recoverydrive": {
@@ -1000,267 +996,515 @@
         "arguments": ""
     },
     "registry editor": {
-        "path": "C:\\WINDOWS\\regedit.exe",
+        "path": "shell:AppsFolder\\{F38BF404-1D43-42F2-9305-67DE0B28FC23}\\regedit.exe",
         "arguments": ""
     },
     "resource monitor": {
-        "path": "C:\\WINDOWS\\system32\\perfmon.exe",
-        "arguments": "/res"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{C804BBA7-FA5F-CBF7-8B55-2096E5F972CB}",
+        "arguments": ""
     },
     "services": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\services.lnk",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\services.msc",
         "arguments": ""
     },
     "system configuration": {
-        "path": "C:\\WINDOWS\\system32\\msconfig.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\msconfig.exe",
         "arguments": ""
     },
     "system information": {
-        "path": "C:\\WINDOWS\\system32\\msinfo32.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\msinfo32.exe",
         "arguments": ""
     },
     "task scheduler": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Task Scheduler.lnk",
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{C1C6F8AC-40A3-0F5C-146F-65A9DC70BBB4}",
         "arguments": ""
     },
     "windows defender firewall with advanced security": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Administrative Tools\\Windows Defender Firewall with Advanced Security.lnk",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WF.msc",
         "arguments": ""
     },
     "android studio": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Android Studio\\Android Studio.lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Android\\Android Studio\\bin\\studio64.exe",
         "arguments": ""
     },
     "cheat engine (32-bit)": {
-        "path": "C:\\Program Files\\Cheat Engine\\cheatengine-i386.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine 7.5\\cheatengine-i386.exe",
         "arguments": ""
     },
     "cheat engine (64-bit sse4-avx2)": {
-        "path": "C:\\Program Files\\Cheat Engine\\cheatengine-x86_64-SSE4-AVX2.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine 7.5\\cheatengine-x86_64-SSE4-AVX2.exe",
         "arguments": ""
     },
     "cheat engine (64-bit)": {
-        "path": "C:\\Program Files\\Cheat Engine\\cheatengine-x86_64.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine 7.5\\cheatengine-x86_64.exe",
         "arguments": ""
     },
     "cheat engine help": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Cheat Engine\\Cheat Engine help.lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine\\CheatEngine.chm",
         "arguments": ""
     },
     "cheat engine tutorial (64-bit)": {
-        "path": "C:\\Program Files\\Cheat Engine\\Tutorial-x86_64.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine\\Tutorial-x86_64.exe",
         "arguments": ""
     },
     "cheat engine tutorial": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Cheat Engine\\Cheat Engine tutorial.lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine\\Tutorial-i386.exe",
         "arguments": ""
     },
     "lua documentation": {
-        "path": "C:\\WINDOWS\\system32\\notepad.exe",
-        "arguments": "C:\\Program Files\\Cheat Engine\\celua.txt"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{DFD0C44B-3A90-73BF-36B8-A69FF1090BCD}",
+        "arguments": ""
     },
     "reset settings": {
-        "path": "C:\\Program Files\\Cheat Engine\\ceregreset.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine 7.5\\ceregreset.exe",
         "arguments": ""
     },
     "uninstall cheat engine": {
-        "path": "C:\\Program Files\\Cheat Engine\\unins000.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine\\unins000.exe",
         "arguments": ""
     },
     "unload kernel module": {
-        "path": "C:\\Program Files\\Cheat Engine\\Kernelmoduleunloader.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Cheat Engine 7.5\\Kernelmoduleunloader.exe",
         "arguments": ""
     },
     "git bash": {
-        "path": "C:\\Program Files\\Git\\git-bash.exe",
-        "arguments": "--cd-to-home"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{0FDD9C6B-656B-0F1F-AB08-B1CDBB7067B3}",
+        "arguments": ""
     },
     "git cmd": {
-        "path": "C:\\Program Files\\Git\\git-cmd.exe",
-        "arguments": "--cd-to-home"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{29591C0F-7C09-B655-C0EB-8544FCA7D1DE}",
+        "arguments": ""
     },
     "git gui": {
-        "path": "C:\\Program Files\\Git\\cmd\\git-gui.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Git\\cmd\\git-gui.exe",
         "arguments": ""
     },
     "git release notes": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Git\\Git Release Notes.lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Git\\ReleaseNotes.html",
         "arguments": ""
     },
     "about java": {
-        "path": "C:\\Program Files\\Java\\jre-1.8\\bin\\javacpl.exe",
-        "arguments": "-tab about"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{A5E73466-E220-8EF4-B956-A582187356D9}",
+        "arguments": ""
     },
     "check for updates": {
-        "path": "C:\\Program Files\\Java\\jre-1.8\\bin\\javacpl.exe",
-        "arguments": "-tab update"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{2F519BF2-C697-59F8-8F6A-1E19509CE66B}",
+        "arguments": ""
     },
     "configure java": {
-        "path": "C:\\Program Files\\Java\\jre-1.8\\bin\\javacpl.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Java\\jre-1.8\\bin\\javacpl.exe",
         "arguments": ""
     },
     "office language preferences": {
-        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\SETLANG.EXE",
+        "path": "shell:AppsFolder\\Microsoft.Office.SETLANG.EXE.15",
         "arguments": ""
     },
     "power bi desktop": {
-        "path": "C:\\Program Files\\Microsoft Power BI Desktop\\bin\\PBIDesktop.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Microsoft Power BI Desktop\\bin\\PBIDesktop.exe",
         "arguments": ""
     },
     "install additional tools for node.js": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "arguments": "/d /c \"C:\\Program Files\\nodejs\\install_tools.bat\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{04770C2D-34E6-BE94-EFAD-FA817237D6E9}",
+        "arguments": ""
     },
     "node.js command prompt": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "arguments": "/k \"C:\\Program Files\\nodejs\\nodevars.bat\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{499EE7CA-7ED5-EBC9-AB09-80DC143D7B90}",
+        "arguments": ""
     },
     "node.js": {
-        "path": "C:\\Program Files\\nodejs\\node.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\nodejs\\node.exe",
         "arguments": ""
     },
     "uninstall node.js": {
-        "path": "C:\\Windows\\SysWOW64\\msiexec.exe",
-        "arguments": "/x {4BF45774-4D5D-4AED-BA3E-F56EA448FF86}"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{F8497045-BE0F-20C8-9200-40508C6BBF52}",
+        "arguments": ""
     },
     "nvidia app": {
-        "path": "C:\\Program Files\\NVIDIA Corporation\\NVIDIA app\\CEF\\NVIDIA App.exe",
+        "path": "shell:AppsFolder\\com.nvidia.nvapp",
         "arguments": ""
     },
     "license (english)": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Oracle VirtualBox\\License (English).lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Oracle\\VirtualBox\\License_en_US.rtf",
         "arguments": ""
     },
     "oracle virtualbox": {
-        "path": "C:\\Program Files\\Oracle\\VirtualBox\\VirtualBox.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Oracle\\VirtualBox\\VirtualBox.exe",
         "arguments": ""
     },
     "user manual (pdf, english)": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Oracle VirtualBox\\User manual (PDF, English).lnk",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Oracle\\VirtualBox\\doc\\UserManual.pdf",
         "arguments": ""
     },
     "application stack builder": {
-        "path": "C:\\Program Files\\PostgreSQL\\17\\bin\\stackbuilder.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\PostgreSQL\\17\\bin\\stackbuilder.exe",
         "arguments": ""
     },
     "pgadmin 4": {
-        "path": "C:\\Program Files\\PostgreSQL\\17\\pgAdmin 4\\runtime\\pgAdmin4.exe",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\PostgreSQL\\17\\pgAdmin 4\\runtime\\pgAdmin4.exe",
         "arguments": ""
     },
     "reload configuration": {
-        "path": "C:\\Program Files\\PostgreSQL\\17\\bin\\pg_ctl.exe",
-        "arguments": "-D \"C:\\Program Files\\PostgreSQL\\17\\data\" reload"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{D7BBD2AE-ACBF-0D37-6E0E-C42F11171077}",
+        "arguments": ""
     },
     "sql shell (psql)": {
-        "path": "C:\\Program Files\\PostgreSQL\\17\\scripts\\runpsql.bat",
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\PostgreSQL\\17\\scripts\\runpsql.bat",
         "arguments": ""
     },
     "razer synapse": {
-        "path": "C:\\Program Files (x86)\\Razer\\Synapse3\\WPFUI\\Framework\\Razer Synapse 3 Host\\Razer Synapse 3.exe",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Razer\\Synapse3\\WPFUI\\Framework\\Razer Synapse 3 Host\\Razer Synapse 3.exe",
         "arguments": ""
     },
     "riot client": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Riot Games\\Riot Client.lnk",
+        "path": "shell:AppsFolder\\C:\\Riot Games\\Riot Games\\Riot Client\\RiotClientServices.exe",
         "arguments": ""
     },
     "valorant": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Riot Games\\VALORANT.lnk",
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{2CA2FFFF-09A6-26C6-9875-1E8281D1F29B}",
         "arguments": ""
     },
     "task manager": {
-        "path": "C:\\WINDOWS\\system32\\taskmgr.exe",
-        "arguments": "/7"
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{923DD477-5846-686B-A659-0FCCD73851A8}",
+        "arguments": ""
     },
     "developer command prompt for vs": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\Tools\\VsDevCmd.bat\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{DD0C8265-3625-801F-0053-2D8DB20761F4}",
+        "arguments": ""
     },
     "developer powershell for vs": {
-        "path": "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
-        "arguments": "-noe -c \"&{Import-Module \"\"\"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll\"\"\"; Enter-VsDevShell 3a764e1a}\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{C94483A5-D8BC-2E25-8FE7-2469924756EE}",
+        "arguments": ""
     },
     "debuggable package manager": {
-        "path": "C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe",
-        "arguments": "-NoExit -Command \"& { Import-Module Appx; Import-Module .\\AppxDebug.dll; Show-AppxDebug}\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{96690F80-0B7F-841E-E0DB-CC38AC5C839F}",
+        "arguments": ""
     },
     "x64 native tools command prompt for vs": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvars64.bat\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{746E06C6-1C50-2DA0-6A82-A6B5C664B061}",
+        "arguments": ""
     },
     "x64_x86 cross tools command prompt for vs": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvarsamd64_x86.bat\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{6EBB5143-8306-729E-FA82-C5289A549FC1}",
+        "arguments": ""
     },
     "x86 native tools command prompt for vs": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvars32.bat\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{90BEBC66-4F9C-3137-BD40-3DBC18AA43CE}",
+        "arguments": ""
     },
     "x86_x64 cross tools command prompt for vs": {
-        "path": "C:\\Windows\\System32\\cmd.exe",
-        "arguments": "/k \"C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Auxiliary\\Build\\vcvarsx86_amd64.bat\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{70D46EBA-962F-44DF-5882-662114D32F9E}",
+        "arguments": ""
     },
     "application verifier (x64)": {
-        "path": "C:\\Windows\\System32\\appverif.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\appverif.exe",
         "arguments": ""
     },
     "application verifier help": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Application Verifier (X64)\\Application Verifier Help.lnk",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\appverif.chm",
         "arguments": ""
     },
     "application verifier (wow)": {
-        "path": "C:\\Windows\\SysWOW64\\appverif.exe",
+        "path": "shell:AppsFolder\\{D65231B0-B2F1-4857-A4CE-A8E7C6EA7D27}\\appverif.exe",
         "arguments": ""
     },
     "windows app cert kit": {
-        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\App Certification Kit\\appcertui.exe",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\App Certification Kit\\appcertui.exe",
         "arguments": ""
     },
     "gpuview": {
-        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\gpuview\\GPUView.exe",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Windows Performance Toolkit\\gpuview\\GPUView.exe",
         "arguments": ""
     },
     "windows performance analyzer": {
-        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\wpa.exe",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Windows Performance Toolkit\\wpa.exe",
         "arguments": ""
     },
     "windows performance recorder": {
-        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\WPRUI.exe",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Windows Performance Toolkit\\WPRUI.exe",
         "arguments": ""
     },
     "documentation for desktop apps": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Documentation for Desktop Apps.lnk",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Shortcuts\\DesktopAppsDocumentation.url",
         "arguments": ""
     },
     "documentation for uwp apps": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Documentation for UWP Apps.lnk",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Shortcuts\\UWPAppsDocumentation.url",
         "arguments": ""
     },
     "sample desktop apps": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Sample Desktop Apps.lnk",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Shortcuts\\DesktopAppsSamples.url",
         "arguments": ""
     },
     "sample uwp apps": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Sample UWP Apps.lnk",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Shortcuts\\UWPAppsSamples.url",
         "arguments": ""
     },
     "tools for desktop apps": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Tools for Desktop Apps.lnk",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Shortcuts\\DesktopAppsToolsDocumentation.url",
         "arguments": ""
     },
     "tools for uwp apps": {
-        "path": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Windows Kits\\Windows Software Development Kit\\Tools for UWP Apps.lnk",
+        "path": "shell:AppsFolder\\{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Windows Kits\\10\\Shortcuts\\UWPAppsToolsDocumentation.url",
         "arguments": ""
     },
     "windows software development kit": {
-        "path": "C:\\WINDOWS\\explorer.exe",
-        "arguments": "\"C:\\Program Files (x86)\\Windows Kits\\10\\\""
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{3B6E7DF3-19A3-70DB-96F6-86E65A17E61C}",
+        "arguments": ""
     },
     "windows powershell ise (x86)": {
-        "path": "C:\\WINDOWS\\syswow64\\WindowsPowerShell\\v1.0\\PowerShell_ISE.exe",
+        "path": "shell:AppsFolder\\{D65231B0-B2F1-4857-A4CE-A8E7C6EA7D27}\\WindowsPowerShell\\v1.0\\PowerShell_ISE.exe",
         "arguments": ""
     },
     "windows powershell ise": {
-        "path": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\PowerShell_ISE.exe",
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WindowsPowerShell\\v1.0\\PowerShell_ISE.exe",
+        "arguments": ""
+    },
+    "armoury crate": {
+        "path": "shell:AppsFolder\\B9ECED6F.ArmouryCrate_qmba6cd70vzyy!App",
+        "arguments": ""
+    },
+    "aura creator": {
+        "path": "shell:AppsFolder\\B9ECED6F.AURACreator_qmba6cd70vzyy!App",
+        "arguments": ""
+    },
+    "calculator": {
+        "path": "shell:AppsFolder\\Microsoft.WindowsCalculator_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "click to do": {
+        "path": "shell:AppsFolder\\MicrosoftWindows.Client.CoreAI_cw5n1h2txyewy!ClickToDoApp",
+        "arguments": ""
+    },
+    "clock": {
+        "path": "shell:AppsFolder\\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "counter-strike 2": {
+        "path": "shell:AppsFolder\\steam://rungameid/730",
+        "arguments": ""
+    },
+    "cpu stress": {
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!CPUSTRES",
+        "arguments": ""
+    },
+    "debugview": {
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Dbgview",
+        "arguments": ""
+    },
+    "defragment and optimize drives": {
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\dfrgui.exe",
+        "arguments": ""
+    },
+    "dts:x ultra": {
+        "path": "shell:AppsFolder\\DTSInc.DTSXUltra_t5j2fzbtdg37r!App",
+        "arguments": ""
+    },
+    "films & tv": {
+        "path": "shell:AppsFolder\\Microsoft.ZuneVideo_8wekyb3d8bbwe!Microsoft.ZuneVideo",
+        "arguments": ""
+    },
+    "game bar": {
+        "path": "shell:AppsFolder\\Microsoft.XboxGamingOverlay_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "ganache": {
+        "path": "shell:AppsFolder\\GanacheUI_rb4352f0jd4m2!GanacheUI",
+        "arguments": ""
+    },
+    "get help": {
+        "path": "shell:AppsFolder\\Microsoft.GetHelp_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "get started": {
+        "path": "shell:AppsFolder\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy!WebExperienceHost",
+        "arguments": ""
+    },
+    "git faqs (frequently asked questions)": {
+        "path": "shell:AppsFolder\\https://gitforwindows.org/faq",
+        "arguments": ""
+    },
+    "hidhide configuration client": {
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Nefarius Software Solutions\\HidHide\\x64\\HidHideClient.exe",
+        "arguments": ""
+    },
+    "installation notes": {
+        "path": "shell:AppsFolder\\file://C:\\Program Files\\PostgreSQL\\17/doc/installation-notes.html",
+        "arguments": ""
+    },
+    "intelr graphics software": {
+        "path": "shell:AppsFolder\\{6D809377-6AF0-444B-8957-A3773F02200E}\\Intel\\Intel Graphics Software\\IntelGraphicsSoftware.exe",
+        "arguments": ""
+    },
+    "live captions": {
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\LiveCaptions.exe",
+        "arguments": ""
+    },
+    "loadorder": {
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!LoadOrd",
+        "arguments": ""
+    },
+    "magnifier": {
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\magnify.exe",
+        "arguments": ""
+    },
+    "media player": {
+        "path": "shell:AppsFolder\\Microsoft.ZuneMusic_8wekyb3d8bbwe!Microsoft.ZuneMusic",
+        "arguments": ""
+    },
+    "microsoft clipchamp": {
+        "path": "shell:AppsFolder\\Clipchamp.Clipchamp_yxz26nhyzhsrt!App",
+        "arguments": ""
+    },
+    "microsoft store": {
+        "path": "shell:AppsFolder\\Microsoft.WindowsStore_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "microsoft teams": {
+        "path": "shell:AppsFolder\\MSTeams_8wekyb3d8bbwe!MSTeams",
+        "arguments": ""
+    },
+    "mingw installation manager": {
+        "path": "shell:AppsFolder\\C:\\MinGW\\libexec\\mingw-get\\guimain.exe",
+        "arguments": ""
+    },
+    "mixed reality portal": {
+        "path": "shell:AppsFolder\\Microsoft.MixedReality.Portal_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "myasus": {
+        "path": "shell:AppsFolder\\B9ECED6F.ASUSPCAssistant_qmba6cd70vzyy!App",
+        "arguments": ""
+    },
+    "node.js documentation": {
+        "path": "shell:AppsFolder\\https://nodejs.org/download/release/v22.15.1/docs/api/",
+        "arguments": ""
+    },
+    "node.js website": {
+        "path": "shell:AppsFolder\\https://nodejs.org/",
+        "arguments": ""
+    },
+    "nvidia control panel": {
+        "path": "shell:AppsFolder\\NVIDIACorp.NVIDIAControlPanel_56jybvy8sckqj!NVIDIACorp.NVIDIAControlPanel",
+        "arguments": ""
+    },
+    "paint": {
+        "path": "shell:AppsFolder\\Microsoft.Paint_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "pgadmin documentation": {
+        "path": "shell:AppsFolder\\file://C:\\Program Files\\PostgreSQL\\17/pgAdmin 4/docs/en_US/html/index.html",
+        "arguments": ""
+    },
+    "phone link": {
+        "path": "shell:AppsFolder\\Microsoft.YourPhone_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "photos": {
+        "path": "shell:AppsFolder\\Microsoft.Windows.Photos_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "postgresql documentation": {
+        "path": "shell:AppsFolder\\file://C:\\Program Files\\PostgreSQL\\17/doc/src/sgml/html/index.html",
+        "arguments": ""
+    },
+    "postgresql release notes": {
+        "path": "shell:AppsFolder\\file://C:\\Program Files\\PostgreSQL\\17/doc/src/sgml/html/release.html",
+        "arguments": ""
+    },
+    "process explorer": {
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!procexp",
+        "arguments": ""
+    },
+    "process monitor": {
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!Procmon",
+        "arguments": ""
+    },
+    "quick assist": {
+        "path": "shell:AppsFolder\\MicrosoftCorporationII.QuickAssist_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "quick share": {
+        "path": "shell:AppsFolder\\NearbyShare_21hpf16v5xp10!NearbyShare",
+        "arguments": ""
+    },
+    "realtek audio console": {
+        "path": "shell:AppsFolder\\RealtekSemiconductorCorp.RealtekAudioControl_dt26b99r8h8gj!App",
+        "arguments": ""
+    },
+    "recovery drive": {
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\RecoveryDrive.exe",
+        "arguments": ""
+    },
+    "reference documentation": {
+        "path": "shell:AppsFolder\\http://docs.oracle.com/javase/22/index.html",
+        "arguments": ""
+    },
+    "settings": {
+        "path": "shell:AppsFolder\\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel",
+        "arguments": ""
+    },
+    "snipping tool": {
+        "path": "shell:AppsFolder\\Microsoft.ScreenSketch_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "sound recorder": {
+        "path": "shell:AppsFolder\\Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "steam support center": {
+        "path": "shell:AppsFolder\\http://support.steampowered.com/",
+        "arguments": ""
+    },
+    "sysinternals suite": {
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!SysinternalsSuite",
+        "arguments": ""
+    },
+    "terminal": {
+        "path": "shell:AppsFolder\\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App",
+        "arguments": ""
+    },
+    "thunderboltt control center": {
+        "path": "shell:AppsFolder\\AppUp.ThunderboltControlCenter_8j3eq9eme6ctt!App",
+        "arguments": ""
+    },
+    "ubuntu": {
+        "path": "shell:AppsFolder\\Microsoft.AutoGenerated.{2CE142BD-66BD-5CBC-922D-01D58533C010}",
+        "arguments": ""
+    },
+    "visit java.com": {
+        "path": "shell:AppsFolder\\http://java.com/",
+        "arguments": ""
+    },
+    "voice access": {
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\voiceaccess.exe",
+        "arguments": ""
+    },
+    "whatsapp": {
+        "path": "shell:AppsFolder\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm!App",
+        "arguments": ""
+    },
+    "windows backup": {
+        "path": "shell:AppsFolder\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy!WindowsBackup",
+        "arguments": ""
+    },
+    "windows memory diagnostic": {
+        "path": "shell:AppsFolder\\{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\MdSched.exe",
+        "arguments": ""
+    },
+    "windows security": {
+        "path": "shell:AppsFolder\\Microsoft.SecHealthUI_8wekyb3d8bbwe!SecHealthUI",
+        "arguments": ""
+    },
+    "windows tools": {
+        "path": "shell:AppsFolder\\Microsoft.Windows.AdministrativeTools",
+        "arguments": ""
+    },
+    "wireless display": {
+        "path": "shell:AppsFolder\\Microsoft.PPIProjection_cw5n1h2txyewy!Microsoft.PPIProjection",
+        "arguments": ""
+    },
+    "zoomit": {
+        "path": "shell:AppsFolder\\Microsoft.SysinternalsSuite_8wekyb3d8bbwe!ZoomIt",
         "arguments": ""
     }
 }

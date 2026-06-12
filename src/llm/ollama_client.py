@@ -1,7 +1,7 @@
 import requests
 import json
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union, List
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ class OllamaClient:
         self.model = model
         self.api_url = f"{self.host}/api/generate"
 
-    def generate(self, prompt: str, system: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    def generate(self, prompt: str, system: Optional[str] = None, force_json: bool = True) -> Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]:
         """
         Sends a request to the Ollama API to generate a response based on the prompt.
         Expects a JSON response.
@@ -22,22 +22,29 @@ class OllamaClient:
         Args:
             prompt: The user input or specific instruction.
             system: Optional system prompt to set the context and behavior.
+            force_json: Whether to strictly enforce format: json at the API level.
             
         Returns:
-            A parsed JSON dictionary, or None if the request/parsing fails.
+            A parsed JSON dictionary or list of dictionaries, or None if the request/parsing fails.
         """
         payload = {
             "model": self.model,
             "prompt": prompt,
-            "stream": False,
-            "format": "json"  # Enforce JSON output at the API level
+            "stream": False
         }
+        if force_json:
+            payload["format"] = "json"
         
         if system:
             payload["system"] = system
 
         try:
-            response = requests.post(self.api_url, json=payload)
+            # response = requests.post(self.api_url, json=payload)
+            response = requests.post(
+                self.api_url,
+                json=payload,
+                timeout=30
+            )
             response.raise_for_status()
             
             result = response.json()
@@ -54,7 +61,9 @@ class OllamaClient:
                 response_text = response_text[:-3]
                 
             response_text = response_text.strip()
-            
+            print("\n===== RAW RESPONSE =====")
+            print(response_text)
+            print("========================\n")
             try:
                 parsed_json = json.loads(response_text)
                 return parsed_json

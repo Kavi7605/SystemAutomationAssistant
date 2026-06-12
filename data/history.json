@@ -394,5 +394,779 @@
             "status": "failed",
             "message": "Application elden ring failed to launch or verify."
         }
+    },
+    {
+        "timestamp": "2026-06-12T13:53:51.611992",
+        "user_command": "launch steam",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "steam"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "steam"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Steam opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-12T14:04:32.610612",
+        "user_command": "open steam and discord",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "steam"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "steam"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Steam opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-12T14:04:58.482115",
+        "user_command": "take screenshot",
+        "generated_json": {
+            "action": "take_screenshot",
+            "parameters": {}
+        },
+        "resolved_json": {
+            "action": "take_screenshot",
+            "parameters": {}
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Screenshot captured successfully",
+            "file_path": "screenshots\\screenshot_20260612_140458.png"
+        }
+    },
+    {
+        "timestamp": "2026-06-12T14:05:15.642504",
+        "user_command": "open edge and take screenshot",
+        "generated_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "edge"
+            }
+        },
+        "resolved_json": {
+            "action": "open_application",
+            "parameters": {
+                "application_name": "edge"
+            }
+        },
+        "execution_result": {
+            "status": "success",
+            "message": "Edge opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-12T16:45:47.898289",
+        "user_command": "open steam and discord",
+        "generated_plan": [
+            "open steam",
+            "open discord"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Discord opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T16:47:35.766141",
+        "user_command": "open edge and take screenshot",
+        "generated_plan": [
+            "open edge",
+            "take screenshot"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Edge opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "take_screenshot",
+                    "result": {
+                        "status": "success",
+                        "message": "Screenshot captured successfully",
+                        "file_path": "screenshots\\screenshot_20260612_164735.png"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T17:03:15.633709",
+        "user_command": "open fakeapp and notepad",
+        "generated_plan": [
+            "open fakeapp",
+            "open notepad"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "fakeapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "fakeapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Application fakeapp failed to launch or verify."
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Notepad opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T19:14:23.175358",
+        "user_command": "start whatsapp and discord",
+        "generated_plan": [
+            "open whatsapp",
+            "open discord"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Application whatsapp failed to launch or verify."
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Discord opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T19:50:55.000777",
+        "user_command": "open notepad and calc",
+        "generated_plan": [
+            "open notepad",
+            "open calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Notepad opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Application calculator failed to launch or verify."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T19:51:45.964499",
+        "user_command": "open notepad and calc",
+        "generated_plan": [
+            "open notepad",
+            "open calc"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calc"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calc"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Notepad opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Application calc failed to launch or verify."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T19:52:45.575901",
+        "user_command": "open steam and discord",
+        "generated_plan": [
+            "open steam",
+            "open discord"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Discord opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T19:54:12.303553",
+        "user_command": "open calculator",
+        "generated_plan": [
+            "open calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Application calculator failed to launch or verify."
+        }
+    },
+    {
+        "timestamp": "2026-06-12T19:55:12.255975",
+        "user_command": "open calc",
+        "generated_plan": [
+            "open calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Application calculator failed to launch or verify."
+        }
+    },
+    {
+        "timestamp": "2026-06-12T19:58:48.695209",
+        "user_command": "start WhatsApp",
+        "generated_plan": [
+            "open whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Application whatsapp failed to launch or verify."
+        }
+    },
+    {
+        "timestamp": "2026-06-12T21:08:31.690203",
+        "user_command": "open github and edge",
+        "generated_plan": [
+            "open github",
+            "open edge"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Edge opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T21:09:20.274472",
+        "user_command": "open whatsapp and take a screenshot",
+        "generated_plan": [
+            "open whatsapp",
+            "take screenshot"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "take_screenshot",
+                    "result": {
+                        "status": "success",
+                        "message": "Screenshot captured successfully",
+                        "file_path": "screenshots\\screenshot_20260612_210920.png"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-12T21:10:31.063161",
+        "user_command": "create folder Intern in C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports and take a screenshot",
+        "generated_plan": [
+            "create folder intern",
+            "navigate to C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports",
+            "take screenshot"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "intern"
+                }
+            },
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "Reports",
+                    "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "intern"
+                }
+            },
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "Reports",
+                    "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "create_folder",
+                    "result": {
+                        "status": "success",
+                        "message": "Folder 'intern' created successfully",
+                        "path": ".\\intern"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "create_folder",
+                    "result": {
+                        "status": "success",
+                        "message": "Folder 'Reports' created successfully",
+                        "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Reports"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "take_screenshot",
+                    "result": {
+                        "status": "success",
+                        "message": "Screenshot captured successfully",
+                        "file_path": "screenshots\\screenshot_20260612_211030.png"
+                    }
+                }
+            ]
+        }
     }
 ]

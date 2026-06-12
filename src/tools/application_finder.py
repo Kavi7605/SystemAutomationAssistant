@@ -11,6 +11,18 @@ class ApplicationFinder:
     An Application Discovery Engine that scans the system for installed applications,
     builds an index, and caches it to avoid slow scans on every launch.
     """
+    # Centralized Alias Mapping
+    ALIASES = {
+        "calc": "calculator",
+        "vscode": "visual studio code",
+        "code": "visual studio code",
+        "vs code": "visual studio code",
+        "browser": "msedge",
+        "edge": "msedge",
+        "chrome": "google chrome",
+        "firefox": "firefox"
+    }
+
     def __init__(self, index_file: str = "data/application_index.json"):
         # Make sure paths are absolute or relative to the project root
         self.index_file = os.path.abspath(index_file)
@@ -55,6 +67,9 @@ class ApplicationFinder:
         
         # 4. Start Menu Shortcuts
         index.update(self._scan_start_menu())
+        
+        # 5. UWP / Windows Store Apps
+        index.update(self._scan_uwp_apps())
 
         # Update instance index and save to disk
         self.app_index = index
@@ -78,7 +93,10 @@ class ApplicationFinder:
             return None
             
         logger.info(f"Searching application: {name}")
-        name_lower = name.lower().strip()
+        name_lower = name.lower()
+        
+        # 1. Alias Resolution Layer
+        name_lower = self.ALIASES.get(name_lower, name_lower)
         
         target_app = None
         
@@ -111,11 +129,17 @@ class ApplicationFinder:
         return list(self.app_index.keys())
 
     def is_valid_application(self, path: str) -> bool:
-        """Validates if a given path is an actual file and executable."""
-        if not path or not os.path.exists(path) or not os.path.isfile(path):
+        """Validates if a given path is an actual file and executable, or a virtual UWP path."""
+        if not path:
             return False
             
         path_lower = path.lower()
+        if path_lower.startswith("shell:appsfolder\\"):
+            return True
+            
+        if not os.path.exists(path) or not os.path.isfile(path):
+            return False
+            
         return path_lower.endswith(".exe") or path_lower.endswith(".lnk") or path_lower.endswith(".bat")
 
     def _resolve_shortcut(self, path: str) -> Tuple[str, str]:
@@ -265,4 +289,28 @@ class ApplicationFinder:
                     if file.lower().endswith('.lnk'):
                         name = file[:-4]
                         self._add_to_index(index, name, os.path.join(root, file))
+        return index
+
+    def _scan_uwp_apps(self) -> Dict[str, Dict[str, str]]:
+        """Scans installed UWP/Store Apps via PowerShell and returns virtual AppIDs."""
+        index = {}
+        try:
+            import subprocess
+            result = subprocess.run(
+                ["powershell", "-NoProfile", "-Command", "Get-StartApps | ConvertTo-Json"],
+                capture_output=True,
+                text=True,
+                creationflags=subprocess.CREATE_NO_WINDOW
+            )
+            
+            if result.returncode == 0 and result.stdout:
+                apps = json.loads(result.stdout)
+                for app in apps:
+                    name = app.get("Name", "")
+                    appid = app.get("AppID", "")
+                    if name and appid:
+                        self._add_to_index(index, name, f"shell:AppsFolder\\{appid}")
+        except Exception as e:
+            logger.error(f"Failed to scan UWP apps: {e}")
+            
         return index

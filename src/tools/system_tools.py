@@ -54,47 +54,44 @@ class OpenApplicationTool(BaseTool):
 
     def _launch_and_verify(self, cmd_list: list, original_name: str, target_path: str) -> Dict[str, Any]:
         try:
-            try:
-                # We use a list to Popen directly (safer and handles quotes intrinsically)
-                process = subprocess.Popen(cmd_list)
-                logger.info(f"PID: {process.pid}")
-            except OSError:
-                # Fallback for UWP apps or system commands (like 'calc')
-                fallback_cmd = f"start {target_path}"
-                logger.info(f"Popen failed. Attempting fallback: {fallback_cmd}")
-                process = subprocess.Popen(fallback_cmd, shell=True)
-                logger.info(f"Fallback PID (shell): {process.pid}")
-            
-            # Wait for application to spin up
-            time.sleep(2.5)
-            
-            basename = os.path.basename(target_path).lower()
-            if basename.endswith(".exe"):
-                basename = basename[:-4]
-            original_clean = original_name.lower().replace(".exe", "")
-            
-            if "discord" in target_path.lower() or "discord" in original_clean:
-                search_names = ["discord.exe", "discord"]
-            else:
-                search_names = [f"{basename}.exe", basename, f"{original_clean}.exe", original_clean]
-                
-            found = False
-            for proc in psutil.process_iter(['name']):
+            # 1. Direct OS Native Dispatch for absolute paths and UWP Virtual Paths
+            # os.startfile is perfect because it delegates directly to the OS shell,
+            # avoids locking CMD popups, and natively processes shell:AppsFolder URIs.
+            if os.path.isabs(target_path) or target_path.lower().startswith("shell:appsfolder"):
+                logger.info(f"Verification method: OS Native Dispatch (os.startfile)")
                 try:
-                    p_name = proc.info.get('name', '').lower()
-                    if p_name in search_names:
-                        found = True
-                        break
-                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-                    pass
+                    if len(cmd_list) > 1:
+                        # Fallback to subprocess.Popen for strict argument injection without shell=True
+                        logger.info(f"Arguments detected, using subprocess.Popen(shell=False)")
+                        process = subprocess.Popen(cmd_list)
+                        logger.info(f"Launch success. PID: {process.pid}")
+                    else:
+                        os.startfile(target_path)
+                        logger.info(f"Launch success via os.startfile.")
+                        
+                    return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
                     
-            if found:
-                logger.info(f"Verification result: SUCCESS. Found running process for {original_name}.")
-                return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
+                except FileNotFoundError:
+                    logger.error(f"Verification result: FAILED. File not found: {target_path}")
+                    return {"status": "failed", "message": f"Application {original_name} could not be found."}
+                except OSError as e:
+                    logger.error(f"Verification result: FAILED. OS Error: {e}")
+                    return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
+            
+            # 2. Subprocess execution for unresolved/relative PATH binaries
             else:
-                logger.error(f"Verification result: FAILED. Process for {original_name} not found in process list.")
-                return {"status": "failed", "message": f"Application {original_name} failed to launch or verify."}
-                
+                logger.info(f"Verification method: Subprocess Direct Execution")
+                try:
+                    process = subprocess.Popen(cmd_list)
+                    logger.info(f"Launch success. PID: {process.pid}")
+                    return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
+                except FileNotFoundError:
+                    logger.error(f"Verification result: FAILED. Unresolved application not in PATH: {target_path}")
+                    return {"status": "failed", "message": f"Application {original_name} could not be found in PATH."}
+                except OSError as e:
+                    logger.error(f"Verification result: FAILED. OS Error: {e}")
+                    return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
+                    
         except Exception as e:
             logger.error(f"Exception while opening application {original_name}: {e}")
             return {"status": "failed", "message": str(e)}
