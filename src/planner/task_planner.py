@@ -1,5 +1,4 @@
 import logging
-import json
 from typing import List
 from src.llm.ollama_client import OllamaClient
 
@@ -26,6 +25,9 @@ CRITICAL RULES:
 2. Do not include any explanations, conversational text, or markdown formatting (like ```json).
 3. If the input is already a single task, return an array with one element.
 4. Keep the tasks in natural language, but simplify them to clear commands.
+5. FOLDER CREATION: Never inject drive letters into the folder name. Never rewrite paths. Preserve original folder intent. If a path is provided, keep it separate from the folder name but in the same task string (e.g., "create folder reports in downloads").
+6. SEARCH QUERIES: Search queries are atomic. Never split 'search', 'google', 'look up', or 'find online'. Everything after those keywords belongs to the same query.
+7. APPLICATION NAMES: Never substitute application names. Never rewrite application names. Never convert Visual Studio into VS Code. Never convert VS Code into Visual Studio. Preserve the application name exactly as provided by the user. The planner's responsibility is ONLY task decomposition.
 
 VALID:
 [
@@ -53,7 +55,7 @@ Output: [
 "take screenshot"
 ]
 
-Input: "Launch VS Code, open Discord and search ChatGPT"
+Input: "Launch vscode, open discord and search chatgpt"
 Output: [
 "launch vscode",
 "open discord",
@@ -91,6 +93,41 @@ Output: [
 "open browser"
 ]
 
+Input: "open visual studio"
+Output: [
+"open visual studio"
+]
+
+Input: "open visual studio code"
+Output: [
+"open visual studio code"
+]
+
+Input: "open vscode"
+Output: [
+"open vscode"
+]
+
+Input: "open vs"
+Output: [
+"open vs"
+]
+
+Input: "search 4k wallpapers ghost of yotei"
+Output: [
+"search 4k wallpapers ghost of yotei"
+]
+
+Input: "search ghost of yotei wallpaper"
+Output: [
+"search ghost of yotei wallpaper"
+]
+
+Input: "look up red dead redemption wallpaper"
+Output: [
+"look up red dead redemption wallpaper"
+]
+
 Input: "Empty recycle bin and shutdown"
 Output: [
 "empty recycle bin",
@@ -110,7 +147,17 @@ Output: [
 
 Input: "Google python tutorials"
 Output: [
-"search python tutorials"
+"google python tutorials"
+]
+
+Input: "google latest cyber security news"
+Output: [
+"google latest cyber security news"
+]
+
+Input: "search best python tutorials"
+Output: [
+"search best python tutorials"
 ]
 
 Input: "Stop music and open discord"
@@ -123,6 +170,26 @@ Input: "Make directory projects and navigate to it"
 Output: [
 "create directory projects",
 "navigate to projects"
+]
+
+Input: "create folder named testing in c drive"
+Output: [
+"create folder named testing in c drive"
+]
+
+Input: "create folder work inside d drive"
+Output: [
+"create folder work inside d drive"
+]
+
+Input: "create folder reports in downloads"
+Output: [
+"create folder reports in downloads"
+]
+
+Input: "create folder internship reports inside C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7"
+Output: [
+"create folder internship reports inside C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7"
 ]
 
 Input: "Lock computer"

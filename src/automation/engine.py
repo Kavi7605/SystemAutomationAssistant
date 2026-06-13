@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 
 from src.core.command_parser import CommandParser
 from src.core.history_manager import HistoryManager

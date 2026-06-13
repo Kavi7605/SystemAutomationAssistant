@@ -1,5 +1,4 @@
 import sys
-import logging
 from src.llm.ollama_client import OllamaClient
 from src.core.command_parser import CommandParser
 from src.core.history_manager import HistoryManager

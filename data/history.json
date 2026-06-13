@@ -1168,5 +1168,901 @@
                 }
             ]
         }
+    },
+    {
+        "timestamp": "2026-06-13T21:39:56.049547",
+        "user_command": "start github and steam",
+        "generated_plan": [
+            "open github",
+            "open steam"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-13T21:41:17.384428",
+        "user_command": "open github and take a screenshot of that window.",
+        "generated_plan": [
+            "open github",
+            "take screenshot"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "take_screenshot",
+                    "result": {
+                        "status": "success",
+                        "message": "Screenshot captured successfully",
+                        "file_path": "screenshots\\screenshot_20260613_214116.png"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-13T21:42:27.841071",
+        "user_command": "open calculator, whatsapp and close steam",
+        "generated_plan": [
+            "open calculator",
+            "open whatsapp",
+            "close steam"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-13T21:44:30.233014",
+        "user_command": "close whatsapp, create folder named testing day 5 in c drive",
+        "generated_plan": [
+            "close whatsapp",
+            "create folder C:\\testing day 5"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "C:\\testing day 5",
+                    "path": "C:\\"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "C:\\testing day 5",
+                    "path": "C:\\"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Failed to close whatsapp. Output: ERROR: The process \"whatsapp.exe\" not found.\n"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "create_folder",
+                    "result": {
+                        "status": "success",
+                        "message": "Folder 'C:\\testing day 5' created successfully",
+                        "path": "C:\\testing day 5"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-13T21:48:41.315979",
+        "user_command": "search ghost of yotei",
+        "generated_plan": [
+            "search ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "ghost of yotei"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "ghost of yotei"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'ghost of yotei'"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T21:49:27.265730",
+        "user_command": "search 4k wallpapers ghost of yotei",
+        "generated_plan": [
+            "search 4k wallpapers",
+            "ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "4k wallpapers"
+                }
+            },
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "4k wallpapers"
+                }
+            },
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for '4k wallpapers'"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "unknown",
+                    "result": {
+                        "status": "failed",
+                        "message": "Unknown or unsupported action."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:10:43.394842",
+        "user_command": "clode whatsapp",
+        "generated_plan": [
+            "close whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:11:40.139215",
+        "user_command": "open calculator and close it after 5 seconds",
+        "generated_plan": [
+            "open calculator",
+            "close calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Could not find any running process matching 'calculator'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:12:07.760753",
+        "user_command": "close calculator now",
+        "generated_plan": [
+            "close calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:14:12.445885",
+        "user_command": "open vs code",
+        "generated_plan": [
+            "launch vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:15:04.528904",
+        "user_command": "open vs",
+        "generated_plan": [
+            "open vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:15:54.856421",
+        "user_command": "open visual studio",
+        "generated_plan": [
+            "launch vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:17:37.079103",
+        "user_command": "close vs",
+        "generated_plan": [
+            "close vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:18:12.024616",
+        "user_command": "close visual studio",
+        "generated_plan": [
+            "close visual studio"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "visual studio"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "visual studio"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any running process matching 'visual studio'"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:20:31.597236",
+        "user_command": "close edge",
+        "generated_plan": [
+            "close edge"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Edge closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:21:18.944009",
+        "user_command": "create folder named testing day 5 in c drive",
+        "generated_plan": [
+            "create folder named testing day 5 in c drive"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing day 5",
+                    "path": "C:\\"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing day 5",
+                    "path": "C:\\"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'testing day 5' created successfully",
+            "path": "C:\\testing day 5"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:22:27.865539",
+        "user_command": "create folder planning in C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship",
+        "generated_plan": [
+            "create folder named planning inside C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "planning",
+                    "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "planning",
+                    "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'planning' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\planning"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:23:36.647684",
+        "user_command": "search 4k wallpapers ghost of yotei",
+        "generated_plan": [
+            "search 4k wallpapers ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "4k wallpapers ghost of yotei"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "4k wallpapers ghost of yotei"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for '4k wallpapers ghost of yotei'"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:27:16.546401",
+        "user_command": "open vs",
+        "generated_plan": [
+            "open vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:32:08.683748",
+        "user_command": "open visual studio",
+        "generated_plan": [
+            "launch vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:32:38.897849",
+        "user_command": "open visual studio code",
+        "generated_plan": [
+            "launch vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:36:35.941021",
+        "user_command": "open vs",
+        "generated_plan": [
+            "open vs"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vs"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vs"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vs opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:37:04.657349",
+        "user_command": "open vscode",
+        "generated_plan": [
+            "open vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:37:46.006636",
+        "user_command": "open vs",
+        "generated_plan": [
+            "open vs"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vs"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vs"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vs opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-13T22:38:13.766697",
+        "user_command": "open vs code",
+        "generated_plan": [
+            "open vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
     }
 ]

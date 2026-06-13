@@ -17,6 +17,7 @@ class ApplicationFinder:
         "vscode": "visual studio code",
         "code": "visual studio code",
         "vs code": "visual studio code",
+        "vs": "visual studio",
         "browser": "msedge",
         "edge": "msedge",
         "chrome": "google chrome",

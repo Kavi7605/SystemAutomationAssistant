@@ -42,6 +42,8 @@ IMPORTANT RULES:
     "parameters": {{}}
 }}
 
+7. FOLDER CREATION: Extract ONLY the folder's name into the `folder_name` parameter. The `path` parameter must contain the target drive or directory (e.g., `C:\\`). Do not inject paths or drive letters into the `folder_name`.
+
 Single Action Format:
 
 {{
@@ -170,6 +172,39 @@ Output:
     "parameters": {{
         "folder_name": "reports",
         "path": "C:\\\\Projects"
+    }}
+}}
+
+Input: create folder named testing in c drive
+
+Output:
+{{
+    "action": "create_folder",
+    "parameters": {{
+        "folder_name": "testing",
+        "path": "C:\\\\"
+    }}
+}}
+
+Input: create folder work inside d drive
+
+Output:
+{{
+    "action": "create_folder",
+    "parameters": {{
+        "folder_name": "work",
+        "path": "D:\\\\"
+    }}
+}}
+
+Input: create folder testing day 5 in c drive
+
+Output:
+{{
+    "action": "create_folder",
+    "parameters": {{
+        "folder_name": "testing day 5",
+        "path": "C:\\\\"
     }}
 }}
 

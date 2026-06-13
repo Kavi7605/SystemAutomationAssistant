@@ -6,7 +6,6 @@ import webbrowser
 import logging
 import pyautogui
 import traceback
-import time
 import psutil
 import shlex
 from typing import Dict, Any
@@ -119,18 +118,50 @@ class CloseApplicationTool(BaseTool):
             return {"status": "failed", "message": "Missing application_name"}
             
         logger.info(f"Attempting to close application: {application_name}")
+        search_name = application_name.lower().replace(".exe", "")
         
-        # Ensure we have the .exe suffix for taskkill
-        target_exe = application_name if application_name.lower().endswith(".exe") else f"{application_name}.exe"
+        # Common aliases for process names
+        aliases = {
+            "calculator": "calculator",
+            "calc": "calculator",
+            "whatsapp": "whatsapp",
+            "discord": "discord",
+            "steam": "steam",
+            "vscode": "code",
+            "code": "code",
+            "vs code": "code",
+            "visual studio code": "code",
+            "visual studio": "devenv",
+            "vs": "devenv",
+            "github desktop": "githubdesktop",
+            "edge": "msedge",
+            "browser": "msedge"
+        }
+        
+        target_match = aliases.get(search_name, search_name)
+        closed_count = 0
         
         try:
-            result = subprocess.run(f"taskkill /IM {target_exe} /F", shell=True, capture_output=True, text=True)
-            if result.returncode == 0 or "SUCCESS" in result.stdout:
-                logger.info(f"{application_name.capitalize()} closed successfully")
+            for proc in psutil.process_iter(['pid', 'name']):
+                try:
+                    proc_name = proc.info['name']
+                    if proc_name:
+                        proc_name_lower = proc_name.lower()
+                        # Fuzzy match: e.g. 'whatsapp' in 'whatsapp.exe' or 'calculator' in 'calculatorapp.exe'
+                        if target_match in proc_name_lower:
+                            proc.kill() # kill() is safer to force close unresponsive apps, similar to /F in taskkill
+                            closed_count += 1
+                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                    pass
+                    
+            if closed_count > 0:
+                logger.info(f"{application_name.capitalize()} closed successfully ({closed_count} processes terminated)")
                 return {"status": "success", "message": f"{application_name.capitalize()} closed successfully"}
             else:
-                return {"status": "failed", "message": f"Failed to close {application_name}. Output: {result.stderr}"}
+                return {"status": "failed", "message": f"Could not find any running process matching '{application_name}'"}
+                
         except Exception as e:
+            logger.error(f"Error closing {application_name}: {e}")
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
