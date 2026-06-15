@@ -27,6 +27,10 @@ class Executor:
 
         if not action or action == "unknown":
             return {"status": "failed", "message": "Unknown or unsupported action."}
+            
+        if action == "unsupported":
+            msg = parameters.get("message", "This action is not supported.")
+            return {"status": "failed", "message": msg}
 
         try:
             if action == "clarify":
@@ -36,6 +40,17 @@ class Executor:
                 
             # Execute dynamically via Tool Registry
             result = self.registry.execute_tool(action, **parameters)
+            
+            # Fallback logic for open_application
+            if action == "open_application" and result.get("status") == "application_not_found":
+                fallback_url = parameters.get("fallback_url")
+                if fallback_url:
+                    logger.info(f"Application not found. Executing fallback URL: {fallback_url}")
+                    result = self.registry.execute_tool("open_url", url=fallback_url)
+                    # Modify message to indicate fallback
+                    if result.get("status") == "success":
+                        result["message"] = f"Application not found. Opened fallback website: {fallback_url}"
+            
             return result
         except Exception as e:
             logger.error(f"Error executing {action}: {e}", exc_info=True)
@@ -71,12 +86,12 @@ class Executor:
             result = self._execute_single(cmd)
             
             if result.get("status") in ["success", "completed"]:
-                print("✓ Success\n")
+                print("[OK] Success\n")
                 logger.info(f"Queue step {i} success.")
                 successful += 1
             else:
                 error_msg = result.get('message', 'Unknown error')
-                print(f"✗ Failed: {error_msg}\n")
+                print(f"[FAIL] Failed: {error_msg}\n")
                 logger.error(f"Queue step {i} failed: {error_msg}")
                 failed += 1
                 

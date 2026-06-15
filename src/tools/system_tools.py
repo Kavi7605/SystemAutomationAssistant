@@ -1,6 +1,7 @@
 import os
 import subprocess
 import datetime
+import time
 import socket
 import webbrowser
 import logging
@@ -72,7 +73,7 @@ class OpenApplicationTool(BaseTool):
                     
                 except FileNotFoundError:
                     logger.error(f"Verification result: FAILED. File not found: {target_path}")
-                    return {"status": "failed", "message": f"Application {original_name} could not be found."}
+                    return {"status": "application_not_found", "message": f"Application {original_name} could not be found."}
                 except OSError as e:
                     logger.error(f"Verification result: FAILED. OS Error: {e}")
                     return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
@@ -86,7 +87,7 @@ class OpenApplicationTool(BaseTool):
                     return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
                 except FileNotFoundError:
                     logger.error(f"Verification result: FAILED. Unresolved application not in PATH: {target_path}")
-                    return {"status": "failed", "message": f"Application {original_name} could not be found in PATH."}
+                    return {"status": "application_not_found", "message": f"Application {original_name} could not be found in PATH."}
                 except OSError as e:
                     logger.error(f"Verification result: FAILED. OS Error: {e}")
                     return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
@@ -102,7 +103,11 @@ class OpenApplicationTool(BaseTool):
             "parameters": {
                 "application_name": {
                     "type": "string",
-                    "description": "The name of the application to open, e.g., 'discord' or 'calc'."
+                    "description": "The name of the application to open."
+                },
+                "fallback_url": {
+                    "type": "string",
+                    "description": "Optional fallback URL to open if the application is not found."
                 }
             },
             "required": ["application_name"]
@@ -224,9 +229,27 @@ class CreateFolderTool(BaseTool):
             return {"status": "failed", "message": "Missing folder_name"}
             
         try:
-            full_path = os.path.join(path, folder_name)
+            from src.tools.path_resolver import PathResolver
+            import ctypes
+            
+            res = PathResolver.resolve(path)
+            if res["status"] == "failed":
+                return res
+            elif res.get("status") == "ambiguous":
+                return res
+                
+            resolved_base_path = res["resolved_path"].path
+            
+            full_path = os.path.join(resolved_base_path, folder_name)
             logger.info(f"Creating folder at: {full_path}")
             os.makedirs(full_path, exist_ok=True)
+            
+            if "desktop" in full_path.lower():
+                try:
+                    ctypes.windll.shell32.SHChangeNotify(0x08000000, 0x0000, None, None)
+                    logger.info("Triggered Desktop Shell Refresh")
+                except Exception as e:
+                    logger.warning(f"Failed to refresh desktop: {e}")
             
             logger.info(f"Folder '{folder_name}' created successfully")
             return {"status": "success", "message": f"Folder '{folder_name}' created successfully", "path": full_path}
@@ -289,3 +312,261 @@ class SearchWebTool(BaseTool):
             },
             "required": ["query"]
         }
+
+
+class WaitTool(BaseTool):
+    name = "wait"
+    description = "Pauses execution for a specified number of seconds."
+
+    def execute(self, seconds: int, **kwargs) -> Dict[str, Any]:
+        try:
+            seconds = int(seconds)
+            logger.info(f"Waiting for {seconds} seconds...")
+            time.sleep(seconds)
+            return {"status": "success", "message": f"Waited {seconds} seconds"}
+        except ValueError:
+            return {"status": "failed", "message": "Invalid value for seconds"}
+        except Exception as e:
+            return {"status": "failed", "message": str(e)}
+
+    def get_schema(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "parameters": {
+                "seconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait."
+                }
+            },
+            "required": ["seconds"]
+        }
+
+
+class OpenUrlTool(BaseTool):
+    name = "open_url"
+    description = "Opens a specified URL in the default web browser."
+
+    def execute(self, url: str, **kwargs) -> Dict[str, Any]:
+        if not url:
+            return {"status": "failed", "message": "Missing url"}
+            
+        logger.info(f"Opening URL: {url}")
+        
+        try:
+            # Ensure URL has a scheme
+            if not url.startswith("http://") and not url.startswith("https://"):
+                url = "https://" + url
+                
+            success = webbrowser.open(url)
+            if success:
+                return {"status": "success", "message": f"Opened URL: {url}"}
+            else:
+                return {"status": "failed", "message": f"Failed to open URL: {url}"}
+        except Exception as e:
+            logger.error(f"Failed to open URL {url}: {e}")
+            return {"status": "failed", "message": f"Error opening URL: {str(e)}"}
+
+    def get_schema(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "parameters": {
+                "url": {
+                    "type": "string",
+                    "description": "The complete URL to open, e.g., 'https://youtube.com'."
+                }
+            },
+            "required": ["url"]
+        }
+
+
+class CreateFileTool(BaseTool):
+    name = "create_file"
+    description = "Creates a new empty file at a specified path."
+
+    def execute(self, file_name: str, path: str = ".", **kwargs) -> Dict[str, Any]:
+        if not file_name:
+            return {"status": "failed", "message": "Missing file_name"}
+            
+        try:
+            from src.tools.path_resolver import PathResolver
+            import ctypes
+            
+            res = PathResolver.resolve(path)
+            if res["status"] == "failed":
+                return res
+            elif res.get("status") == "ambiguous":
+                return res
+                
+            resolved_base_path = res["resolved_path"].path
+                
+            full_path = os.path.join(resolved_base_path, file_name)
+            logger.info(f"Creating file at: {full_path}")
+            
+            # Ensure the directory exists
+            os.makedirs(os.path.dirname(full_path), exist_ok=True)
+            
+            if os.path.exists(full_path):
+                logger.info(f"File '{file_name}' already exists. No changes made.")
+                return {"status": "success", "message": f"File '{file_name}' already exists. No changes made.", "path": full_path}
+            
+            with open(full_path, 'w') as f:
+                pass # Creates new empty file
+                
+            if "desktop" in full_path.lower():
+                try:
+                    ctypes.windll.shell32.SHChangeNotify(0x08000000, 0x0000, None, None)
+                    logger.info("Triggered Desktop Shell Refresh")
+                except Exception as e:
+                    logger.warning(f"Failed to refresh desktop: {e}")
+                
+            logger.info(f"File '{file_name}' created successfully")
+            return {"status": "success", "message": f"File '{file_name}' created successfully", "path": full_path}
+        except Exception as e:
+            logger.error(f"Failed to create file: {e}")
+            return {"status": "failed", "message": f"Failed to create file: {str(e)}"}
+
+    def get_schema(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "parameters": {
+                "file_name": {
+                    "type": "string",
+                    "description": "The name of the new file, including extension."
+                },
+                "path": {
+                    "type": "string",
+                    "description": "The optional base path where the file should be created. Default is current directory."
+                }
+            },
+            "required": ["file_name"]
+        }
+
+
+class OpenFolderTool(BaseTool):
+    name = "open_folder"
+    description = "Opens a standard Windows folder (e.g., Downloads, Documents, Desktop, etc.)."
+
+    def execute(self, folder_path: str, **kwargs) -> Dict[str, Any]:
+        if not folder_path:
+            return {"status": "failed", "message": "Missing folder_path"}
+            
+        logger.info(f"Requested to open folder: {folder_path}")
+        
+        try:
+            from src.tools.path_resolver import PathResolver
+            
+            res = PathResolver.resolve(folder_path)
+            if res["status"] == "failed":
+                return res
+            elif res.get("status") == "ambiguous":
+                return res
+                
+            resolved = res["resolved_path"]
+            
+            if resolved.exists and resolved.is_directory:
+                logger.info(f"Resolved path: {resolved.path}")
+                os.startfile(resolved.path)
+                return {"status": "success", "message": f"Opened folder: {resolved.path}"}
+            else:
+                return {"status": "failed", "message": f"Resolved path is not a valid directory: {resolved.path}"}
+                
+        except Exception as e:
+            logger.error(f"Failed to open folder: {e}")
+            return {"status": "failed", "message": f"Error opening folder: {str(e)}"}
+
+    def get_schema(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "parameters": {
+                "folder_path": {
+                    "type": "string",
+                    "description": "The name of the special Windows folder to open, e.g., 'downloads', 'documents', 'desktop'."
+                }
+            },
+            "required": ["folder_path"]
+        }
+
+class OpenFileTool(BaseTool):
+    name = "open_file"
+    description = "Opens a file using its default Windows application."
+
+    def get_schema(self) -> Dict[str, Any]:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "parameters": {
+                "file_name": {
+                    "type": "string",
+                    "description": "The exact name of the file to open (e.g., notes.txt)."
+                },
+                "path": {
+                    "type": "string",
+                    "description": "The natural language location of the file (e.g., 'C drive Projects', 'desktop')."
+                }
+            },
+            "required": ["file_name", "path"]
+        }
+
+    def execute(self, file_name: str, path: str = None, **kwargs) -> Dict[str, Any]:
+        if not file_name:
+            return {"status": "failed", "message": "Missing file_name"}
+            
+        logger.info(f"Requested to open file: {file_name} in {path}")
+        
+        import os
+        from src.tools.path_resolver import PathResolver
+        
+        try:
+            if not path or path == ".":
+                # Fallback search strategy
+                from src.tools.system_tools import get_real_desktop_path
+                
+                # Derive paths
+                cwd_path = os.getcwd()
+                desktop_path = get_real_desktop_path()
+                home_dir = os.path.expanduser("~")
+                downloads_path = os.path.join(home_dir, "Downloads")
+                documents_path = os.path.join(home_dir, "Documents")
+                
+                search_locations = [cwd_path, desktop_path, downloads_path, documents_path]
+                
+                found_path = None
+                for loc in search_locations:
+                    if not loc or not os.path.exists(loc):
+                        continue
+                    test_path = os.path.join(loc, file_name)
+                    if os.path.exists(test_path) and os.path.isfile(test_path):
+                        found_path = test_path
+                        break
+                        
+                if not found_path:
+                    return {"status": "failed", "message": f"File does not exist: {file_name} in default locations."}
+                    
+                full_path = found_path
+            else:
+                res = PathResolver.resolve(path)
+                if res["status"] == "failed":
+                    return res
+                elif res.get("status") == "ambiguous":
+                    return res
+                    
+                resolved_base_path = res["resolved_path"].path
+                full_path = os.path.join(resolved_base_path, file_name)
+                
+                if not os.path.exists(full_path):
+                    return {"status": "failed", "message": f"File does not exist: {full_path}"}
+                    
+                if not os.path.isfile(full_path):
+                    return {"status": "failed", "message": f"Path is not a file: {full_path}"}
+                    
+            logger.info(f"Resolved file path: {full_path}")
+            os.startfile(full_path)
+            return {"status": "success", "message": f"Opened file: {full_path}", "path": full_path}
+                
+        except Exception as e:
+            logger.error(f"Failed to open file: {e}")
+            return {"status": "failed", "message": f"Error opening file: {str(e)}"}

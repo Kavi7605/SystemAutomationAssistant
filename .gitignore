@@ -14,9 +14,17 @@ __pycache__/
 screenshots/
 logs/
 generated_files/
+docs/
+data/
 
 # Environment
 .env
+
+# Testing
+.pytest_cache/
+test_env/
+test_create_file_dir/
+test_open_file_dir/
 
 # Windows
 Thumbs.db

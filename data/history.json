@@ -2064,5 +2064,3500 @@
             "status": "success",
             "message": "Vscode opened successfully"
         }
+    },
+    {
+        "timestamp": "2026-06-15T10:14:36.988503",
+        "user_command": "open calculator and close it after 5 seconds",
+        "generated_plan": [
+            "open calculator",
+            "wait 5 seconds",
+            "close calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 5
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 5
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "wait",
+                    "result": {
+                        "status": "success",
+                        "message": "Waited 5 seconds"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:15:52.594970",
+        "user_command": "start steam then close it after 30 seconds",
+        "generated_plan": [
+            "open steam",
+            "wait 30 seconds",
+            "close steam"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 30
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 30
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "wait",
+                    "result": {
+                        "status": "success",
+                        "message": "Waited 30 seconds"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:17:04.340248",
+        "user_command": "open linkedIn in browser",
+        "generated_plan": [
+            "open browser",
+            "open linkedin"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "msedge.exe"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "linkedin"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "msedge.exe"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "linkedin"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Msedge.exe opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Application linkedin could not be found in PATH."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:18:07.731092",
+        "user_command": "open youtube in browser",
+        "generated_plan": [
+            "open browser",
+            "go to youtube"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "msedge.exe"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "msedge.exe"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Msedge.exe opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.youtube.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:20:21.456335",
+        "user_command": "open github in browser",
+        "generated_plan": [
+            "open browser",
+            "search github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "msedge.exe"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "msedge.exe"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Msedge.exe opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'github'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:22:44.100791",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:23:14.168544",
+        "user_command": "open github desktop",
+        "generated_plan": [
+            "open github desktop"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github desktop"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github desktop"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github desktop opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:24:01.414452",
+        "user_command": "open github website and search pyhton projects",
+        "generated_plan": [
+            "open github website",
+            "search python projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'python projects'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:24:43.549902",
+        "user_command": "search github python automation projects",
+        "generated_plan": [
+            "search github for python automation projects"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python automation projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python automation projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'python automation projects'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:26:42.412528",
+        "user_command": "open github python projects",
+        "generated_plan": [
+            "search github for python projects"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'python projects'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:28:16.748882",
+        "user_command": "create file test.txt in downloads",
+        "generated_plan": [
+            "create file test.txt in downloads"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "Downloads"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "Downloads"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "Downloads\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:28:41.970912",
+        "user_command": "open downloads",
+        "generated_plan": [
+            "open downloads"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "downloads"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "downloads"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: Downloads"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:57:30.592953",
+        "user_command": "open github website",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:58:03.510887",
+        "user_command": "open linkedin website",
+        "generated_plan": [
+            "open linkedin website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.linkedin.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.linkedin.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.linkedin.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T10:59:18.465242",
+        "user_command": "open linkedin website and go to my profile",
+        "generated_plan": [
+            "open linkedin website",
+            "go to my profile"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.linkedin.com"
+                }
+            },
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "my profile"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.linkedin.com"
+                }
+            },
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "my profile"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.linkedin.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_folder",
+                    "result": {
+                        "status": "failed",
+                        "message": "Folder 'my profile' is not a supported special folder."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:00:06.470221",
+        "user_command": "open github website and search python projects",
+        "generated_plan": [
+            "open github website",
+            "search github website for python projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com/search?q=python+projects"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:28:50.859587",
+        "user_command": "open youtube and search ghost of yotei",
+        "generated_plan": [
+            "open youtube website",
+            "search youtube for ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.youtube.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.youtube.com/results?search_query=ghost+of+yotei"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:30:15.216598",
+        "user_command": "create test.txt in downloads",
+        "generated_plan": [
+            "create file test.txt in downloads"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "Downloads"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "Downloads"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "C:\\Users\\anony\\Downloads\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:46:39.633572",
+        "user_command": "create file notes.txt in C drive Kavi Work Degree Sem 7 Internship",
+        "generated_plan": [
+            "create folder kavi work degree sem 7 internship",
+            "create file notes.txt inside kavi work degree sem 7 internship"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "kavi work degree sem 7 internship"
+                }
+            },
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "notes.txt",
+                    "path": "Kavi\\Work\\Degree\\Sem 7\\Internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "kavi work degree sem 7 internship"
+                }
+            },
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "notes.txt",
+                    "path": "Kavi\\Work\\Degree\\Sem 7\\Internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "create_folder",
+                    "result": {
+                        "status": "success",
+                        "message": "Folder 'kavi work degree sem 7 internship' created successfully",
+                        "path": ".\\kavi work degree sem 7 internship"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "create_file",
+                    "result": {
+                        "status": "success",
+                        "message": "File 'notes.txt' created successfully",
+                        "path": "C:\\Kavi\\Work\\Degree\\Projects\\SystemAutomationAssistant\\Kavi\\Work\\Degree\\Sem 7\\Internship\\notes.txt"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:47:45.671511",
+        "user_command": "open yotube ghost of yotei",
+        "generated_plan": [
+            "search youtube for ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com/results?search_query=ghost+of+yotei"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:48:57.501905",
+        "user_command": "create testing folder in C drive Kavi Work Degree",
+        "generated_plan": [
+            "create folder named testing inside c drive"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing",
+                    "path": "C:\\"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing",
+                    "path": "C:\\"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'testing' created successfully",
+            "path": "C:\\testing"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:50:42.010107",
+        "user_command": "open youtube  website",
+        "generated_plan": [
+            "open youtube website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T11:51:12.354720",
+        "user_command": "close youtube website",
+        "generated_plan": [
+            "close youtube website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:09:06.843184",
+        "user_command": "create folder Testing123 in C drive Kavi Work Degree Charusat SEM 7 Internship",
+        "generated_plan": [
+            "create folder Testing123 inside C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "Testing123",
+                    "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "Testing123",
+                    "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "Kavi\\Work\\Degree\\Charusat\\SEM",
+            "current_path": "C:\\",
+            "message": "Could not find folder 'Kavi\\Work\\Degree\\Charusat\\SEM'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:10:31.565296",
+        "user_command": "create folder DemoFolder in C drive Kavi Work Degree Charusat SEM 7 Internship Reports",
+        "generated_plan": [
+            "create folder DemoFolder in C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "DemoFolder",
+                    "path": "C:\\Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "DemoFolder",
+                    "path": "C:\\Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'DemoFolder' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\DemoFolder"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:11:58.436124",
+        "user_command": "create file notes.txt in Internship",
+        "generated_plan": [
+            "create folder internship",
+            "create file notes.txt inside internship"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "internship"
+                }
+            },
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "notes.txt",
+                    "path": "internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "internship"
+                }
+            },
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "notes.txt",
+                    "path": "internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 0,
+            "failed": 2,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "create_folder",
+                    "result": {
+                        "status": "failed",
+                        "message": "No base location specified"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "create_file",
+                    "result": {
+                        "status": "failed",
+                        "message": "No base location specified"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:12:37.924989",
+        "user_command": "create file demo.txt in desktop",
+        "generated_plan": [
+            "create file demo.txt in desktop"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "demo.txt",
+                    "path": "desktop"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "demo.txt",
+                    "path": "desktop"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'demo.txt' created successfully",
+            "path": "C:\\Users\\anony\\Desktop\\demo.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:27:28.711840",
+        "user_command": "create folder testing in C drive Kavi Work Degree Charusat Sem 7 Internship",
+        "generated_plan": [
+            "create folder testing inside documents"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing",
+                    "path": "documents"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing",
+                    "path": "documents"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'testing' created successfully",
+            "path": "C:\\Users\\anony\\Documents\\testing"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:29:21.540634",
+        "user_command": "create testing in C drive Kavi Work Diploma",
+        "generated_plan": [
+            "create folder named testing in C drive"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing",
+                    "path": "c drive"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "testing",
+                    "path": "c drive"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'testing' created successfully",
+            "path": "C:\\testing"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:37:57.871870",
+        "user_command": "create demo folder in C drive Kavi work degree charusat sem 7 internship",
+        "generated_plan": [
+            "create folder demo in C drive Kavi Work Degree Charusat SEM 7 Internship"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "demo",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "demo",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'demo' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\demo"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:40:01.224447",
+        "user_command": "create notes.txt in c drive kavi work degree charusat sem 7 internship",
+        "generated_plan": [
+            "create folder Kavi Work Degree Charusat SEM 7 Internship inside C drive",
+            "create file notes.txt"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "Kavi Work Degree Charusat SEM 7 Internship",
+                    "path": "c drive"
+                }
+            },
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "notes.txt"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "Kavi Work Degree Charusat SEM 7 Internship",
+                    "path": "c drive"
+                }
+            },
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "notes.txt"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "create_folder",
+                    "result": {
+                        "status": "success",
+                        "message": "Folder 'Kavi Work Degree Charusat SEM 7 Internship' created successfully",
+                        "path": "C:\\Kavi Work Degree Charusat SEM 7 Internship"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "create_file",
+                    "result": {
+                        "status": "failed",
+                        "message": "No base location specified"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:43:26.734066",
+        "user_command": "create report.docx in c drive kavi work degree charusat sem 7 internship report",
+        "generated_plan": [
+            "create report.docx in c drive kavi work degree charusat sem 7 internship report"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "C drive kavi work degree charusat sem 7 internship report"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "C drive kavi work degree charusat sem 7 internship report"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "report",
+            "current_path": "C:\\Kavi Work Degree Charusat SEM 7 Internship",
+            "message": "Could not find folder 'report'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:43:43.046424",
+        "user_command": "create report.docx in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "create report.docx in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "C drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "C drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "reports",
+            "current_path": "C:\\Kavi Work Degree Charusat SEM 7 Internship",
+            "message": "Could not find folder 'reports'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:43:55.374699",
+        "user_command": "create report.docx in c drive kavi work degree charusat sem 7 internship",
+        "generated_plan": [
+            "create report.docx in c drive kavi work degree charusat sem 7 internship"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'report.docx' created successfully",
+            "path": "C:\\Kavi Work Degree Charusat SEM 7 Internship\\report.docx"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:44:24.983946",
+        "user_command": "create demo.txt in c drive kavi games",
+        "generated_plan": [
+            "create demo.txt in c drive kavi games"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "demo.txt",
+                    "path": "C drive kavi games"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "demo.txt",
+                    "path": "C drive kavi games"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'demo.txt' created successfully",
+            "path": "C:\\Kavi\\Games\\demo.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:44:51.001204",
+        "user_command": "create word.docx in d drive",
+        "generated_plan": [
+            "create word.docx in d drive"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "word.docx",
+                    "path": "d drive"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "word.docx",
+                    "path": "d drive"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Failed to create file: [WinError 3] The system cannot find the path specified: 'D:\\\\'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:45:05.588886",
+        "user_command": "create word.docx in documents",
+        "generated_plan": [
+            "create word.docx in documents"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "word.docx",
+                    "path": "documents"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "word.docx",
+                    "path": "documents"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'word.docx' created successfully",
+            "path": "C:\\Users\\anony\\Documents\\word.docx"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:52:24.094836",
+        "user_command": "open folder C drive Kavi Work Degree Charusat SEM 7 Internship",
+        "generated_plan": [
+            "open folder C drive Kavi Work Degree Charusat SEM 7 Internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi Work Degree Charusat SEM 7 Internship"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:52:27.459092",
+        "user_command": "open folder C drive Kavi Work Degree Charusat SEM 7 Internship Reports",
+        "generated_plan": [
+            "open folder C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "Reports",
+            "current_path": "C:\\Kavi Work Degree Charusat SEM 7 Internship",
+            "message": "Could not find folder 'Reports'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:52:33.923168",
+        "user_command": "create test.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports",
+        "generated_plan": [
+            "create test.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "Reports",
+            "current_path": "C:\\Kavi Work Degree Charusat SEM 7 Internship",
+            "message": "Could not find folder 'Reports'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:54:19.930199",
+        "user_command": "open folder C drive Kavi Work Degree Charusat SEM 7 Internship Reports",
+        "generated_plan": [
+            "open folder C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "Reports",
+            "current_path": "C:\\Kavi Work Degree Charusat SEM 7 Internship",
+            "message": "Could not find folder 'Reports'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:54:22.849209",
+        "user_command": "create test.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports",
+        "generated_plan": [
+            "create test.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "Reports",
+            "current_path": "C:\\Kavi Work Degree Charusat SEM 7 Internship",
+            "message": "Could not find folder 'Reports'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T12:54:26.148941",
+        "user_command": "open folder C drive Kavi Work Degree Charusat SEM 7 Internship",
+        "generated_plan": [
+            "open folder C drive Kavi Work Degree Charusat SEM 7 Internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi Work Degree Charusat SEM 7 Internship"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T14:42:24.108179",
+        "user_command": "open folder C drive Kavi Work Degree Charusat SEM 7 Internship",
+        "generated_plan": [
+            "open folder C drive Kavi Work Degree Charusat SEM 7 Internship"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "C drive Kavi Work Degree Charusat SEM 7 Internship",
+                    "path": "C drive"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "C drive Kavi Work Degree Charusat SEM 7 Internship",
+                    "path": "C drive"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Folder 'C drive Kavi Work Degree Charusat SEM 7 Internship' created successfully",
+            "path": "C:\\C drive Kavi Work Degree Charusat SEM 7 Internship"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T14:42:57.784232",
+        "user_command": "create test.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports",
+        "generated_plan": [
+            "create test.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T14:43:55.208694",
+        "user_command": "open test.txt in C drive kavi work degree charusat internship reports",
+        "generated_plan": [
+            "open file test.txt inside documents Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T14:44:40.007862",
+        "user_command": "open folder c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open folder c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T14:45:34.237158",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open file test.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T14:50:43.127424",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open file test.txt in C drive Kavi Work Degree Charusat SEM 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:03:15.531180",
+        "user_command": "open report.docx",
+        "generated_plan": [
+            "open report.docx"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "desktop"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "desktop"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "File does not exist: C:\\Users\\anony\\OneDrive\\Desktop\\report.docx"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:03:37.785139",
+        "user_command": "open file report.docx",
+        "generated_plan": [
+            "open file report.docx"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "desktop"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "report.docx",
+                    "path": "desktop"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "File does not exist: C:\\Users\\anony\\OneDrive\\Desktop\\report.docx"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:09:22.692103",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:10:00.194839",
+        "user_command": "create test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "create test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:10:40.203884",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:10:50.953831",
+        "user_command": "create test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "create test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 Internship Reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "File 'test.txt' created successfully",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:10:57.135355",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:15:49.847091",
+        "user_command": "open calculator",
+        "generated_plan": [
+            "open calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:16:22.962435",
+        "user_command": "start steam and discord",
+        "generated_plan": [
+            "open steam",
+            "open discord"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Discord opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:17:01.332963",
+        "user_command": "launch whatsapp",
+        "generated_plan": [
+            "launch whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:17:41.696321",
+        "user_command": "close whatsapp, discord and steam",
+        "generated_plan": [
+            "close whatsapp",
+            "close discord",
+            "close steam"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp closed successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Discord closed successfully"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:18:11.543161",
+        "user_command": "open visual studio",
+        "generated_plan": [
+            "open visual studio"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "visual studio"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "visual studio"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Visual studio opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:18:51.290215",
+        "user_command": "open vscode",
+        "generated_plan": [
+            "open vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:19:25.094227",
+        "user_command": "close fakeapp123",
+        "generated_plan": [
+            "close fakeapp123"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "fakeapp123"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "fakeapp123"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any running process matching 'fakeapp123'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:20:05.546670",
+        "user_command": "open calculator and close it after 5 seconds",
+        "generated_plan": [
+            "open calculator",
+            "wait 5 seconds",
+            "close calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 5
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 5
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "wait",
+                    "result": {
+                        "status": "success",
+                        "message": "Waited 5 seconds"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:21:12.840267",
+        "user_command": "open notepad and close it after 30 seconds",
+        "generated_plan": [
+            "open notepad",
+            "wait 30 seconds",
+            "close notepad"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 30
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 30
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "notepad"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Notepad opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "wait",
+                    "result": {
+                        "status": "success",
+                        "message": "Waited 30 seconds"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Notepad closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:24:56.498153",
+        "user_command": "take screenshot",
+        "generated_plan": [
+            "take screenshot"
+        ],
+        "generated_json": [
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Screenshot captured successfully",
+            "file_path": "screenshots\\screenshot_20260615_152456.png"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:25:30.385949",
+        "user_command": "open calculator and take screenshot",
+        "generated_plan": [
+            "open calculator",
+            "take screenshot"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "take_screenshot",
+                    "result": {
+                        "status": "success",
+                        "message": "Screenshot captured successfully",
+                        "file_path": "screenshots\\screenshot_20260615_152530.png"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:26:00.786220",
+        "user_command": "open youtube website",
+        "generated_plan": [
+            "open youtube website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://youtube.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:26:28.804372",
+        "user_command": "open github website",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:26:54.521643",
+        "user_command": "open linkedin website",
+        "generated_plan": [
+            "open linkedin website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.linkedin.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.linkedin.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.linkedin.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:27:25.578525",
+        "user_command": "open chatgpt website",
+        "generated_plan": [
+            "search for chatgpt website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.chatgpt.com/"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.chatgpt.com/"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.chatgpt.com/"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:28:26.765595",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:29:14.737031",
+        "user_command": "open github desktop",
+        "generated_plan": [
+            "open github desktop"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github desktop"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github desktop"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github desktop opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:29:48.399302",
+        "user_command": "open youtube and search ghost of yotei",
+        "generated_plan": [
+            "open youtube",
+            "search youtube for ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://youtube.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.youtube.com/results?search_query=ghost+of+yotei"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:30:16.417246",
+        "user_command": "open github website and search python automation projects",
+        "generated_plan": [
+            "open github.com",
+            "search github website for python automation projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+automation+projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+automation+projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_file",
+                    "result": {
+                        "status": "failed",
+                        "message": "Error opening file: cannot import name 'get_real_desktop_path' from 'src.tools.system_tools' (C:\\Kavi\\Work\\Degree\\Projects\\SystemAutomationAssistant\\src\\tools\\system_tools.py)"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com/search?q=python+automation+projects"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:31:00.283874",
+        "user_command": "search 4k wallpapers ghost of yotei",
+        "generated_plan": [
+            "search 4k wallpapers ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "4k wallpapers ghost of yotei"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "4k wallpapers ghost of yotei"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for '4k wallpapers ghost of yotei'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:31:28.317547",
+        "user_command": "search github python automation projects",
+        "generated_plan": [
+            "search github for python automation projects"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python automation projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "python automation projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'python automation projects'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:32:17.395350",
+        "user_command": "open github website python projects",
+        "generated_plan": [
+            "open github website",
+            "search github website for python projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com/search?q=python+projects"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:33:06.287395",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:33:17.020259",
+        "user_command": "create test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "create test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "test.txt",
+                    "path": "C drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "create_folder",
+                "parameters": {
+                    "folder_name": "test.txt",
+                    "path": "C drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Failed to create folder: [WinError 183] Cannot create a file when that file already exists: 'C:\\\\Kavi\\\\Work\\\\Degree\\\\Charusat\\\\SEM 7\\\\Internship\\\\Reports\\\\test.txt'"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:55:05.890052",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:55:11.701264",
+        "user_command": "open github website",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:55:25.353518",
+        "user_command": "open github website python projects",
+        "generated_plan": [
+            "open github website python projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=python+projects&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:55:54.026411",
+        "user_command": "open claude website",
+        "generated_plan": [
+            "open claude website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.claudeai.com/"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.claudeai.com/"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.claudeai.com/"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:57:17.540765",
+        "user_command": "open gmail wensite",
+        "generated_plan": [
+            "open gmail website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.gmail.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.gmail.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.gmail.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:57:45.331212",
+        "user_command": "open gmail",
+        "generated_plan": [
+            "open gmail website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.google.com/gmail"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.google.com/gmail"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.google.com/gmail"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:58:22.389454",
+        "user_command": "open google drive",
+        "generated_plan": [
+            "open google drive"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "google drive"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "google drive"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "application_not_found",
+            "message": "Application google drive could not be found in PATH."
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:58:53.659180",
+        "user_command": "open google drive website",
+        "generated_plan": [
+            "open google drive website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.google.com/drive/"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.google.com/drive/"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.google.com/drive/"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T15:59:38.071470",
+        "user_command": "open drive webstie",
+        "generated_plan": [
+            "open website"
+        ],
+        "generated_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-15T16:00:49.181311",
+        "user_command": "open gemini",
+        "generated_plan": [
+            "open gemini"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "gemini"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "gemini"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "application_not_found",
+            "message": "Application gemini could not be found in PATH."
+        }
+    },
+    {
+        "timestamp": "2026-06-15T16:01:16.731869",
+        "user_command": "open gemini website",
+        "generated_plan": [
+            "open gemini website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://gemini.google.com/"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://gemini.google.com/"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://gemini.google.com/"
+        }
+    },
+    {
+        "timestamp": "2026-06-15T16:01:54.798249",
+        "user_command": "open new tab in browser",
+        "generated_plan": [
+            "open new tab"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Opening a new tab is not supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Opening a new tab is not supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Opening a new tab is not supported."
+        }
+    },
+    {
+        "timestamp": "2026-06-15T16:02:46.755261",
+        "user_command": "open gmail search for NJ",
+        "generated_plan": [
+            "open gmail website",
+            "search for NJ"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://mail.google.com/"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "NJ"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://mail.google.com/"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "NJ"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://mail.google.com/"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'NJ'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T16:03:18.443639",
+        "user_command": "open gmail for NJ",
+        "generated_plan": [
+            "open gmail",
+            "search for NJ"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "gmail"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "NJ"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "gmail"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "NJ"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "application_not_found",
+                        "message": "Application gmail could not be found in PATH."
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'NJ'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-15T16:03:49.528309",
+        "user_command": "open gmail webstie for NJ",
+        "generated_plan": [
+            "open google mail website for NJ"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://mail.google.com/?hl=en-US&ogbl=1"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://mail.google.com/?hl=en-US&ogbl=1"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://mail.google.com/?hl=en-US&ogbl=1"
+        }
     }
 ]

@@ -28,6 +28,7 @@ CRITICAL RULES:
 5. FOLDER CREATION: Never inject drive letters into the folder name. Never rewrite paths. Preserve original folder intent. If a path is provided, keep it separate from the folder name but in the same task string (e.g., "create folder reports in downloads").
 6. SEARCH QUERIES: Search queries are atomic. Never split 'search', 'google', 'look up', or 'find online'. Everything after those keywords belongs to the same query.
 7. APPLICATION NAMES: Never substitute application names. Never rewrite application names. Never convert Visual Studio into VS Code. Never convert VS Code into Visual Studio. Preserve the application name exactly as provided by the user. The planner's responsibility is ONLY task decomposition.
+8. WEBSITE SEARCHES: When a user asks to open a website AND search on it (e.g., "open youtube and search X", "open github website and search Y"), combine it into a SINGLE search task (e.g. "search youtube for X" or "search github website for Y"). Do NOT split into two tasks.
 
 VALID:
 [
@@ -139,6 +140,13 @@ Output: [
 "open calculator"
 ]
 
+Input: "open calculator and close it after 5 seconds"
+Output: [
+"open calculator",
+"wait 5 seconds",
+"close calculator"
+]
+
 Input: "Kill python process and launch word"
 Output: [
 "kill python",
@@ -158,6 +166,81 @@ Output: [
 Input: "search best python tutorials"
 Output: [
 "search best python tutorials"
+]
+
+Input: "open github"
+Output: [
+"open github"
+]
+
+Input: "open github desktop"
+Output: [
+"open github desktop"
+]
+
+Input: "open github website"
+Output: [
+"open github website"
+]
+
+Input: "open github.com"
+Output: [
+"open github.com"
+]
+
+Input: "open github website and search python automation projects"
+Output: [
+"search github website for python automation projects"
+]
+
+Input: "open github website and search cybersecurity tools"
+Output: [
+"search github website for cybersecurity tools"
+]
+
+Input: "open github website and search flask projects"
+Output: [
+"search github website for flask projects"
+]
+
+Input: "search github python automation projects"
+Output: [
+"search github python automation projects"
+]
+
+Input: "open youtube website and search ghost of yotei"
+Output: [
+"search youtube for ghost of yotei"
+]
+
+Input: "open youtube and search gta 6"
+Output: [
+"search youtube for gta 6"
+]
+
+Input: "search youtube ghost of yotei"
+Output: [
+"search youtube for ghost of yotei"
+]
+
+Input: "search youtube gameplay videos"
+Output: [
+"search youtube for gameplay videos"
+]
+
+Input: "open linkedin"
+Output: [
+"open linkedin website"
+]
+
+Input: "open linkedin in browser"
+Output: [
+"open linkedin website"
+]
+
+Input: "open twitter website"
+Output: [
+"open twitter website"
 ]
 
 Input: "Stop music and open discord"
@@ -187,9 +270,19 @@ Output: [
 "create folder reports in downloads"
 ]
 
-Input: "create folder internship reports inside C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7"
+Input: "create folder internship reports inside C drive Kavi Work Degree Charusat SEM 7"
 Output: [
-"create folder internship reports inside C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7"
+"create folder internship reports inside C drive Kavi Work Degree Charusat SEM 7"
+]
+
+Input: "create file notes.txt in downloads"
+Output: [
+"create file notes.txt in downloads"
+]
+
+Input: "create file report.md inside documents"
+Output: [
+"create file report.md inside documents"
 ]
 
 Input: "Lock computer"
@@ -199,8 +292,7 @@ Output: [
 
 Input: "Fire up browser and go to youtube"
 Output: [
-"open browser",
-"go to youtube"
+"open youtube website"
 ]
 
 Input: "Terminate excel and open notepad"

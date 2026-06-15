@@ -42,7 +42,10 @@ IMPORTANT RULES:
     "parameters": {{}}
 }}
 
-7. FOLDER CREATION: Extract ONLY the folder's name into the `folder_name` parameter. The `path` parameter must contain the target drive or directory (e.g., `C:\\`). Do not inject paths or drive letters into the `folder_name`.
+7. FOLDER CREATION: Extract ONLY the folder's name into the `folder_name` parameter. The `path` parameter must contain the target drive or directory exactly as the user specified it (e.g., `C drive Projects`).
+8. NEVER INVENT WINDOWS PATHS: You must NEVER generate paths with backslashes like `C:\\Projects`. Output natural language paths exactly as provided by the user (e.g., `C drive Projects`). Backslashes cause JSON parsing errors.
+9. WEBSITE SEARCHES: For website-specific searches (e.g., "search youtube for X", "search github website for Y"), you MUST use the `open_url` action with the appropriately constructed search URL. Do NOT use `search_web` for website-specific searches. Use `search_web` ONLY for general google/web searches.
+10. CLOSING WEBSITES: Closing browser tabs or websites is NOT supported. If a user asks to close a website (e.g., "close youtube website"), you MUST return the `unsupported` action with a message parameter explaining that closing websites is not supported.
 
 Single Action Format:
 
@@ -134,6 +137,16 @@ Output:
     "parameters": {{}}
 }}
 
+Input: wait 5 seconds
+
+Output:
+{{
+    "action": "wait",
+    "parameters": {{
+        "seconds": 5
+    }}
+}}
+
 Input: search chatgpt
 
 Output:
@@ -164,14 +177,14 @@ Output:
     }}
 }}
 
-Input: create folder reports in C:\\Projects
+Input: create folder reports in C drive Projects
 
 Output:
 {{
     "action": "create_folder",
     "parameters": {{
         "folder_name": "reports",
-        "path": "C:\\\\Projects"
+        "path": "C drive Projects"
     }}
 }}
 
@@ -182,7 +195,7 @@ Output:
     "action": "create_folder",
     "parameters": {{
         "folder_name": "testing",
-        "path": "C:\\\\"
+        "path": "c drive"
     }}
 }}
 
@@ -193,7 +206,7 @@ Output:
     "action": "create_folder",
     "parameters": {{
         "folder_name": "work",
-        "path": "D:\\\\"
+        "path": "d drive"
     }}
 }}
 
@@ -204,7 +217,92 @@ Output:
     "action": "create_folder",
     "parameters": {{
         "folder_name": "testing day 5",
-        "path": "C:\\\\"
+        "path": "c drive"
+    }}
+}}
+
+Input: create file notes.txt
+
+Output:
+{{
+    "action": "create_file",
+    "parameters": {{
+        "file_name": "notes.txt"
+    }}
+}}
+
+Input: create notes.txt in C drive Kavi Work Degree Charusat SEM 7 Internship
+
+Output:
+{{
+    "action": "create_file",
+    "parameters": {{
+        "file_name": "notes.txt",
+        "path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+    }}
+}}
+
+Input: create report.docx in desktop
+
+Output:
+{{
+    "action": "create_file",
+    "parameters": {{
+        "file_name": "report.docx",
+        "path": "desktop"
+    }}
+}}
+
+Input: create notes.txt in downloads
+
+Output:
+{{
+    "action": "create_file",
+    "parameters": {{
+        "file_name": "notes.txt",
+        "path": "Downloads"
+    }}
+}}
+
+Input: create file report.md inside documents
+
+Output:
+{{
+    "action": "create_file",
+    "parameters": {{
+        "file_name": "report.md",
+        "path": "Documents"
+    }}
+}}
+
+Input: create file notes.txt in c drive
+
+Output:
+{{
+    "action": "create_file",
+    "parameters": {{
+        "file_name": "notes.txt",
+        "path": "c drive"
+    }}
+}}
+
+Input: open downloads
+
+Output:
+{{
+    "action": "open_folder",
+    "parameters": {{
+        "folder_path": "downloads"
+    }}
+}}
+
+Input: open documents
+
+Output:
+{{
+    "action": "open_folder",
+    "parameters": {{
+        "folder_path": "documents"
     }}
 }}
 
@@ -241,6 +339,106 @@ Output:
         }}
     }}
 ]
+
+Input: open youtube
+
+Output:
+{{
+    "action": "open_url",
+    "parameters": {{
+        "url": "https://youtube.com"
+    }}
+}}
+
+Input: close youtube website
+
+Output:
+{{
+    "action": "unsupported",
+    "parameters": {{
+        "message": "Closing browser tabs/websites is not currently supported."
+    }}
+}}
+
+Input: open github
+
+Output:
+{{
+    "action": "open_application",
+    "parameters": {{
+        "application_name": "github"
+    }}
+}}
+
+Input: open github desktop
+
+Output:
+{{
+    "action": "open_application",
+    "parameters": {{
+        "application_name": "github desktop"
+    }}
+}}
+
+Input: open github website
+
+Output:
+{{
+    "action": "open_url",
+    "parameters": {{
+        "url": "https://github.com"
+    }}
+}}
+
+Input: open chatgpt
+
+Output:
+{{
+    "action": "open_url",
+    "parameters": {{
+        "url": "https://chatgpt.com"
+    }}
+}}
+
+Input: search youtube for ghost of yotei
+
+Output:
+{{
+    "action": "open_url",
+    "parameters": {{
+        "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+    }}
+}}
+
+Input: search github website for python automation projects
+
+Output:
+{{
+    "action": "open_url",
+    "parameters": {{
+        "url": "https://github.com/search?q=python+automation+projects"
+    }}
+}}
+
+Input: search github python automation projects
+
+Output:
+{{
+    "action": "search_web",
+    "parameters": {{
+        "query": "python automation projects"
+    }}
+}}
+
+Input: open linkedin website
+
+Output:
+{{
+    "action": "open_url",
+    "parameters": {{
+        "url": "https://www.linkedin.com"
+    }}
+}}
 
 Input: open fakeapp and take screenshot
 

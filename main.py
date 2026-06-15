@@ -14,7 +14,12 @@ from src.tools.system_tools import (
     CloseApplicationTool,
     TakeScreenshotTool,
     CreateFolderTool,
-    SearchWebTool
+    SearchWebTool,
+    WaitTool,
+    OpenUrlTool,
+    CreateFileTool,
+    OpenFolderTool,
+    OpenFileTool
 )
 
 logger = setup_logger("system_assistant")
@@ -33,6 +38,11 @@ def main():
         registry.register(TakeScreenshotTool())
         registry.register(CreateFolderTool())
         registry.register(SearchWebTool())
+        registry.register(WaitTool())
+        registry.register(OpenUrlTool())
+        registry.register(CreateFileTool())
+        registry.register(OpenFolderTool())
+        registry.register(OpenFileTool())
         
         # 1. Create Ollama client connecting to localhost:11434 with gemma3:4b
         client = OllamaClient(host="http://localhost:11434", model="gemma3:4b")
