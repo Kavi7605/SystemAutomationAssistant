@@ -17,6 +17,17 @@ generated_files/
 docs/
 data/
 
+# Whisper Models
+models/
+
+# Vosk Models
+data/vosk-model-small-en-us-0.15/
+*.zip
+
+# Runtime Data
+data/history.json
+data/application_index.json
+
 # Environment
 .env
 
