@@ -13,21 +13,6 @@ from src.planner.task_planner import TaskPlanner
 from src.automation.executor import Executor
 
 class TestSemanticRouting(unittest.TestCase):
-    def setUp(self):
-        self.parser_mock = MagicMock(spec=CommandParser)
-        self.resolver_mock = MagicMock(spec=CommandResolver)
-        self.task_planner_mock = MagicMock(spec=TaskPlanner)
-        self.executor_mock = MagicMock(spec=Executor)
-        self.history_manager_mock = MagicMock(spec=HistoryManager)
-        
-        self.engine = AutomationEngine(
-            parser=self.parser_mock,
-            resolver=self.resolver_mock,
-            task_planner=self.task_planner_mock,
-            executor=self.executor_mock,
-            history_manager=self.history_manager_mock
-        )
-
     def test_1_open_github_bypasses_parser_and_planner(self):
         self.executor_mock.execute.return_value = {"status": "success", "message": "Success"}
         self.engine.process_command("open github")
@@ -38,7 +23,6 @@ class TestSemanticRouting(unittest.TestCase):
         call_args = self.executor_mock.execute.call_args[0][0]
         self.assertEqual(call_args["action"], "open_application")
         self.assertEqual(call_args["parameters"]["application_name"], "github")
-        self.assertEqual(call_args["parameters"]["fallback_url"], "https://github.com")
 
     def test_2_open_github_website_routes_to_url(self):
         self.executor_mock.execute.return_value = {"status": "success", "message": "Success"}

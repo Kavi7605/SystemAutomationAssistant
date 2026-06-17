@@ -39,12 +39,13 @@ class HistoryManager:
         except Exception as e:
             logger.error(f"Failed to save history: {e}")
 
-    def add_entry(self, user_command: str, generated_json: Dict[str, Any], resolved_json: Dict[str, Any], execution_result: Dict[str, Any], generated_plan: list = None):
+    def add_entry(self, user_command: str, generated_json: Dict[str, Any], resolved_json: Dict[str, Any], execution_result: Dict[str, Any], generated_plan: list = None, source: str = "keyboard"):
         """
         Records a completed execution cycle into the history.
         """
         entry = {
             "timestamp": datetime.datetime.now().isoformat(),
+            "source": source,
             "user_command": user_command,
             "generated_plan": generated_plan,
             "generated_json": generated_json,

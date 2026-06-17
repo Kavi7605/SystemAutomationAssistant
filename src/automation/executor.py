@@ -2,6 +2,7 @@ import logging
 from typing import Dict, Any, Union, List
 
 from src.tools.registry import ToolRegistry
+from src.core.context_manager import ContextManager
 
 logger = logging.getLogger("system_assistant")
 
@@ -50,6 +51,23 @@ class Executor:
                     # Modify message to indicate fallback
                     if result.get("status") == "success":
                         result["message"] = f"Application not found. Opened fallback website: {fallback_url}"
+                        # If we fallback, the action effectively becomes open_url
+                        action = "open_url"
+                        parameters = {"url": fallback_url}
+
+            if result.get("status") == "success":
+                cm = ContextManager()
+                cm.last_action = action
+                cm.last_action_payload = command_json
+                
+                if action == "open_application":
+                    cm.last_application = parameters.get("application_name")
+                elif action == "open_url":
+                    cm.last_url = parameters.get("url")
+                elif action in ["create_file", "open_file"]:
+                    cm.last_file = parameters.get("file_name")
+                elif action in ["create_folder", "open_folder"]:
+                    cm.last_folder = parameters.get("folder_name") or parameters.get("path")
             
             return result
         except Exception as e:

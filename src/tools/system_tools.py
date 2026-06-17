@@ -449,29 +449,61 @@ class OpenFolderTool(BaseTool):
     name = "open_folder"
     description = "Opens a standard Windows folder (e.g., Downloads, Documents, Desktop, etc.)."
 
-    def execute(self, folder_path: str, **kwargs) -> Dict[str, Any]:
-        if not folder_path:
-            return {"status": "failed", "message": "Missing folder_path"}
+    def execute(self, folder_name: str, base_path: str = None, **kwargs) -> Dict[str, Any]:
+        if not folder_name:
+            return {"status": "failed", "message": "Missing folder_name"}
             
-        logger.info(f"Requested to open folder: {folder_path}")
+        logger.info(f"Requested to open folder: {folder_name} in base_path: {base_path}")
         
         try:
             from src.tools.path_resolver import PathResolver
             
-            res = PathResolver.resolve(folder_path)
-            if res["status"] == "failed":
-                return res
-            elif res.get("status") == "ambiguous":
-                return res
+            if base_path and base_path != ".":
+                res = PathResolver.resolve(base_path)
+                if res["status"] == "failed":
+                    return res
+                elif res.get("status") == "ambiguous":
+                    return res
+                    
+                resolved_base_path = res["resolved_path"].path
+                full_path = os.path.join(resolved_base_path, folder_name)
                 
-            resolved = res["resolved_path"]
-            
-            if resolved.exists and resolved.is_directory:
-                logger.info(f"Resolved path: {resolved.path}")
-                os.startfile(resolved.path)
-                return {"status": "success", "message": f"Opened folder: {resolved.path}"}
+                if os.path.exists(full_path) and os.path.isdir(full_path):
+                    logger.info(f"Resolved path: {full_path}")
+                    os.startfile(full_path)
+                    return {"status": "success", "message": f"Opened folder: {full_path}", "path": full_path}
+                else:
+                    return {"status": "failed", "message": f"Resolved path is not a valid directory: {full_path}"}
             else:
-                return {"status": "failed", "message": f"Resolved path is not a valid directory: {resolved.path}"}
+                # Fallback search strategy if no base_path is provided
+                from src.tools.system_tools import get_real_desktop_path
+                cwd_path = os.getcwd()
+                desktop_path = get_real_desktop_path()
+                home_dir = os.path.expanduser("~")
+                downloads_path = os.path.join(home_dir, "Downloads")
+                documents_path = os.path.join(home_dir, "Documents")
+                
+                search_locations = [cwd_path, desktop_path, downloads_path, documents_path]
+                
+                found_path = None
+                for loc in search_locations:
+                    if not loc or not os.path.exists(loc): continue
+                    test_path = os.path.join(loc, folder_name)
+                    if os.path.exists(test_path) and os.path.isdir(test_path):
+                        found_path = test_path
+                        break
+                        
+                if not found_path:
+                    # Let PathResolver try one last time in case folder_name is a known base location (like 'desktop' or 'reports' in cwd)
+                    res = PathResolver.resolve(folder_name)
+                    if res["status"] == "success" and res["resolved_path"].is_directory:
+                        found_path = res["resolved_path"].path
+                    else:
+                        return {"status": "failed", "message": f"Folder does not exist: {folder_name} in default locations."}
+                        
+                logger.info(f"Resolved path: {found_path}")
+                os.startfile(found_path)
+                return {"status": "success", "message": f"Opened folder: {found_path}", "path": found_path}
                 
         except Exception as e:
             logger.error(f"Failed to open folder: {e}")
@@ -482,12 +514,16 @@ class OpenFolderTool(BaseTool):
             "name": self.name,
             "description": self.description,
             "parameters": {
-                "folder_path": {
+                "folder_name": {
                     "type": "string",
-                    "description": "The name of the special Windows folder to open, e.g., 'downloads', 'documents', 'desktop'."
+                    "description": "The exact name of the folder to open."
+                },
+                "base_path": {
+                    "type": "string",
+                    "description": "The natural language location of the base path (e.g., 'C drive', 'desktop')."
                 }
             },
-            "required": ["folder_path"]
+            "required": ["folder_name"]
         }
 
 class OpenFileTool(BaseTool):

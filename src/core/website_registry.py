@@ -2,12 +2,14 @@ WEBSITE_REGISTRY = {
     "github": {
         "website": "https://github.com",
         "search_url": "https://github.com/search?q={query}&type=repositories",
-        "application_aliases": ["github", "github desktop"]
+        "application_aliases": ["github", "github desktop"],
+        "search_modes": ["user", "users", "repository", "repositories", "issue", "issues", "pull request", "pull requests"]
     },
     "youtube": {
         "website": "https://www.youtube.com",
         "search_url": "https://www.youtube.com/results?search_query={query}",
-        "application_aliases": ["youtube"]
+        "application_aliases": ["youtube"],
+        "search_modes": ["channel", "channels", "playlist", "playlists", "movie", "movies"]
     },
     "linkedin": {
         "website": "https://www.linkedin.com",
@@ -18,5 +20,10 @@ WEBSITE_REGISTRY = {
         "website": "https://chatgpt.com",
         "search_url": "https://chatgpt.com/?q={query}",
         "application_aliases": ["chatgpt"]
+    },
+    "reddit": {
+        "website": "https://www.reddit.com",
+        "search_url": "https://www.reddit.com/search/?q={query}",
+        "application_aliases": ["reddit"]
     }
 }

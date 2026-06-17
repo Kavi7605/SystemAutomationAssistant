@@ -1,6 +1,6 @@
 import logging
 import re
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Union
 
 from src.core.command_parser import CommandParser
 from src.core.history_manager import HistoryManager
@@ -30,8 +30,132 @@ class AutomationEngine:
     def get_history(self) -> List[Dict[str, Any]]:
         return self.history_manager.get_history()
 
-    def _route_semantic_command(self, user_input_lower: str) -> Optional[Dict[str, Any]]:
-        # 1. Domain Name Routing
+    def _classify_target(self, target: str) -> Dict[str, Any]:
+        """
+        Classifies a target into Website, Application, or SearchWeb using the exact approved hierarchy.
+        """
+        target = target.strip()
+        
+        # Rule 1: Explicit Website
+        if target.endswith(" website"):
+            base_name = target[:-8].strip()
+            from src.core.url_builder import build_base_url
+            url = build_base_url(base_name) or f"https://{base_name}.com"
+            return {"action": "open_url", "parameters": {"url": url}}
+
+        # Rule 2: Installed Application
+        from src.tools.application_finder import ApplicationFinder
+        app_finder = ApplicationFinder()
+        if app_finder.find_application(target):
+            return {"action": "open_application", "parameters": {"application_name": target}}
+
+        # Rule 3: Website Registry Entry
+        from src.core.website_registry import WEBSITE_REGISTRY
+        if target in WEBSITE_REGISTRY:
+            from src.core.url_builder import build_base_url
+            url = build_base_url(target)
+            return {"action": "open_url", "parameters": {"url": url}}
+
+        # Rule 4: Unknown Target
+        return {"action": "search_web", "parameters": {"query": target}}
+
+    def _extract_query_and_mode(self, site_key: str, full_query: str) -> tuple[str, Optional[str]]:
+        from src.core.website_registry import WEBSITE_REGISTRY
+        site_info = WEBSITE_REGISTRY.get(site_key.lower(), {})
+        valid_modes = site_info.get("search_modes", [])
+        
+        # Exact match (query is JUST the mode)
+        for mode in valid_modes:
+            if full_query.lower() == mode.lower():
+                return "", mode.lower()
+                
+        # Suffix match
+        valid_modes_sorted = sorted(valid_modes, key=len, reverse=True)
+        for mode in valid_modes_sorted:
+            if full_query.lower().endswith(f" {mode.lower()}"):
+                query = full_query[:-len(mode)-1].strip()
+                return query, mode.lower()
+                
+        return full_query, None
+
+    def _route_semantic_command(self, user_input_lower: str) -> Optional[Dict[str, Any] | List[Dict[str, Any]]]:
+        from src.core.website_registry import WEBSITE_REGISTRY
+        from src.core.url_builder import build_search_url, build_base_url
+        
+        # 1.0 Search Intent Bypass
+        search_intent_match = re.match(r"^open\s+(.+?)\s+and\s+search(?:\s+for)?\s+(.+)$", user_input_lower)
+        if search_intent_match:
+            site_key_candidate = search_intent_match.group(1).strip()
+            full_query = search_intent_match.group(2).strip()
+            
+            if site_key_candidate.endswith(" website"):
+                site_key_candidate = site_key_candidate[:-8].strip()
+                
+            query, mode = self._extract_query_and_mode(site_key_candidate, full_query)
+            search_url = build_search_url(site_key_candidate, query, mode)
+            if search_url:
+                return {"action": "open_url", "parameters": {"url": search_url}}
+                
+        # 1. Multi-Action Routing
+        multi_match = re.match(r"^open\s+(.+?)\s+and\s+(.+)$", user_input_lower)
+        if multi_match:
+            target1 = multi_match.group(1).strip()
+            target2 = multi_match.group(2).strip()
+            
+            # Reject if target2 starts with an action verb (protects planner fallback)
+            action_verbs = ("open ", "close ", "create ", "delete ", "move ", "copy ", "rename ", "search ", "wait ")
+            if target2.startswith(action_verbs):
+                pass # let it fall through
+            else:
+                action1 = self._classify_target(target1)
+                action2 = self._classify_target(target2)
+                return [action1, action2]
+
+        # 2. Website & Search Routing (Normalizations)
+        website_match = re.match(r"^open\s+(.+?)\s+website(?:\s+(.*))?$", user_input_lower)
+        if website_match:
+            site_key_candidate = website_match.group(1).strip()
+            remainder = website_match.group(2)
+            
+            if not remainder:
+                url = build_base_url(site_key_candidate) or f"https://{site_key_candidate}.com"
+                return {"action": "open_url", "parameters": {"url": url}}
+                
+            remainder = remainder.strip()
+            
+            if remainder.startswith("and search for "):
+                full_query = remainder[15:].strip()
+            elif remainder.startswith("and search "):
+                full_query = remainder[11:].strip()
+            elif remainder.startswith("search for "):
+                full_query = remainder[11:].strip()
+            elif remainder.startswith("search "):
+                full_query = remainder[7:].strip()
+            else:
+                full_query = remainder
+                
+            query, mode = self._extract_query_and_mode(site_key_candidate, full_query)
+                
+            # Validation: Missing query
+            if not query and not mode:
+                return {
+                    "action": "unsupported",
+                    "parameters": {"message": "Validation error: Search query is missing."}
+                }
+            elif not query and mode:
+                return {
+                    "action": "unsupported",
+                    "parameters": {
+                        "message": f"Validation error:\nSearch query is missing before search mode '{mode}'."
+                    }
+                }
+                    
+            search_url = build_search_url(site_key_candidate, query, mode)
+            if not search_url:
+                search_url = f"https://{site_key_candidate}.com"
+            return {"action": "open_url", "parameters": {"url": search_url}}
+
+        # 3. Domain Name Routing
         domain_match = re.match(r"^open\s+([\w\-]+\.(?:com|org|net|io|ai|dev|app))$", user_input_lower)
         if domain_match:
             domain = domain_match.group(1)
@@ -39,57 +163,62 @@ class AutomationEngine:
                 "action": "open_url",
                 "parameters": {"url": f"https://{domain}"}
             }
-            
-        # 2. Website & Search Routing
-        from src.core.website_registry import WEBSITE_REGISTRY
-        from src.core.url_builder import build_search_url, build_base_url
-        
-        website_match = re.match(r"^open\s+(.+?)\s+website(?:\s+(?:and\s+)?(?:search\s+)?(.+))?$", user_input_lower)
-        if website_match:
-            site_key_candidate = website_match.group(1).strip()
-            query = website_match.group(2)
-            
-            if site_key_candidate in WEBSITE_REGISTRY:
-                if query:
-                    search_url = build_search_url(site_key_candidate, query)
-                    return {
-                        "action": "open_url",
-                        "parameters": {"url": search_url}
-                    }
-                else:
-                    base_url = build_base_url(site_key_candidate)
-                    return {
-                        "action": "open_url",
-                        "parameters": {"url": base_url}
-                    }
-                    
-        # 3. Application vs Website Routing
-        app_match = re.match(r"^open\s+(.+)$", user_input_lower)
-        if app_match:
-            alias = app_match.group(1).strip()
-            
-            for site_key, site_info in WEBSITE_REGISTRY.items():
-                if alias in site_info.get("application_aliases", []):
-                    return {
-                        "action": "open_application",
-                        "parameters": {
-                            "application_name": alias,
-                            "fallback_url": site_info.get("website")
-                        }
-                    }
-                    
-        # 4. File Creation Misclassification
+
+        # 4. Open Folder Routing (Grammar A & B)
+        # Grammar A: open <name> folder [in <path>]
+        open_folder_suffix_match = re.match(r"^open\s+(.+?)\s+(?:folder|directory)(?:\s+(?:in|inside)\s+(.+))?$", user_input_lower)
+        if open_folder_suffix_match:
+            folder_name = open_folder_suffix_match.group(1).strip()
+            path = open_folder_suffix_match.group(2)
+            parsed = {"action": "open_folder", "parameters": {"folder_name": folder_name}}
+            if path: parsed["parameters"]["base_path"] = path.strip()
+            return parsed
+
+        # Grammar B: open folder <name> [in <path>]
+        open_folder_prefix_match = re.match(r"^open\s+(?:folder|directory)\s+(.+?)(?:\s+(?:in|inside)\s+(.+))?$", user_input_lower)
+        if open_folder_prefix_match:
+            folder_name = open_folder_prefix_match.group(1).strip()
+            path = open_folder_prefix_match.group(2)
+            parsed = {"action": "open_folder", "parameters": {"folder_name": folder_name}}
+            if path: parsed["parameters"]["base_path"] = path.strip()
+            return parsed
+
+        # 5. Close Application
+        close_match = re.match(r"^close\s+(.+)$", user_input_lower)
+        if close_match:
+            app_name = close_match.group(1).strip()
+            if " and " in app_name: return None
+            return {"action": "close_application", "parameters": {"application_name": app_name}}
+
+        # 6. Create Folder
+        create_folder_match = re.match(r"^create\s+folder\s+(.+)$", user_input_lower)
+        if create_folder_match:
+            return {"action": "create_folder", "parameters": {"folder_name": create_folder_match.group(1).strip()}}
+
+        # 7. Open File
+        open_file_match = re.match(r"^open\s+(?:file\s+)?([\w\-\.]+\.[a-zA-Z0-9]+)(?:\s+file)?(?:\s+(?:in|inside)\s+(.+))?\s*$", user_input_lower, re.IGNORECASE)
+        if open_file_match:
+            file_name = open_file_match.group(1)
+            path = open_file_match.group(2)
+            parsed = {"action": "open_file", "parameters": {"file_name": file_name}}
+            if path: parsed["parameters"]["path"] = path.strip()
+            return parsed
+
+        # 8. Create File
         create_file_match = re.match(r"^create\s+([\w\-\.]+\.(?:txt|docx|pdf|py|java|js|json|csv|md))(?:\s+(?:in|inside)\s+(.+))?$", user_input_lower)
         if create_file_match:
             file_name = create_file_match.group(1)
             path = create_file_match.group(2)
-            parsed = {
-                "action": "create_file",
-                "parameters": {"file_name": file_name}
-            }
-            if path:
-                parsed["parameters"]["path"] = path.strip()
+            parsed = {"action": "create_file", "parameters": {"file_name": file_name}}
+            if path: parsed["parameters"]["path"] = path.strip()
             return parsed
+
+        # 9. General 'open' target classification
+        app_match = re.match(r"^open\s+(.+)$", user_input_lower)
+        if app_match:
+            target = app_match.group(1).strip()
+            if " and " in target: return None
+            return self._classify_target(target)
             
         return None
 
@@ -98,19 +227,67 @@ class AutomationEngine:
         print("Assistant ready! Type 'exit' or 'quit' to stop.")
         print("-" * 50)
         
+        voice_listener = None
+        
         while True:
             try:
-                user_input = input("\nEnter command: ").strip()
+                print("\n[T] Type Command | [V] Voice Command | [Q] Quit")
+                mode = input("Select mode: ").strip().upper()
                 
-                if user_input.lower() in ['exit', 'quit']:
+                if mode in ['Q', 'QUIT', 'EXIT']:
                     print("Exiting...")
                     break
+                elif mode == 'V':
+                    if not voice_listener:
+                        try:
+                            from src.voice.voice_listener import VoiceListener
+                            voice_listener = VoiceListener()
+                        except FileNotFoundError as e:
+                            print(f"\nVoice initialization failed: {e}")
+                            continue
+                            
+                    result = voice_listener.listen()
+                    if not result or not result.get("transcript"):
+                        print("\nNo speech detected.")
+                        continue
+                        
+                    transcript = result["transcript"]
+                    model_used = result.get("model", "unknown")
+                    device_used = result.get("device", "unknown")
+                    duration = result.get("duration", 0)
                     
-                if not user_input:
-                    continue
-                
-                self.process_command(user_input)
+                    print(f"\nRaw Transcript:\n{transcript}\n")
                     
+                    logger.info("Voice Engine: Faster-Whisper")
+                    logger.info(f"Model: {model_used}")
+                    logger.info(f"Device: {device_used}")
+                    logger.info(f"Recognition Time: {duration}s")
+                    logger.info(f"Transcript: {transcript}")
+                    
+                    proceed = input("Proceed? [Y/N]: ").strip().upper()
+                    if proceed == 'Y':
+                        print("Executing...")
+                        self.process_command(transcript, source="voice")
+                    else:
+                        print("Command cancelled.")
+                        continue
+                elif mode == 'T':
+                    user_input = input("Enter command: ").strip()
+                    if user_input.lower() in ['exit', 'quit']:
+                        print("Exiting...")
+                        break
+                    if not user_input:
+                        continue
+                    self.process_command(user_input, source="keyboard")
+                else:
+                    # Fallback for old behavior if user directly types the command
+                    user_input = mode
+                    if user_input.lower() in ['exit', 'quit']:
+                        print("Exiting...")
+                        break
+                    if not user_input:
+                        continue
+                    self.process_command(user_input, source="keyboard")
             except KeyboardInterrupt:
                 print("\nExiting...")
                 break
@@ -118,7 +295,7 @@ class AutomationEngine:
                 logger.error(f"Unexpected error in main loop: {e}", exc_info=True)
                 print(f"\nAn unexpected error occurred: {e}. Please try again.")
 
-    def process_command(self, user_input: str) -> None:
+    def process_command(self, user_input: str, source: str = "keyboard") -> None:
         """
         Main entry point for processing a natural language command.
         """
@@ -126,15 +303,21 @@ class AutomationEngine:
         logger.info(f"User Input: {user_input}")
         
         user_input_lower = user_input.lower().strip()
-        
+                
         # 1. Check for deterministic semantic routing
         semantic_json = self._route_semantic_command(user_input_lower)
         if semantic_json:
             logger.info("Router matched deterministic semantic pattern. Bypassing TaskPlanner and CommandParser.")
-            parsed_commands = [semantic_json]
-            tasks = [user_input]
+            
+            if isinstance(semantic_json, list):
+                parsed_commands = semantic_json
+                tasks = [user_input]
+            else:
+                parsed_commands = [semantic_json]
+                tasks = [user_input]
+                
             logger.info("Bypassing TaskPlanner for deterministic semantic operation.")
-            self._execute_parsed_commands(user_input, tasks, parsed_commands)
+            self._execute_parsed_commands(user_input, tasks, parsed_commands, source)
             return
         
         filesystem_keywords = [
@@ -144,21 +327,16 @@ class AutomationEngine:
             "rename file", "rename folder"
         ]
         
-        # Check standard keywords
         is_filesystem_command = any(user_input_lower.startswith(kw) for kw in filesystem_keywords)
         
-        # Check specific Pattern 1: create <filename.ext>
         if not is_filesystem_command:
-            # Matches 'create ' followed by a word with a dot and an extension
             if re.match(r"^create\s+[\w\-\.]+\.[a-z0-9]+\b", user_input_lower):
                 is_filesystem_command = True
                 logger.info("Router matched filesystem pattern:\ncreate <filename.ext>")
-            # Matches 'open ' followed by a word with a dot and an extension
             elif re.match(r"^open\s+[\w\-\.]+\.[a-z0-9]+\b", user_input_lower):
                 is_filesystem_command = True
                 logger.info("Router matched filesystem pattern:\nopen <filename.ext>")
                 
-        # Must not be a multi-step operation combined with 'and'
         if is_filesystem_command and " and " in user_input_lower:
             is_filesystem_command = False
             
@@ -183,8 +361,17 @@ class AutomationEngine:
         for task in tasks:
             logger.info(f"Parsing command: {task}")
             
-            # Direct parser bypass for Open File operations
-            open_file_match = re.match(r"^open\s+(?:file\s+)?([\w\-\.]+\.[a-zA-Z0-9]+)(?:\s+(?:in|inside)\s+(.+))?\s*$", task, re.IGNORECASE)
+            # Check if router can handle the individual task natively
+            semantic_json = self._route_semantic_command(task.lower())
+            if semantic_json:
+                logger.info("Router matched individual task natively, bypassing CommandParser.")
+                if isinstance(semantic_json, list):
+                    parsed_commands.extend(semantic_json)
+                else:
+                    parsed_commands.append(semantic_json)
+                continue
+            
+            open_file_match = re.match(r"^open\s+(?:file\s+)?([\w\-\.]+\.[a-zA-Z0-9]+)(?:\s+file)?(?:\s+(?:in|inside)\s+(.+))?\s*$", task, re.IGNORECASE)
             
             if open_file_match:
                 logger.info("Router matched open file operation, bypassing CommandParser.")
@@ -215,9 +402,9 @@ class AutomationEngine:
             else:
                 logger.error(f"Failed to parse task: {task}")
         
-        self._execute_parsed_commands(user_input, tasks, parsed_commands)
+        self._execute_parsed_commands(user_input, tasks, parsed_commands, source)
 
-    def _execute_parsed_commands(self, user_input: str, tasks: list, parsed_commands: list) -> None:
+    def _execute_parsed_commands(self, user_input: str, tasks: list, parsed_commands: list, source: str = "keyboard") -> None:
         if not parsed_commands:
             logger.error("Failed to generate any valid JSON commands. Please check the logs.")
             return
@@ -230,13 +417,13 @@ class AutomationEngine:
             
         logger.info(f"Execution results: {exec_result}")
         
-        # Record history
         self.history_manager.add_entry(
             user_command=user_input,
             generated_plan=tasks,
             generated_json=parsed_commands,
             resolved_json=parsed_commands,
-            execution_result=exec_result
+            execution_result=exec_result,
+            source=source
         )
         
         logger.info("Execution Result:")

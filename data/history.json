@@ -5559,5 +5559,6165 @@
             "status": "success",
             "message": "Opened URL: https://mail.google.com/?hl=en-US&ogbl=1"
         }
+    },
+    {
+        "timestamp": "2026-06-16T09:51:05.943369",
+        "user_command": "open vscode",
+        "generated_plan": [
+            "open vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:51:13.906222",
+        "user_command": "close it",
+        "generated_plan": [
+            "close it"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:51:23.619199",
+        "user_command": "open it again",
+        "generated_plan": [
+            "open it again"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:52:07.603623",
+        "user_command": "now open whatsapp and minimize it",
+        "generated_plan": [
+            "open whatsapp",
+            "minimize window"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "unknown",
+                    "result": {
+                        "status": "failed",
+                        "message": "Unknown or unsupported action."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:52:21.954344",
+        "user_command": "close it",
+        "generated_plan": [
+            "close it"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:52:33.273913",
+        "user_command": "open it again",
+        "generated_plan": [
+            "open it again"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:53:18.289692",
+        "user_command": "open calc",
+        "generated_plan": [
+            "open calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:53:22.787819",
+        "user_command": "do that again",
+        "generated_plan": [
+            "do that again"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:53:53.455215",
+        "user_command": "close all calc",
+        "generated_plan": [
+            "close calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:54:01.104392",
+        "user_command": "open it again",
+        "generated_plan": [
+            "open it again"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:54:28.743604",
+        "user_command": "close it all",
+        "generated_plan": [
+            "close all"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing all applications is not currently supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing all applications is not currently supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Closing all applications is not currently supported."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:54:31.908746",
+        "user_command": "close it",
+        "generated_plan": [
+            "close it"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:54:58.734931",
+        "user_command": "close it again",
+        "generated_plan": [
+            "close"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing applications is not a supported action."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing applications is not a supported action."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Closing applications is not a supported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:55:03.952777",
+        "user_command": "close it",
+        "generated_plan": [
+            "close it"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any running process matching 'calculator'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:55:36.148558",
+        "user_command": "close cal",
+        "generated_plan": [
+            "close cal"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "cal"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "cal"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any running process matching 'cal'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:56:07.480416",
+        "user_command": "close calc",
+        "generated_plan": [
+            "close calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any running process matching 'calculator'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:56:35.370962",
+        "user_command": "close vscode",
+        "generated_plan": [
+            "close vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Closing browser tabs/websites is not currently supported."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:57:10.978145",
+        "user_command": "close vscode application",
+        "generated_plan": [
+            "close vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Closing browser tabs/websites is not currently supported."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:57:41.810061",
+        "user_command": "open calculator",
+        "generated_plan": [
+            "open calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:57:43.590772",
+        "user_command": "close it",
+        "generated_plan": [
+            "close it"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Calculator closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:57:45.792578",
+        "user_command": "close it",
+        "generated_plan": [
+            "close it"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any running process matching 'calculator'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:58:19.150633",
+        "user_command": "close it again",
+        "generated_plan": [
+            "close it again"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing applications is not currently supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing applications is not currently supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Closing applications is not currently supported."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:58:22.271879",
+        "user_command": "open github website",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:58:25.040186",
+        "user_command": "search python projects there",
+        "generated_plan": [
+            "search python projects there"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python+projects&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=python+projects&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:58:47.001945",
+        "user_command": "what window is active",
+        "generated_plan": [
+            "what window is active"
+        ],
+        "generated_json": [
+            {
+                "action": "get_active_window",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "get_active_window",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Active window retrieved: 'SystemAutomationAssistant - Antigravity IDE - context_manager.py' (Antigravity IDE.exe)",
+            "title": "SystemAutomationAssistant - Antigravity IDE - context_manager.py",
+            "process_name": "Antigravity IDE.exe",
+            "handle": 2950842
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:58:58.013396",
+        "user_command": "switch to vscode",
+        "generated_plan": [
+            "switch to vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any window matching 'vscode'."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:59:03.562710",
+        "user_command": "switch to browser",
+        "generated_plan": [
+            "switch to browser"
+        ],
+        "generated_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "browser"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "browser"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any window matching 'browser'."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:59:10.735732",
+        "user_command": "switch to word",
+        "generated_plan": [
+            "switch to word"
+        ],
+        "generated_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "word"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "word"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Focused window successfully.",
+            "target": "word"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:59:28.050914",
+        "user_command": "switch to last application",
+        "generated_plan": [
+            "switch to last application"
+        ],
+        "generated_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Focused window successfully.",
+            "target": "calculator"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T09:59:56.744050",
+        "user_command": "witch to last application",
+        "generated_plan": [
+            "switch to last application"
+        ],
+        "generated_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:00:00.112923",
+        "user_command": "switch to last application",
+        "generated_plan": [
+            "switch to last application"
+        ],
+        "generated_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "focus_window",
+                "parameters": {
+                    "target": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Focused window successfully.",
+            "target": "calculator"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:05:06.740060",
+        "user_command": "open whatsapp and close calculator",
+        "generated_plan": [
+            "open whatsapp",
+            "close calculator"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "calculator"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Calculator closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:14:24.917255",
+        "user_command": "open github and github website kavi7605",
+        "generated_plan": [
+            "open github.com",
+            "search github.com for kavi7605"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "github.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "kavi7605"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "github.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "kavi7605"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_file",
+                    "result": {
+                        "status": "failed",
+                        "message": "Error opening file: cannot import name 'get_real_desktop_path' from 'src.tools.system_tools' (C:\\Kavi\\Work\\Degree\\Projects\\SystemAutomationAssistant\\src\\tools\\system_tools.py)"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'kavi7605'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:14:39.134292",
+        "user_command": "open github desktop",
+        "generated_plan": [
+            "open github desktop"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github desktop",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github desktop",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github desktop opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:14:44.595729",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:15:18.578047",
+        "user_command": "open github and github website",
+        "generated_plan": [
+            "open github",
+            "search github website for [default query]"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=[default query]"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=[default query]"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com/search?q=[default query]"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:15:56.644339",
+        "user_command": "open github websit",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:16:15.004358",
+        "user_command": "open github website kavi7605 and github desktop",
+        "generated_plan": [
+            "open github website kavi7605 and github desktop"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+and+github+desktop&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+and+github+desktop&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605+and+github+desktop&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:17:18.361797",
+        "user_command": "open youtube shorts",
+        "generated_plan": [
+            "open youtube website",
+            "search youtube for shorts"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=shorts"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=shorts"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://youtube.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.youtube.com/results?search_query=shorts"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:18:09.875538",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:19:30.649194",
+        "user_command": "edit test.txt in c drive kavi work degree charusat sem 7 internship reports and write day 7 report",
+        "generated_plan": [
+            "open file test.txt inside C drive Kavi Work Degree Charusat SEM 7 internship reports",
+            "write day 7 report in test.txt"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "C drive Kavi Work Degree Charusat SEM 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:20:22.997478",
+        "user_command": "open c drive kavi work degree projects",
+        "generated_plan": [
+            "open my computer",
+            "navigate to C drive Kavi Work Degree Projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "my computer"
+                }
+            },
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "my computer"
+                }
+            },
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "application_not_found",
+                        "message": "Application my computer could not be found in PATH."
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_folder",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Projects"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:21:00.005282",
+        "user_command": "open c drive kavi work degree projects system",
+        "generated_plan": [
+            "open C drive Kavi Work Degree Charusat SEM 7",
+            "navigate to projects system"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7"
+                }
+            },
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "projects system"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "C drive Kavi Work Degree Charusat SEM 7"
+                }
+            },
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "projects system"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_folder",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_folder",
+                    "result": {
+                        "status": "failed",
+                        "message": "No base location specified"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:21:28.454460",
+        "user_command": "open folder c drive kavi work degree projects",
+        "generated_plan": [
+            "open folder c drive kavi work degree projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Projects"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:22:26.571760",
+        "user_command": "open word",
+        "generated_plan": [
+            "open word"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "word"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "word"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Word opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:22:55.360323",
+        "user_command": "close word",
+        "generated_plan": [
+            "close word"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing applications is not currently supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing applications is not currently supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Closing applications is not currently supported."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:23:37.953658",
+        "user_command": "close word",
+        "generated_plan": [
+            "close word"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "word"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "word"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Word closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:25:19.997292",
+        "user_command": "open word and take screenshot after 20seconds",
+        "generated_plan": [
+            "open word",
+            "wait 20 seconds",
+            "take screenshot"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "word"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 20
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "word"
+                }
+            },
+            {
+                "action": "wait",
+                "parameters": {
+                    "seconds": 20
+                }
+            },
+            {
+                "action": "take_screenshot",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 3,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Word opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "wait",
+                    "result": {
+                        "status": "success",
+                        "message": "Waited 20 seconds"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "take_screenshot",
+                    "result": {
+                        "status": "success",
+                        "message": "Screenshot captured successfully",
+                        "file_path": "screenshots\\screenshot_20260616_102519.png"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T10:32:38.570484",
+        "user_command": "open github website kavi7605 and github desktop",
+        "generated_plan": [
+            "open github website kavi7605 and github desktop"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+and+github+desktop&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+and+github+desktop&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605+and+github+desktop&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:02:07.090834",
+        "user_command": "open github and github website kavi7650 user",
+        "generated_plan": [
+            "open github and github website kavi7650 user"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Multiple intents detected:\n1. Open Application\n2. Open Website\nPlease specify one."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Multiple intents detected:\n1. Open Application\n2. Open Website\nPlease specify one."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Multiple intents detected:\n1. Open Application\n2. Open Website\nPlease specify one."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:02:38.381361",
+        "user_command": "1",
+        "generated_plan": [
+            "open steam"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Steam opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:05:17.111609",
+        "user_command": "open github desktop and github website",
+        "generated_plan": [
+            "open github desktop and github website"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Multiple intents detected:\n1. Open Application\n2. Open Website\nPlease specify one."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Multiple intents detected:\n1. Open Application\n2. Open Website\nPlease specify one."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Multiple intents detected:\n1. Open Application\n2. Open Website\nPlease specify one."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:05:31.293105",
+        "user_command": "open github website kavi7605 user",
+        "generated_plan": [
+            "open github website kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Search target not specified. Please use 'and search'."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Search target not specified. Please use 'and search'."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Search target not specified. Please use 'and search'."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:05:38.579141",
+        "user_command": "open github website and search kavi7605 user",
+        "generated_plan": [
+            "open github website and search kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=users"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:46:28.737751",
+        "user_command": "open vscode and close steam",
+        "generated_plan": [
+            "open vscode and close steam"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode and close steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode and close steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "application_not_found",
+            "message": "Application vscode and close steam could not be found in PATH."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:46:41.930437",
+        "user_command": "close steam",
+        "generated_plan": [
+            "close steam"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Found 8 matching Steam processes. Closed all 8 successfully."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T11:46:47.918216",
+        "user_command": "open vscode",
+        "generated_plan": [
+            "open vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Vscode opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:38:35.874839",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:38:45.880212",
+        "user_command": "open github website",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:39:04.074037",
+        "user_command": "2",
+        "generated_plan": [
+            "2"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:39:31.116734",
+        "user_command": "1",
+        "generated_plan": [
+            "1"
+        ],
+        "generated_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:39:40.650115",
+        "user_command": "1",
+        "generated_plan": [
+            "1"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:40:17.369638",
+        "user_command": "open vscode and close steam",
+        "generated_plan": [
+            "open vscode",
+            "close steam"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Vscode opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Could not find any running process matching 'steam'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:41:06.385007",
+        "user_command": "close vscode and whatsapp",
+        "generated_plan": [
+            "close vscode",
+            "open whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Could not find any running process matching 'vscode'"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:42:07.448993",
+        "user_command": "close whatsapp",
+        "generated_plan": [
+            "close whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:42:36.421967",
+        "user_command": "open test.txt in c drive kavi work degree charusat internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "internship",
+            "current_path": "C:\\Kavi\\Work\\Degree\\Charusat",
+            "message": "Could not find folder 'internship'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T12:42:49.951166",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:28:31.980532",
+        "user_command": "open github and github website",
+        "generated_plan": [
+            "open github and github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:29:02.303321",
+        "user_command": "open youtube and github",
+        "generated_plan": [
+            "open youtube",
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://youtube.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:29:37.084519",
+        "user_command": "open github and youtube",
+        "generated_plan": [
+            "open github website",
+            "open youtube website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://youtube.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:30:32.890441",
+        "user_command": "open youtube website and github",
+        "generated_plan": [
+            "open youtube website and github"
+        ],
+        "generated_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Youtube searches must use: open youtube website and search <query> <mode>"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Youtube searches must use: open youtube website and search <query> <mode>"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Youtube searches must use: open youtube website and search <query> <mode>"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:30:45.034441",
+        "user_command": "open youtube",
+        "generated_plan": [
+            "open youtube"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "youtube",
+                    "fallback_url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "youtube",
+                    "fallback_url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Application not found. Opened fallback website: https://www.youtube.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:31:24.802137",
+        "user_command": "open youtube and search shorts",
+        "generated_plan": [
+            "open youtube website",
+            "search youtube for shorts"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=shorts"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=shorts"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://youtube.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.youtube.com/results?search_query=shorts"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:31:37.892653",
+        "user_command": "open youtube",
+        "generated_plan": [
+            "open youtube"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "youtube",
+                    "fallback_url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "youtube",
+                    "fallback_url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Application not found. Opened fallback website: https://www.youtube.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:31:41.930864",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github",
+                    "fallback_url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:31:46.318011",
+        "user_command": "open github website",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:31:54.066389",
+        "user_command": "open github and youtube website",
+        "generated_plan": [
+            "open github and youtube website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://www.youtube.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:36:04.365597",
+        "user_command": "open folder c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open folder c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "OpenFolderTool.execute() missing 1 required positional argument: 'folder_path'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:36:21.591585",
+        "user_command": "open folder reports c drive kavi work degree charusat sem 7 internship",
+        "generated_plan": [
+            "open folder reports c drive kavi work degree charusat sem 7 internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "path": "reports c drive kavi work degree charusat sem 7 internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "path": "reports c drive kavi work degree charusat sem 7 internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "OpenFolderTool.execute() missing 1 required positional argument: 'folder_path'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:36:45.142587",
+        "user_command": "open reports folder in c drive kavi work degree charusat sem 7 internship",
+        "generated_plan": [
+            "open reports folder in c drive kavi work degree charusat sem 7 internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "reports folder in c drive kavi work degree charusat sem 7 internship",
+                    "fallback_url": null
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "reports folder in c drive kavi work degree charusat sem 7 internship",
+                    "fallback_url": null
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "application_not_found",
+            "message": "Application reports folder in c drive kavi work degree charusat sem 7 internship could not be found in PATH."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T13:37:34.094966",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:26:54.314148",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:27:01.530730",
+        "user_command": "open github website",
+        "generated_plan": [
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:27:08.115023",
+        "user_command": "open github and github website",
+        "generated_plan": [
+            "open github and github website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:27:16.648435",
+        "user_command": "open github wesbtie and github",
+        "generated_plan": [
+            "open github wesbtie and github"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github wesbtie"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github wesbtie"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'github wesbtie'"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:27:51.032432",
+        "user_command": "open github and search for kavi7605 user",
+        "generated_plan": [
+            "open github website",
+            "search github for kavi7605"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "kavi7605"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "kavi7605"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'kavi7605'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:28:47.110717",
+        "user_command": "open github website kavi7605 user",
+        "generated_plan": [
+            "open github website kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+user&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+user&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605+user&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:29:46.199902",
+        "user_command": "open youtube and search avengers",
+        "generated_plan": [
+            "open youtube",
+            "search avengers"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "avengers"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://youtube.com"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "avengers"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://youtube.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'avengers'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:29:56.108262",
+        "user_command": "open youtube avengers",
+        "generated_plan": [
+            "open youtube avengers"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "youtube avengers"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "youtube avengers"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'youtube avengers'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:30:05.131146",
+        "user_command": "open youtube for avengers",
+        "generated_plan": [
+            "open youtube for avengers"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "youtube for avengers"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "youtube for avengers"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'youtube for avengers'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:30:14.633164",
+        "user_command": "open youtube website avengers",
+        "generated_plan": [
+            "open youtube website avengers"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=avengers"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=avengers"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com/results?search_query=avengers"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:30:24.701744",
+        "user_command": "open youtube",
+        "generated_plan": [
+            "open youtube"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:54:45.398424",
+        "user_command": "open github website kavi7605",
+        "generated_plan": [
+            "open github website kavi7605"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:54:49.483915",
+        "user_command": "open github website kavi7605 users",
+        "generated_plan": [
+            "open github website kavi7605 users"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+users&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605+users&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605+users&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:55:42.305860",
+        "user_command": "open whatsapp and close lively wallpaper",
+        "generated_plan": [
+            "open whatsapp",
+            "close lively wallpaper"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "unsupported",
+                    "result": {
+                        "status": "failed",
+                        "message": "Closing browser tabs/websites is not currently supported."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:56:27.848066",
+        "user_command": "open youtube",
+        "generated_plan": [
+            "open youtube"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:56:47.973517",
+        "user_command": "open youtube website and search ghost of yotei",
+        "generated_plan": [
+            "open youtube website and search ghost of yotei"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=ghost+of+yotei"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com/results?search_query=ghost+of+yotei"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:56:59.949978",
+        "user_command": "open youtube website and search beastboi",
+        "generated_plan": [
+            "open youtube website and search beastboi"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=beastboi"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=beastboi"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com/results?search_query=beastboi"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:57:13.860293",
+        "user_command": "open gsrtc website",
+        "generated_plan": [
+            "open gsrtc website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://gsrtc.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://gsrtc.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://gsrtc.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:57:30.967096",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:58:01.000350",
+        "user_command": "open gmail",
+        "generated_plan": [
+            "open gmail"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "gmail"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "gmail"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'gmail'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:58:10.721893",
+        "user_command": "open drive",
+        "generated_plan": [
+            "open drive"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "drive"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "drive"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Drive opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:58:18.815847",
+        "user_command": "open drive website",
+        "generated_plan": [
+            "open drive website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://drive.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://drive.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://drive.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:58:33.390056",
+        "user_command": "open gmail website",
+        "generated_plan": [
+            "open gmail website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://gmail.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://gmail.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://gmail.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:58:43.565619",
+        "user_command": "open googledrive website",
+        "generated_plan": [
+            "open googledrive website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://googledrive.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://googledrive.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://googledrive.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:58:47.461580",
+        "user_command": "open google drive website",
+        "generated_plan": [
+            "open google drive website"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://google drive.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://google drive.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://google drive.com"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T14:59:23.189779",
+        "user_command": "open github website and github",
+        "generated_plan": [
+            "open github website and github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:46:15.371000",
+        "user_command": "open github and search kavi7605 user",
+        "generated_plan": [
+            "open github and search kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=users"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:46:26.058855",
+        "user_command": "open github kavi7605 user",
+        "generated_plan": [
+            "open github kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github kavi7605 user"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github kavi7605 user"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'github kavi7605 user'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:46:40.143420",
+        "user_command": "open github website kavi7605 user",
+        "generated_plan": [
+            "open github website kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=users"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:46:51.573749",
+        "user_command": "open github website kavi7605",
+        "generated_plan": [
+            "open github website kavi7605"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:47:11.947187",
+        "user_command": "open github and search python repositories",
+        "generated_plan": [
+            "open github and search python repositories"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=python&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=python&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:47:24.046524",
+        "user_command": "open youtube and search avengers",
+        "generated_plan": [
+            "open youtube and search avengers"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=avengers"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=avengers"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com/results?search_query=avengers"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:47:33.973782",
+        "user_command": "open youtube website avengers",
+        "generated_plan": [
+            "open youtube website avengers"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=avengers"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.youtube.com/results?search_query=avengers"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.youtube.com/results?search_query=avengers"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:47:40.329513",
+        "user_command": "open youtube avengers",
+        "generated_plan": [
+            "open youtube avengers"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "youtube avengers"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "youtube avengers"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'youtube avengers'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:47:53.293470",
+        "user_command": "open reddit and search python",
+        "generated_plan": [
+            "open reddit and search python"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.reddit.com/search/?q=python"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://www.reddit.com/search/?q=python"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://www.reddit.com/search/?q=python"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:48:01.273339",
+        "user_command": "close lively wallpaper",
+        "generated_plan": [
+            "close lively wallpaper"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "lively wallpaper"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "lively wallpaper"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Could not find any running process matching 'lively wallpaper'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:48:27.706356",
+        "user_command": "open whatsapp and close lively wallpaper",
+        "generated_plan": [
+            "open whatsapp",
+            "close lively wallpaper"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "unsupported",
+                "parameters": {
+                    "message": "Closing browser tabs/websites is not currently supported."
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "unsupported",
+                    "result": {
+                        "status": "failed",
+                        "message": "Closing browser tabs/websites is not currently supported."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:50:20.633039",
+        "user_command": "close whatsapp and open github",
+        "generated_plan": [
+            "close whatsapp",
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp closed successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:50:26.677588",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:51:27.326169",
+        "user_command": "open github and whatsapp",
+        "generated_plan": [
+            "open github and whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:52:02.401048",
+        "user_command": "close github and whatsapp",
+        "generated_plan": [
+            "close github",
+            "close whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github closed successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:52:09.051195",
+        "user_command": "open whatsapp and github",
+        "generated_plan": [
+            "open whatsapp and github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:52:28.978813",
+        "user_command": "close whatsapp",
+        "generated_plan": [
+            "close whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:53:01.018105",
+        "user_command": "open whatsapp and close github",
+        "generated_plan": [
+            "open whatsapp",
+            "close github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T15:53:39.029901",
+        "user_command": "close whatsapp and open github",
+        "generated_plan": [
+            "close whatsapp",
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp closed successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:02:22.713063",
+        "user_command": "open whatsapp",
+        "generated_plan": [
+            "open whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:02:34.776082",
+        "user_command": "close whatsapp and open github",
+        "generated_plan": [
+            "close whatsapp",
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp closed successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Github opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:02:59.255618",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:28:24.727501",
+        "user_command": "PS C:\\Kavi\\Work\\Degree\\Projects\\SystemAutomationAssistant> python .\\main.py",
+        "generated_plan": [
+            "open python",
+            "run main.py"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "python"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "main.py"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "python"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "main.py"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Python opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Application main.py failed to launch: [WinError 193] %1 is not a valid Win32 application"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:28:47.232040",
+        "user_command": "Initializing System Automation Assistant...",
+        "generated_plan": [
+            "Initializing System Automation Assistant..."
+        ],
+        "generated_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:29:08.400425",
+        "user_command": "Assistant ready! Type 'exit' or 'quit' to stop.",
+        "generated_plan": [
+            "open assistant",
+            "type exit or quit to stop"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "assistant"
+                }
+            },
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "assistant"
+                }
+            },
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 1,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Assistant opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "unknown",
+                    "result": {
+                        "status": "failed",
+                        "message": "Unknown or unsupported action."
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:29:30.486577",
+        "user_command": "--------------------------------------------------",
+        "generated_plan": [
+            "--------------------------------------------------"
+        ],
+        "generated_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:29:42.466337",
+        "user_command": "Enter command: open whatsapp",
+        "generated_plan": [
+            "open whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:29:44.007108",
+        "user_command": "Enter command: close whatsapp and open github",
+        "generated_plan": [
+            "close whatsapp",
+            "open github website"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp closed successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_url",
+                    "result": {
+                        "status": "success",
+                        "message": "Opened URL: https://github.com"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:29:58.041206",
+        "user_command": "===== RAW RESPONSE =====",
+        "generated_plan": [
+            "===== RAW RESPONSE ====="
+        ],
+        "generated_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:30:16.341900",
+        "user_command": "open github and search kavi7605 user",
+        "generated_plan": [
+            "open github and search kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=users"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:30:31.927944",
+        "user_command": "open github kavi7605 user",
+        "generated_plan": [
+            "open github kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github kavi7605 user"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "github kavi7605 user"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'github kavi7605 user'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:30:55.318877",
+        "user_command": "open github website kavi7605 user",
+        "generated_plan": [
+            "open github website kavi7605 user"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=users"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=users"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:31:04.566934",
+        "user_command": "open github website kavi7605",
+        "generated_plan": [
+            "open github website kavi7605"
+        ],
+        "generated_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=repositories"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_url",
+                "parameters": {
+                    "url": "https://github.com/search?q=kavi7605&type=repositories"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened URL: https://github.com/search?q=kavi7605&type=repositories"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:31:32.433413",
+        "user_command": "open reports folder in c drive kavi work degree charusat internship",
+        "generated_plan": [
+            "open reports folder in c drive kavi work degree charusat internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charusat internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charusat internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "internship",
+            "current_path": "C:\\Kavi\\Work\\Degree\\Charusat",
+            "message": "Could not find folder 'internship'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:31:42.361455",
+        "user_command": "open reports folder in c drive kavi work degree charusat sem 7 internship",
+        "generated_plan": [
+            "open reports folder in c drive kavi work degree charusat sem 7 internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charusat sem 7 internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charusat sem 7 internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\reports",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\reports"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:32:07.926340",
+        "user_command": "open system folder in c drive kavi work degree projects",
+        "generated_plan": [
+            "open system folder in c drive kavi work degree projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "system",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "system",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Resolved path is not a valid directory: C:\\Kavi\\Work\\Degree\\Projects\\system"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:32:19.626455",
+        "user_command": "open systemautomationassistance folder in c drive kavi work degree projects",
+        "generated_plan": [
+            "open systemautomationassistance folder in c drive kavi work degree projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistance",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistance",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Resolved path is not a valid directory: C:\\Kavi\\Work\\Degree\\Projects\\systemautomationassistance"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:32:42.383374",
+        "user_command": "open systemautomationassistant folder in c drive kavi work degree projects",
+        "generated_plan": [
+            "open systemautomationassistant folder in c drive kavi work degree projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Projects\\systemautomationassistant",
+            "path": "C:\\Kavi\\Work\\Degree\\Projects\\systemautomationassistant"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:32:54.566589",
+        "user_command": "open systemautomationassistant folder in c drive kavi work degree projects",
+        "generated_plan": [
+            "open systemautomationassistant folder in c drive kavi work degree projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Projects\\systemautomationassistant",
+            "path": "C:\\Kavi\\Work\\Degree\\Projects\\systemautomationassistant"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:33:25.198083",
+        "user_command": "open test.txt file in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt file in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "test.txt file in c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "test.txt file in c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'test.txt file in c drive kavi work degree charusat sem 7 internship reports'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:33:31.431692",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:45:28.031334",
+        "user_command": "open reports folder in c drive kavi work degree charisat sem 7 internship",
+        "generated_plan": [
+            "open reports folder in c drive kavi work degree charisat sem 7 internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charisat sem 7 internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charisat sem 7 internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": "charisat",
+            "current_path": "C:\\Kavi\\Work\\Degree",
+            "message": "Could not find folder 'charisat'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:45:33.823462",
+        "user_command": "open reports folder in c drive kavi work degree charusat sem 7 internship",
+        "generated_plan": [
+            "open reports folder in c drive kavi work degree charusat sem 7 internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charusat sem 7 internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive kavi work degree charusat sem 7 internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\reports",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\reports"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:46:03.082983",
+        "user_command": "open test.txt file in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt file in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T16:46:15.235519",
+        "user_command": "open test.txt in c drive kavi work degree charusat sem 7 internship reports",
+        "generated_plan": [
+            "open test.txt in c drive kavi work degree charusat sem 7 internship reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive kavi work degree charusat sem 7 internship reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened file: C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt",
+            "path": "C:\\Kavi\\Work\\Degree\\Charusat\\SEM 7\\Internship\\Reports\\test.txt"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T17:02:24.668104",
+        "user_command": "open folder system automation assistant in c drive kavi work degree projects",
+        "generated_plan": [
+            "open folder system automation assistant in c drive kavi work degree projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "system automation assistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "system automation assistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Resolved path is not a valid directory: C:\\Kavi\\Work\\Degree\\Projects\\system automation assistant"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T17:02:30.277250",
+        "user_command": "open folder systemautomationassistant in c drive kavi work degree projects",
+        "generated_plan": [
+            "open folder systemautomationassistant in c drive kavi work degree projects"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "systemautomationassistant",
+                    "base_path": "c drive kavi work degree projects"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Opened folder: C:\\Kavi\\Work\\Degree\\Projects\\systemautomationassistant",
+            "path": "C:\\Kavi\\Work\\Degree\\Projects\\systemautomationassistant"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T17:04:56.762113",
+        "user_command": "open postman",
+        "generated_plan": [
+            "open postman"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "postman"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "postman"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Postman opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T17:05:06.604065",
+        "user_command": "open figma",
+        "generated_plan": [
+            "open figma"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "figma"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "figma"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'figma'"
+        }
+    },
+    {
+        "timestamp": "2026-06-16T17:06:09.675645",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:54:07.722600",
+        "source": "keyboard",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:57:03.739764",
+        "source": "voice",
+        "user_command": "open good well",
+        "generated_plan": [
+            "open good well"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "good well"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "good well"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'good well'"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:57:32.134372",
+        "source": "voice",
+        "user_command": "open get up",
+        "generated_plan": [
+            "open get up"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "get up"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "get up"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'get up'"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:57:38.511253",
+        "source": "keyboard",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:58:13.368103",
+        "source": "voice",
+        "user_command": "thorpe when you do",
+        "generated_plan": [
+            "thorpe when you do"
+        ],
+        "generated_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "unknown",
+                "parameters": {}
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "message": "Unknown or unsupported action."
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:58:29.657013",
+        "source": "voice",
+        "user_command": "open browser",
+        "generated_plan": [
+            "open browser"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "browser"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "browser"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Browser opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:58:38.473066",
+        "source": "voice",
+        "user_command": "open brave",
+        "generated_plan": [
+            "open brave"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "brave"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "brave"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Brave opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:58:52.278778",
+        "source": "voice",
+        "user_command": "open walked up and browser",
+        "generated_plan": [
+            "open walked up and browser"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "walked up"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "browser"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "walked up"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "browser"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'walked up'"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Browser opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:59:03.200451",
+        "source": "voice",
+        "user_command": "close edge",
+        "generated_plan": [
+            "close edge"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "edge"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Edge closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T09:59:14.899486",
+        "source": "voice",
+        "user_command": "open like that",
+        "generated_plan": [
+            "open like that"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "like that"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "like that"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Searched web for 'like that'"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:29:23.513749",
+        "source": "voice",
+        "user_command": "open github",
+        "generated_plan": [
+            "open github"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "github"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Github opened successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:29:46.215885",
+        "source": "voice",
+        "user_command": "open whatsapp and brave",
+        "generated_plan": [
+            "open whatsapp and brave"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "brave"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "brave"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Brave opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:30:13.139708",
+        "source": "voice",
+        "user_command": "Close whatsapp",
+        "generated_plan": [
+            "Close whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "success",
+            "message": "Whatsapp closed successfully"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:39:41.301437",
+        "source": "voice",
+        "user_command": "Open Reports folder in C drive, Kavi, Work, Degree, Charusat, SAM 7, Internship",
+        "generated_plan": [
+            "Open Reports folder in C drive, Kavi, Work, Degree, Charusat, SAM 7, Internship"
+        ],
+        "generated_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive, kavi, work, degree, charusat, sam 7, internship"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_folder",
+                "parameters": {
+                    "folder_name": "reports",
+                    "base_path": "c drive, kavi, work, degree, charusat, sam 7, internship"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": ",",
+            "current_path": "C:\\",
+            "message": "Could not find folder ','"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:40:43.425012",
+        "source": "voice",
+        "user_command": "Open test.txt file in C drive, curvy, work, degree, charusat, sem7, internship, reports",
+        "generated_plan": [
+            "Open test.txt file in C drive, curvy, work, degree, charusat, sem7, internship, reports"
+        ],
+        "generated_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive, curvy, work, degree, charusat, sem7, internship, reports"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_file",
+                "parameters": {
+                    "file_name": "test.txt",
+                    "path": "c drive, curvy, work, degree, charusat, sem7, internship, reports"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "failed",
+            "failed_token": ",",
+            "current_path": "C:\\",
+            "message": "Could not find folder ','"
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:41:45.231952",
+        "source": "voice",
+        "user_command": "open discord, steam, whatsapp and vs code",
+        "generated_plan": [
+            "open discord, steam, whatsapp and vs code"
+        ],
+        "generated_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "discord, steam, whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vs code"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "discord, steam, whatsapp"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "vs code"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'discord, steam, whatsapp'"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Vs code opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:42:15.731986",
+        "source": "voice",
+        "user_command": "open steam and discord and whatsapp",
+        "generated_plan": [
+            "open steam and discord and whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "discord and whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "search_web",
+                "parameters": {
+                    "query": "discord and whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "search_web",
+                    "result": {
+                        "status": "success",
+                        "message": "Searched web for 'discord and whatsapp'"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:42:47.639802",
+        "source": "voice",
+        "user_command": "open discord and whatsapp",
+        "generated_plan": [
+            "open discord and whatsapp"
+        ],
+        "generated_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            },
+            {
+                "action": "open_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Discord opened successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "open_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp opened successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:45:05.426519",
+        "source": "voice",
+        "user_command": "close whatsapp and discord",
+        "generated_plan": [
+            "close whatsapp",
+            "close discord"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "whatsapp"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "discord"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 2,
+            "successful": 2,
+            "failed": 0,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Whatsapp closed successfully"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Discord closed successfully"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "timestamp": "2026-06-17T10:45:48.321225",
+        "source": "voice",
+        "user_command": "close github steam and vs code",
+        "generated_plan": [
+            "close github website",
+            "close steam",
+            "close vscode"
+        ],
+        "generated_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "github website"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "resolved_json": [
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "github website"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "steam"
+                }
+            },
+            {
+                "action": "close_application",
+                "parameters": {
+                    "application_name": "vscode"
+                }
+            }
+        ],
+        "execution_result": {
+            "status": "completed",
+            "total_steps": 3,
+            "successful": 2,
+            "failed": 1,
+            "results": [
+                {
+                    "step": 1,
+                    "action": "close_application",
+                    "result": {
+                        "status": "failed",
+                        "message": "Could not find any running process matching 'github website'"
+                    }
+                },
+                {
+                    "step": 2,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Steam closed successfully"
+                    }
+                },
+                {
+                    "step": 3,
+                    "action": "close_application",
+                    "result": {
+                        "status": "success",
+                        "message": "Vscode closed successfully"
+                    }
+                }
+            ]
+        }
     }
 ]
