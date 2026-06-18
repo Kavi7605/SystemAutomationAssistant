@@ -30,6 +30,88 @@ class AutomationEngine:
     def get_history(self) -> List[Dict[str, Any]]:
         return self.history_manager.get_history()
 
+    SEQUENCE_SEPARATORS = [
+        r"\band\b",
+        r"\bthen\b",
+        ","
+    ]
+
+    def _normalize_app_chains(self, command: str) -> str:
+        """
+        Rewrites application chains like 'open discord and whatsapp and steam' 
+        to 'open discord and open whatsapp and open steam'.
+        """
+        separator_pattern = "|".join(self.SEQUENCE_SEPARATORS)
+        regex = rf'\s*(?:{separator_pattern})\s*'
+        
+        type_match = re.search(rf'\s*(?:{separator_pattern})\s*(type\s+|write\s+)', command, flags=re.IGNORECASE)
+        type_suffix = ""
+        if type_match:
+            idx = type_match.start(1)
+            type_suffix = command[idx:]
+            command = command[:type_match.start()]
+            
+        if not command.strip():
+            return type_suffix
+            
+        parts = re.split(regex, command, flags=re.IGNORECASE)
+        action_verbs = ("open ", "close ", "create ", "delete ", "move ", "copy ", "rename ", "search ", "wait ", "click", "double click", "right click", "type ", "write ", "press ", "scroll ")
+        
+        normalized_parts = []
+        carry_over = None
+        
+        for part in parts:
+            part_lower = part.strip().lower()
+            if not part_lower:
+                continue
+                
+            starts_with_verb = any(part_lower.startswith(v) for v in action_verbs)
+            
+            if starts_with_verb:
+                normalized_parts.append(part.strip())
+                if part_lower.startswith("open "):
+                    carry_over = "open "
+                elif part_lower.startswith("close "):
+                    carry_over = "close "
+                else:
+                    carry_over = None
+            else:
+                if carry_over:
+                    normalized_parts.append(f"{carry_over}{part.strip()}")
+                else:
+                    normalized_parts.append(part.strip())
+                    carry_over = None
+                    
+        normalized_cmd = " and ".join(normalized_parts)
+        if type_suffix:
+            normalized_cmd += " and " + type_suffix
+            
+        return normalized_cmd
+
+    def _expand_multi_actions(self, command: str) -> list[str]:
+        """Splits deterministic action chains into individual tasks."""
+        if command.lower().startswith("type ") or command.lower().startswith("write "):
+            return [command]
+            
+        separator_pattern = "|".join(self.SEQUENCE_SEPARATORS)
+        type_match = re.search(rf'\s*(?:{separator_pattern})\s*(type\s+|write\s+)', command, flags=re.IGNORECASE)
+        
+        type_task = None
+        if type_match:
+            type_task = command[type_match.start(1):].strip()
+            command = command[:type_match.start()].strip()
+            
+        if not command:
+            return [type_task] if type_task else []
+            
+        regex = rf'\s*(?:{separator_pattern})\s*'
+        parts = [p.strip() for p in re.split(regex, command, flags=re.IGNORECASE) if p.strip()]
+        
+        if type_task:
+            parts.append(type_task)
+            
+        return parts
+
     def _classify_target(self, target: str) -> Dict[str, Any]:
         """
         Classifies a target into Website, Application, or SearchWeb using the exact approved hierarchy.
@@ -82,6 +164,55 @@ class AutomationEngine:
         from src.core.website_registry import WEBSITE_REGISTRY
         from src.core.url_builder import build_search_url, build_base_url
         
+        # 0. Desktop Interaction Toolkit Routing
+        # click [x y]
+        click_match = re.match(r"^click(?:\s+(\d+)\s+(\d+))?$", user_input_lower)
+        if click_match:
+            params = {}
+            if click_match.group(1) and click_match.group(2):
+                params["x"] = int(click_match.group(1))
+                params["y"] = int(click_match.group(2))
+            return {"action": "click", "parameters": params}
+
+        # double click [x y]
+        double_click_match = re.match(r"^double\s+click(?:\s+(\d+)\s+(\d+))?$", user_input_lower)
+        if double_click_match:
+            params = {}
+            if double_click_match.group(1) and double_click_match.group(2):
+                params["x"] = int(double_click_match.group(1))
+                params["y"] = int(double_click_match.group(2))
+            return {"action": "double_click", "parameters": params}
+
+        # right click [x y]
+        right_click_match = re.match(r"^right\s+click(?:\s+(\d+)\s+(\d+))?$", user_input_lower)
+        if right_click_match:
+            params = {}
+            if right_click_match.group(1) and right_click_match.group(2):
+                params["x"] = int(right_click_match.group(1))
+                params["y"] = int(right_click_match.group(2))
+            return {"action": "right_click", "parameters": params}
+
+        # type / write <text>
+        type_match = re.match(r"^(?:type|write)\s+(.+)$", user_input_lower)
+        if type_match:
+            return {"action": "type_text", "parameters": {"text": type_match.group(1)}}
+
+        # press <keys>
+        press_match = re.match(r"^press\s+(.+)$", user_input_lower)
+        if press_match:
+            keys = press_match.group(1).split()
+            return {"action": "hotkey", "parameters": {"keys": keys}}
+
+        # scroll down / up
+        scroll_match = re.match(r"^scroll\s+(down|up)$", user_input_lower)
+        if scroll_match:
+            return {"action": "scroll", "parameters": {"direction": scroll_match.group(1)}}
+
+        # move mouse [to] <x> <y>
+        move_match = re.match(r"^move\s+mouse(?:\s+to)?\s+(\d+)\s+(\d+)$", user_input_lower)
+        if move_match:
+            return {"action": "move_mouse", "parameters": {"x": int(move_match.group(1)), "y": int(move_match.group(2))}}
+        
         # 1.0 Search Intent Bypass
         search_intent_match = re.match(r"^open\s+(.+?)\s+and\s+search(?:\s+for)?\s+(.+)$", user_input_lower)
         if search_intent_match:
@@ -96,20 +227,8 @@ class AutomationEngine:
             if search_url:
                 return {"action": "open_url", "parameters": {"url": search_url}}
                 
-        # 1. Multi-Action Routing
-        multi_match = re.match(r"^open\s+(.+?)\s+and\s+(.+)$", user_input_lower)
-        if multi_match:
-            target1 = multi_match.group(1).strip()
-            target2 = multi_match.group(2).strip()
-            
-            # Reject if target2 starts with an action verb (protects planner fallback)
-            action_verbs = ("open ", "close ", "create ", "delete ", "move ", "copy ", "rename ", "search ", "wait ")
-            if target2.startswith(action_verbs):
-                pass # let it fall through
-            else:
-                action1 = self._classify_target(target1)
-                action2 = self._classify_target(target2)
-                return [action1, action2]
+        # The old multi-match block has been removed to rely completely on the Multi-Action Sequencer
+        # This allows mixed deterministic/non-deterministic sequences to properly fall through to the planner.
 
         # 2. Website & Search Routing (Normalizations)
         website_match = re.match(r"^open\s+(.+?)\s+website(?:\s+(.*))?$", user_input_lower)
@@ -304,6 +423,34 @@ class AutomationEngine:
         
         user_input_lower = user_input.lower().strip()
                 
+        # 0. Deterministic Multi-Action Sequencing
+        normalized_input = self._normalize_app_chains(user_input_lower)
+        expanded_tasks = self._expand_multi_actions(normalized_input)
+        
+        if len(expanded_tasks) > 1:
+            all_deterministic = True
+            parsed_commands = []
+            
+            for task in expanded_tasks:
+                semantic_json = self._route_semantic_command(task)
+                if not semantic_json:
+                    all_deterministic = False
+                    break
+                    
+                if isinstance(semantic_json, list):
+                    parsed_commands.extend(semantic_json)
+                else:
+                    parsed_commands.append(semantic_json)
+                    
+            if all_deterministic:
+                logger.info("Multi-action detected.")
+                logger.info(f"Expanded into {len(expanded_tasks)} tasks.")
+                for i, task in enumerate(expanded_tasks, 1):
+                    logger.info(f"Sequence Task {i}: {task}")
+                logger.info("Executing deterministic sequence.")
+                self._execute_parsed_commands(user_input, expanded_tasks, parsed_commands, source)
+                return
+
         # 1. Check for deterministic semantic routing
         semantic_json = self._route_semantic_command(user_input_lower)
         if semantic_json:

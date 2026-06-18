@@ -21,6 +21,15 @@ from src.tools.system_tools import (
     OpenFolderTool,
     OpenFileTool
 )
+from src.tools.desktop_tools import (
+    ClickTool,
+    DoubleClickTool,
+    RightClickTool,
+    TypeTextTool,
+    HotkeyTool,
+    ScrollTool,
+    MoveMouseTool
+)
 
 logger = setup_logger("system_assistant")
 
@@ -43,6 +52,15 @@ def main():
         registry.register(CreateFileTool())
         registry.register(OpenFolderTool())
         registry.register(OpenFileTool())
+        
+        # Desktop Tools
+        registry.register(ClickTool())
+        registry.register(DoubleClickTool())
+        registry.register(RightClickTool())
+        registry.register(TypeTextTool())
+        registry.register(HotkeyTool())
+        registry.register(ScrollTool())
+        registry.register(MoveMouseTool())
         
         # 1. Create Ollama client connecting to localhost:11434 with gemma3:4b
         client = OllamaClient(host="http://localhost:11434", model="gemma3:4b")

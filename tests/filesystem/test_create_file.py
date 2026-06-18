@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.tools.system_tools import CreateFileTool
 
-def run_tests():
+def test_create_file():
     print("Testing CreateFileTool behavior:")
     tool = CreateFileTool()
     
@@ -76,5 +76,4 @@ def run_tests():
         
     print("\nAll CreateFileTool tests passed!")
 
-if __name__ == "__main__":
-    run_tests()
+

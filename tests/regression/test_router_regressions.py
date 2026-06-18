@@ -1,7 +1,5 @@
 import sys
 import os
-import unittest
-from unittest.mock import MagicMock
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -12,16 +10,16 @@ from src.planner.resolver import CommandResolver
 from src.planner.task_planner import TaskPlanner
 from src.automation.executor import Executor
 
-class TestDay8Part5(unittest.TestCase):
+class TestFileRoutingRegressions:
     def assertExecute(self, expected_action, expected_params=None):
         self.executor_mock.execute.assert_called()
         cmd = self.executor_mock.execute.call_args[0][0]
         if isinstance(cmd, list):
             cmd = cmd[0]
-        self.assertEqual(cmd["action"], expected_action)
+        assert cmd["action"] == expected_action
         if expected_params:
             for k, v in expected_params.items():
-                self.assertEqual(cmd["parameters"][k], v)
+                assert cmd["parameters"][k] == v
         self.executor_mock.reset_mock()
 
     def test_open_file_routing_grammar(self):
@@ -49,8 +47,7 @@ class TestDay8Part5(unittest.TestCase):
         self.engine.process_command("open test.txt file in desktop")
         self.assertExecute("open_file", {"file_name": "test.txt", "path": "desktop"})
 
-if __name__ == "__main__":
-    unittest.main()
+
 
     def test_folder_navigation(self):
         # open reports folder

@@ -1,6 +1,7 @@
+from unittest.mock import MagicMock
+from unittest.mock import patch
 import pytest
 import numpy as np
-from unittest.mock import patch, MagicMock
 from src.voice.speech_to_text_whisper import SpeechToTextWhisper
 
 @patch("src.voice.speech_to_text_whisper.WhisperModel")

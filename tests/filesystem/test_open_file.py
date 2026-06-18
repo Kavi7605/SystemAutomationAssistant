@@ -7,7 +7,7 @@ from src.tools.system_tools import OpenFileTool
 from src.core.command_parser import CommandParser
 from src.automation.engine import AutomationEngine
 
-def run_tests():
+def test_open_file():
     print("Testing OpenFileTool behavior:")
     from src.tools.system_tools import OpenFileTool
     tool = OpenFileTool()
@@ -58,5 +58,4 @@ def run_tests():
 
     print("\nAll OpenFileTool tests passed!")
 
-if __name__ == "__main__":
-    run_tests()
+

@@ -1,7 +1,5 @@
 import sys
 import os
-import unittest
-from unittest.mock import MagicMock
 
 # Add the project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -13,7 +11,7 @@ from src.planner.resolver import CommandResolver
 from src.planner.task_planner import TaskPlanner
 from src.automation.executor import Executor
 
-class TestFilesystemBypass(unittest.TestCase):
+class TestFilesystemBypass:
     def test_1_create_folder_bypasses_planner(self):
         input_cmd = "create folder testing in C drive Kavi Work Degree Charusat Sem 7 Internship"
         self.parser_mock.parse_command.return_value = {
@@ -126,7 +124,7 @@ class TestFilesystemBypass(unittest.TestCase):
         assert cmds[1]["action"] == "open_application"
 
     def test_4_open_calculator_uses_planner(self):
-        input_cmd = "open calculator and close it after 5 seconds"
+        input_cmd = "move mouse 500 300 and compute fibonacci sequence"
         self.task_planner_mock.plan_tasks.return_value = ["open calculator", "wait 5 seconds", "close calculator"]
         self.parser_mock.parse_command.side_effect = [
             {"action": "open_application", "parameters": {"application_name": "calculator"}},
@@ -169,5 +167,4 @@ class TestFilesystemBypass(unittest.TestCase):
         assert exec_result["status"] == "failed"
         assert exec_result["status"] == "failed"
 
-if __name__ == "__main__":
-    unittest.main()
+

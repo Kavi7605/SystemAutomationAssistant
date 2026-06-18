@@ -28,7 +28,7 @@ def setup_test_env():
     
     return base_dir
 
-def run_tests():
+def test_path_resolver():
     base_dir = setup_test_env()
     
     print("\n--- PathResolver Tests ---")
