@@ -74,3 +74,12 @@ class TestFileRoutingRegressions:
         self.engine.process_command("open test.txt in desktop")
         self.assertExecute("open_file", {"file_name": "test.txt", "path": "desktop"})
         self.executor_mock.reset_mock()
+
+    def test_debug_context_routing(self):
+        self.engine.process_command("show context")
+        self.assertExecute("debug_context", {})
+        self.executor_mock.reset_mock()
+        
+        self.engine.process_command("debug context")
+        self.assertExecute("debug_context", {})
+        self.executor_mock.reset_mock()

@@ -1,33 +1,81 @@
 import pytest
-from src.core.context_manager import ContextManager
+from src.context.context_manager import ContextManager
 
-def test_context_manager_singleton():
-    cm1 = ContextManager()
-    cm2 = ContextManager()
-    assert cm1 is cm2
+def test_mark_app_opened():
+    cm = ContextManager()
+    cm.mark_app_opened("steam")
+    
+    snapshot = cm.get_context_snapshot()
+    assert snapshot["last_opened_app"] == "steam"
+    assert snapshot["last_successful_action"] == "open_application"
 
-def test_context_manager_properties():
+def test_mark_app_closed():
+    cm = ContextManager()
+    cm.mark_app_closed("discord")
+    
+    snapshot = cm.get_context_snapshot()
+    assert snapshot["last_closed_app"] == "discord"
+    assert snapshot["last_successful_action"] == "close_application"
+
+def test_mark_app_focused():
     cm = ContextManager()
     
-    # Test setting and getting
-    cm.last_application = "vscode"
-    assert cm.last_application == "vscode"
+    cm.mark_app_focused("steam")
+    snapshot = cm.get_context_snapshot()
+    assert snapshot["last_focused_app"] == "steam"
+    assert snapshot["current_active_app"] == "steam"
+    assert snapshot["last_active_app"] is None
+    assert snapshot["last_successful_action"] == "focus_window"
     
-    cm.last_website = "github.com"
-    assert cm.last_website == "github.com"
+    cm.mark_app_focused("discord")
+    snapshot = cm.get_context_snapshot()
+    assert snapshot["last_focused_app"] == "discord"
+    assert snapshot["current_active_app"] == "discord"
+    assert snapshot["last_active_app"] == "steam"
+
+def test_update_last_command():
+    cm = ContextManager()
+    cm.update_last_command("open steam and focus discord")
     
-    cm.last_url = "https://github.com"
-    assert cm.last_url == "https://github.com"
+    snapshot = cm.get_context_snapshot()
+    assert snapshot["last_command"] == "open steam and focus discord"
+
+def test_get_context_snapshot():
+    cm = ContextManager()
+    cm.mark_app_opened("vscode")
+    cm.mark_app_focused("vscode")
+    cm.update_last_command("open vscode")
+    cm.update_active_window("Visual Studio Code")
+    cm.mark_action_failed("click")
     
-    cm.last_file = "test.txt"
-    assert cm.last_file == "test.txt"
+    snapshot = cm.get_context_snapshot()
     
-    cm.last_folder = "reports"
-    assert cm.last_folder == "reports"
+    assert snapshot == {
+        "last_command": "open vscode",
+        "last_opened_app": "vscode",
+        "last_closed_app": None,
+        "last_focused_app": "vscode",
+        "current_active_app": "vscode",
+        "last_active_app": None,
+        "last_window_title": "Visual Studio Code",
+        "last_successful_action": "focus_window",
+        "last_failed_action": "click"
+    }
+
+def test_update_active_window_synchronization():
+    cm = ContextManager()
     
-    cm.last_action = "open_application"
-    assert cm.last_action == "open_application"
+    # Simulate window with known alias
+    cm.update_active_window("Visual Studio Code")
+    assert cm.get_context_snapshot()["current_active_app"] == "vscode"
+    assert cm.get_context_snapshot()["last_active_app"] is None
     
-    payload = {"action": "open_application", "parameters": {"application_name": "vscode"}}
-    cm.last_action_payload = payload
-    assert cm.last_action_payload == payload
+    # Simulate window with another known alias
+    cm.update_active_window("Discord - #general")
+    assert cm.get_context_snapshot()["current_active_app"] == "discord"
+    assert cm.get_context_snapshot()["last_active_app"] == "vscode"
+    
+    # Simulate unknown window
+    cm.update_active_window("Unknown Custom App")
+    assert cm.get_context_snapshot()["current_active_app"] is None
+    assert cm.get_context_snapshot()["last_active_app"] == "discord"
