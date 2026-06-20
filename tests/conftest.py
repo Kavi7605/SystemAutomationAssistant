@@ -51,13 +51,21 @@ def history_manager_mock():
     return MagicMock(spec=HistoryManager)
 
 @pytest.fixture
-def engine(parser_mock, resolver_mock, task_planner_mock, executor_mock, history_manager_mock):
+def engine(request, parser_mock, resolver_mock, task_planner_mock, executor_mock, history_manager_mock):
+    from src.context.context_manager import ContextManager
+    from src.context.reference_resolver import ReferenceResolver
+    
+    cm = ContextManager()
+    rr = ReferenceResolver(cm)
+
     return AutomationEngine(
         parser=parser_mock,
         resolver=resolver_mock,
         task_planner=task_planner_mock,
         executor=executor_mock,
-        history_manager=history_manager_mock
+        history_manager=history_manager_mock,
+        context_manager=cm,
+        reference_resolver=rr
     )
 
 @pytest.fixture(autouse=True)

@@ -314,33 +314,7 @@ class SearchWebTool(BaseTool):
         }
 
 
-class WaitTool(BaseTool):
-    name = "wait"
-    description = "Pauses execution for a specified number of seconds."
 
-    def execute(self, seconds: int, **kwargs) -> Dict[str, Any]:
-        try:
-            seconds = int(seconds)
-            logger.info(f"Waiting for {seconds} seconds...")
-            time.sleep(seconds)
-            return {"status": "success", "message": f"Waited {seconds} seconds"}
-        except ValueError:
-            return {"status": "failed", "message": "Invalid value for seconds"}
-        except Exception as e:
-            return {"status": "failed", "message": str(e)}
-
-    def get_schema(self) -> Dict[str, Any]:
-        return {
-            "name": self.name,
-            "description": self.description,
-            "parameters": {
-                "seconds": {
-                    "type": "integer",
-                    "description": "The number of seconds to wait."
-                }
-            },
-            "required": ["seconds"]
-        }
 
 
 class OpenUrlTool(BaseTool):

@@ -88,11 +88,19 @@ def main():
         from src.context.window_manager import WindowManager
         from src.context.application_state_manager import ApplicationStateManager
         from src.context.context_manager import ContextManager
+        from src.context.reference_resolver import ReferenceResolver
         
         window_manager = WindowManager()
         state_manager = ApplicationStateManager(window_manager)
         context_manager = ContextManager()
-        executor = Executor(registry=registry, state_manager=state_manager, context_manager=context_manager)
+        reference_resolver = ReferenceResolver(context_manager)
+        
+        executor = Executor(
+            registry=registry, 
+            state_manager=state_manager, 
+            context_manager=context_manager,
+            reference_resolver=reference_resolver
+        )
 
         # 5. Initialize Command History Manager
         history_manager = HistoryManager()
@@ -104,7 +112,8 @@ def main():
             task_planner=task_planner,
             executor=executor,
             history_manager=history_manager,
-            context_manager=context_manager
+            context_manager=context_manager,
+            reference_resolver=reference_resolver
         )
         engine.start()
                 

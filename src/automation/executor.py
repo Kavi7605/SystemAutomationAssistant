@@ -2,7 +2,12 @@ import logging
 from typing import Dict, Any, Union, List
 
 from src.tools.registry import ToolRegistry
-from src.core.context_manager import ContextManager
+
+# Type hinting
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from src.context.application_state_manager import ApplicationStateManager
+    from src.context.context_manager import ContextManager
 
 logger = logging.getLogger("system_assistant")
 
@@ -11,15 +16,28 @@ class Executor:
     Executes automation actions based on parsed JSON commands dynamically 
     using the ToolRegistry.
     """
-    def __init__(self, registry: ToolRegistry):
+    def __init__(self, registry: ToolRegistry, state_manager: 'ApplicationStateManager' = None, context_manager: 'ContextManager' = None, reference_resolver: 'ReferenceResolver' = None):
         self.registry = registry
+        self.state_manager = state_manager
+        self.context_manager = context_manager
+        self.reference_resolver = reference_resolver
 
-    def execute(self, command_json: Union[Dict[str, Any], List[Dict[str, Any]]]) -> Dict[str, Any]:
+    def execute(self, command_json: Union[Dict[str, Any], List[Dict[str, Any]]], stop_on_failure: bool = True) -> Dict[str, Any]:
         """
         Routes the parsed JSON command(s) to the appropriate Tool in the registry.
         """
         if isinstance(command_json, list):
-            return self._execute_queue(command_json)
+            return self._execute_queue(command_json, stop_on_failure)
+            
+        # Resolve references for single commands before execution
+        if self.reference_resolver:
+            for key, value in command_json.get("parameters", {}).items():
+                if isinstance(value, str):
+                    try:
+                        command_json["parameters"][key] = self.reference_resolver.resolve_command(value)
+                    except ValueError as e:
+                        return {"status": "failed", "message": str(e)}
+                        
         return self._execute_single(command_json)
 
     def _execute_single(self, command_json: Dict[str, Any]) -> Dict[str, Any]:
@@ -39,6 +57,16 @@ class Executor:
                 message = parameters.get("message", "Could you please clarify your request?")
                 return {"status": "success", "message": f"Clarification needed: {message}"}
                 
+            if action == "debug_context":
+                if self.context_manager:
+                    import json
+                    snapshot = self.context_manager.get_context_snapshot()
+                    formatted = json.dumps(snapshot, indent=2, default=str)
+                    print(f"\n[DEBUG] Context Snapshot:\n{formatted}\n")
+                    return {"status": "success", "message": "Printed context snapshot"}
+                else:
+                    return {"status": "failed", "message": "ContextManager not initialized."}
+                
             # Execute dynamically via Tool Registry
             result = self.registry.execute_tool(action, **parameters)
             
@@ -56,21 +84,45 @@ class Executor:
                         parameters = {"url": fallback_url}
 
             if result.get("status") == "success":
-                cm = ContextManager()
-                cm.last_action = action
-                cm.last_action_payload = command_json
+                # Handle fallback scenarios where open_application turns into open_url
+                if action == "open_application" and "fallback" in result.get("message", "").lower():
+                    action = "open_url"
+                    
+            if result.get("status") in ["success", "partial_success"]:
+                if self.context_manager:
+                    self.context_manager.mark_action_success(action)
                 
                 if action == "open_application":
-                    cm.last_application = parameters.get("application_name")
-                elif action == "open_url":
-                    cm.last_url = parameters.get("url")
-                elif action in ["create_file", "open_file"]:
-                    cm.last_file = parameters.get("file_name")
-                elif action in ["create_folder", "open_folder"]:
-                    cm.last_folder = parameters.get("folder_name") or parameters.get("path")
+                    app_name = parameters.get("application_name")
+                    if self.state_manager:
+                        self.state_manager.refresh_app_state(app_name)
+                    if self.context_manager and app_name:
+                        self.context_manager.mark_app_opened(app_name)
+                elif action == "close_application":
+                    app_name = parameters.get("application_name")
+                    if self.state_manager:
+                        self.state_manager.refresh_app_state(app_name)
+                    if self.context_manager and app_name:
+                        self.context_manager.mark_app_closed(app_name)
+                elif action == "focus_window":
+                    window_name = parameters.get("window_name")
+                    if self.state_manager and window_name:
+                        self.state_manager.mark_focused(window_name)
+                    if self.context_manager and window_name:
+                        self.context_manager.mark_app_focused(window_name)
+                elif action == "get_active_window":
+                    title = result.get("window", {}).get("title")
+                    if self.context_manager and title:
+                        self.context_manager.update_active_window(title)
+            
+            if result.get("status") not in ["success", "completed", "partial_success"]:
+                if self.context_manager:
+                    self.context_manager.mark_action_failed(action)
             
             return result
         except Exception as e:
+            if self.context_manager:
+                self.context_manager.mark_action_failed(action)
             logger.error(f"Error executing {action}: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
@@ -86,10 +138,36 @@ class Executor:
             return f"Closing {app_name.title()}"
         elif action == "search_web":
             return f"Searching web for '{params.get('query', '')}'"
+        elif action == "get_active_window":
+            return "Getting active window"
+        elif action == "is_window_open":
+            return f"Checking if {params.get('window_name', 'window')} is open"
+        elif action == "focus_window":
+            return f"Focusing {params.get('window_name', 'window').title()}"
+        elif action == "wait":
+            wait_type = params.get("wait_type", "seconds")
+            if wait_type == "seconds":
+                return f"Waiting {params.get('seconds', 0)} seconds..."
+            elif wait_type == "window":
+                window_name = params.get("window_name", "window").title()
+                timeout = params.get("timeout", 30)
+                return f"Waiting for {window_name} window (timeout {timeout}s)..."
+            elif wait_type == "window_closed":
+                window_name = params.get("window_name", "window").title()
+                timeout = params.get("timeout", 30)
+                return f"Waiting for {window_name} window to close (timeout {timeout}s)..."
+            elif wait_type == "app":
+                app_name = params.get("app_name", "app").title()
+                timeout = params.get("timeout", 30)
+                return f"Waiting for {app_name} application (timeout {timeout}s)..."
+            elif wait_type == "app_closed":
+                app_name = params.get("app_name", "app").title()
+                timeout = params.get("timeout", 30)
+                return f"Waiting for {app_name} application to close (timeout {timeout}s)..."
         else:
             return f"Executing {action.replace('_', ' ').title()}"
 
-    def _execute_queue(self, commands: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def _execute_queue(self, commands: List[Dict[str, Any]], stop_on_failure: bool = True) -> Dict[str, Any]:
         total_steps = len(commands)
         successful = 0
         failed = 0
@@ -97,19 +175,44 @@ class Executor:
 
         print("")
         for i, cmd in enumerate(commands, 1):
+            if self.reference_resolver:
+                try:
+                    for key, value in cmd.get("parameters", {}).items():
+                        if isinstance(value, str):
+                            cmd["parameters"][key] = self.reference_resolver.resolve_command(value)
+                except ValueError as e:
+                    error_msg = str(e)
+                    print(f"[{i}/{total_steps}] Failed: {error_msg}\n")
+                    logger.error(f"Queue step {i} failed: {error_msg}")
+                    failed += 1
+                    results.append({"step": i, "action": cmd.get("action", "unknown"), "result": {"status": "failed", "message": error_msg}})
+                    if stop_on_failure: 
+                        print(f"Queue aborted due to failure at step {i}.")
+                        logger.warning(f"Queue aborted at step {i} due to failure.")
+                        break
+                    continue
+                    
+            action = cmd.get("action", "unknown")
             desc = self._get_action_description(cmd)
-            print(f"[{i}/{total_steps}] {desc}")
+            
+            if action not in ["get_active_window", "is_window_open"]:
+                print(f"[{i}/{total_steps}] {desc}")
+                
             logger.info(f"Queue step {i}/{total_steps}: {desc}")
             
             result = self._execute_single(cmd)
             
-            if result.get("status") in ["success", "completed"]:
-                print("[OK] Success\n")
-                logger.info(f"Queue step {i} success.")
+            if result.get("status") in ["success", "completed", "partial_success"]:
+                msg = result.get("message", "Success")
+                if action in ["get_active_window", "is_window_open"]:
+                    print(f"[{i}/{total_steps}] {msg}\n")
+                else:
+                    print(f"[OK] {msg}\n")
+                logger.info(f"Queue step {i} success: {msg}")
                 successful += 1
             else:
                 error_msg = result.get('message', 'Unknown error')
-                print(f"[FAIL] Failed: {error_msg}\n")
+                print(f"[FAIL] {error_msg}\n")
                 logger.error(f"Queue step {i} failed: {error_msg}")
                 failed += 1
                 
@@ -118,11 +221,17 @@ class Executor:
                 "action": cmd.get("action", "unknown"),
                 "result": result
             })
+            
+            if result.get("status") not in ["success", "completed", "partial_success"] and stop_on_failure:
+                print(f"Queue aborted due to failure at step {i}.")
+                logger.warning(f"Queue aborted at step {i} due to failure.")
+                break
 
         return {
-            "status": "completed",
+            "status": "completed" if failed == 0 else ("failed" if stop_on_failure else "partial_success"),
             "total_steps": total_steps,
             "successful": successful,
             "failed": failed,
-            "results": results
+            "results": results,
+            "aborted": failed > 0 and stop_on_failure
         }

@@ -59,7 +59,10 @@ def test_get_context_snapshot():
         "last_active_app": None,
         "last_window_title": "Visual Studio Code",
         "last_successful_action": "focus_window",
-        "last_failed_action": "click"
+        "last_failed_action": "click",
+        "opened_apps_history": ["vscode"],
+        "closed_apps_history": [],
+        "focused_apps_history": ["vscode"]
     }
 
 def test_update_active_window_synchronization():

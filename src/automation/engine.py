@@ -7,6 +7,8 @@ from src.core.history_manager import HistoryManager
 from src.planner.resolver import CommandResolver
 from src.planner.task_planner import TaskPlanner
 from src.automation.executor import Executor
+from src.context.context_manager import ContextManager
+from src.context.reference_resolver import ReferenceResolver
 
 logger = logging.getLogger(__name__)
 
@@ -20,12 +22,16 @@ class AutomationEngine:
                  resolver: CommandResolver, 
                  task_planner: TaskPlanner, 
                  executor: Executor, 
-                 history_manager: HistoryManager):
+                 history_manager: HistoryManager,
+                 context_manager: ContextManager = None,
+                 reference_resolver: ReferenceResolver = None):
         self.parser = parser
         self.resolver = resolver
         self.task_planner = task_planner
         self.executor = executor
         self.history_manager = history_manager
+        self.context_manager = context_manager
+        self.reference_resolver = reference_resolver
 
     def get_history(self) -> List[Dict[str, Any]]:
         return self.history_manager.get_history()
@@ -55,7 +61,7 @@ class AutomationEngine:
             return type_suffix
             
         parts = re.split(regex, command, flags=re.IGNORECASE)
-        action_verbs = ("open ", "close ", "create ", "delete ", "move ", "copy ", "rename ", "search ", "wait ", "click", "double click", "right click", "type ", "write ", "press ", "scroll ")
+        action_verbs = ("open ", "close ", "create ", "delete ", "move ", "copy ", "rename ", "search ", "wait ", "pause ", "sleep ", "click", "double click", "right click", "type ", "write ", "press ", "scroll ", "focus ", "is ", "what ", "which ", "tell ")
         
         normalized_parts = []
         carry_over = None
@@ -118,6 +124,10 @@ class AutomationEngine:
         """
         target = target.strip()
         
+        # Rule 0: Reference Tokens
+        if target.lower() in ["it", "that", "this", "previous app", "last app", "current app"]:
+            return {"action": "open_application", "parameters": {"application_name": target.lower()}}
+            
         # Rule 1: Explicit Website
         if target.endswith(" website"):
             base_name = target[:-8].strip()
@@ -203,6 +213,19 @@ class AutomationEngine:
             keys = press_match.group(1).split()
             return {"action": "hotkey", "parameters": {"keys": keys}}
 
+        # 0.6 Wait Routing
+        wait_seconds_match = re.match(r"^(wait|pause|sleep)(?:\s+for)?\s+(\d+)\s+seconds?$", user_input_lower)
+        if wait_seconds_match:
+            return {"action": "wait", "parameters": {"wait_type": "seconds", "seconds": int(wait_seconds_match.group(2))}}
+            
+        wait_until_match = re.match(r"^(?:wait|pause|sleep)\s+until\s+(.+?)\s+(opens|is\s+open|appears|loads|starts|launches|window\s+appears)$", user_input_lower)
+        if wait_until_match:
+            return {"action": "wait", "parameters": {"wait_type": "window", "window_name": wait_until_match.group(1).strip()}}
+            
+        wait_until_closed_match = re.match(r"^(?:wait|pause|sleep)\s+until\s+(.+?)\s+(closes|is\s+closed|disappears)$", user_input_lower)
+        if wait_until_closed_match:
+            return {"action": "wait", "parameters": {"wait_type": "window_closed", "window_name": wait_until_closed_match.group(1).strip()}}
+
         # scroll down / up
         scroll_match = re.match(r"^scroll\s+(down|up)$", user_input_lower)
         if scroll_match:
@@ -213,6 +236,29 @@ class AutomationEngine:
         if move_match:
             return {"action": "move_mouse", "parameters": {"x": int(move_match.group(1)), "y": int(move_match.group(2))}}
         
+        # 0.5 Window Management Routing
+        active_window_patterns = [
+            r"^(?:tell\s+me\s+)?(what|which)\s+(window|app|application)\s+is\s+(active|focused|open)(?:\s+currently)?$",
+            r"^(?:tell\s+me\s+)?what\s+is\s+(?:currently\s+)?open$",
+            r"^(?:tell\s+me\s+)?what\s+is\s+visible\s+on\s+screen$",
+            r"^(?:tell\s+me\s+)?what\s+application\s+am\s+i\s+using$"
+        ]
+        
+        for pattern in active_window_patterns:
+            if re.match(pattern, user_input_lower):
+                return {"action": "get_active_window", "parameters": {}}
+
+        is_open_match = re.match(r"^is\s+(.+?)\s+(open|running|active)$", user_input_lower)
+        if is_open_match:
+            return {"action": "is_window_open", "parameters": {"window_name": is_open_match.group(1).strip()}}
+
+        focus_match = re.match(r"^focus\s+(.+)$", user_input_lower)
+        if focus_match:
+            return {"action": "focus_window", "parameters": {"window_name": focus_match.group(1).strip()}}
+
+        if user_input_lower in ["show context", "debug context"]:
+            return {"action": "debug_context", "parameters": {}}
+
         # 1.0 Search Intent Bypass
         search_intent_match = re.match(r"^open\s+(.+?)\s+and\s+search(?:\s+for)?\s+(.+)$", user_input_lower)
         if search_intent_match:
@@ -418,10 +464,17 @@ class AutomationEngine:
         """
         Main entry point for processing a natural language command.
         """
-        logger.info(f"--- New Command Received ---")
-        logger.info(f"User Input: {user_input}")
-        
+        if not user_input.strip():
+            return
+            
         user_input_lower = user_input.lower().strip()
+        
+        if self.context_manager and user_input_lower not in ["show context", "debug context"]:
+            self.context_manager.update_last_command(user_input)
+            
+        logger.info(f"--- New Command Received ---")
+        logger.info(f"Received input from {source}: {user_input}")
+        logger.info(f"User Input: {user_input}")
                 
         # 0. Deterministic Multi-Action Sequencing
         normalized_input = self._normalize_app_chains(user_input_lower)
@@ -575,10 +628,15 @@ class AutomationEngine:
         
         logger.info("Execution Result:")
         if exec_result.get("status") == "success":
-            logger.info(f"[OK] {exec_result.get('message')}")
+            msg = exec_result.get('message')
+            logger.info(f"[OK] {msg}")
+            print(f"\n-> {msg}")
         elif exec_result.get("status") == "completed":
             logger.info("Execution Summary:")
             logger.info(f"Successful: {exec_result.get('successful')}")
             logger.info(f"Failed: {exec_result.get('failed')}")
+            print(f"\n-> Execution Summary:\n   Successful: {exec_result.get('successful')}\n   Failed: {exec_result.get('failed')}")
         else:
-            logger.error(f"[FAIL] Failed: {exec_result.get('message')}")
+            msg = exec_result.get('message')
+            logger.error(f"[FAIL] Failed: {msg}")
+            print(f"\n-> Failed: {msg}")
