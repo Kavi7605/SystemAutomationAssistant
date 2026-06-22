@@ -90,9 +90,18 @@ def main():
         from src.context.context_manager import ContextManager
         from src.context.reference_resolver import ReferenceResolver
         
+        from src.context.persistence_manager import PersistenceManager
+        
         window_manager = WindowManager()
-        state_manager = ApplicationStateManager(window_manager)
-        context_manager = ContextManager()
+        persistence_manager = PersistenceManager()
+        
+        state_manager = ApplicationStateManager(window_manager, persistence_manager)
+        context_manager = ContextManager(persistence_manager)
+        
+        # Load persisted data on startup
+        state_manager.load()
+        context_manager.load()
+        
         reference_resolver = ReferenceResolver(context_manager)
         
         executor = Executor(

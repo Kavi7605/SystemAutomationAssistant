@@ -8,7 +8,8 @@ class ContextManager:
     Centralized Context Tracking Engine that remembers recent user actions
     and application interactions.
     """
-    def __init__(self):
+    def __init__(self, persistence_manager=None):
+        self.persistence_manager = persistence_manager
         self.state = {
             "last_command": None,
             "last_opened_app": None,
@@ -26,18 +27,27 @@ class ContextManager:
 
     def update_last_command(self, command: str) -> None:
         self.state["last_command"] = command
+        self.save()
 
     def mark_app_opened(self, app_name: str) -> None:
+        from src.context.application_aliases import normalize_app_name
+        app_name = normalize_app_name(app_name)
         self.state["last_opened_app"] = app_name
         self.state["last_successful_action"] = "open_application"
         self.state["opened_apps_history"].append(app_name)
+        self.save()
 
     def mark_app_closed(self, app_name: str) -> None:
+        from src.context.application_aliases import normalize_app_name
+        app_name = normalize_app_name(app_name)
         self.state["last_closed_app"] = app_name
         self.state["last_successful_action"] = "close_application"
         self.state["closed_apps_history"].append(app_name)
+        self.save()
 
     def mark_app_focused(self, app_name: str) -> None:
+        from src.context.application_aliases import normalize_app_name
+        app_name = normalize_app_name(app_name)
         self.state["last_focused_app"] = app_name
         self.state["focused_apps_history"].append(app_name)
         
@@ -46,6 +56,7 @@ class ContextManager:
             self.state["current_active_app"] = app_name
             
         self.state["last_successful_action"] = "focus_window"
+        self.save()
 
     def update_active_window(self, window_title: str) -> None:
         self.state["last_window_title"] = window_title
@@ -54,6 +65,7 @@ class ContextManager:
             if self.state["current_active_app"] is not None:
                 self.state["last_active_app"] = self.state["current_active_app"]
                 self.state["current_active_app"] = None
+                self.save()
             return
             
         from src.context.application_aliases import APP_WINDOW_ALIASES
@@ -68,12 +80,21 @@ class ContextManager:
         if matched_app != self.state["current_active_app"]:
             self.state["last_active_app"] = self.state["current_active_app"]
             self.state["current_active_app"] = matched_app
+            self.save()
+
+    def sync_active_apps(self, current_app: str, last_app: str) -> None:
+        """Synchronizes the active app state from ApplicationStateManager."""
+        self.state["current_active_app"] = current_app
+        self.state["last_active_app"] = last_app
+        self.save()
 
     def mark_action_success(self, action: str) -> None:
         self.state["last_successful_action"] = action
+        self.save()
 
     def mark_action_failed(self, action: str) -> None:
         self.state["last_failed_action"] = action
+        self.save()
 
     def get_last_opened_app(self):
         history = self.state["opened_apps_history"]
@@ -111,3 +132,13 @@ class ContextManager:
     def get_context_snapshot(self) -> Dict[str, Any]:
         import copy
         return copy.deepcopy(self.state)
+        
+    def save(self):
+        if self.persistence_manager:
+            self.persistence_manager.save_context(self.get_context_snapshot())
+            
+    def load(self):
+        if self.persistence_manager:
+            loaded = self.persistence_manager.load_context()
+            if loaded:
+                self.state.update(loaded)

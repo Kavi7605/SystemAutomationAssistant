@@ -22,6 +22,13 @@ class Executor:
         self.context_manager = context_manager
         self.reference_resolver = reference_resolver
 
+    def _sync_active_apps(self) -> None:
+        if self.state_manager and self.context_manager:
+            self.context_manager.sync_active_apps(
+                self.state_manager.get_current_active_app(),
+                self.state_manager.get_last_active_app()
+            )
+
     def execute(self, command_json: Union[Dict[str, Any], List[Dict[str, Any]]], stop_on_failure: bool = True) -> Dict[str, Any]:
         """
         Routes the parsed JSON command(s) to the appropriate Tool in the registry.
@@ -61,11 +68,101 @@ class Executor:
                 if self.context_manager:
                     import json
                     snapshot = self.context_manager.get_context_snapshot()
-                    formatted = json.dumps(snapshot, indent=2, default=str)
+                    def _serialize(obj):
+                        if hasattr(obj, 'isoformat'): return obj.isoformat()
+                        return str(obj)
+                    formatted = json.dumps(snapshot, indent=2, default=_serialize)
                     print(f"\n[DEBUG] Context Snapshot:\n{formatted}\n")
-                    return {"status": "success", "message": "Printed context snapshot"}
+                    return {"status": "success", "message": f"Context Snapshot:\n{formatted}"}
                 else:
                     return {"status": "failed", "message": "ContextManager not initialized."}
+                    
+            if action == "debug_state":
+                if self.state_manager:
+                    import json
+                    self.state_manager.refresh_all()
+                    self._sync_active_apps()
+                    snapshot = self.state_manager.states
+                    def _serialize(obj):
+                        if hasattr(obj, 'isoformat'): return obj.isoformat()
+                        return str(obj)
+                    formatted = json.dumps(snapshot, indent=2, default=_serialize)
+                    return {"status": "success", "message": f"State Snapshot:\n{formatted}"}
+                else:
+                    return {"status": "failed", "message": "ApplicationStateManager not initialized."}
+                    
+            if action == "get_current_app":
+                if self.state_manager:
+                    self.state_manager.refresh_active_window()
+                    self._sync_active_apps()
+                    current = self.state_manager.get_current_active_app()
+                    if current:
+                        return {"status": "success", "message": f"Current app: {current}"}
+                    return {"status": "success", "message": "No active application tracked."}
+                return {"status": "failed", "message": "ApplicationStateManager not initialized."}
+                
+            if action == "get_previous_app":
+                if self.state_manager:
+                    self.state_manager.refresh_active_window()
+                    self._sync_active_apps()
+                    prev = self.state_manager.get_last_active_app()
+                    if prev:
+                        return {"status": "success", "message": f"Previous app: {prev}"}
+                    return {"status": "success", "message": "No previous application available."}
+                return {"status": "failed", "message": "ApplicationStateManager not initialized."}
+                
+            if action == "get_opened_history":
+                if self.context_manager:
+                    history = self.context_manager.get_open_history()
+                    if history:
+                        msg = "Opened Apps History:\n" + "\n".join(f"{i+1}. {app}" for i, app in enumerate(history))
+                        return {"status": "success", "message": msg}
+                    return {"status": "success", "message": "Opened Apps History:\nNo apps have been opened yet."}
+                return {"status": "failed", "message": "ContextManager not initialized."}
+                
+            if action == "get_focused_history":
+                if self.context_manager:
+                    history = self.context_manager.get_focus_history()
+                    if history:
+                        msg = "Focused Apps History:\n" + "\n".join(f"{i+1}. {app}" for i, app in enumerate(history))
+                        return {"status": "success", "message": msg}
+                    return {"status": "success", "message": "Focused Apps History:\nNo apps have been focused yet."}
+                return {"status": "failed", "message": "ContextManager not initialized."}
+                
+            if action == "get_closed_history":
+                if self.context_manager:
+                    history = self.context_manager.get_close_history()
+                    if history:
+                        msg = "Closed Apps History:\n" + "\n".join(f"{i+1}. {app}" for i, app in enumerate(history))
+                        return {"status": "success", "message": msg}
+                    return {"status": "success", "message": "Closed Apps History:\nNo apps have been closed yet."}
+                return {"status": "failed", "message": "ContextManager not initialized."}
+                    
+            # State-Aware Validation Intercepts
+            if action == "open_application":
+                app_name = parameters.get("application_name")
+                if self.state_manager and app_name:
+                    self.state_manager.refresh_app_state(app_name)
+                    if self.state_manager.is_running(app_name):
+                        logger.info(f"{app_name.title()} is already running. Skipping execution.")
+                        return {"status": "success", "message": f"{app_name.title()} is already running."}
+                        
+            elif action == "close_application":
+                app_name = parameters.get("application_name")
+                if self.state_manager and app_name:
+                    self.state_manager.refresh_app_state(app_name)
+                    if not self.state_manager.is_running(app_name):
+                        logger.info(f"{app_name.title()} is already closed. Skipping execution.")
+                        return {"status": "success", "message": f"{app_name.title()} is already closed."}
+                        
+            elif action == "focus_window":
+                window_name = parameters.get("window_name")
+                if self.state_manager and window_name:
+                    self.state_manager.refresh_app_state(window_name)
+                    self._sync_active_apps()
+                    if self.state_manager.is_focused(window_name):
+                        logger.info(f"{window_name.title()} is already focused. Skipping execution.")
+                        return {"status": "success", "message": f"{window_name.title()} is already focused."}
                 
             # Execute dynamically via Tool Registry
             result = self.registry.execute_tool(action, **parameters)
@@ -108,9 +205,14 @@ class Executor:
                     window_name = parameters.get("window_name")
                     if self.state_manager and window_name:
                         self.state_manager.mark_focused(window_name)
+                        self._sync_active_apps()
                     if self.context_manager and window_name:
                         self.context_manager.mark_app_focused(window_name)
+                
                 elif action == "get_active_window":
+                    if self.state_manager:
+                        self.state_manager.refresh_active_window()
+                        self._sync_active_apps()
                     title = result.get("window", {}).get("title")
                     if self.context_manager and title:
                         self.context_manager.update_active_window(title)

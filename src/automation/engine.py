@@ -259,6 +259,28 @@ class AutomationEngine:
         if user_input_lower in ["show context", "debug context"]:
             return {"action": "debug_context", "parameters": {}}
 
+        if user_input_lower in ["show state", "debug state"]:
+            return {"action": "debug_state", "parameters": {}}
+
+        if user_input_lower in ["what is my current app", "current app", "active app"]:
+            return {"action": "get_current_app", "parameters": {}}
+
+        if user_input_lower in ["what was my previous app", "previous app", "last app"]:
+            return {"action": "get_previous_app", "parameters": {}}
+
+        # History Inspections
+        has_app_or_history = re.search(r'\b(app|apps|history)\b', user_input_lower)
+        is_question_or_show = re.search(r'\b(what|which|show)\b', user_input_lower)
+        is_bare_history = re.match(r'^(open|opened|focus|focused|close|closed)\s+(apps?|history|apps\s+history)$', user_input_lower)
+        
+        if has_app_or_history and (is_question_or_show or is_bare_history):
+            if re.search(r'\b(open|opened)\b', user_input_lower):
+                return {"action": "get_opened_history", "parameters": {}}
+            if re.search(r'\b(focus|focused)\b', user_input_lower):
+                return {"action": "get_focused_history", "parameters": {}}
+            if re.search(r'\b(close|closed)\b', user_input_lower):
+                return {"action": "get_closed_history", "parameters": {}}
+
         # 1.0 Search Intent Bypass
         search_intent_match = re.match(r"^open\s+(.+?)\s+and\s+search(?:\s+for)?\s+(.+)$", user_input_lower)
         if search_intent_match:
@@ -467,7 +489,8 @@ class AutomationEngine:
         if not user_input.strip():
             return
             
-        user_input_lower = user_input.lower().strip()
+        user_input_lower = re.sub(r'[\?!.]+$', '', user_input.lower().strip())
+        user_input_lower = re.sub(r'\s+', ' ', user_input_lower).strip()
         
         if self.context_manager and user_input_lower not in ["show context", "debug context"]:
             self.context_manager.update_last_command(user_input)
