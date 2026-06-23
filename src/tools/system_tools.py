@@ -220,59 +220,7 @@ class TakeScreenshotTool(BaseTool):
         }
 
 
-class CreateFolderTool(BaseTool):
-    name = "create_folder"
-    description = "Creates a new folder at a specified path."
 
-    def execute(self, folder_name: str, path: str = ".", **kwargs) -> Dict[str, Any]:
-        if not folder_name:
-            return {"status": "failed", "message": "Missing folder_name"}
-            
-        try:
-            from src.tools.path_resolver import PathResolver
-            import ctypes
-            
-            res = PathResolver.resolve(path)
-            if res["status"] == "failed":
-                return res
-            elif res.get("status") == "ambiguous":
-                return res
-                
-            resolved_base_path = res["resolved_path"].path
-            
-            full_path = os.path.join(resolved_base_path, folder_name)
-            logger.info(f"Creating folder at: {full_path}")
-            os.makedirs(full_path, exist_ok=True)
-            
-            if "desktop" in full_path.lower():
-                try:
-                    ctypes.windll.shell32.SHChangeNotify(0x08000000, 0x0000, None, None)
-                    logger.info("Triggered Desktop Shell Refresh")
-                except Exception as e:
-                    logger.warning(f"Failed to refresh desktop: {e}")
-            
-            logger.info(f"Folder '{folder_name}' created successfully")
-            return {"status": "success", "message": f"Folder '{folder_name}' created successfully", "path": full_path}
-        except Exception as e:
-            logger.error(f"Failed to create folder: {e}")
-            return {"status": "failed", "message": f"Failed to create folder: {str(e)}"}
-
-    def get_schema(self) -> Dict[str, Any]:
-        return {
-            "name": self.name,
-            "description": self.description,
-            "parameters": {
-                "folder_name": {
-                    "type": "string",
-                    "description": "The name of the new folder."
-                },
-                "path": {
-                    "type": "string",
-                    "description": "The optional base path where the folder should be created. Default is current directory."
-                }
-            },
-            "required": ["folder_name"]
-        }
 
 
 class SearchWebTool(BaseTool):
@@ -355,68 +303,7 @@ class OpenUrlTool(BaseTool):
         }
 
 
-class CreateFileTool(BaseTool):
-    name = "create_file"
-    description = "Creates a new empty file at a specified path."
 
-    def execute(self, file_name: str, path: str = ".", **kwargs) -> Dict[str, Any]:
-        if not file_name:
-            return {"status": "failed", "message": "Missing file_name"}
-            
-        try:
-            from src.tools.path_resolver import PathResolver
-            import ctypes
-            
-            res = PathResolver.resolve(path)
-            if res["status"] == "failed":
-                return res
-            elif res.get("status") == "ambiguous":
-                return res
-                
-            resolved_base_path = res["resolved_path"].path
-                
-            full_path = os.path.join(resolved_base_path, file_name)
-            logger.info(f"Creating file at: {full_path}")
-            
-            # Ensure the directory exists
-            os.makedirs(os.path.dirname(full_path), exist_ok=True)
-            
-            if os.path.exists(full_path):
-                logger.info(f"File '{file_name}' already exists. No changes made.")
-                return {"status": "success", "message": f"File '{file_name}' already exists. No changes made.", "path": full_path}
-            
-            with open(full_path, 'w') as f:
-                pass # Creates new empty file
-                
-            if "desktop" in full_path.lower():
-                try:
-                    ctypes.windll.shell32.SHChangeNotify(0x08000000, 0x0000, None, None)
-                    logger.info("Triggered Desktop Shell Refresh")
-                except Exception as e:
-                    logger.warning(f"Failed to refresh desktop: {e}")
-                
-            logger.info(f"File '{file_name}' created successfully")
-            return {"status": "success", "message": f"File '{file_name}' created successfully", "path": full_path}
-        except Exception as e:
-            logger.error(f"Failed to create file: {e}")
-            return {"status": "failed", "message": f"Failed to create file: {str(e)}"}
-
-    def get_schema(self) -> Dict[str, Any]:
-        return {
-            "name": self.name,
-            "description": self.description,
-            "parameters": {
-                "file_name": {
-                    "type": "string",
-                    "description": "The name of the new file, including extension."
-                },
-                "path": {
-                    "type": "string",
-                    "description": "The optional base path where the file should be created. Default is current directory."
-                }
-            },
-            "required": ["file_name"]
-        }
 
 
 class OpenFolderTool(BaseTool):

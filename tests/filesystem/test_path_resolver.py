@@ -6,7 +6,7 @@ import shutil
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.tools.path_resolver import PathResolver
-from src.tools.system_tools import CreateFileTool, CreateFolderTool
+from src.tools.filesystem_tools import CreateFileTool, CreateFolderTool
 
 def setup_test_env():
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'test_env'))
@@ -131,25 +131,6 @@ def test_progressive_matching():
     assert res_dk["status"] == "success"
     assert "Desktop" in res_dk["resolved_path"].path
     print("[OK] Desktop folder")
-    
-    # 10. Create file using resolved path
-    cf = CreateFileTool()
-    res_file = cf.execute("testfile.txt", f"C:\\PathResolverTestDir ExactFolder")
-    assert res_file["status"] == "success"
-    assert os.path.exists(os.path.join(test_root, "ExactFolder", "testfile.txt"))
-    print("[OK] Create file using resolved path")
-    
-    # 11. Create folder using resolved path
-    cfd = CreateFolderTool()
-    res_folder = cfd.execute("NewFolder", f"C:\\PathResolverTestDir ExactFolder")
-    assert res_folder["status"] == "success"
-    assert os.path.exists(os.path.join(test_root, "ExactFolder", "NewFolder"))
-    print("[OK] Create folder using resolved path")
-    
-    # 12. Failure path
-    res_fail = cf.execute("testfile.txt", f"C:\\PathResolverTestDir NonExistentFolder")
-    assert res_fail["status"] == "failed"
-    print("[OK] Failure path")
     
     # Cleanup
     shutil.rmtree(test_root)

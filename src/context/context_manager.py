@@ -22,7 +22,8 @@ class ContextManager:
             "last_failed_action": None,
             "opened_apps_history": [],
             "closed_apps_history": [],
-            "focused_apps_history": []
+            "focused_apps_history": [],
+            "pending_disambiguation": None
         }
 
     def update_last_command(self, command: str) -> None:
@@ -90,6 +91,7 @@ class ContextManager:
 
     def mark_action_success(self, action: str) -> None:
         self.state["last_successful_action"] = action
+        self.state["last_failed_action"] = None
         self.save()
 
     def mark_action_failed(self, action: str) -> None:

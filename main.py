@@ -13,12 +13,19 @@ from src.tools.system_tools import (
     OpenApplicationTool,
     CloseApplicationTool,
     TakeScreenshotTool,
-    CreateFolderTool,
     SearchWebTool,
     OpenUrlTool,
-    CreateFileTool,
     OpenFolderTool,
     OpenFileTool
+)
+from src.tools.filesystem_tools import (
+    CreateFolderTool,
+    CreateFileTool,
+    RenameItemTool,
+    DeleteItemTool,
+    CopyFileTool,
+    MoveFileTool,
+    OpenWorkspaceItemTool
 )
 from src.tools.wait_tool import WaitTool
 from src.tools.desktop_tools import (
@@ -50,13 +57,20 @@ def main():
         registry.register(OpenApplicationTool(app_finder))
         registry.register(CloseApplicationTool())
         registry.register(TakeScreenshotTool())
-        registry.register(CreateFolderTool())
         registry.register(SearchWebTool())
         registry.register(WaitTool())
         registry.register(OpenUrlTool())
-        registry.register(CreateFileTool())
         registry.register(OpenFolderTool())
         registry.register(OpenFileTool())
+        
+        # Filesystem Tools
+        registry.register(CreateFolderTool())
+        registry.register(CreateFileTool())
+        registry.register(RenameItemTool())
+        registry.register(DeleteItemTool())
+        registry.register(CopyFileTool())
+        registry.register(MoveFileTool())
+        registry.register(OpenWorkspaceItemTool())
         
         # Desktop Tools
         registry.register(ClickTool())

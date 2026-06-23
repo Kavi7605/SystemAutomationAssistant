@@ -16,6 +16,7 @@ logs/
 generated_files/
 docs/
 data/
+automation_workspace/
 
 # Whisper Models
 models/
@@ -36,6 +37,9 @@ data/application_index.json
 test_env/
 test_create_file_dir/
 test_open_file_dir/
+test_scratch/
+
+verify_integrity.py
 
 # Windows
 Thumbs.db

@@ -6,7 +6,8 @@ import shutil
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.tools.path_resolver import PathResolver
-from src.tools.system_tools import CreateFileTool, CreateFolderTool, OpenFolderTool
+from src.tools.system_tools import OpenFolderTool
+from src.tools.filesystem_tools import CreateFileTool, CreateFolderTool
 
 def test_advanced():
     print("\n--- Advanced PathResolver Tests ---")
@@ -53,26 +54,6 @@ def test_advanced():
     assert len(res_ambig["matches"]) >= 5
     print("[OK] Intelligent ambiguity detection (SEM 3, SEM 4, etc.)")
     
-    # 3. Desktop path creation and refresh
-    cf = CreateFileTool()
-    res_desk = cf.execute("demo.txt", "desktop")
-    assert res_desk["status"] == "success"
-    # Can't programmatically verify desktop refresh visually, but can check file exists
-    assert os.path.exists(res_desk["path"])
-    print("[OK] Desktop file creation and refresh trigger")
-    # Clean up desktop file
-    if os.path.exists(res_desk["path"]):
-        os.remove(res_desk["path"])
-        
-    # 4. Downloads folder test
-    cf_dl = CreateFileTool()
-    res_dl = cf_dl.execute("test.txt", "downloads")
-    assert res_dl["status"] == "success"
-    assert "Downloads" in res_dl["path"]
-    print("[OK] Downloads folder creation")
-    if os.path.exists(res_dl["path"]):
-        os.remove(res_dl["path"])
-        
     # 5. Missing Folder (FakeFolder)
     res_fake = PathResolver.resolve(f"C:\\PathResolverAdvancedDir Kavi Work Degree FakeFolder Internship")
     assert res_fake["status"] == "failed"

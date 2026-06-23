@@ -81,9 +81,8 @@ class TestFilesystemBypass:
         
         # Verify executor received the synthesized JSON
         call_args = self.executor_mock.execute.call_args[0][0]
-        assert call_args["action"] == "open_file"
-        assert call_args["parameters"]["file_name"] == "report.docx"
-        assert call_args["parameters"]["path"] == "desktop"
+        assert call_args["parameters"]["item_name"] == "report.docx"
+        assert call_args["parameters"]["target_folder"] == "desktop"
 
     def test_2f_open_filename_ext_bypasses_parser_and_planner(self):
         input_cmd = "open notes.txt in C drive Kavi Work Degree Charusat SEM 7 Internship"
@@ -93,9 +92,8 @@ class TestFilesystemBypass:
         self.parser_mock.parse_command.assert_not_called()
         
         call_args = self.executor_mock.execute.call_args[0][0]
-        assert call_args["action"] == "open_file"
-        assert call_args["parameters"]["file_name"] == "notes.txt"
-        assert call_args["parameters"]["path"].lower() == "c drive kavi work degree charusat sem 7 internship".lower()
+        assert call_args["parameters"]["item_name"] == "notes.txt"
+        assert call_args["parameters"]["target_folder"] == "C drive Kavi Work Degree Charusat SEM 7 Internship"
 
     def test_2g_open_filename_only_bypasses_parser_and_planner(self):
         input_cmd = "open report.docx"
@@ -105,9 +103,8 @@ class TestFilesystemBypass:
         self.parser_mock.parse_command.assert_not_called()
         
         call_args = self.executor_mock.execute.call_args[0][0]
-        assert call_args["action"] == "open_file"
-        assert call_args["parameters"]["file_name"] == "report.docx"
-        assert "path" not in call_args["parameters"]
+        assert call_args["action"] == "open_workspace_item"
+        assert call_args["parameters"]["item_name"] == "report.docx"
 
     def test_3_open_steam_uses_planner(self):
         input_cmd = "open steam and discord"

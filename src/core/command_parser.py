@@ -286,6 +286,49 @@ Output:
     }}
 }}
 
+Input: rename notes.txt to report.txt
+
+Output:
+{{
+    "action": "rename_item",
+    "parameters": {{
+        "source_name": "notes.txt",
+        "target_name": "report.txt"
+    }}
+}}
+
+Input: delete notes.txt
+
+Output:
+{{
+    "action": "delete_item",
+    "parameters": {{
+        "item_name": "notes.txt"
+    }}
+}}
+
+Input: copy notes.txt to backup.txt
+
+Output:
+{{
+    "action": "copy_file",
+    "parameters": {{
+        "source_name": "notes.txt",
+        "target_name": "backup.txt"
+    }}
+}}
+
+Input: move notes.txt to reports
+
+Output:
+{{
+    "action": "move_file",
+    "parameters": {{
+        "source_name": "notes.txt",
+        "target_path": "reports"
+    }}
+}}
+
 Input: open downloads
 
 Output:

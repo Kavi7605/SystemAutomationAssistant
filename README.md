@@ -8,9 +8,17 @@ An AI-powered desktop automation assistant built using Python, Ollama, and Agent
 
 System Automation Assistant (SAA) is an intelligent desktop automation framework that converts natural language commands into executable system actions.
 
-The project combines deterministic automation with local LLM reasoning to create a reliable and extensible AI assistant capable of controlling applications, interacting with the filesystem, performing web actions, and automating desktop workflows.
+The project combines deterministic automation with local LLM reasoning to create a reliable, extensible, and context-aware AI assistant capable of:
 
-The long-term goal is to evolve SAA into a fully context-aware AI Agent capable of voice interaction, workflow automation, memory-based reasoning, and autonomous task execution.
+* Controlling desktop applications
+* Managing files and folders
+* Automating web interactions
+* Understanding conversational references
+* Maintaining execution context
+* Resolving ambiguous user requests
+* Executing multi-step workflows
+
+The long-term vision is to evolve SAA into a fully autonomous AI Agent capable of voice interaction, memory-based reasoning, workflow orchestration, and intelligent task execution.
 
 ---
 
@@ -18,11 +26,15 @@ The long-term goal is to evolve SAA into a fully context-aware AI Agent capable 
 
 ## Application Automation
 
+### Capabilities
+
 * Open applications
 * Close applications
 * Application alias resolution
-* Application discovery using PATH and Start Menu indexing
-* Graceful fallback handling
+* Application discovery
+* Start Menu lookup
+* PATH lookup
+* State tracking
 
 ### Example Commands
 
@@ -35,18 +47,20 @@ open calculator
 
 close calculator
 
-open github
+open github desktop
 ```
 
 ---
 
 ## Website Automation
 
+### Capabilities
+
 * Open websites directly
-* Open search results directly on supported websites
+* Search supported websites
 * Deterministic URL routing
 * Website registry architecture
-* URL Builder engine
+* Dynamic URL building
 
 ### Example Commands
 
@@ -57,43 +71,96 @@ open github website python projects
 
 open youtube website ghost of yotei
 
-open github.com
-
 open linkedin website software engineer jobs
+
+open github.com
 ```
 
 ---
 
 ## Filesystem Automation
 
-* Create folders
-* Open folders
+### Capabilities
+
 * Create files
 * Open files
+* Create folders
+* Open folders
+* Smart file discovery
 * Natural language path resolution
-* Desktop, Downloads, Documents support
-* Nested directory traversal
+* Fuzzy path matching
+* Interactive disambiguation
+* Context-aware file resolution
 
 ### Example Commands
 
 ```text
 create report.docx in desktop
 
-create folder Internship in desktop
+create folder Internship in documents
 
-open report.docx in desktop
+open report.docx
 
-open folder downloads
+open internship folder
 
 create notes.txt in C drive Kavi Work Degree Charusat SEM 7 Internship Reports
 ```
 
 ---
 
+## Context Intelligence
+
+### Capabilities
+
+* Session memory
+* Reference resolution
+* Context synchronization
+* Previous action tracking
+* Active application awareness
+
+### Example Commands
+
+```text
+open github
+
+close it
+
+open it again
+
+focus previous app
+
+show current context
+```
+
+---
+
+## Interactive Disambiguation
+
+The assistant can safely handle ambiguous requests by asking for clarification.
+
+### Example
+
+```text
+delete report
+
+Found multiple matches:
+
+1. report.docx
+2. report.pdf
+3. report.txt
+
+Select a file:
+```
+
+---
+
 ## Desktop Automation
 
-* Take screenshots
-* Delayed execution (Wait Action)
+### Capabilities
+
+* Screenshot capture
+* Delayed execution
+* Timed automation
 
 ### Example Commands
 
@@ -109,7 +176,7 @@ open calculator and wait 5 seconds
 
 ## AI Planning & Reasoning
 
-For complex or multi-step commands, the assistant uses local LLM reasoning through Ollama.
+Complex tasks are delegated to local LLMs through Ollama.
 
 ### Example Commands
 
@@ -127,85 +194,66 @@ search python projects on github and open vscode
 
 ## Deterministic Routing Layer
 
-The first layer of the system intercepts predictable commands and executes them without invoking the LLM.
+The first layer intercepts predictable commands and executes them without invoking the LLM.
 
-Examples:
+### Examples
 
 ```text
 open github website
 
 open github.com
 
-create report.docx in desktop
+create report.docx
 
-open notes.txt
+open report.docx
 ```
 
-Benefits:
+### Benefits
 
 * Faster execution
 * Reduced hallucinations
-* Consistent behavior
+* Lower latency
 * Lower LLM dependency
+* More predictable behavior
 
 ---
 
-## LLM Planning Layer
+## Context Layer
 
-Used only for commands requiring reasoning, decomposition, or interpretation.
+### Components
 
-Components:
+* Context Manager
+* Session State
+* Reference Resolver
+* Context Synchronization Engine
 
-* Task Planner
-* Command Parser
-* Ollama Client
+### Responsibilities
 
-Responsibilities:
-
-* Multi-step planning
-* Complex command understanding
-* Workflow decomposition
-
----
-
-## Execution Layer
-
-Components:
-
-* Automation Engine
-* Executor
-* Tool Registry
-* System Tools
-
-Responsibilities:
-
-* Command execution
-* Validation
-* Error handling
-* Tool invocation
-* Fallback management
+* Track previous actions
+* Maintain active entities
+* Resolve references
+* Support conversational commands
 
 ---
 
 ## Filesystem Layer
 
-Components:
+### Components
 
 * Path Resolver
-* CreateFileTool
-* OpenFileTool
-* CreateFolderTool
-* OpenFolderTool
+* Smart Discovery Engine
+* Disambiguation Manager
+* Filesystem Tools
 
-Responsibilities:
+### Responsibilities
 
 * Natural language path interpretation
-* Deterministic path matching
 * Fuzzy matching
+* Smart discovery
 * Ambiguity detection
-* Filesystem safety
+* Safe filesystem operations
 
-Example:
+### Example
 
 ```text
 C drive Kavi Work Degree Charusat SEM 7 Internship Reports
@@ -216,6 +264,42 @@ Resolves to:
 ```text
 C:\Kavi\Work\Degree\Charusat\SEM 7\Internship\Reports
 ```
+
+---
+
+## LLM Planning Layer
+
+### Components
+
+* Command Parser
+* Ollama Client
+* Planner
+
+### Responsibilities
+
+* Multi-step reasoning
+* Task decomposition
+* Workflow planning
+* Intent understanding
+
+---
+
+## Execution Layer
+
+### Components
+
+* Automation Engine
+* Executor
+* Tool Registry
+* System Tools
+
+### Responsibilities
+
+* Execute actions
+* Validate inputs
+* Invoke tools
+* Handle failures
+* Synchronize context
 
 ---
 
@@ -233,15 +317,12 @@ C:\Kavi\Work\Degree\Charusat\SEM 7\Internship\Reports
 
 ## Libraries
 
-* subprocess
 * pathlib
+* subprocess
 * os
 * shutil
 * webbrowser
 * pyautogui
-
-## Testing
-
 * pytest
 
 ---
@@ -252,19 +333,17 @@ C:\Kavi\Work\Degree\Charusat\SEM 7\Internship\Reports
 SystemAutomationAssistant/
 
 ├── data/
-│   └── history.json
-│
-├── logs/
-│   └── system.log
-│
-├── screenshots/
-│
 ├── generated_files/
+├── logs/
+├── screenshots/
 │
 ├── src/
 │   ├── automation/
 │   │   ├── engine.py
 │   │   └── executor.py
+│   │
+│   ├── context/
+│   │   └── context_manager.py
 │   │
 │   ├── core/
 │   │   ├── command_parser.py
@@ -273,14 +352,16 @@ SystemAutomationAssistant/
 │   │   └── website_registry.py
 │   │
 │   ├── llm/
-│   │
 │   ├── planner/
-│   │
 │   ├── tools/
-│   │
 │   └── utils/
 │
 ├── tests/
+│   ├── automation/
+│   ├── context/
+│   ├── filesystem/
+│   ├── regression/
+│   └── tools/
 │
 ├── requirements.txt
 ├── README.md
@@ -293,16 +374,25 @@ SystemAutomationAssistant/
 
 Current supported actions include:
 
-* open_application
-* close_application
-* open_url
-* search_web
-* create_file
-* open_file
-* create_folder
-* open_folder
-* take_screenshot
-* wait
+```text
+open_application
+close_application
+open_url
+search_web
+
+create_file
+open_file
+create_folder
+open_folder
+
+take_screenshot
+wait
+
+show_context
+resolve_reference
+discover_files
+disambiguate_selection
+```
 
 ---
 
@@ -317,103 +407,129 @@ pip install -r requirements.txt
 Run all tests:
 
 ```bash
-python -m pytest tests
+pytest tests -v
 ```
 
-Run a specific test:
+Run a specific test suite:
 
 ```bash
-python -m pytest tests/test_path_resolver.py
+pytest tests/filesystem -v
+```
+
+Run regression tests:
+
+```bash
+pytest tests/regression -v
 ```
 
 ---
 
 # Current Project Status
 
-## Day 7 Complete
+## Day 15 Complete
 
-Completed:
+### Completed Features
 
 * Application Automation
 * Website Automation
-* Deterministic Routing Engine
+* Deterministic Routing
 * URL Builder
 * Website Registry
-* Executor Fallback Logic
-* Path Resolver Engine
-* File Creation
-* File Opening
-* Folder Creation
-* Folder Opening
+* Executor Framework
+* Filesystem Automation
+* Path Resolver
+* Smart Discovery
+* Interactive Disambiguation
+* Context Management
+* Context Synchronization
+* Reference Resolution
 * Screenshot Support
-* Wait Action Support
+* Wait Actions
 * Logging Framework
 * Automated Testing Framework
+* Regression Testing Suite
 
-Estimated Completion:
+### Estimated Completion
 
 ```text
-65% – 70%
+85%+
 ```
 
-Current Milestone:
+### Current Milestone
 
 ```text
-Production-Hardened Desktop Automation Assistant
-```
-
----
-
-# Day 8 Roadmap
-
-## Environment Awareness
-
-Examples:
-
-```text
-close it
-
-open it again
-
-switch to vscode
+Context-Aware Desktop Automation Assistant
 ```
 
 ---
 
-## Context Memory
+# Upcoming Roadmap
 
-Examples:
+## Feature 10
+
+Application Macros
 
 ```text
+open vscode
 open github
-
-close it
-
-open it again
+open terminal
 ```
 
----
-
-## Browser Automation
-
-Examples:
+Saved as:
 
 ```text
-open youtube and search ghost of yotei
-
-open gmail and compose email
+start development workspace
 ```
 
 ---
 
-## Voice Interface
+## Feature 11
 
-Features:
+Window Management
+
+```text
+minimize chrome
+
+maximize vscode
+
+restore calculator
+```
+
+---
+
+## Feature 12
+
+System Controls
+
+```text
+increase volume
+
+decrease brightness
+
+turn wifi off
+```
+
+---
+
+## Feature 13
+
+Voice Assistant Layer
 
 * Speech-to-Text
 * Text-to-Speech
-* Continuous Listening Mode
-* Conversational Interaction
+* Wake Word Detection
+* Continuous Listening
+
+---
+
+## Feature 14
+
+Advanced Agent Workflows
+
+* Task Chaining
+* Autonomous Planning
+* Workflow Execution
+* Memory-Based Reasoning
 
 ---
 
@@ -430,14 +546,14 @@ Softwingz Infotech Internship Project
 
 # Version
 
-Current Release:
+Current Release
 
 ```text
-v0.7.0
+v1.5.0
 ```
 
-Codename:
+Codename
 
 ```text
-Semantic Determinism & Architecture Hardening
+Filesystem Intelligence & Context Awareness
 ```

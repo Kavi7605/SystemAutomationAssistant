@@ -79,7 +79,22 @@ class TestContextSynchronizationRegression:
         
         # Previous app retrieval
         # Since last active app was steam according to ContextManager's focused_apps logic?
-        # Actually ApplicationStateManager tracks current_active_app and last_active_app through mark_focused
         # and refresh_active_window.
         result_previous = self.executor.execute({"action": "get_previous_app"})
         assert "steam" in result_previous["message"]
+
+    def test_context_action_tracking(self):
+        # 1. Action fails -> updates last_failed_action
+        self.registry_mock.execute_tool.return_value = {"status": "failed", "message": "Simulated failure"}
+        res1 = self.executor.execute({"action": "open_application", "parameters": {"application_name": "unknown_app"}})
+        assert res1.get("status") == "failed"
+        assert self.context_manager.state["last_failed_action"] == "open_application"
+        assert self.context_manager.state.get("last_successful_action") is None
+        
+        # 2. Action succeeds -> updates last_successful_action, clears last_failed_action
+        self.registry_mock.execute_tool.return_value = {"status": "success", "message": "Worked"}
+        res2 = self.executor.execute({"action": "dummy_action", "parameters": {}})
+        assert res2.get("status") == "success"
+        
+        assert self.context_manager.state["last_successful_action"] == "dummy_action"
+        assert self.context_manager.state.get("last_failed_action") is None

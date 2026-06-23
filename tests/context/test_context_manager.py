@@ -62,7 +62,8 @@ def test_get_context_snapshot():
         "last_failed_action": "click",
         "opened_apps_history": ["vscode"],
         "closed_apps_history": [],
-        "focused_apps_history": ["vscode"]
+        "focused_apps_history": ["vscode"],
+        "pending_disambiguation": None
     }
 
 def test_update_active_window_synchronization():

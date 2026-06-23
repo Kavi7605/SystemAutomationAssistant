@@ -64,6 +64,33 @@ class Executor:
                 message = parameters.get("message", "Could you please clarify your request?")
                 return {"status": "success", "message": f"Clarification needed: {message}"}
                 
+            if action == "resolve_disambiguation":
+                if self.context_manager:
+                    pending = self.context_manager.state.get("pending_disambiguation")
+                    if pending:
+                        selected_index = parameters.get("selected_index")
+                        matches = pending.get("matches", [])
+                        if 1 <= selected_index <= len(matches):
+                            selected_match = matches[selected_index - 1]
+                            target_key = pending.get("target_key", "item_name")
+                            
+                            # Reconstruct command
+                            reconstructed_cmd = {
+                                "action": pending["action"],
+                                "parameters": pending["parameters"]
+                            }
+                            reconstructed_cmd["parameters"][target_key] = selected_match
+                            
+                            # Clear state
+                            self.context_manager.state["pending_disambiguation"] = None
+                            self.context_manager.save()
+                            
+                            # Recursively execute
+                            return self._execute_single(reconstructed_cmd)
+                        else:
+                            return {"status": "failed", "message": f"Invalid selection.\nPlease choose a number between 1 and {len(matches)}."}
+                return {"status": "failed", "message": "No pending disambiguation state found."}
+                
             if action == "debug_context":
                 if self.context_manager:
                     import json
@@ -137,6 +164,9 @@ class Executor:
                         return {"status": "success", "message": msg}
                     return {"status": "success", "message": "Closed Apps History:\nNo apps have been closed yet."}
                 return {"status": "failed", "message": "ContextManager not initialized."}
+                
+            if action == "reject_custom_path":
+                return {"status": "failed", "message": "Custom filesystem locations are not supported yet. All files and folders are created inside automation_workspace."}
                     
             # State-Aware Validation Intercepts
             if action == "open_application":
@@ -166,6 +196,31 @@ class Executor:
                 
             # Execute dynamically via Tool Registry
             result = self.registry.execute_tool(action, **parameters)
+            
+            # Intercept ambiguous results from tools
+            if result.get("status") == "ambiguous":
+                if self.context_manager:
+                    import datetime
+                    
+                    # Try to reconstruct the original prompt if it was stored in ContextManager earlier
+                    # But the engine usually already updated last_command!
+                    prompt = self.context_manager.state.get("last_command", f"{action} operation")
+                    
+                    self.context_manager.state["pending_disambiguation"] = {
+                        "action": action,
+                        "parameters": parameters,
+                        "matches": result.get("matches", []),
+                        "target_key": result.get("target_key", "item_name"),
+                        "created_at": datetime.datetime.now().isoformat(),
+                        "prompt": prompt
+                    }
+                    self.context_manager.save()
+                    
+                    matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(result.get("matches", [])))
+                    result["message"] = f"Multiple matching files found:\n\n{matches_str}\n\nType the number to select an item.\nType 'cancel' to abort."
+                    # Change status to failure so it prints as a user prompt rather than "Success"
+                    result["status"] = "failed"
+                    return result
             
             # Fallback logic for open_application
             if action == "open_application" and result.get("status") == "application_not_found":
@@ -266,6 +321,22 @@ class Executor:
                 app_name = params.get("app_name", "app").title()
                 timeout = params.get("timeout", 30)
                 return f"Waiting for {app_name} application to close (timeout {timeout}s)..."
+        elif action == "create_folder":
+            return f"Creating folder '{params.get('folder_name', 'folder')}'"
+        elif action == "create_file":
+            return f"Creating file '{params.get('file_name', 'file')}'"
+        elif action == "rename_item":
+            return f"Renaming '{params.get('source_name', '')}' to '{params.get('target_name', '')}'"
+        elif action == "delete_item":
+            return f"Deleting '{params.get('item_name', '')}'"
+        elif action == "copy_file":
+            return f"Copying '{params.get('source_name', '')}' to '{params.get('target_name', '')}'"
+        elif action == "move_file":
+            return f"Moving '{params.get('source_name', '')}' to '{params.get('target_path', '')}'"
+        elif action == "open_workspace_item":
+            return f"Opening workspace item '{params.get('item_name', '')}'"
+        elif action == "reject_custom_path":
+            return "Rejecting custom filesystem path"
         else:
             return f"Executing {action.replace('_', ' ').title()}"
 

@@ -29,6 +29,26 @@ def mock_application_finder(monkeypatch, _mock_find_app):
     monkeypatch.setattr(ApplicationFinder, 'find_application', _mock_find_app)
 
 @pytest.fixture
+def _mock_resolve_smart_item():
+    def _mock(target, preferred_extension=None, **kwargs):
+        target_lower = target.lower()
+        workspace_items = ["report", "notes.txt", "test.txt", "demo.py"]
+        if any(item in target_lower for item in workspace_items):
+            return {"status": "success", "resolved_name": target, "path": "mock"}
+        return {"status": "not_found"}
+    return _mock
+
+@pytest.fixture(autouse=True)
+def mock_filesystem_tools(request, monkeypatch, _mock_resolve_smart_item):
+    if any(name in str(request.node.fspath) for name in ["test_filesystem_tools.py", "test_smart_discovery.py", "test_interactive_disambiguation.py", "test_filesystem_stabilization.py"]):
+        return
+    try:
+        import src.tools.filesystem_tools as ft
+        monkeypatch.setattr(ft, 'resolve_smart_item', _mock_resolve_smart_item)
+    except ImportError:
+        pass
+
+@pytest.fixture
 def parser_mock():
     return MagicMock(spec=CommandParser)
 
