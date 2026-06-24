@@ -63,7 +63,26 @@ def test_get_context_snapshot():
         "opened_apps_history": ["vscode"],
         "closed_apps_history": [],
         "focused_apps_history": ["vscode"],
-        "pending_disambiguation": None
+        "pending_disambiguation": None,
+        "system_state": {
+            "volume_level": None,
+            "is_muted": False,
+            "brightness_level": None,
+            "wifi_enabled": None,
+            "wifi_connected": None,
+            "wifi_name": None,
+            "hotspot_enabled": None,
+            "bluetooth_enabled": None,
+            "power_mode": None,
+            "battery_saver_enabled": None,
+            "power_plan": None,
+            "available_power_profiles": [],
+            "last_power_action": None,
+            "pending_power_action": None,
+            "display_monitor_count": None,
+            "primary_resolution": None,
+            "primary_refresh_rate": None
+        }
     }
 
 def test_update_active_window_synchronization():

@@ -42,6 +42,42 @@ from src.tools.window_tools import (
     IsWindowOpenTool,
     FocusWindowTool
 )
+from src.tools.system_control.volume_tools import (
+    MuteVolumeTool,
+    UnmuteVolumeTool,
+    IncreaseVolumeTool,
+    DecreaseVolumeTool,
+    SetVolumeTool,
+    GetVolumeStatusTool
+)
+from src.tools.system_control.brightness_tools import (
+    IncreaseBrightnessTool,
+    DecreaseBrightnessTool,
+    SetBrightnessTool,
+    GetBrightnessStatusTool
+)
+from src.tools.system_control.display_tools import GetDisplayStatusTool
+from src.tools.system_control.wifi_tools import (
+    EnableWifiTool,
+    DisableWifiTool,
+    GetWifiStatusTool,
+    WifiDebugTool
+)
+from src.tools.system_control.hotspot_tools import GetHotspotStatusTool
+from src.tools.system_control.power_tools import (
+    GetBatterySaverStatusTool,
+    ListPowerProfilesTool,
+    GetPowerModeStatusTool,
+    SetPowerModeTool
+)
+from src.tools.system_control.power_actions_tools import (
+    ShutdownTool,
+    RestartTool,
+    SleepTool,
+    LockScreenTool,
+    ConfirmPowerActionTool,
+    CancelPowerActionTool
+)
 
 logger = setup_logger("system_assistant")
 
@@ -85,6 +121,37 @@ def main():
         registry.register(GetActiveWindowTool())
         registry.register(IsWindowOpenTool())
         registry.register(FocusWindowTool())
+        
+        # System Control Tools
+        registry.register(MuteVolumeTool())
+        registry.register(UnmuteVolumeTool())
+        registry.register(IncreaseVolumeTool())
+        registry.register(DecreaseVolumeTool())
+        registry.register(SetVolumeTool())
+        registry.register(GetVolumeStatusTool())
+        
+        registry.register(IncreaseBrightnessTool())
+        registry.register(DecreaseBrightnessTool())
+        registry.register(SetBrightnessTool())
+        registry.register(GetBrightnessStatusTool())
+        
+        registry.register(GetDisplayStatusTool())
+        
+        registry.register(EnableWifiTool())
+        registry.register(DisableWifiTool())
+        registry.register(GetWifiStatusTool())
+        registry.register(WifiDebugTool())
+        registry.register(GetHotspotStatusTool())
+        registry.register(GetBatterySaverStatusTool())
+        registry.register(ListPowerProfilesTool())
+        registry.register(GetPowerModeStatusTool())
+        registry.register(SetPowerModeTool())
+        registry.register(ShutdownTool())
+        registry.register(RestartTool())
+        registry.register(SleepTool())
+        registry.register(LockScreenTool())
+        registry.register(ConfirmPowerActionTool())
+        registry.register(CancelPowerActionTool())
         
         # 1. Create Ollama client connecting to localhost:11434 with gemma3:4b
         client = OllamaClient(host="http://localhost:11434", model="gemma3:4b")

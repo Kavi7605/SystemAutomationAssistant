@@ -23,7 +23,26 @@ class ContextManager:
             "opened_apps_history": [],
             "closed_apps_history": [],
             "focused_apps_history": [],
-            "pending_disambiguation": None
+            "pending_disambiguation": None,
+            "system_state": {
+                "volume_level": None,
+                "is_muted": False,
+                "brightness_level": None,
+                "wifi_enabled": None,
+                "wifi_connected": None,
+                "wifi_name": None,
+                "hotspot_enabled": None,
+                "bluetooth_enabled": None,
+                "power_mode": None,
+                "battery_saver_enabled": None,
+                "power_plan": None,
+                "available_power_profiles": [],
+                "last_power_action": None,
+                "pending_power_action": None,
+                "display_monitor_count": None,
+                "primary_resolution": None,
+                "primary_refresh_rate": None
+            }
         }
 
     def update_last_command(self, command: str) -> None:
@@ -98,6 +117,13 @@ class ContextManager:
         self.state["last_failed_action"] = action
         self.save()
 
+    def update_system_state(self, key: str, value: Any) -> None:
+        """Updates a specific property within the system_state block."""
+        if "system_state" not in self.state:
+            self.state["system_state"] = {}
+        self.state["system_state"][key] = value
+        self.save()
+
     def get_last_opened_app(self):
         history = self.state["opened_apps_history"]
         return history[-1] if history else None
@@ -143,4 +169,11 @@ class ContextManager:
         if self.persistence_manager:
             loaded = self.persistence_manager.load_context()
             if loaded:
+                default_system_state = self.state.get("system_state", {}).copy()
                 self.state.update(loaded)
+                
+                # Ensure all default keys exist in system_state even if loading an old save
+                if "system_state" in loaded:
+                    for key, value in default_system_state.items():
+                        if key not in self.state["system_state"]:
+                            self.state["system_state"][key] = value

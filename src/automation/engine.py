@@ -252,7 +252,158 @@ class AutomationEngine:
             keys = press_match.group(1).split()
             return {"action": "hotkey", "parameters": {"keys": keys}}
 
-        # 0.6 Wait Routing
+        # 0.5 Volume Controls Routing
+        if user_input_lower in ["mute", "mute volume", "mute pc", "mute sound", "mute audio"]:
+            return {"action": "mute_volume", "parameters": {}}
+            
+        if user_input_lower in ["unmute", "unmute volume", "unmute pc", "unmute sound", "unmute audio"]:
+            return {"action": "unmute_volume", "parameters": {}}
+            
+        if user_input_lower in ["volume up", "sound up", "increase volume", "increase sound", "raise volume", "increase pc volume"]:
+            return {"action": "increase_volume", "parameters": {}}
+            
+        if user_input_lower in ["volume down", "sound down", "decrease volume", "decrease sound", "lower volume", "decrease pc volume"]:
+            return {"action": "decrease_volume", "parameters": {}}
+            
+        set_vol_match = re.match(r"^set\s+(?:pc\s+)?volume(?:\s+to)?\s+(\d+)(?:\s+percent|%)?$", user_input_lower)
+        if set_vol_match:
+            return {"action": "set_volume", "parameters": {"level": int(set_vol_match.group(1))}}
+            
+        if user_input_lower in ["volume status", "current volume", "what is my volume", "show volume"]:
+            return {"action": "volume_status", "parameters": {}}
+
+        # 0.6 Brightness Controls Routing
+        if user_input_lower in ["brightness up", "increase brightness", "raise brightness"]:
+            return {"action": "increase_brightness", "parameters": {}}
+            
+        if user_input_lower in ["brightness down", "decrease brightness", "lower brightness"]:
+            return {"action": "decrease_brightness", "parameters": {}}
+            
+        set_bright_match = re.match(r"^set\s+(?:screen\s+)?brightness(?:\s+to)?\s+(\d+)(?:\s+percent|%)?$", user_input_lower)
+        if set_bright_match:
+            return {"action": "set_brightness", "parameters": {"level": int(set_bright_match.group(1))}}
+            
+        if user_input_lower in ["brightness status", "current brightness", "what is my brightness", "show brightness"]:
+            return {"action": "brightness_status", "parameters": {}}
+
+        # 0.7 Display Controls Routing
+        display_aliases = [
+            "display status", "show display settings", "current display settings",
+            "current resolution", "what is my resolution", "current refresh rate",
+            "monitor count", "connected monitors", "display info", "monitor info",
+            "primary monitor", "monitor status", "screen information"
+        ]
+        if user_input_lower in display_aliases:
+            return {"action": "display_status", "parameters": {}}
+        if user_input_lower == "wifi debug":
+            return {"action": "wifi_debug", "parameters": {}}
+
+        # 0.9.1 Unsupported Feature Routing
+        unsupported_bluetooth_aliases = [
+            "turn on bluetooth", "turn off bluetooth", 
+            "turn on the bluetooth", "turn off the bluetooth",
+            "bluetooth on", "bluetooth off",
+            "bluetooth status", "show bluetooth status",
+            "is bluetooth on", "bluetooth information"
+        ]
+        if user_input_lower in unsupported_bluetooth_aliases:
+            return {"action": "unsupported_feature", "parameters": {"feature": "bluetooth"}}
+
+        unsupported_hotspot_aliases = [
+            "turn on hotspot", "turn off hotspot",
+            "turn on mobile hotspot", "turn off mobile hotspot",
+            "hotspot on", "hotspot off"
+        ]
+        if user_input_lower in unsupported_hotspot_aliases:
+            return {"action": "unsupported_feature", "parameters": {"feature": "hotspot"}}
+
+        unsupported_battery_saver_aliases = [
+            "turn on battery saver mode", "turn off battery saver mode",
+            "turn on the battery saver mode", "turn off the battery saver mode",
+            "turn on battery saver", "turn off battery saver"
+        ]
+        if user_input_lower in unsupported_battery_saver_aliases:
+            return {"action": "unsupported_feature", "parameters": {"feature": "battery_saver"}}
+
+        if user_input_lower == "current fan mode":
+            return {"action": "unsupported_feature", "parameters": {"feature": "fan_mode"}}
+
+        unsupported_airplane_aliases = [
+            "turn on airplane mode", "turn off airplane mode",
+            "enable airplane mode", "disable airplane mode",
+            "airplane mode on", "airplane mode off",
+            "airplane mode status", "show airplane mode status", "is airplane mode enabled"
+        ]
+        if user_input_lower in unsupported_airplane_aliases:
+            return {"action": "unsupported_feature", "parameters": {"feature": "airplane_mode"}}
+
+        unsupported_night_light_aliases = [
+            "turn on night light", "turn off night light",
+            "enable night light", "disable night light",
+            "night light on", "night light off",
+            "turn on night mode", "turn off night mode",
+            "enable night mode", "disable night mode"
+        ]
+        if user_input_lower in unsupported_night_light_aliases:
+            return {"action": "unsupported_feature", "parameters": {"feature": "night_light"}}
+
+        # 0.9.2 Hotspot Routing
+        hotspot_status_aliases = [
+            "hotspot status", "mobile hotspot status", "show hotspot status"
+        ]
+        if user_input_lower in hotspot_status_aliases:
+            return {"action": "hotspot_status", "parameters": {}}
+
+        # 0.9.3 Power Management Routing
+        if user_input_lower in ["battery saver status", "current battery saver status"]:
+            return {"action": "battery_saver_status", "parameters": {}}
+
+        if user_input_lower in ["available power modes", "available power profiles", "list power modes", "list power profiles"]:
+            return {"action": "list_power_profiles", "parameters": {}}
+
+        if user_input_lower in ["current power mode", "power status"]:
+            return {"action": "power_status", "parameters": {}}
+
+        power_mode_match = re.match(r"^(?:switch\s+to\s+)?(performance|balanced|silent|turbo)(?:\s+mode)?$", user_input_lower)
+        if power_mode_match:
+            return {"action": "set_power_mode", "parameters": {"mode": power_mode_match.group(1)}}
+
+        # 0.9.4 System Power Actions
+        if user_input_lower in ["shutdown pc", "turn off pc", "shutdown the pc", "turn off the computer", "shutdown computer"]:
+            return {"action": "shutdown_pc", "parameters": {}}
+        if user_input_lower in ["restart pc", "restart the pc", "restart computer", "reboot pc", "reboot computer"]:
+            return {"action": "restart_pc", "parameters": {}}
+        if user_input_lower in ["sleep pc", "put pc to sleep", "make my pc sleep", "sleep computer"]:
+            return {"action": "sleep_pc", "parameters": {}}
+        if user_input_lower in ["lock screen", "lock the screen", "lock pc screen", "lock the pc screen", "lock computer", "lock the computer"]:
+            return {"action": "lock_screen", "parameters": {}}
+        if user_input_lower == "confirm shutdown":
+            return {"action": "confirm_power_action", "parameters": {"action_type": "shutdown"}}
+        if user_input_lower == "confirm restart":
+            return {"action": "confirm_power_action", "parameters": {"action_type": "restart"}}
+        if user_input_lower in ["cancel", "cancel shutdown", "cancel restart"]:
+            return {"action": "cancel_power_action", "parameters": {}}
+
+        # 0.9.5 WiFi Controls Routing
+        if user_input_lower in ["turn on wifi", "enable wifi", "wifi on", "connect wifi"]:
+            return {"action": "enable_wifi", "parameters": {}}
+            
+        if user_input_lower in ["turn off wifi", "disable wifi", "wifi off", "disconnect wifi"]:
+            return {"action": "disable_wifi", "parameters": {}}
+            
+        wifi_status_aliases = [
+            "wifi status", "show wifi status", "current wifi status",
+            "am i connected to wifi", "am i connected to the internet",
+            "wifi information", "network status",
+            "wifi connection status", "network connection status"
+        ]
+        if user_input_lower in wifi_status_aliases:
+            return {"action": "wifi_status", "parameters": {}}
+            
+        if user_input_lower == "wifi debug":
+            return {"action": "wifi_debug", "parameters": {}}
+
+        # 0.10 Wait Routing
         wait_seconds_match = re.match(r"^(wait|pause|sleep)(?:\s+for)?\s+(\d+)\s+seconds?$", user_input_lower)
         if wait_seconds_match:
             return {"action": "wait", "parameters": {"wait_type": "seconds", "seconds": int(wait_seconds_match.group(2))}}
@@ -660,6 +811,21 @@ class AutomationEngine:
 
         # 1. Check for deterministic semantic routing
         semantic_json = self._route_semantic_command(user_input)
+        
+        # Power action confirmation expiration
+        if self.context_manager and user_input_lower not in ["show context", "debug context", "debug state"]:
+            state = self.context_manager.get_context_snapshot()["system_state"]
+            pending = state.get("pending_power_action")
+            if pending:
+                is_confirm_or_cancel = False
+                if semantic_json:
+                    if isinstance(semantic_json, list):
+                        is_confirm_or_cancel = any(c.get("action") in ["confirm_power_action", "cancel_power_action"] for c in semantic_json)
+                    else:
+                        is_confirm_or_cancel = semantic_json.get("action") in ["confirm_power_action", "cancel_power_action"]
+                
+                if not is_confirm_or_cancel:
+                    self.context_manager.update_system_state("pending_power_action", None)
         if semantic_json:
             logger.info("Router matched deterministic semantic pattern. Bypassing TaskPlanner and CommandParser.")
             

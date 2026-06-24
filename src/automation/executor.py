@@ -91,6 +91,18 @@ class Executor:
                             return {"status": "failed", "message": f"Invalid selection.\nPlease choose a number between 1 and {len(matches)}."}
                 return {"status": "failed", "message": "No pending disambiguation state found."}
                 
+            if action == "unsupported_feature":
+                feature = parameters.get("feature")
+                if feature == "night_light":
+                    return {
+                        "status": "failed",
+                        "message": "Windows Night Light cannot be controlled safely through documented Windows APIs. This feature is intentionally unsupported."
+                    }
+                return {
+                    "status": "failed",
+                    "message": "This feature is intentionally unsupported."
+                }
+                
             if action == "debug_context":
                 if self.context_manager:
                     import json
@@ -194,6 +206,11 @@ class Executor:
                         logger.info(f"{window_name.title()} is already focused. Skipping execution.")
                         return {"status": "success", "message": f"{window_name.title()} is already focused."}
                 
+            if action == "confirm_power_action":
+                if self.context_manager:
+                    snapshot = self.context_manager.get_context_snapshot()["system_state"]
+                    parameters["pending_action"] = snapshot.get("pending_power_action")
+                    
             # Execute dynamically via Tool Registry
             result = self.registry.execute_tool(action, **parameters)
             
@@ -263,6 +280,54 @@ class Executor:
                         self._sync_active_apps()
                     if self.context_manager and window_name:
                         self.context_manager.mark_app_focused(window_name)
+                
+                elif action in ["mute_volume", "unmute_volume", "increase_volume", "decrease_volume", "set_volume", "volume_status"]:
+                    if self.context_manager and "volume_level" in result and "is_muted" in result:
+                        self.context_manager.update_system_state("volume_level", result["volume_level"])
+                        self.context_manager.update_system_state("is_muted", result["is_muted"])
+                        
+                elif action in ["increase_brightness", "decrease_brightness", "set_brightness", "brightness_status"]:
+                    if self.context_manager and "brightness_level" in result:
+                        self.context_manager.update_system_state("brightness_level", result["brightness_level"])
+                        
+                elif action == "display_status":
+                    if self.context_manager and "display_monitor_count" in result:
+                        self.context_manager.update_system_state("display_monitor_count", result.get("display_monitor_count"))
+                        self.context_manager.update_system_state("primary_resolution", result.get("primary_resolution"))
+                        self.context_manager.update_system_state("primary_refresh_rate", result.get("primary_refresh_rate"))
+                        
+                elif action in ["enable_wifi", "disable_wifi", "wifi_status"]:
+                    if self.context_manager and "wifi_enabled" in result:
+                        self.context_manager.update_system_state("wifi_enabled", result.get("wifi_enabled"))
+                        self.context_manager.update_system_state("wifi_connected", result.get("wifi_connected"))
+                        self.context_manager.update_system_state("wifi_name", result.get("wifi_name"))
+                
+                elif action == 'hotspot_status':
+                    if self.context_manager and 'hotspot_enabled' in result:
+                        self.context_manager.update_system_state("hotspot_enabled", result['hotspot_enabled'])
+                elif action in ['battery_saver_status', 'list_power_profiles', 'power_status', 'set_power_mode']:
+                    if self.context_manager:
+                        if 'battery_saver_enabled' in result:
+                            self.context_manager.update_system_state("battery_saver_enabled", result['battery_saver_enabled'])
+                        if 'power_plan' in result:
+                            self.context_manager.update_system_state("power_plan", result['power_plan'])
+                        if 'available_power_profiles' in result:
+                            self.context_manager.update_system_state("available_power_profiles", result['available_power_profiles'])
+                
+                elif action in ["shutdown_pc", "restart_pc"]:
+                    if self.context_manager and "pending_power_action" in result:
+                        self.context_manager.update_system_state("pending_power_action", result["pending_power_action"])
+                        
+                elif action in ["sleep_pc", "lock_screen", "confirm_power_action"]:
+                    if self.context_manager and result.get("status") == "success":
+                        if "last_power_action" in result:
+                            self.context_manager.update_system_state("last_power_action", result["last_power_action"])
+                        if result.get("clear_pending"):
+                            self.context_manager.update_system_state("pending_power_action", None)
+                            
+                elif action == "cancel_power_action":
+                    if self.context_manager and result.get("clear_pending"):
+                        self.context_manager.update_system_state("pending_power_action", None)
                 
                 elif action == "get_active_window":
                     if self.state_manager:
@@ -337,6 +402,78 @@ class Executor:
             return f"Opening workspace item '{params.get('item_name', '')}'"
         elif action == "reject_custom_path":
             return "Rejecting custom filesystem path"
+        elif action == "mute_volume":
+            return "Muting system volume"
+        elif action == "unmute_volume":
+            return "Unmuting system volume"
+        elif action == "increase_volume":
+            return "Increasing system volume" # Executor doesn't have old_vol/new_vol here since it's just desc, but wait. _execute_single gets the result *after* _get_action_description. So we can't easily put it in _get_action_description. Let's just return "Increasing system volume". Actually, the result message has it, so the result message prints "Volume increased successfully." I will modify the message from the tool.
+        elif action == "decrease_volume":
+            return "Decreasing system volume"
+        elif action == "set_volume":
+            return f"Setting volume to {params.get('level', 0)}%"
+        elif action == "volume_status":
+            return "Getting volume status"
+        elif action == "increase_brightness":
+            return "Increasing brightness"
+        elif action == "decrease_brightness":
+            return "Decreasing brightness"
+        elif action == "set_brightness":
+            return f"Setting brightness to {params.get('level', 0)}%"
+        elif action == "brightness_status":
+            return "Getting brightness status"
+        elif action == "display_status":
+            cmd = self.context_manager.state.get("last_command", "").lower()
+            if "primary" in cmd:
+                return "Getting primary monitor information"
+            elif "monitor" in cmd:
+                return "Getting monitor information"
+            return "Getting display status"
+        elif action == "enable_wifi":
+            return "Enabling WiFi"
+        elif action == "disable_wifi":
+            return "Disabling WiFi"
+        elif action == "wifi_status":
+            return "Getting WiFi status"
+        elif action == "wifi_debug":
+            return "Running WiFi diagnostics"
+        elif action == "hotspot_status":
+            return "Getting Mobile Hotspot status"
+        elif action == "battery_saver_status":
+            return "Getting Battery Saver status"
+        elif action == "list_power_profiles":
+            return "Listing available power profiles"
+        elif action == "power_status":
+            return "Getting current power status"
+        elif action == "set_power_mode":
+            mode = params.get('mode', 'unknown')
+            return f"Switching to {mode.title()} power mode"
+        elif action == "shutdown_pc":
+            return "Initiating PC shutdown"
+        elif action == "restart_pc":
+            return "Initiating PC restart"
+        elif action == "sleep_pc":
+            return "Putting PC to sleep"
+        elif action == "lock_screen":
+            return "Locking screen"
+        elif action == "confirm_power_action":
+            action_type = params.get("action_type", "unknown")
+            return f"Confirming pending {action_type}"
+        elif action == "cancel_power_action":
+            return "Cancelling pending power action"
+        elif action == "unsupported_feature":
+            feature_name = params.get('feature', 'unknown')
+            if feature_name == "bluetooth":
+                return "Bluetooth toggling requires Administrator privileges and is intentionally unsupported."
+            elif feature_name == "hotspot":
+                return "Mobile Hotspot control requires Administrator privileges and is intentionally unsupported."
+            elif feature_name == "airplane_mode":
+                return "Airplane Mode control requires Administrator privileges and is intentionally unsupported."
+            elif feature_name == "battery_saver":
+                return "Battery Saver toggling requires Administrator privileges and is intentionally unsupported."
+            elif feature_name == "fan_mode":
+                return "Fan mode telemetry is vendor-specific and is intentionally unsupported."
+            return f"Intercepting unsupported feature: {feature_name}"
         else:
             return f"Executing {action.replace('_', ' ').title()}"
 
