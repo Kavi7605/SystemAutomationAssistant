@@ -41,7 +41,12 @@ class ContextManager:
                 "pending_power_action": None,
                 "display_monitor_count": None,
                 "primary_resolution": None,
-                "primary_refresh_rate": None
+                "primary_refresh_rate": None,
+                "current_window_title": None,
+                "current_window_app": None,
+                "current_window_handle": None,
+                "last_window_action": None,
+                "open_windows_count": None
             }
         }
 

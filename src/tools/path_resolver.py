@@ -1,6 +1,6 @@
 import os
 import difflib
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Dict, Any
 
 DEBUG_PATH_RESOLUTION = False
 
@@ -104,7 +104,7 @@ class PathResolver:
                         "message": f"Cannot traverse through non-directory: '{current_path}'"
                     }
                 entries = os.listdir(current_path)
-            except Exception as e:
+            except Exception:
                 return {
                     "status": "failed",
                     "failed_token": remaining,

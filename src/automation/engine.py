@@ -1,6 +1,6 @@
 import logging
 import re
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List, Optional
 
 from src.core.command_parser import CommandParser
 from src.core.history_manager import HistoryManager
@@ -200,7 +200,6 @@ class AutomationEngine:
         return target, None
 
     def _route_semantic_command(self, user_input_mixed: str) -> Optional[Dict[str, Any] | List[Dict[str, Any]]]:
-        from src.core.website_registry import WEBSITE_REGISTRY
         from src.core.url_builder import build_search_url, build_base_url
         
         user_input_lower = user_input_mixed.lower().strip()
@@ -285,6 +284,50 @@ class AutomationEngine:
             
         if user_input_lower in ["brightness status", "current brightness", "what is my brightness", "show brightness"]:
             return {"action": "brightness_status", "parameters": {}}
+
+        # 0.6.5 Window Management Routing
+        is_open_match = re.match(r"^is\s+(.+?)\s+(open|running|active)$", user_input_lower)
+        if is_open_match:
+            return {"action": "is_window_open", "parameters": {"window_name": is_open_match.group(1).strip()}}
+
+        minimize_match = re.match(r"^minimize\s+(.+)$", user_input_lower)
+        if minimize_match:
+            return {"action": "minimize_window", "parameters": {"window_name": minimize_match.group(1).strip()}}
+            
+        maximize_match = re.match(r"^maximize\s+(.+)$", user_input_lower)
+        if maximize_match:
+            return {"action": "maximize_window", "parameters": {"window_name": maximize_match.group(1).strip()}}
+            
+        restore_match = re.match(r"^restore\s+(.+)$", user_input_lower)
+        if restore_match:
+            return {"action": "restore_window", "parameters": {"window_name": restore_match.group(1).strip()}}
+            
+        focus_match = re.match(r"^(?:focus|switch to|bring|activate)\s+(.+?)(?:\s+to front)?$", user_input_lower)
+        if focus_match:
+            target = focus_match.group(1).strip()
+            if target not in ["previous window", "performance mode", "silent mode", "turbo", "turbo mode", "balanced mode"]:
+                return {"action": "focus_window", "parameters": {"window_name": target}}
+                
+        if user_input_lower == "focus previous window":
+            return {"action": "focus_window", "parameters": {"window_name": "previous window"}}
+
+        status_aliases = [
+            "current window", "active window", "window status", 
+            "show current window", "what window is active", "what app is active", 
+            "what window is focused", "what is visible on screen", "what app is open", 
+            "what application is open", "what window is open", "which app is open", 
+            "which application is open", "which window is open", "tell me what app is open", 
+            "tell me what window is open", "tell me which app is open"
+        ]
+        if user_input_lower in status_aliases:
+            return {"action": "get_current_window", "parameters": {}}
+            
+        list_aliases = [
+            "list open windows", "show open windows", 
+            "what windows are open", "window list"
+        ]
+        if user_input_lower in list_aliases:
+            return {"action": "list_open_windows", "parameters": {}}
 
         # 0.7 Display Controls Routing
         display_aliases = [
@@ -425,26 +468,7 @@ class AutomationEngine:
         move_match = re.match(r"^move\s+mouse(?:\s+to)?\s+(\d+)\s+(\d+)$", user_input_lower)
         if move_match:
             return {"action": "move_mouse", "parameters": {"x": int(move_match.group(1)), "y": int(move_match.group(2))}}
-        
-        # 0.5 Window Management Routing
-        active_window_patterns = [
-            r"^(?:tell\s+me\s+)?(what|which)\s+(window|app|application)\s+is\s+(active|focused|open)(?:\s+currently)?$",
-            r"^(?:tell\s+me\s+)?what\s+is\s+(?:currently\s+)?open$",
-            r"^(?:tell\s+me\s+)?what\s+is\s+visible\s+on\s+screen$",
-            r"^(?:tell\s+me\s+)?what\s+application\s+am\s+i\s+using$"
-        ]
-        
-        for pattern in active_window_patterns:
-            if re.match(pattern, user_input_lower):
-                return {"action": "get_active_window", "parameters": {}}
 
-        is_open_match = re.match(r"^is\s+(.+?)\s+(open|running|active)$", user_input_lower)
-        if is_open_match:
-            return {"action": "is_window_open", "parameters": {"window_name": is_open_match.group(1).strip()}}
-
-        focus_match = re.match(r"^focus\s+(.+)$", user_input_lower)
-        if focus_match:
-            return {"action": "focus_window", "parameters": {"window_name": focus_match.group(1).strip()}}
 
         if user_input_lower in ["show context", "debug context"]:
             return {"action": "debug_context", "parameters": {}}
@@ -777,7 +801,7 @@ class AutomationEngine:
         if self.context_manager and user_input_lower not in ["show context", "debug context"]:
             self.context_manager.update_last_command(user_input)
             
-        logger.info(f"--- New Command Received ---")
+        logger.info("--- New Command Received ---")
         logger.info(f"Received input from {source}: {user_input}")
         logger.info(f"User Input: {user_input}")
                 

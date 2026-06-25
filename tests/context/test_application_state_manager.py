@@ -3,18 +3,11 @@ from unittest.mock import MagicMock, patch
 from datetime import datetime
 
 from src.context.application_state_manager import ApplicationStateManager
-from src.context.window_manager import WindowManager
+from src.tools.system_control.window_tools import WindowManager
 
 @pytest.fixture
-def mock_wm():
-    wm = MagicMock(spec=WindowManager)
-    wm.find_window.return_value = None
-    wm.get_active_window.return_value = None
-    return wm
-
-@pytest.fixture
-def state_manager(mock_wm):
-    return ApplicationStateManager(window_manager=mock_wm)
+def state_manager():
+    return ApplicationStateManager()
 
 def test_initial_state(state_manager):
     assert state_manager.get_current_active_app() is None
@@ -24,18 +17,19 @@ def test_initial_state(state_manager):
     assert state_manager.is_focused("steam") is False
 
 @patch("src.context.application_state_manager.psutil")
-def test_refresh_app_state_running_and_window(mock_psutil, state_manager, mock_wm):
+@patch("src.context.application_state_manager.WindowManager")
+def test_refresh_app_state_running_and_window(mock_wm, mock_psutil, state_manager):
     # Setup process
     mock_proc = MagicMock()
     mock_proc.info = {"name": "steam.exe"}
     mock_psutil.process_iter.return_value = [mock_proc]
     
     # Setup window
-    mock_wm.find_window.return_value = {
+    mock_wm.find_windows.return_value = [{
         "title": "Steam",
-        "is_active": False,
-        "is_minimized": False
-    }
+        "hwnd": 123
+    }]
+    mock_wm.get_current_window.return_value = {"hwnd": 456}
     
     state_manager.refresh_app_state("steam")
     
@@ -46,16 +40,17 @@ def test_refresh_app_state_running_and_window(mock_psutil, state_manager, mock_w
     assert isinstance(state_manager.get_app_state("steam")["last_seen"], datetime)
 
 @patch("src.context.application_state_manager.psutil")
-def test_refresh_app_state_focused(mock_psutil, state_manager, mock_wm):
+@patch("src.context.application_state_manager.WindowManager")
+def test_refresh_app_state_focused(mock_wm, mock_psutil, state_manager):
     mock_proc = MagicMock()
     mock_proc.info = {"name": "discord.exe"}
     mock_psutil.process_iter.return_value = [mock_proc]
     
-    mock_wm.find_window.return_value = {
+    mock_wm.find_windows.return_value = [{
         "title": "Discord",
-        "is_active": True,
-        "is_minimized": False
-    }
+        "hwnd": 123
+    }]
+    mock_wm.get_current_window.return_value = {"hwnd": 123}
     
     state_manager.refresh_app_state("discord")
     
@@ -74,10 +69,12 @@ def test_mark_focused_shifts_active_apps(state_manager):
     assert state_manager.get_current_active_app() == "discord"
     assert state_manager.get_last_active_app() == "steam"
 
-def test_refresh_active_window(state_manager, mock_wm):
-    mock_wm.get_active_window.return_value = {
+@patch("src.context.application_state_manager.WindowManager")
+def test_refresh_active_window(mock_wm, state_manager):
+    mock_wm.get_current_window.return_value = {
         "title": "Microsoft Word",
-        "process_name": "winword.exe"
+        "app_name": "winword",
+        "hwnd": 123
     }
     
     state_manager.refresh_active_window()
@@ -86,21 +83,23 @@ def test_refresh_active_window(state_manager, mock_wm):
     assert state_manager.is_focused("word") is True
 
 @patch("src.context.application_state_manager.psutil")
-def test_refresh_all(mock_psutil, state_manager, mock_wm):
+@patch("src.context.application_state_manager.WindowManager")
+def test_refresh_all(mock_wm, mock_psutil, state_manager):
     mock_proc = MagicMock()
     mock_proc.info = {"name": "code.exe"}
     mock_psutil.process_iter.return_value = [mock_proc]
     
     def side_effect(app_name):
         if app_name == "vscode":
-            return {"title": "Visual Studio Code", "is_active": True, "is_minimized": False}
-        return None
+            return [{"title": "Visual Studio Code", "hwnd": 123}]
+        return []
         
-    mock_wm.find_window.side_effect = side_effect
+    mock_wm.find_windows.side_effect = side_effect
     
-    mock_wm.get_active_window.return_value = {
+    mock_wm.get_current_window.return_value = {
         "title": "Visual Studio Code",
-        "process_name": "code.exe"
+        "app_name": "code",
+        "hwnd": 123
     }
     
     state_manager.refresh_all()

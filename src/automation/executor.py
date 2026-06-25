@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from src.context.application_state_manager import ApplicationStateManager
     from src.context.context_manager import ContextManager
+    from src.context.reference_resolver import ReferenceResolver
 
 logger = logging.getLogger("system_assistant")
 
@@ -234,7 +235,7 @@ class Executor:
                     self.context_manager.save()
                     
                     matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(result.get("matches", [])))
-                    result["message"] = f"Multiple matching files found:\n\n{matches_str}\n\nType the number to select an item.\nType 'cancel' to abort."
+                    result["message"] = f"Multiple matching items found:\n\n{matches_str}\n\nType the number to select an item.\nType 'cancel' to abort."
                     # Change status to failure so it prints as a user prompt rather than "Success"
                     result["status"] = "failed"
                     return result
@@ -280,6 +281,21 @@ class Executor:
                         self._sync_active_apps()
                     if self.context_manager and window_name:
                         self.context_manager.mark_app_focused(window_name)
+                        
+                elif action in ["minimize_window", "maximize_window", "restore_window", "get_current_window", "list_open_windows"]:
+                    if self.context_manager:
+                        if "window" in result:
+                            win = result["window"]
+                            self.context_manager.update_system_state("current_window_title", win.get("title", ""))
+                            self.context_manager.update_system_state("current_window_app", win.get("app_name", ""))
+                            self.context_manager.update_system_state("current_window_handle", win.get("hwnd", 0))
+                        
+                        if action in ["minimize_window", "maximize_window", "restore_window", "focus_window"]:
+                            action_type = action.split('_')[0]
+                            self.context_manager.update_system_state("last_window_action", action_type)
+                            
+                        if "count" in result:
+                            self.context_manager.update_system_state("open_windows_count", result["count"])
                 
                 elif action in ["mute_volume", "unmute_volume", "increase_volume", "decrease_volume", "set_volume", "volume_status"]:
                     if self.context_manager and "volume_level" in result and "is_muted" in result:
@@ -329,7 +345,7 @@ class Executor:
                     if self.context_manager and result.get("clear_pending"):
                         self.context_manager.update_system_state("pending_power_action", None)
                 
-                elif action == "get_active_window":
+                elif action == "get_current_window":
                     if self.state_manager:
                         self.state_manager.refresh_active_window()
                         self._sync_active_apps()
@@ -360,12 +376,21 @@ class Executor:
             return f"Closing {app_name.title()}"
         elif action == "search_web":
             return f"Searching web for '{params.get('query', '')}'"
-        elif action == "get_active_window":
-            return "Getting active window"
+        elif action == "get_current_window":
+            return "Getting current window status"
         elif action == "is_window_open":
             return f"Checking if {params.get('window_name', 'window')} is open"
         elif action == "focus_window":
-            return f"Focusing {params.get('window_name', 'window').title()}"
+            return f"Focusing window: {params.get('window_name', 'window').title()}"
+        elif action == "minimize_window":
+            return f"Minimizing window: {params.get('window_name', 'window').title()}"
+        elif action == "maximize_window":
+            return f"Maximizing window: {params.get('window_name', 'window').title()}"
+        elif action == "restore_window":
+            return f"Restoring window: {params.get('window_name', 'window').title()}"
+
+        elif action == "list_open_windows":
+            return "Listing open windows"
         elif action == "wait":
             wait_type = params.get("wait_type", "seconds")
             if wait_type == "seconds":
@@ -505,7 +530,7 @@ class Executor:
             action = cmd.get("action", "unknown")
             desc = self._get_action_description(cmd)
             
-            if action not in ["get_active_window", "is_window_open"]:
+            if action not in ["is_window_open", "get_current_window", "list_open_windows"]:
                 print(f"[{i}/{total_steps}] {desc}")
                 
             logger.info(f"Queue step {i}/{total_steps}: {desc}")
@@ -514,7 +539,7 @@ class Executor:
             
             if result.get("status") in ["success", "completed", "partial_success"]:
                 msg = result.get("message", "Success")
-                if action in ["get_active_window", "is_window_open"]:
+                if action in ["is_window_open", "get_current_window", "list_open_windows"]:
                     print(f"[{i}/{total_steps}] {msg}\n")
                 else:
                     print(f"[OK] {msg}\n")

@@ -35,7 +35,6 @@ class DisplayManager:
         
         # shcore needed for DPI
         shcore = ctypes.windll.shcore
-        user32 = ctypes.windll.user32
         
         for i, monitor in enumerate(monitors):
             hmonitor = monitor[0].handle

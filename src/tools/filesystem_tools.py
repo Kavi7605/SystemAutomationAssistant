@@ -117,7 +117,7 @@ class CreateFolderTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"Folder created successfully.", 
+                "message": "Folder created successfully.", 
                 "item_name": folder_name
             }
         except Exception as e:
@@ -184,7 +184,7 @@ class CreateFileTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"File created successfully.", 
+                "message": "File created successfully.", 
                 "item_name": item_name
             }
         except Exception as e:
@@ -374,7 +374,7 @@ class CopyFileTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"File copied successfully.", 
+                "message": "File copied successfully.", 
                 "item_name": target_name
             }
         except Exception as e:
@@ -452,7 +452,7 @@ class MoveFileTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"File moved successfully.", 
+                "message": "File moved successfully.", 
                 # According to metadata specs, returning the new item_name relative to workspace
                 "item_name": target_path_obj.name
             }
@@ -496,7 +496,7 @@ class OpenWorkspaceItemTool(BaseTool):
                     "target_key": "item_name"
                 }
             elif resolution["status"] == "not_found":
-                return {"status": "failed", "message": f"Folder not found."} # Fallback text
+                return {"status": "failed", "message": "Folder not found."} # Fallback text
                 
             target_path = resolution["path"]
             actual_name = resolution["resolved_name"]

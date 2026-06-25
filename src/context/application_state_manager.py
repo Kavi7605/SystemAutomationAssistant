@@ -7,7 +7,7 @@ try:
 except ImportError:
     psutil = None
 
-from src.context.window_manager import WindowManager
+from src.tools.system_control.window_tools import WindowManager
 from src.context.application_aliases import APP_WINDOW_ALIASES, normalize_app_name
 
 logger = logging.getLogger(__name__)
@@ -16,8 +16,7 @@ class ApplicationStateManager:
     """
     Maintains a real-time view of application states on the system.
     """
-    def __init__(self, window_manager: WindowManager, persistence_manager=None):
-        self.window_manager = window_manager
+    def __init__(self, persistence_manager=None):
         self.persistence_manager = persistence_manager
         self.states: Dict[str, Dict[str, Any]] = {}
         self.current_active_app: Optional[str] = None
@@ -74,12 +73,12 @@ class ApplicationStateManager:
         self.save()
 
     def refresh_active_window(self) -> None:
-        active_win = self.window_manager.get_active_window()
-        if not active_win:
+        active_win = WindowManager.get_current_window()
+        if not active_win or active_win.get("hwnd") == 0:
             return
             
         title = active_win.get("title", "").lower()
-        process_name = active_win.get("process_name", "").lower().replace(".exe", "")
+        process_name = active_win.get("app_name", "").lower().replace(".exe", "")
         
         matched_app = None
         for app, aliases in APP_WINDOW_ALIASES.items():
@@ -109,11 +108,12 @@ class ApplicationStateManager:
         self._init_app_state(app_name)
         state = self.states[app_name]
         
-        win_info = self.window_manager.find_window(app_name)
-        if win_info:
+        matches = WindowManager.find_windows(app_name)
+        if matches:
+            win_info = matches[0]
             state["window_open"] = True
             state["window_title"] = win_info.get("title")
-            state["focused"] = win_info.get("is_active", False)
+            state["focused"] = (WindowManager.get_current_window().get("hwnd") == win_info.get("hwnd"))
             state["last_seen"] = datetime.now()
         else:
             state["window_open"] = False

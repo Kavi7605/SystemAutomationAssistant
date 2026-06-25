@@ -37,8 +37,13 @@ from src.tools.desktop_tools import (
     ScrollTool,
     MoveMouseTool
 )
-from src.tools.window_tools import (
-    GetActiveWindowTool,
+
+from src.tools.system_control.window_tools import (
+    MinimizeWindowTool,
+    MaximizeWindowTool,
+    RestoreWindowTool,
+    GetCurrentWindowTool,
+    ListOpenWindowsTool,
     IsWindowOpenTool,
     FocusWindowTool
 )
@@ -118,9 +123,13 @@ def main():
         registry.register(MoveMouseTool())
         
         # Window Tools
-        registry.register(GetActiveWindowTool())
         registry.register(IsWindowOpenTool())
         registry.register(FocusWindowTool())
+        registry.register(MinimizeWindowTool())
+        registry.register(MaximizeWindowTool())
+        registry.register(RestoreWindowTool())
+        registry.register(GetCurrentWindowTool())
+        registry.register(ListOpenWindowsTool())
         
         # System Control Tools
         registry.register(MuteVolumeTool())
@@ -166,17 +175,15 @@ def main():
         task_planner = TaskPlanner()
         
         # 4. Initialize Executor Engine (Executes system actions dynamically)
-        from src.context.window_manager import WindowManager
         from src.context.application_state_manager import ApplicationStateManager
         from src.context.context_manager import ContextManager
         from src.context.reference_resolver import ReferenceResolver
         
         from src.context.persistence_manager import PersistenceManager
         
-        window_manager = WindowManager()
         persistence_manager = PersistenceManager()
         
-        state_manager = ApplicationStateManager(window_manager, persistence_manager)
+        state_manager = ApplicationStateManager(persistence_manager)
         context_manager = ContextManager(persistence_manager)
         
         # Load persisted data on startup

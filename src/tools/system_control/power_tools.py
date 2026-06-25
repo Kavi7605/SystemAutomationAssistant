@@ -1,7 +1,7 @@
 import logging
 import subprocess
 import re
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 from src.tools.base import BaseTool
 

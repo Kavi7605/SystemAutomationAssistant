@@ -4,7 +4,7 @@ import psutil
 from typing import Dict, Any
 
 from src.tools.base import BaseTool
-from src.context.window_manager import WindowManager
+from src.tools.system_control.window_tools import WindowManager
 
 logger = logging.getLogger(__name__)
 
@@ -12,8 +12,8 @@ class WaitTool(BaseTool):
     name = "wait"
     description = "Smart waiting layer for the assistant with polling capabilities."
 
-    def __init__(self, window_manager: WindowManager = None):
-        self.window_manager = window_manager or WindowManager()
+    def __init__(self):
+        pass
 
     def execute(self, wait_type: str = "seconds", seconds: int = None, window_name: str = None, app_name: str = None, timeout: int = 30, **kwargs) -> Dict[str, Any]:
         try:
@@ -51,8 +51,8 @@ class WaitTool(BaseTool):
     def wait_until_window(self, window_name: str, timeout: int = 30) -> Dict[str, Any]:
         start_time = time.time()
         while time.time() - start_time < timeout:
-            win = self.window_manager.find_window(window_name)
-            if win:
+            matches = WindowManager.find_windows(window_name)
+            if matches:
                 return {"status": "success", "message": f"Window '{window_name}' appeared"}
             time.sleep(0.5)
         return {"status": "failed", "message": f"Timeout waiting for window '{window_name}'"}
@@ -60,8 +60,8 @@ class WaitTool(BaseTool):
     def wait_until_window_closed(self, window_name: str, timeout: int = 30) -> Dict[str, Any]:
         start_time = time.time()
         while time.time() - start_time < timeout:
-            win = self.window_manager.find_window(window_name)
-            if not win:
+            matches = WindowManager.find_windows(window_name)
+            if not matches:
                 return {"status": "success", "message": f"Window '{window_name}' closed"}
             time.sleep(0.5)
         return {"status": "failed", "message": f"Timeout waiting for window '{window_name}' to close"}

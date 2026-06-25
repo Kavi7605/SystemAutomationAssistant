@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 import os
 import sys
 
@@ -14,7 +14,7 @@ from src.automation.executor import Executor
 from src.tools.registry import ToolRegistry
 from src.context.application_state_manager import ApplicationStateManager
 from src.context.context_manager import ContextManager
-from src.context.window_manager import WindowManager
+from src.tools.system_control.window_tools import WindowManager
 
 class TestContextSynchronizationRegression:
     def setup_method(self):
@@ -26,11 +26,7 @@ class TestContextSynchronizationRegression:
         self.registry_mock = MagicMock(spec=ToolRegistry)
         self.registry_mock.execute_tool.return_value = {"status": "success", "message": "Simulated tool execution"}
         
-        self.window_manager_mock = MagicMock(spec=WindowManager)
-        self.window_manager_mock.find_window.return_value = None
-        self.window_manager_mock.get_active_window.return_value = None
-        
-        self.state_manager = ApplicationStateManager(self.window_manager_mock)
+        self.state_manager = ApplicationStateManager()
         self.context_manager = ContextManager()
         
         self.executor = Executor(
@@ -48,50 +44,44 @@ class TestContextSynchronizationRegression:
             context_manager=self.context_manager
         )
 
-    def test_focus_typo_stores_canonical_name(self):
-        # User focuses 'whatsap'
-        self.engine.process_command("focus whatsap")
+    @patch("src.context.application_state_manager.WindowManager")
+    def test_focus_typo_stores_canonical_name(self, mock_wm):
+        mock_wm.find_windows.return_value = [{"title": "WhatsApp", "hwnd": 123}]
+        # First check returns Discord (so it executes), second check returns WhatsApp (after focus)
+        mock_wm.get_current_window.side_effect = [
+            {"hwnd": 456, "title": "Discord", "app_name": "discord"},
+            {"hwnd": 123, "title": "WhatsApp", "app_name": "whatsapp"},
+            {"hwnd": 123, "title": "WhatsApp", "app_name": "whatsapp"}
+        ]
         
-        # Check history via command
+        self.engine.process_command("focus whatsap")
         self.executor.execute({"action": "get_focused_history"})
         history = self.context_manager.get_focus_history()
         
-        # It must be whatsapp, not whatsap
         assert "whatsapp" in history
         assert "whatsap" not in history
-        
-        # Current app should be whatsapp
         assert self.context_manager.get_context_snapshot()["current_active_app"] == "whatsapp"
 
-    def test_current_and_previous_app_sync(self):
-        # Focus steam
+    @patch("src.context.application_state_manager.WindowManager")
+    def test_current_and_previous_app_sync(self, mock_wm):
         self.engine.process_command("focus steam")
-        
-        # Focus discord
         self.engine.process_command("focus discord")
         
-        # The ApplicationStateManager is the source of truth for current app retrieval.
-        # It asks window_manager.get_active_window(). We mock it so it returns discord.
-        self.window_manager_mock.get_active_window.return_value = {"title": "Discord", "process_name": "discord.exe"}
+        mock_wm.get_current_window.return_value = {"title": "Discord", "app_name": "discord", "hwnd": 123}
         
         result_current = self.executor.execute({"action": "get_current_app"})
         assert "discord" in result_current["message"]
         
-        # Previous app retrieval
-        # Since last active app was steam according to ContextManager's focused_apps logic?
-        # and refresh_active_window.
         result_previous = self.executor.execute({"action": "get_previous_app"})
         assert "steam" in result_previous["message"]
 
     def test_context_action_tracking(self):
-        # 1. Action fails -> updates last_failed_action
         self.registry_mock.execute_tool.return_value = {"status": "failed", "message": "Simulated failure"}
         res1 = self.executor.execute({"action": "open_application", "parameters": {"application_name": "unknown_app"}})
         assert res1.get("status") == "failed"
         assert self.context_manager.state["last_failed_action"] == "open_application"
         assert self.context_manager.state.get("last_successful_action") is None
         
-        # 2. Action succeeds -> updates last_successful_action, clears last_failed_action
         self.registry_mock.execute_tool.return_value = {"status": "success", "message": "Worked"}
         res2 = self.executor.execute({"action": "dummy_action", "parameters": {}})
         assert res2.get("status") == "success"

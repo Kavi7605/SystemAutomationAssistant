@@ -47,7 +47,7 @@ def test_route_active_window_aliases(engine):
     ]
     for alias in aliases:
         result = engine._route_semantic_command(alias)
-        assert result == {"action": "get_active_window", "parameters": {}}, f"Failed on alias: {alias}"
+        assert result == {"action": "get_current_window", "parameters": {}}, f"Failed on alias: {alias}"
 
 def test_multi_action_three_chain(engine):
     normalized = engine._normalize_app_chains("open discord and focus discord and what window is active")

@@ -1,3 +1,5 @@
+import difflib
+
 APP_WINDOW_ALIASES = {
     "vscode": ["visual studio code", "code"],
     "chrome": ["google chrome", "chrome"],
@@ -9,8 +11,6 @@ APP_WINDOW_ALIASES = {
     "excel": ["microsoft excel", "excel"],
     "spotify": ["spotify"]
 }
-
-import difflib
 
 def normalize_app_name(app_name: str) -> str:
     if not app_name:

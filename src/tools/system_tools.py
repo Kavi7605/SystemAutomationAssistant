@@ -1,7 +1,6 @@
 import os
 import subprocess
 import datetime
-import time
 import socket
 import webbrowser
 import logging
@@ -27,7 +26,7 @@ class OpenApplicationTool(BaseTool):
         if not application_name:
             return {"status": "failed", "message": "Missing application_name"}
             
-        logger.info(f"\n--- Application Launch Request ---")
+        logger.info("\n--- Application Launch Request ---")
         logger.info(f"Requested app: {application_name}")
         
         resolved_app_data = self.application_finder.find_application(application_name)
@@ -58,16 +57,16 @@ class OpenApplicationTool(BaseTool):
             # os.startfile is perfect because it delegates directly to the OS shell,
             # avoids locking CMD popups, and natively processes shell:AppsFolder URIs.
             if os.path.isabs(target_path) or target_path.lower().startswith("shell:appsfolder"):
-                logger.info(f"Verification method: OS Native Dispatch (os.startfile)")
+                logger.info("Verification method: OS Native Dispatch (os.startfile)")
                 try:
                     if len(cmd_list) > 1:
                         # Fallback to subprocess.Popen for strict argument injection without shell=True
-                        logger.info(f"Arguments detected, using subprocess.Popen(shell=False)")
+                        logger.info("Arguments detected, using subprocess.Popen(shell=False)")
                         process = subprocess.Popen(cmd_list)
                         logger.info(f"Launch success. PID: {process.pid}")
                     else:
                         os.startfile(target_path)
-                        logger.info(f"Launch success via os.startfile.")
+                        logger.info("Launch success via os.startfile.")
                         
                     return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
                     
@@ -80,7 +79,7 @@ class OpenApplicationTool(BaseTool):
             
             # 2. Subprocess execution for unresolved/relative PATH binaries
             else:
-                logger.info(f"Verification method: Subprocess Direct Execution")
+                logger.info("Verification method: Subprocess Direct Execution")
                 try:
                     process = subprocess.Popen(cmd_list)
                     logger.info(f"Launch success. PID: {process.pid}")
