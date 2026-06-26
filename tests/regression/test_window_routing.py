@@ -80,8 +80,21 @@ def test_route_list_windows_aliases(engine):
     aliases = [
         "list open windows",
         "show open windows",
+        "focus open windows",
         "what windows are open",
-        "window list"
+        "window list",
+        "show running apps",
+        "list running apps",
+        "focus running apps",
+        "what apps are running",
+        "running applications",
+        "what applications are running",
+        "what apps are open",
+        "what applications are open",
+        "list open applications",
+        "list open apps",
+        "focus open applications",
+        "focus open apps"
     ]
     for alias in aliases:
         result = engine._route_semantic_command(alias)
@@ -97,3 +110,14 @@ def test_deterministic_bypass(engine):
     # Assert neither parser nor planner were called because it was caught deterministically
     engine.parser.parse_command.assert_not_called()
     engine.task_planner.plan_task.assert_not_called()
+
+def test_normalize_app_chains_multi_targets(engine):
+    commands = {
+        "minimize discord and whatsapp": "minimize discord and minimize whatsapp",
+        "maximize chrome and vscode": "maximize chrome and maximize vscode",
+        "restore github and steam": "restore github and restore steam",
+        "close steam and spotify": "close steam and close spotify",
+        "open word and excel": "open word and open excel"
+    }
+    for input_cmd, expected in commands.items():
+        assert engine._normalize_app_chains(input_cmd) == expected

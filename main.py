@@ -5,6 +5,7 @@ from src.core.history_manager import HistoryManager
 from src.planner.resolver import CommandResolver
 from src.automation.executor import Executor
 from src.automation.engine import AutomationEngine
+from src.nlp.preprocessor import NLPPreprocessor
 from src.utils.logger import setup_logger
 from src.tools.registry import ToolRegistry
 from src.tools.application_finder import ApplicationFinder
@@ -202,6 +203,9 @@ def main():
         # 5. Initialize Command History Manager
         history_manager = HistoryManager()
         
+        # 5.5 Initialize NLP Preprocessor
+        nlp_preprocessor = NLPPreprocessor()
+        
         # 6. Initialize and start the Automation Engine
         engine = AutomationEngine(
             parser=parser,
@@ -210,7 +214,8 @@ def main():
             executor=executor,
             history_manager=history_manager,
             context_manager=context_manager,
-            reference_resolver=reference_resolver
+            reference_resolver=reference_resolver,
+            nlp_preprocessor=nlp_preprocessor
         )
         engine.start()
                 

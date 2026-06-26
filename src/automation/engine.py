@@ -24,7 +24,8 @@ class AutomationEngine:
                  executor: Executor, 
                  history_manager: HistoryManager,
                  context_manager: ContextManager = None,
-                 reference_resolver: ReferenceResolver = None):
+                 reference_resolver: ReferenceResolver = None,
+                 nlp_preprocessor = None):
         self.parser = parser
         self.resolver = resolver
         self.task_planner = task_planner
@@ -32,6 +33,7 @@ class AutomationEngine:
         self.history_manager = history_manager
         self.context_manager = context_manager
         self.reference_resolver = reference_resolver
+        self.nlp_preprocessor = nlp_preprocessor
 
     def get_history(self) -> List[Dict[str, Any]]:
         return self.history_manager.get_history()
@@ -61,7 +63,7 @@ class AutomationEngine:
             return type_suffix
             
         parts = re.split(regex, command, flags=re.IGNORECASE)
-        action_verbs = ("open ", "close ", "create ", "delete ", "move ", "copy ", "rename ", "search ", "wait ", "pause ", "sleep ", "click", "double click", "right click", "type ", "write ", "press ", "scroll ", "focus ", "is ", "what ", "which ", "tell ")
+        action_verbs = ("open ", "close ", "minimize ", "maximize ", "restore ", "create ", "delete ", "move ", "copy ", "rename ", "search ", "wait ", "pause ", "sleep ", "click", "double click", "right click", "type ", "write ", "press ", "scroll ", "focus ", "is ", "what ", "which ", "tell ")
         
         normalized_parts = []
         carry_over = None
@@ -75,12 +77,11 @@ class AutomationEngine:
             
             if starts_with_verb:
                 normalized_parts.append(part.strip())
-                if part_lower.startswith("open "):
-                    carry_over = "open "
-                elif part_lower.startswith("close "):
-                    carry_over = "close "
-                else:
-                    carry_over = None
+                carry_over = None
+                for verb in ("open ", "close ", "minimize ", "maximize ", "restore "):
+                    if part_lower.startswith(verb):
+                        carry_over = verb
+                        break
             else:
                 if carry_over:
                     normalized_parts.append(f"{carry_over}{part.strip()}")
@@ -302,6 +303,21 @@ class AutomationEngine:
         if restore_match:
             return {"action": "restore_window", "parameters": {"window_name": restore_match.group(1).strip()}}
             
+        running_apps_aliases = [
+            "list open windows", "show open windows", "focus open windows",
+            "what windows are open", "window list",
+            "show running apps", "list running apps", "focus running apps",
+            "what apps are running", "running applications",
+            "what applications are running", "what apps are open",
+            "what applications are open", "list open applications", "list open apps",
+            "focus open applications", "focus open apps"
+        ]
+        if user_input_lower in running_apps_aliases:
+            user_input_lower = "list_running_apps"
+            
+        if user_input_lower == "list_running_apps":
+            return {"action": "list_open_windows", "parameters": {}}
+            
         focus_match = re.match(r"^(?:focus|switch to|bring|activate)\s+(.+?)(?:\s+to front)?$", user_input_lower)
         if focus_match:
             target = focus_match.group(1).strip()
@@ -321,13 +337,6 @@ class AutomationEngine:
         ]
         if user_input_lower in status_aliases:
             return {"action": "get_current_window", "parameters": {}}
-            
-        list_aliases = [
-            "list open windows", "show open windows", 
-            "what windows are open", "window list"
-        ]
-        if user_input_lower in list_aliases:
-            return {"action": "list_open_windows", "parameters": {}}
 
         # 0.7 Display Controls Routing
         display_aliases = [
@@ -800,6 +809,13 @@ class AutomationEngine:
         
         if self.context_manager and user_input_lower not in ["show context", "debug context"]:
             self.context_manager.update_last_command(user_input)
+            
+        # Apply NLP Preprocessing Layer before routing/planning
+        if self.nlp_preprocessor:
+            user_input = self.nlp_preprocessor.process(user_input)
+            # Update clean and lower variants after preprocessing
+            user_input_clean = user_input.strip()
+            user_input_lower = user_input.lower()
             
         logger.info("--- New Command Received ---")
         logger.info(f"Received input from {source}: {user_input}")

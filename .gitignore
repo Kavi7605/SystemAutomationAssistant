@@ -39,6 +39,8 @@ test_create_file_dir/
 test_open_file_dir/
 test_scratch/
 
+brain/
+
 verify_integrity.py
 
 # Windows
