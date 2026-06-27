@@ -15,8 +15,10 @@ class TestSearchRegressions:
     def assertExecute(self, expected_action, expected_params=None, cmd_idx=0):
         self.executor_mock.execute.assert_called()
         cmd = self.executor_mock.execute.call_args[0][0]
+        print(f"DEBUG: execute called with cmd: {cmd}")
         if isinstance(cmd, list):
             cmd = cmd[cmd_idx]
+        print(f"DEBUG: asserting cmd action {cmd['action']} == {expected_action}")
         assert cmd["action"] == expected_action
         if expected_params:
             for k, v in expected_params.items():
@@ -94,8 +96,10 @@ class TestApplicationClassification:
     def assertExecute(self, expected_action, expected_params=None, cmd_idx=0):
         self.executor_mock.execute.assert_called()
         cmd = self.executor_mock.execute.call_args[0][0]
+        print(f"DEBUG: execute called with cmd: {cmd}")
         if isinstance(cmd, list):
             cmd = cmd[cmd_idx]
+        print(f"DEBUG: asserting cmd action {cmd['action']} == {expected_action}")
         assert cmd["action"] == expected_action
         if expected_params:
             for k, v in expected_params.items():

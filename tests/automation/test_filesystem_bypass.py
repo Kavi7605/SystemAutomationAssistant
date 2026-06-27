@@ -121,12 +121,11 @@ class TestFilesystemBypass:
         assert cmds[1]["action"] == "open_application"
 
     def test_4_open_calculator_uses_planner(self):
-        input_cmd = "move mouse 500 300 and compute fibonacci sequence"
-        self.task_planner_mock.plan_tasks.return_value = ["open calculator", "wait 5 seconds", "close calculator"]
+        input_cmd = "develop a python script to compute fibonacci sequence"
+        self.task_planner_mock.plan_tasks.return_value = ["write python code", "run python script"]
         self.parser_mock.parse_command.side_effect = [
-            {"action": "open_application", "parameters": {"application_name": "calculator"}},
-            {"action": "wait", "parameters": {"seconds": 5}},
-            {"action": "close_application", "parameters": {"application_name": "calculator"}}
+            {"action": "create_file", "parameters": {"file_name": "fib.py", "content": "..."}},
+            {"action": "run_command", "parameters": {"command": "python fib.py"}}
         ]
         self.executor_mock.execute.return_value = {"status": "success", "message": "Success"}
         

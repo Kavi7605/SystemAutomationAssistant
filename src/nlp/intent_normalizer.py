@@ -4,6 +4,9 @@ from src.nlp.data.intent_synonyms import SYNONYM_TO_INTENT
 
 class IntentNormalizer(BaseNormalizer):
     def normalize(self, text: str) -> str:
+        if text.lower().strip() in ["show context", "debug context", "show state", "debug state"]:
+            return text
+            
         result = text
         
         # We want to replace longest synonyms first to avoid partial matches

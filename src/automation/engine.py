@@ -34,6 +34,9 @@ class AutomationEngine:
         self.context_manager = context_manager
         self.reference_resolver = reference_resolver
         self.nlp_preprocessor = nlp_preprocessor
+        
+        from src.parser.parser_pipeline import ParserPipeline
+        self.parser_pipeline = ParserPipeline()
 
     def get_history(self) -> List[Dict[str, Any]]:
         return self.history_manager.get_history()
@@ -111,13 +114,28 @@ class AutomationEngine:
         if not command:
             return [type_task] if type_task else []
             
+        protected_strings = []
+        def repl(match):
+            protected_strings.append(match.group(0))
+            return f"__PROT_E_{len(protected_strings)-1}__"
+            
+        command = re.sub(r'\band\s+search\b', repl, command, flags=re.IGNORECASE)
+            
         regex = rf'\s*(?:{separator_pattern})\s*'
         parts = [p.strip() for p in re.split(regex, command, flags=re.IGNORECASE) if p.strip()]
         
+        final_parts = []
+        for p in parts:
+            for i, original in enumerate(protected_strings):
+                ph = f"__PROT_E_{i}__"
+                if ph in p:
+                    p = p.replace(ph, original)
+            final_parts.append(p)
+        
         if type_task:
-            parts.append(type_task)
+            final_parts.append(type_task)
             
-        return parts
+        return final_parts
 
     def _classify_target(self, target: str) -> Dict[str, Any]:
         """
@@ -821,15 +839,49 @@ class AutomationEngine:
         logger.info(f"Received input from {source}: {user_input}")
         logger.info(f"User Input: {user_input}")
                 
+        # 4. Parser Bypass for Simple and Debug Commands
+        debug_commands = ["show context", "debug context", "debug state", "show state"]
+        
+        advanced_keywords = [
+             " and ", " then ", " after ", " before ", " while ", 
+             " if ", " unless ", " when ", " followed by ",
+             "(", ")"
+        ]
+        
+        requires_advanced_parsing = False
+        if user_input_lower not in debug_commands:
+            for kw in advanced_keywords:
+                if kw in user_input_lower or user_input_lower.startswith(kw.strip() + " "):
+                    requires_advanced_parsing = True
+                    break
+
+        # Apply ParserPipeline (Day 19)
+        pipeline_tasks = []
+        if hasattr(self, 'parser_pipeline') and requires_advanced_parsing:
+            graph = self.parser_pipeline.parse(user_input)
+            pipeline_tasks = graph.get_sequential_tasks()
+        else:
+            pipeline_tasks = [user_input]
+            
         # 0. Deterministic Multi-Action Sequencing
-        normalized_input = self._normalize_app_chains(user_input)
-        expanded_tasks = self._expand_multi_actions(normalized_input)
+        expanded_tasks = []
+        for p_task in pipeline_tasks:
+            if isinstance(p_task, dict):
+                expanded_tasks.append(p_task)
+            else:
+                normalized_input = self._normalize_app_chains(p_task)
+                expanded = self._expand_multi_actions(normalized_input)
+                expanded_tasks.extend(expanded)
         
         if len(expanded_tasks) > 1:
             all_deterministic = True
             parsed_commands = []
             
             for task in expanded_tasks:
+                if isinstance(task, dict):
+                    parsed_commands.append(task)
+                    continue
+                    
                 semantic_json = self._route_semantic_command(task)
                 if not semantic_json:
                     all_deterministic = False
@@ -850,7 +902,14 @@ class AutomationEngine:
                 return
 
         # 1. Check for deterministic semantic routing
-        semantic_json = self._route_semantic_command(user_input)
+        if len(expanded_tasks) == 1 and isinstance(expanded_tasks[0], dict):
+            logger.info("Single conditional command detected. Bypassing Planner and routing directly.")
+            self._execute_parsed_commands(user_input, [user_input], expanded_tasks, source)
+            return
+            
+        semantic_json = None
+        if len(expanded_tasks) == 1:
+            semantic_json = self._route_semantic_command(user_input)
         
         # Power action confirmation expiration
         if self.context_manager and user_input_lower not in ["show context", "debug context", "debug state"]:
@@ -903,7 +962,10 @@ class AutomationEngine:
         logger.info(f"Router Decision:\nFilesystem Command = {is_filesystem_command}")
         logger.info(f"TaskPlanner skipped:\n{is_filesystem_command}")
             
-        if is_filesystem_command:
+        if len(expanded_tasks) > 1:
+            tasks = expanded_tasks
+            logger.info("Bypassing TaskPlanner because ParserPipeline extracted explicit sequential tasks.")
+        elif is_filesystem_command:
             tasks = [user_input]
             logger.info("Bypassing TaskPlanner for filesystem operation.")
         else:
@@ -919,6 +981,10 @@ class AutomationEngine:
                 
         parsed_commands = []
         for task in tasks:
+            if isinstance(task, dict):
+                parsed_commands.append(task)
+                continue
+                
             logger.info(f"Parsing command: {task}")
             
             # Check if router can handle the individual task natively
@@ -970,10 +1036,24 @@ class AutomationEngine:
             return
             
         logger.info("Executing command(s)...")
-        if len(parsed_commands) == 1:
-            exec_result = self.executor.execute(parsed_commands[0])
-        else:
-            exec_result = self.executor.execute(parsed_commands)
+        executable_commands = []
+        for cmd in parsed_commands:
+            if isinstance(cmd, dict) and cmd.get("type") == "conditional":
+                logger.info(f"Conditional commands are parsed successfully but execution is not implemented yet. Node: {cmd}")
+                print("\n-> Conditional commands are parsed successfully but execution is not implemented yet.")
+                continue
+            if isinstance(cmd, dict) and cmd.get("action") == "conditional":
+                logger.info(f"Conditional commands are parsed successfully but execution is not implemented yet. Node: {cmd}")
+                print("\n-> Conditional commands are parsed successfully but execution is not implemented yet.")
+                continue
+            executable_commands.append(cmd)
+            
+        exec_result = {"status": "skipped", "message": "No executable commands."}
+        if executable_commands:
+            if len(executable_commands) == 1:
+                exec_result = self.executor.execute(executable_commands[0])
+            else:
+                exec_result = self.executor.execute(executable_commands)
             
         logger.info(f"Execution results: {exec_result}")
         
