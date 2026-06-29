@@ -1,137 +1,517 @@
-# System Automation Assistant
+# 🚀 System Automation Assistant
 
-The System Automation Assistant is a deterministic, AI-powered system orchestrator. It uses an Ollama-backed LLM (`gemma3:4b`) as a fallback task planner, but prioritizes a completely deterministic semantic routing engine for 100% reliable system control. 
+> A deterministic AI-powered Windows automation assistant capable of understanding natural language, maintaining conversational context, and executing real system operations with high reliability.
 
-This hybrid architecture guarantees fast, predictable execution for known capabilities while retaining the flexibility of an LLM for complex or unknown tasks.
+![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Platform](https://img.shields.io/badge/Platform-Windows-success)
+![Tests](https://img.shields.io/badge/Tests-517%2B_Passing-brightgreen)
+![Architecture](https://img.shields.io/badge/Architecture-Hybrid_AI-orange)
+![Status](https://img.shields.io/badge/Status-Under_Development-blue)
 
-## Architecture Overview
+---
 
-The project is split into the following modular layers:
+# Overview
 
-- **Command Parser**: Captures user input, classifies intent, and extracts arguments using heuristics and NLP techniques.
-- **Automation Engine**: The deterministic routing layer. Maps natural language and intent classifications directly to tools via regex and semantic matching.
-- **Task Planner (LLM)**: An Ollama fallback layer. If the Automation Engine cannot route a request deterministically, it generates a multi-step task plan using `gemma3:4b`.
-- **Executor**: Executes steps synchronously, handling context synchronization and tool invocation.
-- **Context Manager & Application State Manager**: Real-time state trackers that know exactly what apps are running, focused, and open on screen.
-- **Tool Registry**: Modularized suite of system tools across various categories (System Controls, Window Management, Filesystem, Desktop, Web).
+System Automation Assistant (SAA) is an intelligent desktop automation platform built using a **hybrid deterministic + AI architecture**.
 
-## Features
+Unlike traditional AI assistants that rely entirely on Large Language Models, SAA executes **known commands deterministically** for speed, reliability, and zero hallucinations, while using an **Ollama-powered LLM** only as a fallback planner for unknown or complex requests.
 
-### Deterministic Routing
-All core commands bypass the LLM and map directly to native Python implementations (Win32 APIs, psutil) ensuring near-instantaneous execution without hallucinations.
+The result is an assistant that behaves like a real operating system assistant instead of a chatbot.
 
-### System Controls
-- **Power Management**: Shutdown, Restart, Sleep, Lock Screen, Power Modes (Best Battery, Balanced, Best Performance)
-- **Display & Audio**: Brightness controls, Volume controls (Mute, Unmute, Adjust)
-- **Network**: Wi-Fi toggle and status, Mobile Hotspot status
+---
 
-### Window Management
-Native Windows Window Management (bypassing PyAutoGUI).
-- List Open Windows
-- Get Active Window
-- Focus, Minimize, Maximize, Restore, and Close windows
+# Architecture
 
-### Filesystem Automation
-- Create, Rename, Delete, Copy, Move files and folders
-- Open specific Workspaces
-
-### Website & Application Automation
-- Search Web
-- Open URLs
-- Open / Close Applications natively
-
-### Desktop Automation
-- Mouse movements, clicking, scrolling
-- Type text, Hotkey execution
-
-## Technology Stack
-
-- **Python 3.13**
-- **Ollama (`gemma3:4b`)**: Local LLM inference.
-- **PyWin32 & ctypes**: Native deterministic system controls.
-- **psutil**: Process management and Application State Tracking.
-- **Pytest**: Over 440 unit and regression tests ensuring 0 regressions.
-- **PyAutoGUI**: Legacy desktop interactions (mouse/keyboard).
-
-## Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Kavi7605/SystemAutomationAssistant.git
-   cd SystemAutomationAssistant
-   ```
-
-2. **Set up virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/Scripts/activate  # On Windows
-   ```
-
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Install and Configure Ollama:**
-   - Download and install [Ollama](https://ollama.com/)
-   - Pull the required model:
-     ```bash
-     ollama pull gemma3:4b
-     ```
-
-5. **Set up Environment Variables:**
-   - Create a `.env` file in the root directory and add any necessary configuration keys.
-
-## Usage
-
-Start the interactive assistant:
-```bash
-python main.py
+```
+                   User Command
+                         │
+                         ▼
+               NLP Preprocessing Layer
+                         │
+                         ▼
+                 Parser & Multi-Intent Parser
+                         │
+                         ▼
+             Deterministic Semantic Router
+                         │
+        ┌────────────────┴────────────────┐
+        │                                 │
+        ▼                                 ▼
+ Known Command                    Unknown / Complex
+        │                                 │
+        ▼                                 ▼
+ Command Expander                  Ollama Task Planner
+        │                                 │
+        └──────────────┬──────────────────┘
+                       ▼
+                  Executor Engine
+                       │
+                       ▼
+              Windows System Tools
 ```
 
-### Example Commands:
-- "Mute the volume"
-- "Set brightness to 50%"
-- "Open Discord and focus it"
-- "Turn on the mobile hotspot"
-- "Put the PC to sleep"
+---
 
-## Testing
+# Core Features
 
-The project is fully covered by Pytest, including unit, integration, and regression tests.
+## Deterministic Semantic Routing
 
-To run the complete test suite:
+Most commands completely bypass the LLM.
+
+Examples:
+
+- Open applications
+- Close applications
+- Window management
+- Brightness
+- Volume
+- Wi-Fi
+- Power management
+- Filesystem operations
+- Desktop automation
+
+This provides:
+
+- Near-instant execution
+- Zero hallucinations
+- Predictable behavior
+- High reliability
+
+---
+
+## Hybrid AI Planner
+
+When deterministic routing cannot understand a request:
+
+```
+User
+   │
+   ▼
+Deterministic Router
+   │
+   ▼
+No Match
+   │
+   ▼
+Ollama (gemma3:4b)
+   │
+   ▼
+Structured JSON Plan
+   │
+   ▼
+Executor
+```
+
+The LLM is only responsible for planning—not execution.
+
+---
+
+# Natural Language Understanding
+
+The assistant now supports conversational English instead of rigid commands.
+
+Examples
+
+```
+Could you please open Discord?
+
+Actually close WhatsApp.
+
+Launch Steam.
+
+Switch back.
+
+Focus the other app.
+
+Close both of them.
+
+Open Steam then Discord.
+
+Open Steam and wait until it opens.
+
+Reopen the last closed app.
+```
+
+---
+
+# NLP Pipeline
+
+```
+User Input
+
+↓
+
+Grammar Normalizer
+
+↓
+
+Reference Normalizer
+
+↓
+
+Number Normalizer
+
+↓
+
+Application Normalizer
+
+↓
+
+Intent Normalizer
+
+↓
+
+Canonicalizer
+
+↓
+
+Automation Engine
+```
+
+Current capabilities include:
+
+- Grammar normalization
+- Intent normalization
+- Number normalization
+- Application normalization
+- Reference normalization
+- Command canonicalization
+
+---
+
+# Multi-Intent Parsing
+
+Supports long conversational commands.
+
+Examples
+
+```
+Open Steam then Discord
+
+Open Steam and wait until it opens
+
+Open Discord then maximize it
+
+Open Steam, Discord and WhatsApp
+
+Close Steam and Discord
+
+Open Steam then focus previous app
+```
+
+Features
+
+- Command splitting
+- Nested parsing
+- Sequential execution
+- Dependency handling
+- Context propagation
+
+---
+
+# Context Intelligence
+
+The assistant remembers context throughout the current session.
+
+Supports:
+
+- it
+- this
+- that
+- previous app
+- first app
+- second app
+- oldest app
+- newest app
+- both
+- all apps
+- other app
+- last closed app
+- recently focused app
+
+Example
+
+```
+Open Steam
+
+Open Discord
+
+Close it
+
+Focus Steam
+
+Minimize it
+
+Close both
+
+Reopen the last closed app
+```
+
+---
+
+# Current Automation Capabilities
+
+## System Controls
+
+- Shutdown
+- Restart
+- Sleep
+- Lock
+- Brightness
+- Volume
+- Mute
+- Wi-Fi
+- Power Plans
+
+---
+
+## Window Management
+
+Native Win32 APIs
+
+- Focus Window
+- Minimize
+- Maximize
+- Restore
+- Close
+- List Windows
+- Active Window Detection
+
+---
+
+## Desktop Automation
+
+- Mouse Movement
+- Mouse Clicks
+- Keyboard Typing
+- Hotkeys
+- Scrolling
+
+---
+
+## Filesystem Automation
+
+- Create Files
+- Delete Files
+- Rename
+- Copy
+- Move
+- Folder Operations
+
+---
+
+## Web Automation
+
+- Open Websites
+- Web Search
+- Browser Launch
+
+---
+
+## Application Automation
+
+- Open Applications
+- Close Applications
+- Focus Applications
+- Running Application Detection
+
+---
+
+# Technology Stack
+
+- Python 3.13
+- Ollama
+- gemma3:4b
+- PyWin32
+- psutil
+- ctypes
+- PyAutoGUI
+- Pillow
+- SpeechRecognition
+- Vosk
+- Pytest
+
+---
+
+# Testing
+
+The project contains extensive automated testing.
+
+Current Statistics
+
+- **517+ automated tests**
+- Unit Tests
+- Integration Tests
+- Regression Tests
+- NLP Pipeline Tests
+- Context Resolution Tests
+- Multi-Intent Tests
+- Sequential Execution Tests
+
+Run the test suite
+
 ```bash
 pytest tests/
 ```
 
-## Project Structure
+---
+
+# Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Kavi7605/SystemAutomationAssistant.git
+```
+
+```bash
+cd SystemAutomationAssistant
+```
+
+Create virtual environment
+
+```bash
+python -m venv venv
+```
+
+Activate environment
+
+Windows
+
+```bash
+venv\Scripts\activate
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Install Ollama
+
+```
+https://ollama.com
+```
+
+Pull the required model
+
+```bash
+ollama pull gemma3:4b
+```
+
+---
+
+# Running
+
+```bash
+python main.py
+```
+
+---
+
+# Project Structure
 
 ```
 SystemAutomationAssistant/
-├── main.py                 # Application entry point
-├── requirements.txt        # Project dependencies
+
+│
+
 ├── src/
-│   ├── automation/         # Deterministic routing and execution (engine, executor, router)
-│   ├── context/            # Application state and context memory tracking
-│   ├── core/               # Command parser, NLP classification, history management
-│   ├── llm/                # Ollama client and LLM abstraction
-│   ├── planner/            # Task planning and entity resolution
-│   ├── tools/              # Core tool definitions and dynamic registry
-│   │   ├── system_control/ # Native Windows API implementations for hardware/window control
-│   │   └── ...             # Desktop, filesystem, and basic tools
-│   ├── utils/              # Helper utilities, logger, browser integration
-│   └── voice/              # Speech-to-text components (Whisper, Vosk)
-└── tests/                  # Over 440 pytest unit, integration, and regression tests
+
+│ ├── automation/
+
+│ ├── context/
+
+│ ├── core/
+
+│ ├── llm/
+
+│ ├── nlp/
+
+│ ├── parser/
+
+│ ├── planner/
+
+│ ├── tools/
+
+│ ├── voice/
+
+│ └── utils/
+
+│
+
+├── tests/
+
+│ ├── automation/
+
+│ ├── context/
+
+│ ├── nlp/
+
+│ ├── parser/
+
+│ └── regression/
+
+│
+
+├── main.py
+
+├── requirements.txt
+
+└── README.md
 ```
 
-## Current Status
+---
 
-The System Automation Assistant is currently in a stable milestone (Day 17 completion). All core semantic routing, deterministic pipelines, application tracking, and native Window management features have been fully implemented, stabilized, and heavily tested.
+# Current Progress
 
-## Roadmap
+Current milestone includes:
 
-- [ ] Further optimizations to context retention
-- [ ] Improved multi-step NLP interpretations
-- [ ] Expanded Voice Assistant capability enhancements
-- [ ] Web Automation stabilization using Playwright
+- Hybrid AI Architecture
+- Deterministic Semantic Router
+- NLP Preprocessing Pipeline
+- Multi-Intent Parsing
+- Sequential Command Execution
+- Context Intelligence
+- Multi-Application Context
+- Temporal References
+- Conversation Memory
+- Native Window Management
+- Filesystem Automation
+- Desktop Automation
+- Extensive Regression Testing
+
+The assistant has evolved from a simple command executor into a context-aware automation platform capable of understanding natural conversational instructions while maintaining deterministic execution.
+
+---
+
+# Future Roadmap
+
+- Voice Conversation Memory
+- Typo Recovery
+- Ambiguity Resolution
+- Confidence Scoring
+- Better LLM Planning
+- Playwright Web Automation
+- Learning New User Phrases
+- Plugin Architecture
+- Cross-platform Support (Linux/macOS)
+
+---
+
+# License
+
+This project is currently being developed as part of the **Softwingz Infotech Internship Program**.
+
+---
+
+## Author
+
+**Kavya Chavda**
+
+B.Tech Information Technology
+
+System Automation Assistant Project
+
+Softwingz Infotech Internship (2026)

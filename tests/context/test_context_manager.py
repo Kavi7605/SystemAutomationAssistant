@@ -55,6 +55,7 @@ def test_get_context_snapshot():
         "last_opened_app": "vscode",
         "last_closed_app": None,
         "last_focused_app": "vscode",
+        "last_interacted_app": "vscode",
         "current_active_app": "vscode",
         "last_active_app": None,
         "last_window_title": "Visual Studio Code",
@@ -63,6 +64,7 @@ def test_get_context_snapshot():
         "opened_apps_history": ["vscode"],
         "closed_apps_history": [],
         "focused_apps_history": ["vscode"],
+        "active_opened_apps": ["vscode"],
         "pending_disambiguation": None,
         "system_state": {
             "volume_level": None,

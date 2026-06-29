@@ -37,6 +37,12 @@ class AutomationEngine:
         
         from src.parser.parser_pipeline import ParserPipeline
         self.parser_pipeline = ParserPipeline()
+        
+        if self.reference_resolver:
+            from src.automation.command_expander import CommandExpander
+            self.command_expander = CommandExpander(self.reference_resolver)
+        else:
+            self.command_expander = None
 
     def get_history(self) -> List[Dict[str, Any]]:
         return self.history_manager.get_history()
@@ -143,9 +149,16 @@ class AutomationEngine:
         """
         target = target.strip()
         
+        from src.nlp.reference_normalizer import ReferenceNormalizer
+        norm_target = ReferenceNormalizer().normalize(target.lower())
+        
         # Rule 0: Reference Tokens
-        if target.lower() in ["it", "that", "this", "previous app", "last app", "current app"]:
-            return {"action": "open_application", "parameters": {"application_name": target.lower()}}
+        is_ref = False
+        if self.reference_resolver and hasattr(self.reference_resolver, 'is_reference'):
+            is_ref = self.reference_resolver.is_reference(norm_target)
+            
+        if is_ref or norm_target in ["it", "that", "this", "previous app", "last app", "current app"]:
+            return {"action": "open_application", "parameters": {"application_name": norm_target}}
             
         # Rule 1: Explicit Website
         if target.endswith(" website"):
@@ -1035,9 +1048,15 @@ class AutomationEngine:
             logger.error("Failed to generate any valid JSON commands. Please check the logs.")
             return
             
+        if hasattr(self, 'command_expander') and self.command_expander:
+            logger.info("Running Command Expander...")
+            expanded_commands = self.command_expander.expand(parsed_commands)
+        else:
+            expanded_commands = parsed_commands
+            
         logger.info("Executing command(s)...")
         executable_commands = []
-        for cmd in parsed_commands:
+        for cmd in expanded_commands:
             if isinstance(cmd, dict) and cmd.get("type") == "conditional":
                 logger.info(f"Conditional commands are parsed successfully but execution is not implemented yet. Node: {cmd}")
                 print("\n-> Conditional commands are parsed successfully but execution is not implemented yet.")

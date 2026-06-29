@@ -4,6 +4,7 @@ from src.automation.executor import Executor
 from src.tools.registry import ToolRegistry
 from src.context.context_manager import ContextManager
 from src.context.reference_resolver import ReferenceResolver
+from src.automation.command_expander import CommandExpander
 
 class TestSequentialReferenceResolution:
     def setup_method(self):
@@ -18,6 +19,7 @@ class TestSequentialReferenceResolution:
             context_manager=self.context_manager,
             reference_resolver=self.reference_resolver
         )
+        self.command_expander = CommandExpander(self.reference_resolver)
 
     def test_open_discord_and_close_it(self):
         commands = [
@@ -25,6 +27,7 @@ class TestSequentialReferenceResolution:
             {"action": "close_application", "parameters": {"application_name": "it"}}
         ]
         
+        commands = self.command_expander.expand(commands)
         self.executor.execute(commands)
         
         # Verify first call
@@ -44,6 +47,7 @@ class TestSequentialReferenceResolution:
             {"action": "close_application", "parameters": {"application_name": "it"}}
         ]
         
+        commands = self.command_expander.expand(commands)
         self.executor.execute(commands)
         
         third_call = self.registry.execute_tool.call_args_list[2]
@@ -57,6 +61,7 @@ class TestSequentialReferenceResolution:
             {"action": "close_application", "parameters": {"application_name": "it"}}
         ]
         
+        commands = self.command_expander.expand(commands)
         self.executor.execute(commands)
         
         second_call = self.registry.execute_tool.call_args_list[1]
@@ -74,6 +79,7 @@ class TestSequentialReferenceResolution:
             {"action": "focus_window", "parameters": {"window_name": "it"}}
         ]
         
+        commands = self.command_expander.expand(commands)
         self.executor.execute(commands)
         
         second_call = self.registry.execute_tool.call_args_list[1]
@@ -91,6 +97,7 @@ class TestSequentialReferenceResolution:
             {"action": "focus_window", "parameters": {"window_name": "previous app"}}
         ]
         
+        commands = self.command_expander.expand(commands)
         self.executor.execute(commands)
         
         third_call = self.registry.execute_tool.call_args_list[2]
@@ -102,6 +109,7 @@ class TestSequentialReferenceResolution:
             {"action": "close_application", "parameters": {"application_name": "it"}}
         ]
         
+        commands = self.command_expander.expand(commands)
         result = self.executor.execute(commands)
         
         # Verify it safely fails and aborts
@@ -123,6 +131,7 @@ class TestSequentialReferenceResolution:
             {"status": "success", "message": "Closed github"}
         ]
         
+        commands = self.command_expander.expand(commands)
         self.executor.execute(commands)
         
         third_call = self.registry.execute_tool.call_args_list[2]
@@ -136,6 +145,7 @@ class TestSequentialReferenceResolution:
             {"action": "close_application", "parameters": {"application_name": "it"}}
         ]
         
+        commands = self.command_expander.expand(commands)
         self.executor.execute(commands)
         
         third_call = self.registry.execute_tool.call_args_list[2]

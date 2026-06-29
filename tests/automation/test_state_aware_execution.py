@@ -121,7 +121,7 @@ class TestStateAwareExecution:
         
         self.executor.execute(commands)
         
-        # The context_manager.mark_app_opened should only be called ONCE
-        # because the executor intercepts the last two and returns early
-        assert self.context_manager_mock.mark_app_opened.call_count == 1
+        # The context_manager.mark_app_opened should be called 3 times
+        # because we now record user intent even if execution is skipped
+        assert self.context_manager_mock.mark_app_opened.call_count == 3
         self.context_manager_mock.mark_app_opened.assert_called_with("steam")

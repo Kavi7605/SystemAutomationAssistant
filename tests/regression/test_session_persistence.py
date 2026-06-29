@@ -76,7 +76,7 @@ class TestSessionPersistenceRegression:
         )
         return engine, context_manager, state_manager
 
-    def test_session_restart_retains_history(self):
+    def test_session_restart_clears_history(self):
         # Session 1
         engine1, context_manager1, _ = self._create_engine()
         engine1.process_command("open steam")
@@ -88,13 +88,13 @@ class TestSessionPersistenceRegression:
         # Simulate restart: Destroy everything and create Session 2
         engine2, context_manager2, _ = self._create_engine()
         
-        # Verify state is restored
-        assert context_manager2.get_open_history() == ["steam", "discord"]
+        # Verify state is NOT restored (histories are session-specific)
+        assert context_manager2.get_open_history() == []
         
         # Further mutations in Session 2
         engine2.process_command("open spotify")
-        assert context_manager2.get_open_history() == ["steam", "discord", "spotify"]
+        assert context_manager2.get_open_history() == ["spotify"]
         
         # Simulate restart: Session 3
         _, context_manager3, _ = self._create_engine()
-        assert context_manager3.get_open_history() == ["steam", "discord", "spotify"]
+        assert context_manager3.get_open_history() == []

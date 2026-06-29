@@ -15,6 +15,7 @@ class ContextManager:
             "last_opened_app": None,
             "last_closed_app": None,
             "last_focused_app": None,
+            "last_interacted_app": None,
             "current_active_app": None,
             "last_active_app": None,
             "last_window_title": None,
@@ -23,6 +24,7 @@ class ContextManager:
             "opened_apps_history": [],
             "closed_apps_history": [],
             "focused_apps_history": [],
+            "active_opened_apps": [],
             "pending_disambiguation": None,
             "system_state": {
                 "volume_level": None,
@@ -59,7 +61,20 @@ class ContextManager:
         app_name = normalize_app_name(app_name)
         self.state["last_opened_app"] = app_name
         self.state["last_successful_action"] = "open_application"
-        self.state["opened_apps_history"].append(app_name)
+        self.state["last_interacted_app"] = app_name
+        
+        # Suppress consecutive duplicates
+        if not self.state["opened_apps_history"] or self.state["opened_apps_history"][-1] != app_name:
+            self.state["opened_apps_history"].append(app_name)
+            
+        if app_name not in self.state["active_opened_apps"]:
+            self.state["active_opened_apps"].append(app_name)
+            
+        # Synchronize current_active_app
+        if self.state["current_active_app"] != app_name:
+            self.state["last_active_app"] = self.state["current_active_app"]
+            self.state["current_active_app"] = app_name
+            
         self.save()
 
     def mark_app_closed(self, app_name: str) -> None:
@@ -67,20 +82,38 @@ class ContextManager:
         app_name = normalize_app_name(app_name)
         self.state["last_closed_app"] = app_name
         self.state["last_successful_action"] = "close_application"
-        self.state["closed_apps_history"].append(app_name)
+        self.state["last_interacted_app"] = app_name
+        
+        # Suppress consecutive duplicates
+        if not self.state["closed_apps_history"] or self.state["closed_apps_history"][-1] != app_name:
+            self.state["closed_apps_history"].append(app_name)
+            
+        if app_name in self.state["active_opened_apps"]:
+            self.state["active_opened_apps"].remove(app_name)
+            
+        # Synchronize current_active_app if the active app was closed
+        if self.state["current_active_app"] == app_name:
+            self.state["last_active_app"] = self.state["current_active_app"]
+            self.state["current_active_app"] = self.state["active_opened_apps"][-1] if self.state["active_opened_apps"] else None
+            
         self.save()
 
     def mark_app_focused(self, app_name: str) -> None:
         from src.context.application_aliases import normalize_app_name
         app_name = normalize_app_name(app_name)
         self.state["last_focused_app"] = app_name
-        self.state["focused_apps_history"].append(app_name)
+        self.state["last_successful_action"] = "focus_window"
+        self.state["last_interacted_app"] = app_name
         
+        # Suppress consecutive duplicates
+        if not self.state["focused_apps_history"] or self.state["focused_apps_history"][-1] != app_name:
+            self.state["focused_apps_history"].append(app_name)
+        
+        # Synchronize current_active_app
         if self.state["current_active_app"] != app_name:
             self.state["last_active_app"] = self.state["current_active_app"]
             self.state["current_active_app"] = app_name
             
-        self.state["last_successful_action"] = "focus_window"
         self.save()
 
     def update_active_window(self, window_title: str) -> None:
@@ -175,6 +208,12 @@ class ContextManager:
             loaded = self.persistence_manager.load_context()
             if loaded:
                 default_system_state = self.state.get("system_state", {}).copy()
+                
+                # Exclude session-specific histories from being loaded to prevent pollution
+                for history_key in ["opened_apps_history", "closed_apps_history", "focused_apps_history", "active_opened_apps", "last_interacted_app"]:
+                    if history_key in loaded:
+                        del loaded[history_key]
+                        
                 self.state.update(loaded)
                 
                 # Ensure all default keys exist in system_state even if loading an old save

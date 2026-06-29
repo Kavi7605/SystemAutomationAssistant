@@ -5,6 +5,7 @@ from src.nlp.grammar_normalizer import GrammarNormalizer
 from src.nlp.number_normalizer import NumberNormalizer
 from src.nlp.application_normalizer import ApplicationNormalizer
 from src.nlp.intent_normalizer import IntentNormalizer
+from src.nlp.reference_normalizer import ReferenceNormalizer
 from src.nlp.canonicalizer import Canonicalizer
 
 logger = logging.getLogger(__name__)
@@ -19,6 +20,7 @@ class NLPPreprocessor:
         if pipeline is None:
             self.pipeline = [
                 GrammarNormalizer(),
+                ReferenceNormalizer(),
                 NumberNormalizer(),
                 ApplicationNormalizer(),
                 IntentNormalizer(),

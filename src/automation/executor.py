@@ -36,16 +36,7 @@ class Executor:
         """
         if isinstance(command_json, list):
             return self._execute_queue(command_json, stop_on_failure)
-            
-        # Resolve references for single commands before execution
-        if self.reference_resolver:
-            for key, value in command_json.get("parameters", {}).items():
-                if isinstance(value, str):
-                    try:
-                        command_json["parameters"][key] = self.reference_resolver.resolve_command(value)
-                    except ValueError as e:
-                        return {"status": "failed", "message": str(e)}
-                        
+
         return self._execute_single(command_json)
 
     def _execute_single(self, command_json: Dict[str, Any]) -> Dict[str, Any]:
@@ -188,6 +179,9 @@ class Executor:
                     self.state_manager.refresh_app_state(app_name)
                     if self.state_manager.is_running(app_name):
                         logger.info(f"{app_name.title()} is already running. Skipping execution.")
+                        if self.context_manager:
+                            self.context_manager.mark_action_success(action)
+                            self.context_manager.mark_app_opened(app_name)
                         return {"status": "success", "message": f"{app_name.title()} is already running."}
                         
             elif action == "close_application":
@@ -196,6 +190,9 @@ class Executor:
                     self.state_manager.refresh_app_state(app_name)
                     if not self.state_manager.is_running(app_name):
                         logger.info(f"{app_name.title()} is already closed. Skipping execution.")
+                        if self.context_manager:
+                            self.context_manager.mark_action_success(action)
+                            self.context_manager.mark_app_closed(app_name)
                         return {"status": "success", "message": f"{app_name.title()} is already closed."}
                         
             elif action == "focus_window":
@@ -205,6 +202,9 @@ class Executor:
                     self._sync_active_apps()
                     if self.state_manager.is_focused(window_name):
                         logger.info(f"{window_name.title()} is already focused. Skipping execution.")
+                        if self.context_manager:
+                            self.context_manager.mark_action_success(action)
+                            self.context_manager.mark_app_focused(window_name)
                         return {"status": "success", "message": f"{window_name.title()} is already focused."}
                 
             if action == "confirm_power_action":
@@ -274,7 +274,7 @@ class Executor:
                         self.state_manager.refresh_app_state(app_name)
                     if self.context_manager and app_name:
                         self.context_manager.mark_app_closed(app_name)
-                elif action == "focus_window":
+                elif action in ["focus_window", "minimize_window", "maximize_window", "restore_window"]:
                     window_name = parameters.get("window_name")
                     if self.state_manager and window_name:
                         self.state_manager.mark_focused(window_name)
@@ -282,7 +282,7 @@ class Executor:
                     if self.context_manager and window_name:
                         self.context_manager.mark_app_focused(window_name)
                         
-                elif action in ["minimize_window", "maximize_window", "restore_window", "get_current_window", "list_open_windows"]:
+                if action in ["minimize_window", "maximize_window", "restore_window", "get_current_window", "list_open_windows"]:
                     if self.context_manager:
                         if "window" in result:
                             win = result["window"]
@@ -510,23 +510,7 @@ class Executor:
 
         print("")
         for i, cmd in enumerate(commands, 1):
-            if self.reference_resolver:
-                try:
-                    for key, value in cmd.get("parameters", {}).items():
-                        if isinstance(value, str):
-                            cmd["parameters"][key] = self.reference_resolver.resolve_command(value)
-                except ValueError as e:
-                    error_msg = str(e)
-                    print(f"[{i}/{total_steps}] Failed: {error_msg}\n")
-                    logger.error(f"Queue step {i} failed: {error_msg}")
-                    failed += 1
-                    results.append({"step": i, "action": cmd.get("action", "unknown"), "result": {"status": "failed", "message": error_msg}})
-                    if stop_on_failure: 
-                        print(f"Queue aborted due to failure at step {i}.")
-                        logger.warning(f"Queue aborted at step {i} due to failure.")
-                        break
-                    continue
-                    
+
             action = cmd.get("action", "unknown")
             desc = self._get_action_description(cmd)
             
