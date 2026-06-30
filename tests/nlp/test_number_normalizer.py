@@ -1,4 +1,3 @@
-import pytest
 from src.nlp.number_normalizer import NumberNormalizer
 
 def test_number_normalizer():

@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch, MagicMock
 from src.tools.system_control.power_actions_tools import ShutdownTool, RestartTool, SleepTool, LockScreenTool, ConfirmPowerActionTool, CancelPowerActionTool
 

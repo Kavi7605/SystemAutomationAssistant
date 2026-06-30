@@ -27,7 +27,7 @@ class PersistenceManager:
             with open(self.context_file, "w") as f:
                 json.dump(context_snapshot, f, indent=2, default=self._serialize)
         except Exception as e:
-            logger.error(f"Failed to save context to {self.context_file}: {e}")
+            logger.error(f"Failed to save context to {self.context_file}: {e}", exc_info=True)
 
     def load_context(self) -> Dict[str, Any]:
         if not os.path.exists(self.context_file):
@@ -39,7 +39,7 @@ class PersistenceManager:
             logger.warning(f"Corrupted context JSON: {e}. Returning empty structure.")
             return {}
         except Exception as e:
-            logger.error(f"Failed to load context: {e}")
+            logger.error(f"Failed to load context: {e}", exc_info=True)
             return {}
 
     def save_state(self, state_snapshot: Dict[str, Any]) -> None:
@@ -47,7 +47,7 @@ class PersistenceManager:
             with open(self.state_file, "w") as f:
                 json.dump(state_snapshot, f, indent=2, default=self._serialize)
         except Exception as e:
-            logger.error(f"Failed to save state to {self.state_file}: {e}")
+            logger.error(f"Failed to save state to {self.state_file}: {e}", exc_info=True)
 
     def load_state(self) -> Dict[str, Any]:
         if not os.path.exists(self.state_file):
@@ -59,5 +59,5 @@ class PersistenceManager:
             logger.warning(f"Corrupted state JSON: {e}. Returning empty structure.")
             return {}
         except Exception as e:
-            logger.error(f"Failed to load state: {e}")
+            logger.error(f"Failed to load state: {e}", exc_info=True)
             return {}

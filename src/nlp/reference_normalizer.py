@@ -33,9 +33,10 @@ class ReferenceNormalizer(BaseNormalizer):
             r"\brecently opened\b": "newest",
             r"\brecently focused\b": "last_focused"
         }
+        self.patterns = [(re.compile(pattern, flags=re.IGNORECASE), replacement) for pattern, replacement in self.replacements.items()]
 
     def normalize(self, text: str) -> str:
         result = text
-        for pattern, replacement in self.replacements.items():
-            result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+        for pattern, replacement in self.patterns:
+            result = pattern.sub(replacement, result)
         return result

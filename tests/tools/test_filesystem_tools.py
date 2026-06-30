@@ -1,7 +1,5 @@
 import pytest
-import os
 import shutil
-from pathlib import Path
 from src.tools.filesystem_tools import (
     CreateFolderTool,
     CreateFileTool,
@@ -9,7 +7,6 @@ from src.tools.filesystem_tools import (
     DeleteItemTool,
     CopyFileTool,
     MoveFileTool,
-    WORKSPACE_DIR,
     get_workspace_root
 )
 

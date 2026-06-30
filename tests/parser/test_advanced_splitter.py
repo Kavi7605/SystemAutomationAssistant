@@ -1,4 +1,3 @@
-import pytest
 from src.parser.command_splitter import AdvancedCommandSplitter
 
 def test_split_simple_and():

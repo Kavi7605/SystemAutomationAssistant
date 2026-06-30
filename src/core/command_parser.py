@@ -517,5 +517,5 @@ Output:
             result = self.client.generate(prompt=prompt, system=self.system_prompt)
             return result
         except Exception as e:
-            logger.error(f"Failed to parse command: {e}")
+            logger.error(f"Failed to parse command: {e}", exc_info=True)
             return None

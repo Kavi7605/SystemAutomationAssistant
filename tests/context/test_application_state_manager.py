@@ -3,7 +3,6 @@ from unittest.mock import MagicMock, patch
 from datetime import datetime
 
 from src.context.application_state_manager import ApplicationStateManager
-from src.tools.system_control.window_tools import WindowManager
 
 @pytest.fixture
 def state_manager():

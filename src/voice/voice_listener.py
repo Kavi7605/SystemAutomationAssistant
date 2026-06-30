@@ -20,7 +20,7 @@ class VoiceListener:
         """
         q = queue.Queue()
 
-        def callback(indata, frames, time_info, status):
+        def callback(indata, _frames, _time_info, status):
             if status:
                 logger.warning(f"Audio status: {status}")
             # Put float32 frames into queue

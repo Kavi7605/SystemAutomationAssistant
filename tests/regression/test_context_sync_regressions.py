@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock, patch
 import os
 import sys
@@ -14,7 +13,6 @@ from src.automation.executor import Executor
 from src.tools.registry import ToolRegistry
 from src.context.application_state_manager import ApplicationStateManager
 from src.context.context_manager import ContextManager
-from src.tools.system_control.window_tools import WindowManager
 
 class TestContextSynchronizationRegression:
     def setup_method(self):

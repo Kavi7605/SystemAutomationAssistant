@@ -1,4 +1,3 @@
-import pytest
 from src.parser.nested_parser import NestedParser
 
 def test_nested_before():

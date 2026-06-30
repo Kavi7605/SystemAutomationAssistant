@@ -532,7 +532,7 @@ class Executor:
             else:
                 error_msg = result.get('message', 'Unknown error')
                 print(f"[FAIL] {error_msg}\n")
-                logger.error(f"Queue step {i} failed: {error_msg}")
+                logger.error(f"Queue step {i} failed: {error_msg}", exc_info=True)
                 failed += 1
                 
             results.append({

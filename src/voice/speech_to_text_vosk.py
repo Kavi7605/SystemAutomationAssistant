@@ -30,7 +30,7 @@ class SpeechToText:
             self.recognizer = KaldiRecognizer(self.model, self.sample_rate)
             logger.info("Vosk model loaded successfully.")
         except Exception as e:
-            logger.error(f"Failed to load Vosk model: {e}")
+            logger.error(f"Failed to load Vosk model: {e}", exc_info=True)
             raise
 
     def process_frame(self, data: bytes) -> str:

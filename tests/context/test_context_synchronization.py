@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 import os
 import sys
 
@@ -8,7 +8,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')
 from src.context.application_aliases import normalize_app_name
 from src.context.context_manager import ContextManager
 from src.context.application_state_manager import ApplicationStateManager
-from src.tools.system_control.window_tools import WindowManager
 
 class TestContextSynchronization:
     

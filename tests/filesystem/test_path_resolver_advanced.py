@@ -6,8 +6,6 @@ import shutil
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.tools.path_resolver import PathResolver
-from src.tools.system_tools import OpenFolderTool
-from src.tools.filesystem_tools import CreateFileTool, CreateFolderTool
 
 def test_advanced():
     print("\n--- Advanced PathResolver Tests ---")

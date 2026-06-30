@@ -1,4 +1,3 @@
-import logging
 import json
 from src.tools.application_finder import ApplicationFinder
 from src.tools.system_tools import OpenApplicationTool

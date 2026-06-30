@@ -46,7 +46,7 @@ class ApplicationFinder:
                         self.app_index = data
                         logger.info(f"Loaded {len(self.app_index)} applications from cache.")
             except Exception as e:
-                logger.error(f"Failed to load application index: {e}")
+                logger.error(f"Failed to load application index: {e}", exc_info=True)
                 self.app_index = {}
         else:
             logger.info("Application index not found. Building for the first time...")
@@ -84,7 +84,7 @@ class ApplicationFinder:
             with open(self.index_file, 'w', encoding='utf-8') as f:
                 json.dump(self.app_index, f, indent=4)
         except Exception as e:
-            logger.error(f"Failed to save application index: {e}")
+            logger.error(f"Failed to save application index: {e}", exc_info=True)
 
     def find_application(self, name: str) -> Optional[Dict[str, str]]:
         """
@@ -312,6 +312,6 @@ class ApplicationFinder:
                     if name and appid:
                         self._add_to_index(index, name, f"shell:AppsFolder\\{appid}")
         except Exception as e:
-            logger.error(f"Failed to scan UWP apps: {e}")
+            logger.error(f"Failed to scan UWP apps: {e}", exc_info=True)
             
         return index

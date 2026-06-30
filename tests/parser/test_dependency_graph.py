@@ -1,4 +1,3 @@
-import pytest
 from src.parser.dependency_graph import DependencyGraphBuilder
 
 def test_dependency_graph():

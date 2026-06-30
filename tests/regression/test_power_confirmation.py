@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock
 from src.context.context_manager import ContextManager
 from src.automation.executor import Executor

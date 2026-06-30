@@ -35,7 +35,7 @@ class PowerManager:
             return {"enabled": enabled}
             
         except Exception as e:
-            logger.error(f"Failed to get Battery Saver status: {e}")
+            logger.error(f"Failed to get Battery Saver status: {e}", exc_info=True)
             return {"enabled": False}
 
     @staticmethod
@@ -81,7 +81,7 @@ class PowerManager:
             }
             
         except Exception as e:
-            logger.error(f"Failed to get Power Profiles: {e}")
+            logger.error(f"Failed to get Power Profiles: {e}", exc_info=True)
             return {
                 "active_profile": None,
                 "profiles": {}
@@ -96,7 +96,7 @@ class PowerManager:
             subprocess.run(["powercfg", "/setactive", guid], capture_output=True, text=True, check=True)
             return True
         except Exception as e:
-            logger.error(f"Failed to set Power Profile {guid}: {e}")
+            logger.error(f"Failed to set Power Profile {guid}: {e}", exc_info=True)
             return False
 
 

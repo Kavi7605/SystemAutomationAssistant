@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from src.tools.system_control.brightness_tools import (
     BrightnessManager,
@@ -50,13 +50,13 @@ def test_decrease_brightness_tool_logic(mock_get, mock_set):
     # Normal
     mock_get.return_value = 50
     mock_set.return_value = 40
-    result = tool.execute()
+    tool.execute()
     mock_set.assert_called_with(40)
     
     # Clamping
     mock_get.return_value = 5
     mock_set.return_value = 0
-    result = tool.execute()
+    tool.execute()
     mock_set.assert_called_with(-5)
 
 @patch('src.tools.system_control.brightness_tools.BrightnessManager.set_brightness', return_value=50)

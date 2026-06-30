@@ -1,4 +1,4 @@
-from typing import List, Union, Dict, Any
+from typing import List, Union, Dict
 
 class CommandNode:
     def __init__(self, node_id: str, content: Union[str, Dict[str, str]]):

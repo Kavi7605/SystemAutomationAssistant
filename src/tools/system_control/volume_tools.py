@@ -20,7 +20,7 @@ class VolumeManager:
             devices = AudioUtilities.GetSpeakers()
             return devices.EndpointVolume
         except Exception as e:
-            logger.error(f"Failed to get audio endpoint: {e}")
+            logger.error(f"Failed to get audio endpoint: {e}", exc_info=True)
             raise
             
     @staticmethod

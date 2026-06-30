@@ -1,4 +1,3 @@
-import pytest
 from src.nlp.canonicalizer import Canonicalizer
 
 def test_canonicalizer():

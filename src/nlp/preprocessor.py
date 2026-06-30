@@ -1,5 +1,5 @@
 import logging
-from typing import List, Dict, Any
+from typing import List, Dict
 from src.nlp.base_normalizer import BaseNormalizer
 from src.nlp.grammar_normalizer import GrammarNormalizer
 from src.nlp.number_normalizer import NumberNormalizer
@@ -7,6 +7,9 @@ from src.nlp.application_normalizer import ApplicationNormalizer
 from src.nlp.intent_normalizer import IntentNormalizer
 from src.nlp.reference_normalizer import ReferenceNormalizer
 from src.nlp.canonicalizer import Canonicalizer
+from src.nlp.politeness_normalizer import PolitenessNormalizer
+from src.nlp.noise_normalizer import NoiseNormalizer
+from src.nlp.simplification_normalizer import SimplificationNormalizer
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +22,9 @@ class NLPPreprocessor:
         # Default pipeline order as specified
         if pipeline is None:
             self.pipeline = [
+                PolitenessNormalizer(),
+                NoiseNormalizer(),
+                SimplificationNormalizer(),
                 GrammarNormalizer(),
                 ReferenceNormalizer(),
                 NumberNormalizer(),

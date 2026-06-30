@@ -25,7 +25,7 @@ class HistoryManager:
                     self.history = json.load(f)
                 logger.debug(f"Loaded {len(self.history)} history entries.")
             except Exception as e:
-                logger.error(f"Failed to load history: {e}")
+                logger.error(f"Failed to load history: {e}", exc_info=True)
                 self.history = []
         else:
             self.history = []
@@ -37,7 +37,7 @@ class HistoryManager:
             with open(self.history_file, 'w', encoding='utf-8') as f:
                 json.dump(self.history, f, indent=4)
         except Exception as e:
-            logger.error(f"Failed to save history: {e}")
+            logger.error(f"Failed to save history: {e}", exc_info=True)
 
     def add_entry(self, user_command: str, generated_json: Dict[str, Any], resolved_json: Dict[str, Any], execution_result: Dict[str, Any], generated_plan: list = None, source: str = "keyboard"):
         """

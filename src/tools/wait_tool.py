@@ -40,7 +40,7 @@ class WaitTool(BaseTool):
             else:
                 return {"status": "failed", "message": f"Unknown wait_type: {wait_type}"}
         except Exception as e:
-            logger.error(f"WaitTool error: {e}")
+            logger.error(f"WaitTool error: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def wait_seconds(self, seconds: int) -> Dict[str, Any]:

@@ -1,4 +1,3 @@
-import pytest
 from src.nlp.reference_normalizer import ReferenceNormalizer
 
 def test_reference_normalizer_plurals():

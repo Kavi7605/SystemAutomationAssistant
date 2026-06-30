@@ -19,7 +19,7 @@ class WindowManager:
             import psutil
             return win32gui, win32process, win32con, psutil
         except ImportError as e:
-            logger.error(f"WindowManager dependencies missing: {e}")
+            logger.error(f"WindowManager dependencies missing: {e}", exc_info=True)
             raise
 
     @staticmethod
@@ -84,7 +84,7 @@ class WindowManager:
         win32gui, _, _, _ = WindowManager._import_win32()
         windows = []
         
-        def callback(hwnd, extra):
+        def callback(hwnd, _):
             if WindowManager._is_valid_window(hwnd, win32gui, check_visible=True):
                 windows.append(WindowManager._get_window_info(hwnd))
             return True

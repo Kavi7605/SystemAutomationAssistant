@@ -1,4 +1,3 @@
-import pytest
 from src.parser.condition_parser import ConditionParser
 
 def test_condition_if_then():

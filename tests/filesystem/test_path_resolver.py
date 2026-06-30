@@ -6,7 +6,6 @@ import shutil
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.tools.path_resolver import PathResolver
-from src.tools.filesystem_tools import CreateFileTool, CreateFolderTool
 
 def setup_test_env():
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'test_env'))
@@ -44,7 +43,7 @@ def test_path_resolver():
     # "If the query is already an absolute path, we can still progressive match it, or if it already exists, just return it!"
     # Ah! If we want to test progressive matching, we must use a base.
     # Let's temporarily mock the bases in PathResolver.
-    original_resolve = PathResolver.resolve
+    PathResolver.resolve
     
     def mocked_resolve(query):
         # simple hack: replace "test drive" with the absolute base_dir
@@ -53,14 +52,12 @@ def test_path_resolver():
             # Replace "test drive" with the base_dir
             new_query = base_dir + query[10:]
             # But the resolver needs to recognize the base_dir as a base.
-            pass
             
     # Better approach: We can dynamically add "test drive" to the bases dict inside the function?
     # I can just monkey-patch the module or just rewrite the bases definition for the test?
     # Actually, the base detection in PathResolver checks `if query_lower.startswith(key)`.
     # And we added `"c:\\": "C:\\"`. So if we pass `base_dir + " ExactFolder"`, it might not work unless base_dir is exactly in `bases`.
     # Let's just create a test drive entry in PathResolver bases.
-    pass
 
 def test_progressive_matching():
     # Since we can't easily monkeypatch local variables, let's just pass `C:\` and assume it exists.

@@ -1,5 +1,4 @@
 import pytest
-from pathlib import Path
 from src.tools.filesystem_tools import resolve_smart_item, get_workspace_root
 
 @pytest.fixture

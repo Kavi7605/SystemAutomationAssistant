@@ -300,7 +300,7 @@ class AutomationEngine:
         if set_vol_match:
             return {"action": "set_volume", "parameters": {"level": int(set_vol_match.group(1))}}
             
-        if user_input_lower in ["volume status", "current volume", "what is my volume", "show volume"]:
+        if user_input_lower in ["volume status", "current volume", "what is my volume", "show volume", "what is the current volume"]:
             return {"action": "volume_status", "parameters": {}}
 
         # 0.6 Brightness Controls Routing
@@ -314,7 +314,9 @@ class AutomationEngine:
         if set_bright_match:
             return {"action": "set_brightness", "parameters": {"level": int(set_bright_match.group(1))}}
             
-        if user_input_lower in ["brightness status", "current brightness", "what is my brightness", "show brightness"]:
+        if user_input_lower in ["brightness status", "current brightness", "what is my brightness", "show brightness",
+                                "what is the brightness", "brightness level", "screen brightness", 
+                                "display brightness", "how bright is my screen", "brightness percentage"]:
             return {"action": "brightness_status", "parameters": {}}
 
         # 0.6.5 Window Management Routing
@@ -341,7 +343,8 @@ class AutomationEngine:
             "what apps are running", "running applications",
             "what applications are running", "what apps are open",
             "what applications are open", "list open applications", "list open apps",
-            "focus open applications", "focus open apps"
+            "focus open applications", "focus open apps", "which applications are running",
+            "which apps are running"
         ]
         if user_input_lower in running_apps_aliases:
             user_input_lower = "list_running_apps"
@@ -478,7 +481,8 @@ class AutomationEngine:
             "wifi status", "show wifi status", "current wifi status",
             "am i connected to wifi", "am i connected to the internet",
             "wifi information", "network status",
-            "wifi connection status", "network connection status"
+            "wifi connection status", "network connection status",
+            "is wifi enabled"
         ]
         if user_input_lower in wifi_status_aliases:
             return {"action": "wifi_status", "parameters": {}}
@@ -1039,13 +1043,13 @@ class AutomationEngine:
                 else:
                     parsed_commands.append(resolved_json)
             else:
-                logger.error(f"Failed to parse task: {task}")
+                logger.error(f"Failed to parse task: {task}", exc_info=True)
         
         self._execute_parsed_commands(user_input, tasks, parsed_commands, source)
 
     def _execute_parsed_commands(self, user_input: str, tasks: list, parsed_commands: list, source: str = "keyboard") -> None:
         if not parsed_commands:
-            logger.error("Failed to generate any valid JSON commands. Please check the logs.")
+            logger.error("Failed to generate any valid JSON commands. Please check the logs.", exc_info=True)
             return
             
         if hasattr(self, 'command_expander') and self.command_expander:
@@ -1097,5 +1101,5 @@ class AutomationEngine:
             print(f"\n-> Execution Summary:\n   Successful: {exec_result.get('successful')}\n   Failed: {exec_result.get('failed')}")
         else:
             msg = exec_result.get('message')
-            logger.error(f"[FAIL] Failed: {msg}")
+            logger.error(f"[FAIL] Failed: {msg}", exc_info=True)
             print(f"\n-> Failed: {msg}")

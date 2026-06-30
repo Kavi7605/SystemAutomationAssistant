@@ -4,11 +4,6 @@ import os
 # Add the project root to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.automation.engine import AutomationEngine
-from src.core.command_parser import CommandParser
-from src.core.history_manager import HistoryManager
-from src.planner.resolver import CommandResolver
-from src.planner.task_planner import TaskPlanner
 from src.automation.executor import Executor
 
 class TestFilesystemBypass:

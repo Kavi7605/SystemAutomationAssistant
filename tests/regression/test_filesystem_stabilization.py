@@ -1,10 +1,7 @@
 import pytest
-import os
-from pathlib import Path
 from unittest.mock import MagicMock
 from src.automation.engine import AutomationEngine
 from src.context.context_manager import ContextManager
-from src.tools.filesystem_tools import get_workspace_root
 
 @pytest.fixture
 def test_workspace(tmp_path, monkeypatch):
@@ -31,7 +28,6 @@ def test_workspace(tmp_path, monkeypatch):
 @pytest.fixture
 def engine(test_workspace):
     from src.automation.executor import Executor
-    from src.tools.registry import ToolRegistry
     from src.core.history_manager import HistoryManager
     from src.tools.filesystem_tools import (
         CreateFileTool, CreateFolderTool, DeleteItemTool, 
@@ -109,7 +105,7 @@ def test_folder_scoped_operations(engine, test_workspace):
     assert (root / "report.docx").exists()
 
 def test_voice_normalization(engine, test_workspace):
-    root = test_workspace
+    pass
     
     # All these should be able to open Hello Automation.docx
     engine.process_command("open HelloAutomation")

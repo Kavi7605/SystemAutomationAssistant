@@ -22,7 +22,7 @@ class SpeechToTextWhisper:
             self.device = "CPU"
             logger.info(f"Faster-Whisper running in CPU mode. ({self.model_size}) loaded successfully.")
         except Exception as cpu_err:
-            logger.error(f"Failed to load Faster-Whisper on CPU: {cpu_err}")
+            logger.error(f"Failed to load Faster-Whisper on CPU: {cpu_err}", exc_info=True)
             raise
 
     def process_audio(self, audio_data: np.ndarray) -> dict:

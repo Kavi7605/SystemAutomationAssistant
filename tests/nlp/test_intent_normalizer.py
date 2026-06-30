@@ -1,4 +1,3 @@
-import pytest
 from src.nlp.intent_normalizer import IntentNormalizer
 
 def test_intent_normalizer():

@@ -45,7 +45,7 @@ class DisplayManager:
                 device_name = device.DeviceName
                 is_primary = bool(device.StateFlags & win32con.DISPLAY_DEVICE_PRIMARY_DEVICE)
             except Exception as e:
-                logger.error(f"Failed to get device info for monitor {i}: {e}")
+                logger.error(f"Failed to get device info for monitor {i}: {e}", exc_info=True)
                 continue
                 
             try:
@@ -56,7 +56,7 @@ class DisplayManager:
                 orientation_val = settings.DisplayOrientation
                 orientation_str = DisplayManager._get_orientation_string(orientation_val)
             except Exception as e:
-                logger.error(f"Failed to get display settings for {device_name}: {e}")
+                logger.error(f"Failed to get display settings for {device_name}: {e}", exc_info=True)
                 width, height, refresh_rate, orientation_str = 0, 0, 0, "Unknown"
 
             # Get scaling (DPI)
@@ -67,7 +67,7 @@ class DisplayManager:
                 shcore.GetDpiForMonitor(hmonitor, 0, ctypes.byref(dpiX), ctypes.byref(dpiY))
                 scaling = round((dpiX.value / 96.0) * 100)
             except Exception as e:
-                logger.error(f"Failed to get DPI for {device_name}: {e}")
+                logger.error(f"Failed to get DPI for {device_name}: {e}", exc_info=True)
                 scaling = 100
 
             info = {

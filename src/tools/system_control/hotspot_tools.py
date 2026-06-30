@@ -35,7 +35,7 @@ class HotspotManager:
             return {"enabled": enabled}
             
         except Exception as e:
-            logger.error(f"Failed to get Hotspot status: {e}")
+            logger.error(f"Failed to get Hotspot status: {e}", exc_info=True)
             return {"enabled": False}
 
 

@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import MagicMock
 from src.automation.executor import Executor
 from src.tools.registry import ToolRegistry

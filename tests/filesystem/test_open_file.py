@@ -3,9 +3,6 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.tools.system_tools import OpenFileTool
-from src.core.command_parser import CommandParser
-from src.automation.engine import AutomationEngine
 
 def test_open_file():
     print("Testing OpenFileTool behavior:")

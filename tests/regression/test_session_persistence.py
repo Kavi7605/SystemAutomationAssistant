@@ -1,4 +1,3 @@
-import pytest
 import os
 import shutil
 from unittest.mock import MagicMock, patch

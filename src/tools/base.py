@@ -14,7 +14,6 @@ class BaseTool(ABC):
         Executes the tool's action.
         Returns a dictionary with at least a 'status' (success/failed) and a 'message'.
         """
-        pass
         
     def get_schema(self) -> Dict[str, Any]:
         """

@@ -71,10 +71,10 @@ class OpenApplicationTool(BaseTool):
                     return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
                     
                 except FileNotFoundError:
-                    logger.error(f"Verification result: FAILED. File not found: {target_path}")
+                    logger.error(f"Verification result: FAILED. File not found: {target_path}", exc_info=True)
                     return {"status": "application_not_found", "message": f"Application {original_name} could not be found."}
                 except OSError as e:
-                    logger.error(f"Verification result: FAILED. OS Error: {e}")
+                    logger.error(f"Verification result: FAILED. OS Error: {e}", exc_info=True)
                     return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
             
             # 2. Subprocess execution for unresolved/relative PATH binaries
@@ -85,14 +85,14 @@ class OpenApplicationTool(BaseTool):
                     logger.info(f"Launch success. PID: {process.pid}")
                     return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
                 except FileNotFoundError:
-                    logger.error(f"Verification result: FAILED. Unresolved application not in PATH: {target_path}")
+                    logger.error(f"Verification result: FAILED. Unresolved application not in PATH: {target_path}", exc_info=True)
                     return {"status": "application_not_found", "message": f"Application {original_name} could not be found in PATH."}
                 except OSError as e:
-                    logger.error(f"Verification result: FAILED. OS Error: {e}")
+                    logger.error(f"Verification result: FAILED. OS Error: {e}", exc_info=True)
                     return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
                     
         except Exception as e:
-            logger.error(f"Exception while opening application {original_name}: {e}")
+            logger.error(f"Exception while opening application {original_name}: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -165,7 +165,7 @@ class CloseApplicationTool(BaseTool):
                 return {"status": "failed", "message": f"Could not find any running process matching '{application_name}'"}
                 
         except Exception as e:
-            logger.error(f"Error closing {application_name}: {e}")
+            logger.error(f"Error closing {application_name}: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -208,7 +208,7 @@ class TakeScreenshotTool(BaseTool):
             }
         except Exception as e:
             tb_str = traceback.format_exc()
-            logger.error(f"Screenshot failed: {e}\nTraceback:\n{tb_str}")
+            logger.error(f"Screenshot failed: {e}\nTraceback:\n{tb_str}", exc_info=True)
             return {"status": "failed", "message": "Screenshot failed"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -235,7 +235,7 @@ class SearchWebTool(BaseTool):
         try:
             socket.create_connection(("8.8.8.8", 53), timeout=3)
         except OSError:
-            logger.error("Internet unavailable for web search")
+            logger.error("Internet unavailable for web search", exc_info=True)
             return {"status": "failed", "message": "Internet unavailable"}
             
         try:
@@ -244,7 +244,7 @@ class SearchWebTool(BaseTool):
             logger.info(f"Web search initiated for: {query}")
             return {"status": "success", "message": f"Searched web for '{query}'"}
         except Exception as e:
-            logger.error(f"Web search failed: {e}")
+            logger.error(f"Web search failed: {e}", exc_info=True)
             return {"status": "failed", "message": f"Web search failed: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -285,7 +285,7 @@ class OpenUrlTool(BaseTool):
             else:
                 return {"status": "failed", "message": f"Failed to open URL: {url}"}
         except Exception as e:
-            logger.error(f"Failed to open URL {url}: {e}")
+            logger.error(f"Failed to open URL {url}: {e}", exc_info=True)
             return {"status": "failed", "message": f"Error opening URL: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -366,7 +366,7 @@ class OpenFolderTool(BaseTool):
                 return {"status": "success", "message": f"Opened folder: {found_path}", "path": found_path}
                 
         except Exception as e:
-            logger.error(f"Failed to open folder: {e}")
+            logger.error(f"Failed to open folder: {e}", exc_info=True)
             return {"status": "failed", "message": f"Error opening folder: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -464,5 +464,5 @@ class OpenFileTool(BaseTool):
             return {"status": "success", "message": f"Opened file: {full_path}", "path": full_path}
                 
         except Exception as e:
-            logger.error(f"Failed to open file: {e}")
+            logger.error(f"Failed to open file: {e}", exc_info=True)
             return {"status": "failed", "message": f"Error opening file: {str(e)}"}

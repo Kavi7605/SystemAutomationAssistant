@@ -57,7 +57,7 @@ class SleepTool(BaseTool):
                         break
                 return supported
         except Exception as e:
-            logger.error(f"Error checking sleep support: {e}")
+            logger.error(f"Error checking sleep support: {e}", exc_info=True)
         # Default to True to attempt it if parsing fails
         return True
 
@@ -77,7 +77,7 @@ class SleepTool(BaseTool):
                 "last_power_action": "sleep"
             }
         except subprocess.CalledProcessError as e:
-            logger.error(f"Failed to sleep PC: {e}")
+            logger.error(f"Failed to sleep PC: {e}", exc_info=True)
             return {
                 "status": "error",
                 "message": "Failed to execute sleep command."
@@ -96,7 +96,7 @@ class LockScreenTool(BaseTool):
                 "last_power_action": "lock"
             }
         except subprocess.CalledProcessError as e:
-            logger.error(f"Failed to lock screen: {e}")
+            logger.error(f"Failed to lock screen: {e}", exc_info=True)
             return {
                 "status": "error",
                 "message": "Failed to lock screen."
@@ -130,7 +130,7 @@ class ConfirmPowerActionTool(BaseTool):
                 "clear_pending": True
             }
         except subprocess.CalledProcessError as e:
-            logger.error(f"Failed to execute {action_type}: {e}")
+            logger.error(f"Failed to execute {action_type}: {e}", exc_info=True)
             return {
                 "status": "error",
                 "message": f"Failed to execute {action_type}."

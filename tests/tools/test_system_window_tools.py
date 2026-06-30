@@ -1,10 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from src.tools.system_control.window_tools import (
-    WindowManager,
     MinimizeWindowTool,
-    MaximizeWindowTool,
-    RestoreWindowTool,
     FocusWindowTool,
     GetCurrentWindowTool,
     ListOpenWindowsTool

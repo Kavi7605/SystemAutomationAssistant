@@ -121,7 +121,7 @@ class CreateFolderTool(BaseTool):
                 "item_name": folder_name
             }
         except Exception as e:
-            logger.error(f"Failed to create folder: {e}")
+            logger.error(f"Failed to create folder: {e}", exc_info=True)
             return {"status": "failed", "message": f"Failed to create folder: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -188,7 +188,7 @@ class CreateFileTool(BaseTool):
                 "item_name": item_name
             }
         except Exception as e:
-            logger.error(f"Failed to create file: {e}")
+            logger.error(f"Failed to create file: {e}", exc_info=True)
             return {"status": "failed", "message": f"Failed to create file: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -248,7 +248,7 @@ class RenameItemTool(BaseTool):
                 "item_name": target_name
             }
         except Exception as e:
-            logger.error(f"Failed to rename item: {e}")
+            logger.error(f"Failed to rename item: {e}", exc_info=True)
             return {"status": "failed", "message": f"Failed to rename item: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -310,7 +310,7 @@ class DeleteItemTool(BaseTool):
                 "item_name": actual_name
             }
         except Exception as e:
-            logger.error(f"Failed to delete item: {e}")
+            logger.error(f"Failed to delete item: {e}", exc_info=True)
             return {"status": "failed", "message": f"Failed to delete item: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -378,7 +378,7 @@ class CopyFileTool(BaseTool):
                 "item_name": target_name
             }
         except Exception as e:
-            logger.error(f"Failed to copy file: {e}")
+            logger.error(f"Failed to copy file: {e}", exc_info=True)
             return {"status": "failed", "message": f"Failed to copy file: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -457,7 +457,7 @@ class MoveFileTool(BaseTool):
                 "item_name": target_path_obj.name
             }
         except Exception as e:
-            logger.error(f"Failed to move file: {e}")
+            logger.error(f"Failed to move file: {e}", exc_info=True)
             return {"status": "failed", "message": f"Failed to move file: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -511,7 +511,7 @@ class OpenWorkspaceItemTool(BaseTool):
                 "item_name": actual_name
             }
         except Exception as e:
-            logger.error(f"Failed to open workspace item: {e}")
+            logger.error(f"Failed to open workspace item: {e}", exc_info=True)
             return {"status": "failed", "message": f"Failed to open item: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:

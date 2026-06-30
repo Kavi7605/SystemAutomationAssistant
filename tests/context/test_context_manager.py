@@ -1,4 +1,3 @@
-import pytest
 from src.context.context_manager import ContextManager
 
 def test_mark_app_opened():

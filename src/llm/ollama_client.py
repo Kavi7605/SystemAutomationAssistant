@@ -68,9 +68,9 @@ class OllamaClient:
                 parsed_json = json.loads(response_text)
                 return parsed_json
             except json.JSONDecodeError as e:
-                logger.error(f"Failed to parse JSON from response. Response text: {response_text}. Error: {e}")
+                logger.error(f"Failed to parse JSON from response. Response text: {response_text}. Error: {e}", exc_info=True)
                 return None
                 
         except requests.exceptions.RequestException as e:
-            logger.error(f"Error communicating with Ollama API at {self.api_url}: {e}")
+            logger.error(f"Error communicating with Ollama API at {self.api_url}: {e}", exc_info=True)
             return None

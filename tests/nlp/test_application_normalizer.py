@@ -1,4 +1,3 @@
-import pytest
 from src.nlp.application_normalizer import ApplicationNormalizer
 
 def test_application_normalizer():

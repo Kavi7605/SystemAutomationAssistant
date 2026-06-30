@@ -1,4 +1,3 @@
-import pytest
 from src.nlp.grammar_normalizer import GrammarNormalizer
 
 def test_grammar_normalizer():

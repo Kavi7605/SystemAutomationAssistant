@@ -1,6 +1,5 @@
 from unittest.mock import MagicMock
 from unittest.mock import patch
-import pytest
 from src.voice.voice_listener import VoiceListener
 
 @patch("src.voice.voice_listener.SpeechToTextWhisper")

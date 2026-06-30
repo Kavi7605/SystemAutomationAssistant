@@ -50,7 +50,7 @@ class WifiManager:
             return {"enabled": enabled, "connected": connected, "ssid": ssid}
             
         except Exception as e:
-            logger.error(f"Failed to get WiFi status: {e}")
+            logger.error(f"Failed to get WiFi status: {e}", exc_info=True)
             return {"enabled": False, "connected": False, "ssid": None}
 
     @staticmethod
@@ -66,7 +66,7 @@ class WifiManager:
                 return True
             return False
         except Exception as e:
-            logger.error(f"Failed to disconnect WiFi: {e}")
+            logger.error(f"Failed to disconnect WiFi: {e}", exc_info=True)
             return False
 
     @staticmethod
@@ -121,7 +121,7 @@ class WifiManager:
                 return "No known WiFi network is available for automatic reconnection."
                 
         except Exception as e:
-            logger.error(f"Failed to enable WiFi: {e}")
+            logger.error(f"Failed to enable WiFi: {e}", exc_info=True)
             return "No known WiFi network is available for automatic reconnection."
 
     @staticmethod

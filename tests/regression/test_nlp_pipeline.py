@@ -1,4 +1,3 @@
-import pytest
 from src.nlp.preprocessor import NLPPreprocessor
 
 def test_nlp_pipeline_e2e():

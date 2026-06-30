@@ -1,20 +1,21 @@
 import re
 from src.nlp.base_normalizer import BaseNormalizer
-from src.nlp.data.number_words import WORD_TO_NUMBER, TIME_PHRASES_SORTED, TIME_PHRASES
 
 class NumberNormalizer(BaseNormalizer):
+    def __init__(self):
+        from src.nlp.data.number_words import WORD_TO_NUMBER, TIME_PHRASES_SORTED, TIME_PHRASES
+        self.time_patterns = [(re.compile(rf"\b{re.escape(phrase)}\b", re.IGNORECASE), TIME_PHRASES[phrase]) for phrase in TIME_PHRASES_SORTED]
+        self.word_patterns = [(re.compile(rf"\b{re.escape(word)}\b", re.IGNORECASE), str(digit)) for word, digit in WORD_TO_NUMBER.items()]
+
     def normalize(self, text: str) -> str:
         result = text
         
         # Replace time phrases first (e.g., "half minute" -> "30 seconds")
-        for phrase in TIME_PHRASES_SORTED:
-            replacement = TIME_PHRASES[phrase]
-            pattern = re.compile(rf"\b{re.escape(phrase)}\b", re.IGNORECASE)
+        for pattern, replacement in self.time_patterns:
             result = pattern.sub(replacement, result)
             
         # Replace word numbers with digits (e.g., "five" -> "5")
-        for word, digit in WORD_TO_NUMBER.items():
-            pattern = re.compile(rf"\b{re.escape(word)}\b", re.IGNORECASE)
+        for pattern, digit in self.word_patterns:
             result = pattern.sub(digit, result)
             
         # Convert minute/hour expressions into seconds

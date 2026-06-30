@@ -341,7 +341,7 @@ Output: [
                     logger.info(f"TaskPlanner successfully generated {len(tasks)} tasks.")
                     return tasks
                 elif isinstance(result, dict):
-                    logger.error(f"TaskPlanner attempt {attempt+1}: Received JSON object instead of array. Retrying...")
+                    logger.error(f"TaskPlanner attempt {attempt+1}: Received JSON object instead of array. Retrying...", exc_info=True)
                     continue
                 else:
                     logger.warning(f"TaskPlanner attempt {attempt+1}: Unexpected response format {type(result)}. Retrying...")
@@ -349,5 +349,5 @@ Output: [
             except Exception as e:
                 logger.error(f"Failed to plan tasks on attempt {attempt+1} due to an exception: {e}", exc_info=True)
                 
-        logger.error("TaskPlanner failed completely after 2 attempts.")
+        logger.error("TaskPlanner failed completely after 2 attempts.", exc_info=True)
         return []

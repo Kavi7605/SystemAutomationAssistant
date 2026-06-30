@@ -68,19 +68,19 @@ def test_decrease_volume_tool(mock_get, mock_set, mock_mute):
     # Test normal decrease
     mock_get.return_value = 50
     mock_set.return_value = 45
-    result = tool.execute()
+    tool.execute()
     mock_set.assert_called_with(45)
     
     # Test clamping
     mock_get.return_value = 5
     mock_set.return_value = 0
-    result = tool.execute()
+    tool.execute()
     mock_set.assert_called_with(0)
     
     # Test at min
     mock_get.return_value = 0
     mock_set.return_value = 0
-    result = tool.execute()
+    tool.execute()
     mock_set.assert_called_with(-5) # Manager clamps it
 
 @patch('src.tools.system_control.volume_tools.VolumeManager.get_mute', return_value=False)

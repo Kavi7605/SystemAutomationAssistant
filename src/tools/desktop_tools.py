@@ -22,7 +22,7 @@ class ClickTool(BaseTool):
             logger.warning("PyAutoGUI fail-safe triggered during click.")
             return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
         except Exception as e:
-            logger.error(f"Error executing click: {e}")
+            logger.error(f"Error executing click: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -52,7 +52,7 @@ class DoubleClickTool(BaseTool):
             logger.warning("PyAutoGUI fail-safe triggered during double-click.")
             return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
         except Exception as e:
-            logger.error(f"Error executing double-click: {e}")
+            logger.error(f"Error executing double-click: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -82,7 +82,7 @@ class RightClickTool(BaseTool):
             logger.warning("PyAutoGUI fail-safe triggered during right-click.")
             return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
         except Exception as e:
-            logger.error(f"Error executing right-click: {e}")
+            logger.error(f"Error executing right-click: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -112,7 +112,7 @@ class TypeTextTool(BaseTool):
             logger.warning("PyAutoGUI fail-safe triggered during type_text.")
             return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
         except Exception as e:
-            logger.error(f"Error executing type_text: {e}")
+            logger.error(f"Error executing type_text: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -142,7 +142,7 @@ class HotkeyTool(BaseTool):
             logger.warning("PyAutoGUI fail-safe triggered during hotkey.")
             return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
         except Exception as e:
-            logger.error(f"Error executing hotkey: {e}")
+            logger.error(f"Error executing hotkey: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -178,7 +178,7 @@ class ScrollTool(BaseTool):
             logger.warning("PyAutoGUI fail-safe triggered during scroll.")
             return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
         except Exception as e:
-            logger.error(f"Error executing scroll: {e}")
+            logger.error(f"Error executing scroll: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
@@ -212,7 +212,7 @@ class MoveMouseTool(BaseTool):
             logger.warning("PyAutoGUI fail-safe triggered during move_mouse.")
             return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
         except Exception as e:
-            logger.error(f"Error executing move_mouse: {e}")
+            logger.error(f"Error executing move_mouse: {e}", exc_info=True)
             return {"status": "failed", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:

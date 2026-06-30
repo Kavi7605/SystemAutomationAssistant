@@ -1,6 +1,5 @@
 from unittest.mock import MagicMock
 from unittest.mock import patch
-import pytest
 import numpy as np
 from src.voice.speech_to_text_whisper import SpeechToTextWhisper
 
