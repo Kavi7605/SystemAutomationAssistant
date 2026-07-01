@@ -36,11 +36,11 @@ class PathResolver:
     def resolve(cls, query: str) -> Dict[str, Any]:
         import logging
         logger = logging.getLogger("system_assistant")
-        logger.info(f"PathResolver Input:\n{query}")
+        logger.debug(f"PathResolver Input:\n{query}")
         
         result = cls._resolve_internal(query)
         
-        logger.info(f"PathResolver Output:\n{result}")
+        logger.debug(f"PathResolver Output:\n{result}")
         return result
 
     @classmethod
@@ -50,10 +50,24 @@ class PathResolver:
 
         query_lower = query.lower().strip()
 
+        # Strip stopwords from start
+        stopwords = ["inside", "under", "in", "within", "folder", "directory", "named"]
+        words = query_lower.split()
+        original_words = query.split()
+        while words and words[0] in stopwords:
+            words.pop(0)
+            original_words.pop(0)
+            
+        query_lower = " ".join(words)
+        query = " ".join(original_words)
+
         # Cache check
         if query_lower in cls._cache:
             return {"status": "success", "resolved_path": cls._cache[query_lower]}
 
+        onedrive_path = os.environ.get('OneDrive')
+        home_path = os.path.expanduser("~")
+        
         bases = {
             "c drive": "C:\\",
             "d drive": "D:\\",
@@ -61,13 +75,18 @@ class PathResolver:
             "c:\\": "C:\\",
             "d:\\": "D:\\",
             "e:\\": "E:\\",
-            "downloads": os.path.join(os.path.expanduser("~"), "Downloads"),
+            "downloads": os.path.join(home_path, "Downloads"),
             "desktop": get_real_desktop_path(),
-            "documents": os.path.join(os.path.expanduser("~"), "Documents"),
-            "pictures": os.path.join(os.path.expanduser("~"), "Pictures"),
-            "videos": os.path.join(os.path.expanduser("~"), "Videos"),
-            "music": os.path.join(os.path.expanduser("~"), "Music")
+            "documents": os.path.join(home_path, "Documents"),
+            "pictures": os.path.join(home_path, "Pictures"),
+            "videos": os.path.join(home_path, "Videos"),
+            "music": os.path.join(home_path, "Music"),
+            "home directory": home_path,
+            "this pc": "C:\\",
+            "workspace": os.path.abspath(os.environ.get("AUTOMATION_WORKSPACE", os.path.join(os.getcwd(), "automation_workspace")))
         }
+        if onedrive_path:
+            bases["onedrive"] = onedrive_path
 
         base_path = None
         consumed_len = 0
@@ -87,6 +106,7 @@ class PathResolver:
             return {"status": "failed", "message": "No base location specified"}
 
         remaining = query[consumed_len:].strip()
+        remaining = remaining.replace('\\', ' ').replace('/', ' ')
         current_path = base_path
         
         if DEBUG_PATH_RESOLUTION:
@@ -113,6 +133,12 @@ class PathResolver:
                 }
 
             rem_words = remaining.split()
+            while rem_words and rem_words[0].lower() in stopwords:
+                rem_words.pop(0)
+                
+            if not rem_words:
+                break
+                
             best_priority = 99
             best_consumed_words = 0
             best_matches = []

@@ -98,7 +98,7 @@ class TestFilesystemBypass:
         self.parser_mock.parse_command.assert_not_called()
         
         call_args = self.executor_mock.execute.call_args[0][0]
-        assert call_args["action"] == "open_workspace_item"
+        assert call_args["action"] == "open_item"
         assert call_args["parameters"]["item_name"] == "report.docx"
 
     def test_3_open_steam_uses_planner(self):

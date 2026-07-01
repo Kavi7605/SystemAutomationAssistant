@@ -213,7 +213,7 @@ class Executor:
                     parameters["pending_action"] = snapshot.get("pending_power_action")
                     
             # Execute dynamically via Tool Registry
-            result = self.registry.execute_tool(action, **parameters)
+            result = self.registry.execute_tool(action, context_manager=self.context_manager, **parameters)
             
             # Intercept ambiguous results from tools
             if result.get("status") == "ambiguous":
@@ -261,6 +261,16 @@ class Executor:
             if result.get("status") in ["success", "partial_success"]:
                 if self.context_manager:
                     self.context_manager.mark_action_success(action)
+                    if action in ["create_folder", "create_file", "rename_item", "copy_file", "move_file", "open_workspace_item", "open_folder", "open_file"]:
+                        # Handle filesystem context
+                        item_name = result.get("item_name")
+                        if item_name:
+                            if action == "create_folder":
+                                self.context_manager.update_filesystem_state("last_created_folder", item_name)
+                            elif action == "create_file":
+                                self.context_manager.update_filesystem_state("last_created_file", item_name)
+                            elif action in ["open_workspace_item", "open_folder"]:
+                                self.context_manager.update_filesystem_state("last_opened_folder", item_name)
                 
                 if action == "open_application":
                     app_name = parameters.get("application_name")

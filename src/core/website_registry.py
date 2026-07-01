@@ -25,5 +25,20 @@ WEBSITE_REGISTRY = {
         "website": "https://www.reddit.com",
         "search_url": "https://www.reddit.com/search/?q={query}",
         "application_aliases": ["reddit"]
+    },
+    "google": {
+        "website": "https://www.google.com",
+        "search_url": "https://www.google.com/search?q={query}",
+        "application_aliases": ["google"]
+    },
+    "gmail": {
+        "website": "https://mail.google.com",
+        "search_url": "https://mail.google.com/mail/u/0/#search/{query}",
+        "application_aliases": ["gmail"]
+    },
+    "stackoverflow": {
+        "website": "https://stackoverflow.com",
+        "search_url": "https://stackoverflow.com/search?q={query}",
+        "application_aliases": ["stackoverflow", "stack overflow"]
     }
 }

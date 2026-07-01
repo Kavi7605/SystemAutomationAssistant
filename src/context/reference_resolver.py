@@ -44,6 +44,8 @@ class ReferenceResolver:
         unique_opened_all = list(dict.fromkeys(opened_history))
         
         if token in ["it", "that", "this"]:
+            if snap.get("last_interaction_type") == "filesystem":
+                return [token]
             res = snap.get("last_interacted_app") or snap.get("current_active_app") or snap.get("last_focused_app") or snap.get("last_opened_app") or snap.get("last_closed_app")
             return [res] if res else None
         elif token in ["previous app", "last app", "previous"]:

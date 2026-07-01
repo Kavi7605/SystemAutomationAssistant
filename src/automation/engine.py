@@ -143,13 +143,26 @@ class AutomationEngine:
             
         return final_parts
 
-    def _classify_target(self, target: str) -> Dict[str, Any]:
+    def _classify_target(self, target: str, target_folder: Optional[str] = None, pref_ext: Optional[str] = None, explicit_fs_intent: bool = False) -> Dict[str, Any]:
         """
-        Classifies a target into Website, Application, or SearchWeb using the exact approved hierarchy.
+        Classifies a target into Application, Filesystem Item, Website, or SearchWeb using the exact approved hierarchy.
+        Priority:
+        1. Known installed application -> open_application
+        2. Known Windows location / predefined folder -> open_item
+        3. Known website -> open_url
+        4. Existing local file/folder -> open_item
+        5. Domain-like target -> open_url
+        6. Search Web
         """
-        target = target.strip()
-        
+        from src.tools.application_finder import ApplicationFinder
+        from src.tools.path_resolver import PathResolver
+        from src.core.website_registry import WEBSITE_REGISTRY
+        from src.tools.filesystem_tools import resolve_smart_item
+        from src.core.url_builder import build_base_url
         from src.nlp.reference_normalizer import ReferenceNormalizer
+        import re
+        
+        target = target.strip()
         norm_target = ReferenceNormalizer().normalize(target.lower())
         
         # Rule 0: Reference Tokens
@@ -157,30 +170,49 @@ class AutomationEngine:
         if self.reference_resolver and hasattr(self.reference_resolver, 'is_reference'):
             is_ref = self.reference_resolver.is_reference(norm_target)
             
-        if is_ref or norm_target in ["it", "that", "this", "previous app", "last app", "current app"]:
-            return {"action": "open_application", "parameters": {"application_name": norm_target}}
+        if not explicit_fs_intent and (is_ref or norm_target in ["it", "that", "this", "previous app", "last app", "current app"]):
+            return {"action": "open_item", "parameters": {"item_name": norm_target}}
             
-        # Rule 1: Explicit Website
-        if target.endswith(" website"):
-            base_name = target[:-8].strip()
-            from src.core.url_builder import build_base_url
-            url = build_base_url(base_name) or f"https://{base_name}.com"
-            return {"action": "open_url", "parameters": {"url": url}}
-
-        # Rule 2: Installed Application
-        from src.tools.application_finder import ApplicationFinder
+        # 1. Known installed application
         app_finder = ApplicationFinder()
         if app_finder.find_application(target):
             return {"action": "open_application", "parameters": {"application_name": target}}
-
-        # Rule 3: Website Registry Entry
-        from src.core.website_registry import WEBSITE_REGISTRY
-        if target in WEBSITE_REGISTRY:
-            from src.core.url_builder import build_base_url
+            
+        # 2. Known Windows location / predefined folder
+        res = PathResolver.resolve(target)
+        if res["status"] == "success":
+            parsed = {"action": "open_item", "parameters": {"item_name": target}}
+            if target_folder: parsed["parameters"]["target_folder"] = target_folder
+            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
+            return parsed
+            
+        # 3. Known website
+        if target.endswith(" website"):
+            base_name = target[:-8].strip()
+            url = build_base_url(base_name) or f"https://{base_name}.com"
+            return {"action": "open_url", "parameters": {"url": url}}
+            
+        if target.lower() in WEBSITE_REGISTRY:
             url = build_base_url(target)
             return {"action": "open_url", "parameters": {"url": url}}
-
-        # Rule 4: Unknown Target
+            
+        # 4. Existing local file/folder
+        fs_res = resolve_smart_item(target, preferred_extension=pref_ext, target_folder=target_folder, context_manager=self.context_manager)
+        has_fs_intent = bool(target_folder) or bool(pref_ext) or explicit_fs_intent
+        if fs_res["status"] in ["success", "ambiguous"] or has_fs_intent:
+            parsed = {"action": "open_item", "parameters": {"item_name": target}}
+            if target_folder: parsed["parameters"]["target_folder"] = target_folder
+            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
+            if explicit_fs_intent: parsed["parameters"]["literal_name"] = True
+            return parsed
+            
+        # 5. Domain-like target
+        domain_pattern = r'^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:/[^\s]*)?$'
+        if re.match(domain_pattern, target):
+            url = f"https://{target}" if not target.startswith("http") else target
+            return {"action": "open_url", "parameters": {"url": url}}
+            
+        # 6. Fallback Search Web
         return {"action": "search_web", "parameters": {"query": target}}
 
     def _extract_query_and_mode(self, site_key: str, full_query: str) -> tuple[str, Optional[str]]:
@@ -213,6 +245,7 @@ class AutomationEngine:
         hints = {
             "word document": ".docx",
             "word file": ".docx",
+            "doc file": ".docx",
             "document": ".docx",
             "doc": ".docx",
             "docx": ".docx",
@@ -231,19 +264,124 @@ class AutomationEngine:
                 return target[:-len(hint)-1].strip(), ext
         return target, None
 
+    def _parse_filesystem_command(self, text: str) -> Optional[Dict[str, Any]]:
+        """Unified parser for all filesystem commands."""
+        action_match = re.match(r"^(create|make|new|rename|change|delete|remove|find|locate|search(?:\s+for)?|open|move|copy|duplicate)\s+(.+)$", text, re.IGNORECASE)
+        if not action_match:
+            return None
+            
+        action_raw = action_match.group(1).lower().replace(" for", "")
+        remainder = action_match.group(2).strip()
+        
+        location = None
+        loc_match = re.search(r"\s+(in|inside|under|from|at)\s+(.+)$", remainder, re.IGNORECASE)
+        if loc_match:
+            location = loc_match.group(2).strip()
+            remainder = remainder[:loc_match.start()].strip()
+            
+        new_name = None
+        if action_raw in ["rename", "change", "move", "copy", "duplicate"]:
+            to_match = re.search(r"\s+(?:to|into)\s+(.+)$", remainder, re.IGNORECASE)
+            if to_match:
+                new_name = to_match.group(1).strip()
+                remainder = remainder[:to_match.start()].strip()
+                
+        remainder = re.sub(r"^(?:a|new)\s+", "", remainder, flags=re.IGNORECASE).strip()
+        
+        is_explicit_folder = False
+        is_explicit_file = False
+        
+        # Check original remainder for explicit intents
+        if re.search(r"\b(folder|directory)\b", remainder, re.IGNORECASE):
+            is_explicit_folder = True
+        if re.search(r"\b(file|document)\b", remainder, re.IGNORECASE):
+            is_explicit_file = True
+            
+        clean_target, pref_ext = self._extract_type_hint(remainder)
+        
+        # Clean leading/trailing folder/file words from clean_target
+        if re.match(r"^(folder|directory)\s+", clean_target, re.IGNORECASE):
+            clean_target = re.sub(r"^(folder|directory)\s+", "", clean_target, flags=re.IGNORECASE).strip()
+        elif re.search(r"\s+(folder|directory)$", clean_target, re.IGNORECASE):
+            clean_target = re.sub(r"\s+(folder|directory)$", "", clean_target, flags=re.IGNORECASE).strip()
+            
+        if re.match(r"^(file|document)\s+", clean_target, re.IGNORECASE):
+            clean_target = re.sub(r"^(file|document)\s+", "", clean_target, flags=re.IGNORECASE).strip()
+        elif re.search(r"\s+(file|document)$", clean_target, re.IGNORECASE):
+            clean_target = re.sub(r"\s+(file|document)$", "", clean_target, flags=re.IGNORECASE).strip()
+            
+        # Clean 'called' or 'named' from the start of the clean target
+        clean_target = re.sub(r"^(called|named)\s+", "", clean_target, flags=re.IGNORECASE).strip()
+        
+        
+        if action_raw in ["create", "make", "new"]:
+            if is_explicit_folder or (not pref_ext and not is_explicit_file and not re.search(r"\.[a-zA-Z0-9]+$", clean_target)):
+                parsed = {"action": "create_folder", "parameters": {"folder_name": clean_target}}
+                if location: parsed["parameters"]["target_folder"] = location
+                return parsed
+            else:
+                if pref_ext and not clean_target.lower().endswith(pref_ext):
+                    clean_target += pref_ext
+                parsed = {"action": "create_file", "parameters": {"file_name": clean_target}}
+                if location: parsed["parameters"]["target_folder"] = location
+                return parsed
+                
+        elif action_raw in ["rename", "change"]:
+            parsed = {"action": "rename_item", "parameters": {"source_name": clean_target, "target_name": new_name}}
+            if location: parsed["parameters"]["target_folder"] = location
+            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
+            return parsed
+            
+        elif action_raw in ["delete", "remove"]:
+            parsed = {"action": "delete_item", "parameters": {"item_name": clean_target}}
+            if location: parsed["parameters"]["target_folder"] = location
+            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
+            return parsed
+            
+        elif action_raw in ["copy", "duplicate"]:
+            parsed = {"action": "copy_file", "parameters": {"source_name": clean_target, "target_name": new_name or location}}
+            if location and new_name: parsed["parameters"]["target_folder"] = location
+            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
+            return parsed
+            
+        elif action_raw == "move":
+            parsed = {"action": "move_file", "parameters": {"source_name": clean_target, "target_path": new_name or location}}
+            if location and new_name: parsed["parameters"]["target_folder"] = location
+            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
+            return parsed
+            
+        elif action_raw == "open":
+            if " and " in text.lower(): return None
+            explicit_fs = is_explicit_folder or is_explicit_file or bool(pref_ext)
+            return self._classify_target(clean_target, target_folder=location, pref_ext=pref_ext, explicit_fs_intent=explicit_fs)
+            
+        elif action_raw in ["find", "locate", "search"]:
+            if " and " in text.lower(): return None
+            parsed = {"action": "find_item", "parameters": {"item_name": clean_target}}
+            if location: parsed["parameters"]["target_folder"] = location
+            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
+            return parsed
+            
+        return None
+
     def _route_semantic_command(self, user_input_mixed: str) -> Optional[Dict[str, Any] | List[Dict[str, Any]]]:
         from src.core.url_builder import build_search_url, build_base_url
         
         user_input_lower = user_input_mixed.lower().strip()
         user_input_clean = user_input_mixed.strip()
         
-        # Check for path intent protection for filesystem commands
-        fs_keywords = ["create", "make", "new", "move", "copy", "duplicate", "rename", "change", "delete", "remove"]
-        if any(user_input_lower.startswith(kw + " ") for kw in fs_keywords) or any(user_input_lower == kw for kw in fs_keywords):
-            if self._has_custom_path_intent(user_input_lower):
-                return {"action": "reject_custom_path", "parameters": {}}
+        user_input_lower = user_input_mixed.lower().strip()
+        user_input_clean = user_input_mixed.strip()
 
-        
+        # Check for pending delete confirmation
+        if self.context_manager:
+            fs_state = self.context_manager.get_filesystem_context()
+            if fs_state.get("pending_delete"):
+                if user_input_lower in ["yes", "y", "confirm", "do it"]:
+                    return {"action": "confirm_delete", "parameters": {}}
+                if user_input_lower in ["no", "n", "cancel", "stop", "abort"]:
+                    return {"action": "cancel_delete", "parameters": {}}
+
         # 0. Desktop Interaction Toolkit Routing
         # click [x y]
         click_match = re.match(r"^click(?:\s+(\d+)\s+(\d+))?$", user_input_lower)
@@ -467,7 +605,16 @@ class AutomationEngine:
             return {"action": "confirm_power_action", "parameters": {"action_type": "shutdown"}}
         if user_input_lower == "confirm restart":
             return {"action": "confirm_power_action", "parameters": {"action_type": "restart"}}
-        if user_input_lower in ["cancel", "cancel shutdown", "cancel restart"]:
+        # Power action cancellation (Only intercept raw 'cancel' if pending)
+        is_pending_power = False
+        if self.context_manager:
+            sys_state = self.context_manager.get_context_snapshot().get("system_state", {})
+            if sys_state.get("pending_power_action"):
+                is_pending_power = True
+                
+        if user_input_lower in ["cancel shutdown", "cancel restart", "abort shutdown"]:
+            return {"action": "cancel_power_action", "parameters": {}}
+        if is_pending_power and user_input_lower in ["cancel", "stop", "abort", "no", "n"]:
             return {"action": "cancel_power_action", "parameters": {}}
 
         # 0.9.5 WiFi Controls Routing
@@ -618,120 +765,10 @@ class AutomationEngine:
             if " and " in app_name: return None
             return {"action": "close_application", "parameters": {"application_name": app_name}}
 
-        # 6. Create Folder
-        create_folder_patterns = [
-            r"^(?:create|make|new)\s+(?:new\s+)?(?:a\s+)?folder(?:\s+(?:called|named))?\s+(.+)$",
-            r"^(?:create|make|new)\s+(?:new\s+)?(.+?)\s+folder$"
-        ]
-        for pattern in create_folder_patterns:
-            match = re.match(pattern, user_input_clean, re.IGNORECASE)
-            if match:
-                return {"action": "create_folder", "parameters": {"folder_name": match.group(1).strip()}}
-
-        # 8. Create File
-        create_file_patterns = [
-            r"^(?:create|make|new)\s+(?:a\s+)?(?:file\s+)?(?:called|named)?\s*([\w\-\. ]+\.(?:txt|docx|pdf|py|java|js|json|csv|md))(?:\s+(?:in|inside|under)\s+(.+))?$",
-            r"^(?:create|make|new)\s+([\w\-\. ]+\.(?:txt|docx|pdf|py|java|js|json|csv|md))\s+file(?:\s+(?:in|inside|under)\s+(.+))?$"
-        ]
-        for pattern in create_file_patterns:
-            match = re.match(pattern, user_input_clean, re.IGNORECASE)
-            if match:
-                file_name = match.group(1).strip()
-                path = match.group(2)
-                parsed = {"action": "create_file", "parameters": {"file_name": file_name}}
-                if path: parsed["parameters"]["target_folder"] = path.strip()
-                return parsed
-
-        # 8.a Smart Document/File Creation
-        doc_patterns = [
-            (r"^(?:create|make|new)\s+(?:a\s+)?(?:word\s+document|word\s+file|document|doc|docx)(?:\s+(?:called|named))?\s+(.+?)(?:\s+(?:in|inside|under)\s+(.+))?$", ".docx"),
-            (r"^(?:create|make|new)\s+(?:a\s+)?text(?:\s+(?:file|document))?(?:\s+(?:called|named))?\s+(.+?)(?:\s+(?:in|inside|under)\s+(.+))?$", ".txt"),
-            (r"^(?:create|make|new)\s+(?:a\s+)?pdf(?:\s+(?:file|document))?(?:\s+(?:called|named))?\s+(.+?)(?:\s+(?:in|inside|under)\s+(.+))?$", ".pdf"),
-            (r"^(?:create|make|new)\s+(.+?)\s+(?:word\s+document|word\s+file|document|doc|docx)(?:\s+(?:in|inside|under)\s+(.+))?$", ".docx"),
-            (r"^(?:create|make|new)\s+(.+?)\s+text(?:\s+(?:file|document))?(?:\s+(?:in|inside|under)\s+(.+))?$", ".txt"),
-            (r"^(?:create|make|new)\s+(.+?)\s+pdf(?:\s+(?:file|document))?(?:\s+(?:in|inside|under)\s+(.+))?$", ".pdf")
-        ]
-        for pattern, ext in doc_patterns:
-            match = re.match(pattern, user_input_clean, re.IGNORECASE)
-            if match:
-                base_name = match.group(1).strip()
-                path = match.group(2)
-                file_name = f"{base_name}{ext}" if not base_name.lower().endswith(ext) else base_name
-                parsed = {"action": "create_file", "parameters": {"file_name": file_name}}
-                if path: parsed["parameters"]["target_folder"] = path.strip()
-                return parsed
-
-        # 8.1 Filesystem Operations (Rename, Delete, Copy, Move)
-        rename_match = re.match(r"^(?:rename|change)\s+(?:file\s+|folder\s+)?(.+?)(?:\s+(?:in|inside|under)\s+(.+?))?\s+to\s+(.+)$", user_input_clean, re.IGNORECASE)
-        if rename_match:
-            source = rename_match.group(1).strip()
-            folder = rename_match.group(2)
-            clean_source, pref_ext = self._extract_type_hint(source)
-            parsed = {"action": "rename_item", "parameters": {"source_name": clean_source, "target_name": rename_match.group(3).strip()}}
-            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
-            if folder: parsed["parameters"]["target_folder"] = folder.strip()
-            return parsed
-            
-        delete_match = re.match(r"^(?:delete|remove)\s+(?:file\s+|folder\s+)?(.+?)(?:\s+(?:file|folder))?(?:\s+(?:in|inside|under)\s+(.+))?$", user_input_clean, re.IGNORECASE)
-        if delete_match:
-            target = delete_match.group(1).strip()
-            folder = delete_match.group(2)
-            clean_target, pref_ext = self._extract_type_hint(target)
-            parsed = {"action": "delete_item", "parameters": {"item_name": clean_target}}
-            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
-            if folder: parsed["parameters"]["target_folder"] = folder.strip()
-            return parsed
-            
-        copy_match = re.match(r"^(?:copy|duplicate)\s+(?:file\s+|folder\s+)?(.+?)(?:\s+(?:in|inside|under)\s+(.+?))?\s+to\s+(.+)$", user_input_clean, re.IGNORECASE)
-        if copy_match:
-            source = copy_match.group(1).strip()
-            folder = copy_match.group(2)
-            clean_source, pref_ext = self._extract_type_hint(source)
-            parsed = {"action": "copy_file", "parameters": {"source_name": clean_source, "target_name": copy_match.group(3).strip()}}
-            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
-            if folder: parsed["parameters"]["target_folder"] = folder.strip()
-            return parsed
-            
-        move_match_full = re.match(r"^move\s+(?:file\s+|folder\s+)?(.+?)(?:\s+(?:in|inside|under)\s+(.+?))?\s+(?:to|into)\s+(.+)$", user_input_clean, re.IGNORECASE)
-        move_match_simple = re.match(r"^move\s+(?:file\s+|folder\s+)?(.+?)\s+(?:to|in|into|inside)\s+(.+)$", user_input_clean, re.IGNORECASE)
-        
-        if move_match_full:
-            source = move_match_full.group(1).strip()
-            folder = move_match_full.group(2)
-            clean_source, pref_ext = self._extract_type_hint(source)
-            parsed = {"action": "move_file", "parameters": {"source_name": clean_source, "target_path": move_match_full.group(3).strip()}}
-            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
-            if folder: parsed["parameters"]["target_folder"] = folder.strip()
-            return parsed
-        elif move_match_simple:
-            source = move_match_simple.group(1).strip()
-            clean_source, pref_ext = self._extract_type_hint(source)
-            parsed = {"action": "move_file", "parameters": {"source_name": clean_source, "target_path": move_match_simple.group(2).strip()}}
-            if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
-            return parsed
-
-        # 9. General 'open' target classification (Priority: Workspace -> App -> Web)
-        app_match = re.match(r"^open\s+(?:file\s+|folder\s+|directory\s+)?(.+?)(?:\s+file|\s+folder|\s+directory)?(?:\s+(?:in|inside|under)\s+(.+))?$", user_input_clean, re.IGNORECASE)
-        if app_match:
-            target = app_match.group(1).strip()
-            folder = app_match.group(2)
-            if " and " in target.lower(): return None
-            
-            clean_target, pref_ext = self._extract_type_hint(target)
-            
-            from src.tools.filesystem_tools import resolve_smart_item
-            res = resolve_smart_item(clean_target, preferred_extension=pref_ext, target_folder=folder.strip() if folder else None)
-            
-            user_input_lower = user_input_clean.lower()
-            has_fs_intent = bool(folder) or bool(pref_ext) or any(user_input_lower.startswith(f"open {kw}") for kw in ["file", "folder", "directory"])
-            
-            if res["status"] in ["success", "ambiguous"] or has_fs_intent:
-                parsed = {"action": "open_workspace_item", "parameters": {"item_name": clean_target}}
-                if folder: parsed["parameters"]["target_folder"] = folder.strip()
-                if pref_ext: parsed["parameters"]["preferred_extension"] = pref_ext
-                return parsed
-                
-            return self._classify_target(target)
+        # 6. Unified Filesystem Operations Parser (Create, Rename, Delete, Copy, Move, Open, Find)
+        fs_parsed = self._parse_filesystem_command(user_input_clean)
+        if fs_parsed:
+            return fs_parsed
             
         return None
 
@@ -833,11 +870,10 @@ class AutomationEngine:
                 self._execute_parsed_commands(user_input, ["resolve_disambiguation"], [parsed_json], source)
                 return
                 
-            # Leave state active but return an error
-            pending = self.context_manager.state["pending_disambiguation"]
-            matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(pending.get("matches", [])))
-            print(f"\n-> Please choose a valid option number or type 'cancel'.\n\n{matches_str}")
-            return
+            # If the user types a new command, implicitly cancel the pending disambiguation
+            self.context_manager.state["pending_disambiguation"] = None
+            self.context_manager.save()
+            print("\n-> Implicitly cancelled pending selection to process new command.")
             
         user_input_lower = re.sub(r'[\?!.]+$', '', user_input.lower().strip())
         user_input_lower = re.sub(r'\s+', ' ', user_input_lower).strip()

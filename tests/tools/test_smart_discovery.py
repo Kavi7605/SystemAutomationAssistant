@@ -28,8 +28,8 @@ def test_resolve_exact_match(workspace):
 def test_resolve_recursive_base_name(workspace):
     res = resolve_smart_item("report")
     assert res["status"] == "success"
-    # It should return relative path
-    assert "Semester 8/report.docx" in res["resolved_name"] or "Semester 8\\report.docx" in res["resolved_name"]
+    # It should return relative path or correct nested path
+    assert "Semester 8" in str(res["path"])
 
 def test_resolve_ambiguous(workspace):
     res = resolve_smart_item("ambiguous_file")

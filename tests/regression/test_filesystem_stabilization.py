@@ -7,7 +7,13 @@ from src.context.context_manager import ContextManager
 def test_workspace(tmp_path, monkeypatch):
     # Set workspace root to a temporary directory for testing
     monkeypatch.setattr("src.tools.filesystem_tools.get_workspace_root", lambda: tmp_path)
+    monkeypatch.setattr("os.path.expanduser", lambda path: str(tmp_path / "home"))
+    monkeypatch.setattr("src.tools.path_resolver.get_real_desktop_path", lambda: str(tmp_path / "Desktop"))
+    
     root = tmp_path
+    (root / "home" / "Downloads").mkdir(parents=True)
+    (root / "home" / "Documents").mkdir(parents=True)
+    (root / "Desktop").mkdir(parents=True)
     
     # Create files for testing
     (root / "notes.txt").touch()
@@ -31,12 +37,13 @@ def engine(test_workspace):
     from src.core.history_manager import HistoryManager
     from src.tools.filesystem_tools import (
         CreateFileTool, CreateFolderTool, DeleteItemTool, 
-        RenameItemTool, CopyFileTool, MoveFileTool, OpenWorkspaceItemTool
+        RenameItemTool, CopyFileTool, MoveFileTool, OpenItemTool, ConfirmDeleteTool
     )
     from src.tools.registry import ToolRegistry as RealToolRegistry
     
     parser = MagicMock()
     resolver = MagicMock()
+    resolver.resolve.side_effect = lambda x: x
     task_planner = MagicMock()
     history_manager = HistoryManager()
     
@@ -47,7 +54,8 @@ def engine(test_workspace):
     registry.register(RenameItemTool())
     registry.register(CopyFileTool())
     registry.register(MoveFileTool())
-    registry.register(OpenWorkspaceItemTool())
+    registry.register(OpenItemTool())
+    registry.register(ConfirmDeleteTool())
     
     executor = Executor(registry=registry)
     
@@ -70,12 +78,14 @@ def test_type_hint_expansion(engine, test_workspace):
     root = test_workspace
     # delete pdf notes
     engine.process_command("delete pdf notes")
+    engine.process_command("yes")
     assert engine.task_planner.plan_tasks.call_count == 0
     assert not (root / "notes.pdf").exists()
     assert (root / "notes.txt").exists()
 
     # delete text notes
     engine.process_command("delete text notes")
+    engine.process_command("yes")
     assert engine.task_planner.plan_tasks.call_count == 0
     assert not (root / "notes.txt").exists()
 
@@ -99,6 +109,7 @@ def test_folder_scoped_operations(engine, test_workspace):
     root = test_workspace
     # delete report in semester 8
     engine.process_command("delete report in semester 8")
+    engine.process_command("yes")
     assert engine.task_planner.plan_tasks.call_count == 0
     assert not (root / "semester 8" / "report.docx").exists()
     # Should not have touched root report
@@ -124,16 +135,16 @@ def test_filesystem_open_intent(engine):
     # Ensure explicit filesystem grammar prevents web search fallthrough
     
     cmd1 = engine._route_semantic_command("open missing report in semester 8")
-    assert cmd1 and cmd1.get("action") == "open_workspace_item"
+    assert cmd1 and cmd1.get("action") == "open_item"
     
     cmd2 = engine._route_semantic_command("open document missing_report")
-    assert cmd2 and cmd2.get("action") == "open_workspace_item"
+    assert cmd2 and cmd2.get("action") == "open_item"
     
     cmd3 = engine._route_semantic_command("open pdf missing_report")
-    assert cmd3 and cmd3.get("action") == "open_workspace_item"
+    assert cmd3 and cmd3.get("action") == "open_item"
     
     cmd4 = engine._route_semantic_command("open file missing_file_name")
-    assert cmd4 and cmd4.get("action") == "open_workspace_item"
+    assert cmd4 and cmd4.get("action") == "open_item"
     
     # Run one full execution just to verify it terminates inside filesystem logic
     engine.process_command("open missing report in semester 8")

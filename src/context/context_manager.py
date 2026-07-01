@@ -21,11 +21,20 @@ class ContextManager:
             "last_window_title": None,
             "last_successful_action": None,
             "last_failed_action": None,
+            "last_interaction_type": None,
             "opened_apps_history": [],
             "closed_apps_history": [],
             "focused_apps_history": [],
             "active_opened_apps": [],
             "pending_disambiguation": None,
+            "filesystem_state": {
+                "last_opened_folder": None,
+                "last_created_folder": None,
+                "last_created_file": None,
+                "last_found_file": None,
+                "last_found_folder": None,
+                "pending_delete": None
+            },
             "system_state": {
                 "volume_level": None,
                 "is_muted": False,
@@ -62,6 +71,7 @@ class ContextManager:
         self.state["last_opened_app"] = app_name
         self.state["last_successful_action"] = "open_application"
         self.state["last_interacted_app"] = app_name
+        self.state["last_interaction_type"] = "application"
         
         # Suppress consecutive duplicates
         if not self.state["opened_apps_history"] or self.state["opened_apps_history"][-1] != app_name:
@@ -83,6 +93,7 @@ class ContextManager:
         self.state["last_closed_app"] = app_name
         self.state["last_successful_action"] = "close_application"
         self.state["last_interacted_app"] = app_name
+        self.state["last_interaction_type"] = "application"
         
         # Suppress consecutive duplicates
         if not self.state["closed_apps_history"] or self.state["closed_apps_history"][-1] != app_name:
@@ -104,6 +115,7 @@ class ContextManager:
         self.state["last_focused_app"] = app_name
         self.state["last_successful_action"] = "focus_window"
         self.state["last_interacted_app"] = app_name
+        self.state["last_interaction_type"] = "application"
         
         # Suppress consecutive duplicates
         if not self.state["focused_apps_history"] or self.state["focused_apps_history"][-1] != app_name:
@@ -162,6 +174,24 @@ class ContextManager:
         self.state["system_state"][key] = value
         self.save()
 
+    def update_filesystem_state(self, key: str, value: Any) -> None:
+        """Updates a specific property within the filesystem_state block."""
+        if "filesystem_state" not in self.state:
+            self.state["filesystem_state"] = {
+                "last_opened_folder": None,
+                "last_created_folder": None,
+                "last_created_file": None,
+                "last_found_file": None,
+                "last_found_folder": None,
+                "pending_delete": None
+            }
+        self.state["filesystem_state"][key] = value
+        self.state["last_interaction_type"] = "filesystem"
+        self.save()
+        
+    def get_filesystem_context(self) -> Dict[str, Any]:
+        return self.state.get("filesystem_state", {})
+
     def get_last_opened_app(self):
         history = self.state["opened_apps_history"]
         return history[-1] if history else None
@@ -215,6 +245,16 @@ class ContextManager:
                         del loaded[history_key]
                         
                 self.state.update(loaded)
+                
+                if "filesystem_state" not in self.state:
+                    self.state["filesystem_state"] = {
+                        "last_opened_folder": None,
+                        "last_created_folder": None,
+                        "last_created_file": None,
+                        "last_found_file": None,
+                        "last_found_folder": None,
+                        "pending_delete": None
+                    }
                 
                 # Ensure all default keys exist in system_state even if loading an old save
                 if "system_state" in loaded:

@@ -202,22 +202,22 @@ class TestApplicationClassification:
     def test_folder_navigation(self):
         # open reports folder
         self.engine.process_command("open reports folder")
-        self.assertExecute("open_workspace_item", {"item_name": "reports"})
+        self.assertExecute("open_item", {"item_name": "reports"})
         self.executor_mock.reset_mock()
         
         # open reports folder in c drive kavi work degree
         self.engine.process_command("open reports folder in c drive kavi work degree")
-        self.assertExecute("open_workspace_item", {"item_name": "reports", "target_folder": "c drive kavi work degree"})
+        self.assertExecute("open_item", {"item_name": "reports", "target_folder": "c drive kavi work degree"})
         self.executor_mock.reset_mock()
         
         # open folder reports
         self.engine.process_command("open folder reports")
-        self.assertExecute("open_workspace_item", {"item_name": "reports"})
+        self.assertExecute("open_item", {"item_name": "reports"})
         self.executor_mock.reset_mock()
         
         # open folder reports in c drive kavi work degree
         self.engine.process_command("open folder reports in c drive kavi work degree")
-        self.assertExecute("open_workspace_item", {"item_name": "reports", "target_folder": "c drive kavi work degree"})
+        self.assertExecute("open_item", {"item_name": "reports", "target_folder": "c drive kavi work degree"})
         self.executor_mock.reset_mock()
 
     def test_unknown_target_search_fallback(self):
@@ -233,7 +233,7 @@ class TestApplicationClassification:
             pass
     def test_open_test_txt_in_desktop(self):
         self.engine.process_command("open test.txt in desktop")
-        self.assertExecute("open_workspace_item", {"item_name": "test.txt", "target_folder": "desktop"})
+        self.assertExecute("open_item", {"item_name": "test.txt", "target_folder": "desktop"})
         self.executor_mock.reset_mock()
 
     def test_open_vscode_and_close_steam(self):

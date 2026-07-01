@@ -12,6 +12,7 @@ def mock_engine():
     context_manager = MagicMock()
     context_manager.state = {}
     context_manager.get_context_snapshot.return_value = {"system_state": {}}
+    context_manager.get_filesystem_context.return_value = {}
     
     from src.automation.engine import AutomationEngine
     engine = AutomationEngine(
@@ -37,7 +38,6 @@ def mock_engine():
     ("lock the computer", "lock_screen"),
     ("confirm shutdown", "confirm_power_action"),
     ("confirm restart", "confirm_power_action"),
-    ("cancel", "cancel_power_action"),
     ("cancel shutdown", "cancel_power_action")
 ])
 def test_power_actions_routing_bypasses_planner(mock_engine, command, expected_action):

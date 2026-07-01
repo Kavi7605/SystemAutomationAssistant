@@ -6,10 +6,14 @@ from src.context.context_manager import ContextManager
 from src.tools.filesystem_tools import get_workspace_root
 
 @pytest.fixture
-def test_workspace(tmp_path):
+def test_workspace(tmp_path, monkeypatch):
     # Set workspace root to a temporary directory for testing
     os.environ["AUTOMATION_WORKSPACE"] = str(tmp_path)
     root = get_workspace_root()
+    
+    # Patch expanduser and get_real_desktop_path
+    monkeypatch.setattr(os.path, "expanduser", lambda x: str(tmp_path) if x == "~" else str(tmp_path))
+    monkeypatch.setattr("src.tools.path_resolver.get_real_desktop_path", lambda: str(tmp_path / "Desktop"))
     
     # Create ambiguous files
     (root / "REPORT.docx").touch()
@@ -28,13 +32,14 @@ def engine(test_workspace):
     from src.core.history_manager import HistoryManager
     from src.tools.filesystem_tools import (
         CreateFileTool, CreateFolderTool, DeleteItemTool, 
-        RenameItemTool, CopyFileTool, MoveFileTool, OpenWorkspaceItemTool
+        RenameItemTool, CopyFileTool, MoveFileTool, OpenItemTool, ConfirmDeleteTool
     )
     
     parser = MagicMock()
     resolver = MagicMock()
+    resolver.resolve.side_effect = lambda x: x
     task_planner = MagicMock()
-    history_manager = HistoryManager()
+    history_manager = MagicMock()
     
     registry = ToolRegistry()
     registry.register(CreateFileTool())
@@ -43,7 +48,8 @@ def engine(test_workspace):
     registry.register(RenameItemTool())
     registry.register(CopyFileTool())
     registry.register(MoveFileTool())
-    registry.register(OpenWorkspaceItemTool())
+    registry.register(OpenItemTool())
+    registry.register(ConfirmDeleteTool())
     
     executor = Executor(registry=registry)
     
@@ -64,11 +70,12 @@ def engine(test_workspace):
 
 def test_document_type_resolution(engine):
     # "delete document report" should prioritize .docx
-    engine.process_command("delete document report")
-    
+    engine.process_command("delete doc file report")
+    engine.process_command("yes")
+
     assert engine.task_planner.plan_tasks.call_count == 0
     assert engine.context_manager.state["pending_disambiguation"] is None
-    
+
     # REPORT.docx should be deleted
     root = get_workspace_root()
     assert not (root / "REPORT.docx").exists()
@@ -77,10 +84,11 @@ def test_document_type_resolution(engine):
 def test_pdf_type_resolution(engine):
     # "delete pdf file report" should prioritize .pdf
     engine.process_command("delete pdf file report")
-    
+    engine.process_command("yes")
+
     assert engine.task_planner.plan_tasks.call_count == 0
     assert engine.context_manager.state["pending_disambiguation"] is None
-    
+
     # REPORT.pdf should be deleted
     root = get_workspace_root()
     assert not (root / "REPORT.pdf").exists()
@@ -102,21 +110,25 @@ def test_interactive_disambiguation_flow(engine):
     assert engine.context_manager.state["pending_disambiguation"] is not None
     assert engine.task_planner.plan_tasks.call_count == 0
     
-    # Non-digit input that isn't cancel should keep state active
+    # Non-digit input that isn't cancel implicitly cancels state and proceeds as new command
     engine.process_command("what is this")
-    assert engine.context_manager.state["pending_disambiguation"] is not None
-    assert engine.task_planner.plan_tasks.call_count == 0
+    assert engine.context_manager.state.get("pending_disambiguation") is None
+    
+    # We must trigger ambiguous response again since we cancelled it
+    engine.process_command("delete report")
+    assert engine.context_manager.state.get("pending_disambiguation") is not None
     
     # Valid selection should execute and clear state
     # Delete the first match
     matches = engine.context_manager.state["pending_disambiguation"]["matches"]
     engine.process_command("1")
+    engine.process_command("yes")
     
     assert engine.context_manager.state["pending_disambiguation"] is None
-    assert engine.task_planner.plan_tasks.call_count == 0
+    assert engine.task_planner.plan_tasks.call_count == 1
     
-    root = get_workspace_root()
-    assert not (root / matches[0]).exists()
+    from pathlib import Path
+    assert not Path(matches[0]).exists()
 
 def test_interactive_disambiguation_cancel(engine):
     engine.process_command("delete report")

@@ -40,7 +40,7 @@ def _mock_resolve_smart_item():
 
 @pytest.fixture(autouse=True)
 def mock_filesystem_tools(request, monkeypatch, _mock_resolve_smart_item):
-    if any(name in str(request.node.fspath) for name in ["test_filesystem_tools.py", "test_smart_discovery.py", "test_interactive_disambiguation.py", "test_filesystem_stabilization.py"]):
+    if any(name in str(request.node.fspath) for name in ["test_filesystem_tools.py", "test_smart_discovery.py", "test_interactive_disambiguation.py", "test_filesystem_stabilization.py", "test_day23_intelligent_filesystem.py", "test_day23_final.py"]):
         return
     try:
         import src.tools.filesystem_tools as ft

@@ -15,9 +15,7 @@ from src.tools.system_tools import (
     CloseApplicationTool,
     TakeScreenshotTool,
     SearchWebTool,
-    OpenUrlTool,
-    OpenFolderTool,
-    OpenFileTool
+    OpenUrlTool
 )
 from src.tools.filesystem_tools import (
     CreateFolderTool,
@@ -26,7 +24,10 @@ from src.tools.filesystem_tools import (
     DeleteItemTool,
     CopyFileTool,
     MoveFileTool,
-    OpenWorkspaceItemTool
+    OpenItemTool,
+    FindItemTool,
+    ConfirmDeleteTool,
+    CancelDeleteTool
 )
 from src.tools.wait_tool import WaitTool
 from src.tools.desktop_tools import (
@@ -102,8 +103,6 @@ def main():
         registry.register(SearchWebTool())
         registry.register(WaitTool())
         registry.register(OpenUrlTool())
-        registry.register(OpenFolderTool())
-        registry.register(OpenFileTool())
         
         # Filesystem Tools
         registry.register(CreateFolderTool())
@@ -112,7 +111,10 @@ def main():
         registry.register(DeleteItemTool())
         registry.register(CopyFileTool())
         registry.register(MoveFileTool())
-        registry.register(OpenWorkspaceItemTool())
+        registry.register(OpenItemTool())
+        registry.register(FindItemTool())
+        registry.register(ConfirmDeleteTool())
+        registry.register(CancelDeleteTool())
         
         # Desktop Tools
         registry.register(ClickTool())

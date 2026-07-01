@@ -60,11 +60,20 @@ def test_get_context_snapshot():
         "last_window_title": "Visual Studio Code",
         "last_successful_action": "focus_window",
         "last_failed_action": "click",
+        "last_interaction_type": "application",
         "opened_apps_history": ["vscode"],
         "closed_apps_history": [],
         "focused_apps_history": ["vscode"],
         "active_opened_apps": ["vscode"],
         "pending_disambiguation": None,
+        "filesystem_state": {
+            "last_created_folder": None,
+            "last_created_file": None,
+            "last_opened_folder": None,
+            "last_found_file": None,
+            "last_found_folder": None,
+            "pending_delete": None
+        },
         "system_state": {
             "volume_level": None,
             "is_muted": False,

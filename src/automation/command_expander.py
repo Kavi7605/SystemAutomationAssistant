@@ -33,6 +33,14 @@ class CommandExpander:
                 current = ctx_manager.state.get('current_active_app')
                 ctx_manager.mark_app_focused(target)
                 ctx_manager.sync_active_apps(current_app=target, last_app=current)
+            elif action == "create_file":
+                ctx_manager.update_filesystem_state("last_created_file", target)
+            elif action == "create_folder":
+                ctx_manager.update_filesystem_state("last_created_folder", target)
+            elif action == "rename_item":
+                ctx_manager.update_filesystem_state("last_renamed_file", target)
+            elif action in ["move_file", "copy_file"]:
+                ctx_manager.update_filesystem_state("last_found_file", target)
                 
         try:
             for cmd in parsed_commands:
@@ -79,7 +87,17 @@ class CommandExpander:
                         simulate_context_update(new_cmd["action"], val)
                 else:
                     expanded_commands.append(cmd_copy)
-                    target = cmd_copy.get("parameters", {}).get("application_name") or cmd_copy.get("parameters", {}).get("window_name")
+                    
+                    # Extract the primary target of the action
+                    target = None
+                    params = cmd_copy.get("parameters", {})
+                    if "application_name" in params: target = params["application_name"]
+                    elif "window_name" in params: target = params["window_name"]
+                    elif "file_name" in params: target = params["file_name"]
+                    elif "folder_name" in params: target = params["folder_name"]
+                    elif "target_name" in params: target = params["target_name"]
+                    elif "target_path" in params: target = params["target_path"]
+                    
                     simulate_context_update(cmd_copy.get("action"), target)
                     
         finally:

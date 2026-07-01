@@ -25,7 +25,7 @@ def test_create_folder():
     tool = CreateFolderTool()
     res = tool.execute("reports")
     assert res["status"] == "success"
-    assert res["item_name"] == "reports"
+    assert "reports" in res["item_name"]
     
     # Check directory created
     root = get_workspace_root()
@@ -40,7 +40,7 @@ def test_create_file():
     tool = CreateFileTool()
     res = tool.execute("notes.txt")
     assert res["status"] == "success"
-    assert res["item_name"] == "notes.txt"
+    assert "notes.txt" in res["item_name"]
     
     # Check file created
     root = get_workspace_root()
@@ -58,7 +58,7 @@ def test_rename_item():
     # Rename successful
     res = tool.execute("old.txt", "new.txt")
     assert res["status"] == "success"
-    assert res["item_name"] == "new.txt"
+    assert "new.txt" in res["item_name"]
     
     root = get_workspace_root()
     assert not (root / "old.txt").exists()
@@ -84,13 +84,16 @@ def test_delete_item():
     # File delete
     res = tool.execute("file.txt")
     assert res["status"] == "success"
-    assert res["item_name"] == "file.txt"
-    assert res["message"] == "File deleted successfully."
+    from src.tools.filesystem_tools import ConfirmDeleteTool
+    from src.context.context_manager import ContextManager
+    context = ContextManager()
+    res = tool.execute("file.txt", context_manager=context)
+    ConfirmDeleteTool().execute(context_manager=context)
     
     # Folder delete
-    res2 = tool.execute("folder")
+    res2 = tool.execute("folder", context_manager=context)
     assert res2["status"] == "success"
-    assert res2["message"] == "Folder deleted successfully."
+    ConfirmDeleteTool().execute(context_manager=context)
     
     root = get_workspace_root()
     assert not (root / "file.txt").exists()

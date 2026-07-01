@@ -42,7 +42,7 @@ IMPORTANT RULES:
     "parameters": {{}}
 }}
 
-7. FOLDER CREATION: Extract ONLY the folder's name into the `folder_name` parameter. The `path` parameter must contain the target drive or directory exactly as the user specified it (e.g., `C drive Projects`).
+7. FOLDER CREATION: Extract ONLY the folder's name into the `folder_name` parameter. The `target_folder` parameter must contain the target drive or directory exactly as the user specified it (e.g., `C drive Projects`).
 8. NEVER INVENT WINDOWS PATHS: You must NEVER generate paths with backslashes like `C:\\Projects`. Output natural language paths exactly as provided by the user (e.g., `C drive Projects`). Backslashes cause JSON parsing errors.
 9. WEBSITE SEARCHES: For website-specific searches (e.g., "search youtube for X", "search github website for Y"), you MUST use the `open_url` action with the appropriately constructed search URL. Do NOT use `search_web` for website-specific searches. Use `search_web` ONLY for general google/web searches.
 10. CLOSING WEBSITES: Closing browser tabs or websites is NOT supported. If a user asks to close a website (e.g., "close youtube website"), you MUST return the `unsupported` action with a message parameter explaining that closing websites is not supported.
@@ -184,7 +184,7 @@ Output:
     "action": "create_folder",
     "parameters": {{
         "folder_name": "reports",
-        "path": "C drive Projects"
+        "target_folder": "C drive Projects"
     }}
 }}
 
@@ -195,7 +195,7 @@ Output:
     "action": "create_folder",
     "parameters": {{
         "folder_name": "testing",
-        "path": "c drive"
+        "target_folder": "c drive"
     }}
 }}
 
@@ -206,7 +206,7 @@ Output:
     "action": "create_folder",
     "parameters": {{
         "folder_name": "work",
-        "path": "d drive"
+        "target_folder": "d drive"
     }}
 }}
 
@@ -217,7 +217,7 @@ Output:
     "action": "create_folder",
     "parameters": {{
         "folder_name": "testing day 5",
-        "path": "c drive"
+        "target_folder": "c drive"
     }}
 }}
 
@@ -238,7 +238,7 @@ Output:
     "action": "create_file",
     "parameters": {{
         "file_name": "notes.txt",
-        "path": "C drive Kavi Work Degree Charusat SEM 7 Internship"
+        "target_folder": "C drive Kavi Work Degree Charusat SEM 7 Internship"
     }}
 }}
 
@@ -249,7 +249,7 @@ Output:
     "action": "create_file",
     "parameters": {{
         "file_name": "report.docx",
-        "path": "desktop"
+        "target_folder": "desktop"
     }}
 }}
 
@@ -260,7 +260,7 @@ Output:
     "action": "create_file",
     "parameters": {{
         "file_name": "notes.txt",
-        "path": "Downloads"
+        "target_folder": "Downloads"
     }}
 }}
 
@@ -271,7 +271,7 @@ Output:
     "action": "create_file",
     "parameters": {{
         "file_name": "report.md",
-        "path": "Documents"
+        "target_folder": "Documents"
     }}
 }}
 
@@ -282,7 +282,7 @@ Output:
     "action": "create_file",
     "parameters": {{
         "file_name": "notes.txt",
-        "path": "c drive"
+        "target_folder": "c drive"
     }}
 }}
 
@@ -305,6 +305,22 @@ Output:
     "parameters": {{
         "item_name": "notes.txt"
     }}
+}}
+
+Input: yes
+
+Output:
+{{
+    "action": "confirm_delete",
+    "parameters": {{}}
+}}
+
+Input: no
+
+Output:
+{{
+    "action": "cancel_delete",
+    "parameters": {{}}
 }}
 
 Input: copy notes.txt to backup.txt
@@ -333,9 +349,9 @@ Input: open downloads
 
 Output:
 {{
-    "action": "open_folder",
+    "action": "open_item",
     "parameters": {{
-        "folder_path": "downloads"
+        "item_name": "downloads"
     }}
 }}
 
@@ -343,9 +359,39 @@ Input: open documents
 
 Output:
 {{
-    "action": "open_folder",
+    "action": "open_item",
     "parameters": {{
-        "folder_path": "documents"
+        "item_name": "documents"
+    }}
+}}
+
+Input: open report.pdf
+
+Output:
+{{
+    "action": "open_item",
+    "parameters": {{
+        "item_name": "report.pdf"
+    }}
+}}
+
+Input: find report.txt
+
+Output:
+{{
+    "action": "find_item",
+    "parameters": {{
+        "item_name": "report.txt"
+    }}
+}}
+
+Input: search notes.txt
+
+Output:
+{{
+    "action": "find_item",
+    "parameters": {{
+        "item_name": "notes.txt"
     }}
 }}
 
