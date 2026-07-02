@@ -12,8 +12,12 @@ class VoiceListener:
         self.sample_rate = 16000
         # Default to Whisper now
         self.stt = SpeechToTextWhisper(model_size="medium.en")
+        self._stop_event = False
         
-    def listen(self, silence_threshold: float = 0.01, silence_duration: float = 1.5) -> dict:
+    def stop(self):
+        self._stop_event = True
+        
+    def listen(self, silence_threshold: float = 0.01, silence_duration: float = 1.5, manual_stop_only: bool = False) -> dict:
         """
         Listens to the microphone using an energy-based silence detector.
         Returns a dict containing transcript and metadata: {transcript, duration, model, device}
@@ -31,24 +35,32 @@ class VoiceListener:
         audio_buffer = []
         is_recording = False
         silence_start_time = None
+        start_time = time.time()
         
+        self._stop_event = False
         try:
             with sd.InputStream(samplerate=self.sample_rate, blocksize=8000, dtype='float32',
                                    channels=1, callback=callback):
                 while True:
+                    if self._stop_event:
+                        logger.info("VoiceListener stopped manually.")
+                        break
+                        
                     data = q.get()
                     audio_buffer.append(data)
                     
-                    rms = np.sqrt(np.mean(data**2))
-                    
-                    if rms > silence_threshold:
-                        is_recording = True
-                        silence_start_time = None
-                    elif is_recording:
-                        if silence_start_time is None:
-                            silence_start_time = time.time()
-                        elif time.time() - silence_start_time > silence_duration:
-                            break
+                    if not manual_stop_only:
+                        rms = np.sqrt(np.mean(data**2))
+                        
+                        if rms > silence_threshold:
+                            is_recording = True
+                            silence_start_time = None
+                        elif is_recording:
+                            if silence_start_time is None:
+                                silence_start_time = time.time()
+                            elif time.time() - silence_start_time > silence_duration:
+                                break
+
                             
         except Exception as e:
             logger.error(f"Voice listener error: {e}", exc_info=True)

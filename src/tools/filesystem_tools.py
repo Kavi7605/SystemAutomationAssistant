@@ -42,6 +42,38 @@ def resolve_safe_path(target_path: str) -> Path:
         
     return safe_target
 
+def _resolve_target_parent(target_folder: str, context_manager=None) -> Path:
+    if not target_folder:
+        if context_manager:
+            fs_state = context_manager.get_filesystem_context()
+            last_opened = fs_state.get("last_opened_folder")
+            if last_opened and os.path.exists(last_opened):
+                return Path(last_opened)
+        return get_workspace_root()
+        
+    from src.tools.path_resolver import PathResolver
+    # 1. Windows Known Folder / PathResolver
+    res = PathResolver.resolve(target_folder)
+    if res["status"] == "success":
+        return Path(res["resolved_path"].path)
+        
+    # 2. Absolute/custom path
+    if os.path.isabs(target_folder):
+        return Path(target_folder)
+        
+    # 3. Nested path
+    smart_res = resolve_smart_item(target_folder, context_manager=context_manager)
+    if smart_res["status"] == "success":
+        p = smart_res["path"]
+        if p.is_dir():
+            return p
+        else:
+            return p.parent
+            
+    # 4. Workspace fallback
+    return get_workspace_root() / target_folder
+
+
 def normalize_name(name: str) -> str:
     """Removes spaces, underscores, hyphens, periods, and commas, and lowercases the name."""
     import re
@@ -213,25 +245,8 @@ class CreateFolderTool(BaseTool):
             return {"status": "failed", "message": "Missing folder_name"}
             
         try:
-            target_parent = None
-            if target_folder:
-                from src.tools.path_resolver import PathResolver
-                res = PathResolver.resolve(target_folder)
-                if res["status"] == "success":
-                    target_parent = Path(res["resolved_path"].path)
-                else:
-                    if os.path.isabs(target_folder):
-                        target_parent = Path(target_folder)
-                    else:
-                        target_parent = get_workspace_root() / target_folder
-            elif context_manager:
-                fs_state = context_manager.get_filesystem_context()
-                last_opened = fs_state.get("last_opened_folder")
-                if last_opened and os.path.exists(last_opened):
-                    target_parent = Path(last_opened)
-                    
-            if not target_parent:
-                target_parent = get_workspace_root()
+            target_parent = _resolve_target_parent(target_folder, context_manager)
+
                 
             target_path = target_parent / folder_name
             
@@ -286,25 +301,8 @@ class CreateFileTool(BaseTool):
             return {"status": "failed", "message": "Missing file_name"}
             
         try:
-            target_parent = None
-            if target_folder:
-                from src.tools.path_resolver import PathResolver
-                res = PathResolver.resolve(target_folder)
-                if res["status"] == "success":
-                    target_parent = Path(res["resolved_path"].path)
-                else:
-                    if os.path.isabs(target_folder):
-                        target_parent = Path(target_folder)
-                    else:
-                        target_parent = get_workspace_root() / target_folder
-            elif context_manager:
-                fs_state = context_manager.get_filesystem_context()
-                last_opened = fs_state.get("last_opened_folder")
-                if last_opened and os.path.exists(last_opened):
-                    target_parent = Path(last_opened)
-                    
-            if not target_parent:
-                target_parent = get_workspace_root()
+            target_parent = _resolve_target_parent(target_folder, context_manager)
+
                 
             target_path = target_parent / file_name
             
@@ -363,7 +361,7 @@ class RenameItemTool(BaseTool):
         try:
             preferred_extension = kwargs.get("preferred_extension")
             target_folder = kwargs.get("target_folder")
-            resolution = resolve_smart_item(source_name, preferred_extension, target_folder)
+            resolution = resolve_smart_item(source_name, preferred_extension, target_folder, context_manager=context_manager)
             if resolution["status"] == "ambiguous":
                 matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(resolution["matches"]))
                 return {
@@ -435,7 +433,7 @@ class DeleteItemTool(BaseTool):
         try:
             preferred_extension = kwargs.get("preferred_extension")
             target_folder = kwargs.get("target_folder")
-            resolution = resolve_smart_item(item_name, preferred_extension, target_folder)
+            resolution = resolve_smart_item(item_name, preferred_extension, target_folder, context_manager=context_manager)
             if resolution["status"] == "ambiguous":
                 matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(resolution["matches"]))
                 return {
@@ -573,7 +571,12 @@ class MoveFileTool(BaseTool):
             return {"status": "failed", "message": "Missing source_name or target_path"}
             
         try:
-            resolution = resolve_smart_item(source_name, preferred_extension, target_folder)
+            if " to " in target_path and not target_folder:
+                parts = target_path.split(" to ", 1)
+                target_folder = parts[0].strip()
+                target_path = parts[1].strip()
+                
+            resolution = resolve_smart_item(source_name, preferred_extension, target_folder, context_manager=context_manager)
             if resolution["status"] == "ambiguous":
                 matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(resolution["matches"]))
                 return {
