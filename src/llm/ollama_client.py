@@ -61,9 +61,7 @@ class OllamaClient:
                 response_text = response_text[:-3]
                 
             response_text = response_text.strip()
-            print("\n===== RAW RESPONSE =====")
-            print(response_text)
-            print("========================\n")
+            logger.debug(f"Raw Response from LLM:\n{response_text}")
             try:
                 parsed_json = json.loads(response_text)
                 return parsed_json

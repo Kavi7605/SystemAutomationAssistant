@@ -116,9 +116,9 @@ def test_get_volume_status(mock_get, mock_mute):
     assert result["status"] == "success"
     assert result["volume_level"] == 75
     assert result["is_muted"] is False
-    assert "Volume Status" in result["message"]
-    assert "Volume: 75%" in result["message"]
-    assert "Muted: No" in result["message"]
+    assert result["title"] == "Volume Status"
+    assert result["metadata"]["Volume Level"] == "75%"
+    assert result["metadata"]["Muted"] == "No"
 
 def test_volume_manager_clamping():
     with patch('src.tools.system_control.volume_tools.VolumeManager._get_volume_interface') as mock_int:

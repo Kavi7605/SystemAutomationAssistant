@@ -1,90 +1,112 @@
 import json
 from typing import Dict, Any, Tuple
+import os
 
 class ResponseFormatter:
     """
     Formats raw execution results from the backend into rich, readable
-    text for the chat bubble, and a concise summary for the Recent Actions sidebar.
+    markdown text for the chat bubble, and a concise summary for the sidebar.
     """
     
     @staticmethod
     def format_result(action: str, result: Dict[str, Any]) -> Tuple[str, str]:
-        """
-        Returns (rich_text, summary_text)
-        """
         status = result.get("status", "unknown")
         raw_msg = result.get("message", "Executed.")
+        title = result.get("title", action.replace('_', ' ').title())
+        metadata = result.get("metadata", {})
+        suggestions = result.get("suggestions", [])
         
+        # 1. Handle Failures
         if status not in ["success", "completed", "partial_success"]:
-            rich_error = f"### ❌ Failed\n\n**Reason:**\n{raw_msg}"
-            summary = f"Failed: {action.replace('_', ' ').title()}"
-            return rich_error, summary
+            summary = f"Failed: {title}"
+            rich_error = f"### ❌ {title} Failed\n\n**Reason:**\n{raw_msg}\n"
+            if suggestions:
+                rich_error += "\n**Suggestions:**\n"
+                for sug in suggestions:
+                    rich_error += f"- {sug}\n"
+            return rich_error.strip(), summary
             
-        rich_text = f"### ✓ {raw_msg}\n\n"
-        summary = raw_msg
+        # 2. Extract standard properties from result if available
+        item_name = result.get("item_name") or result.get("path")
+        source = result.get("source_name")
+        target = result.get("target_name") or result.get("target_path")
         
-        if action == "debug_context":
-            try:
-                if "{" in raw_msg:
-                    json_str = raw_msg[raw_msg.find("{"):]
-                    data = json.loads(json_str)
-                    
-                    rich_text = "### Context Snapshot\n\n"
-                    rich_text += f"**Last Command:** {data.get('last_command', 'None')}\n\n"
-                    rich_text += f"**Current Active App:** {data.get('current_active_app', 'None')}\n\n"
-                    
-                    opened_apps = data.get('opened_apps_history', [])
-                    if opened_apps:
-                        rich_text += "**Opened Applications**\n"
-                        for app in opened_apps:
-                            rich_text += f"- {app.title()}\n"
-                        rich_text += "\n"
-                        
-                    sys_state = data.get('system_state', {})
-                    if sys_state:
-                        rich_text += "**System Information**\n"
-                        rich_text += f"- **Volume:** {sys_state.get('volume_level', 'Unknown')}%\n"
-                        rich_text += f"- **Power Plan:** {sys_state.get('power_plan', 'Unknown')}\n"
-                        rich_text += f"- **Open Windows:** {sys_state.get('open_windows_count', 'Unknown')}\n"
-                        
-                    summary = "Displayed context snapshot"
-            except Exception:
-                pass
-                
+        # 3. Action-Specific Formatting
+        rich_text = f"### ✓ {title}\n\n"
+        
+        if "volume" in action or "mute" in action:
+            rich_text += f"**Status:** {raw_msg}\n"
+            if "volume_level" in result:
+                rich_text += f"\n**Level:** {result['volume_level']}%\n"
+            summary = raw_msg
+            
+        elif "brightness" in action:
+            rich_text += f"**Status:** {raw_msg}\n"
+            if "brightness_level" in result:
+                rich_text += f"\n**Level:** {result['brightness_level']}%\n"
+            summary = raw_msg
+            
+        elif action in ["open_application", "close_application"]:
+            app_name = item_name or "Application"
+            state = "Running" if "open" in action else "Closed"
+            rich_text = f"### ✓ {app_name.title()} {state}\n\n**Application:** {app_name.title()}\n**Status:** {state}\n\n{raw_msg}"
+            summary = raw_msg
+            
+        elif action in ["create_folder", "create_file", "delete_item"]:
+            item_type = "Folder" if "folder" in action else "File"
+            if action == "delete_item": item_type = "Item"
+            name = os.path.basename(item_name) if item_name else "Unknown"
+            
+            rich_text = f"### ✓ {item_type} {'Created' if 'create' in action else 'Deleted'}\n\n"
+            rich_text += f"{raw_msg}\n\n"
+            if item_name:
+                rich_text += f"**Target:**\n`{item_name}`\n"
+            summary = raw_msg
+            
+        elif action in ["move_file", "copy_file"]:
+            op = "Moved" if "move" in action else "Copied"
+            rich_text = f"### ✓ File {op}\n\n"
+            if source:
+                rich_text += f"**From:**\n`{source}`\n\n"
+            if target:
+                rich_text += f"**To:**\n`{target}`\n\n"
+            rich_text += f"**Status:** {raw_msg}"
+            summary = raw_msg
+            
+        elif action == "search_web":
+            rich_text = f"### ✓ Web Search\n\n{raw_msg}"
+            summary = "Performed web search"
+            
         elif action == "list_open_windows":
             lines = raw_msg.split('\n')
-            rich_text = "### Open Windows\n\n"
+            rich_text = "### ✓ Open Windows\n\n"
             for line in lines:
                 if line.strip() and not line.startswith("Found"):
                     rich_text += f"- {line.strip()}\n"
             summary = "Listed open windows"
             
-        elif action in ["open_application", "close_application"]:
-            summary = raw_msg
-            app_name = result.get("item_name", "Application")
-            rich_text = f"### {raw_msg}\n\n**Application:** {app_name.title()}\n**Status:** {'Running' if action == 'open_application' else 'Closed'}"
-            
-        elif action in ["create_folder", "create_file", "delete_item"]:
-            summary = raw_msg
-            path = result.get("path", result.get("item_name", "Unknown"))
-            rich_text = f"### {raw_msg}\n\n**Location:**\n`{path}`\n\n**Status:** Completed"
-            
-        elif action in ["move_file", "copy_file"]:
-            summary = raw_msg
-            src = result.get("source_name", "Unknown")
-            dest = result.get("target_path", result.get("target_name", "Unknown"))
-            rich_text = f"### {raw_msg}\n\n**Source:**\n`{src}`\n\n**Destination:**\n`{dest}`\n\n**Status:** Completed"
-            
         elif action == "execute_queue":
             results = result.get("results", [])
-            rich_text = f"### Execution Summary\n\n**Successful:** {result.get('successful', 0)}\n**Failed:** {result.get('failed', 0)}\n\n"
+            successful = result.get('successful', 0)
+            failed = result.get('failed', 0)
+            
+            rich_text = f"### Execution Summary\n\n"
+            rich_text += f"**Completed:** {successful} | **Failed:** {failed}\n\n"
             for r in results:
                 step_status = "✓" if r.get('result', {}).get('status') in ['success', 'completed'] else "❌"
-                rich_text += f"- {step_status} Step {r.get('step')}: {r.get('action').replace('_', ' ').title()}\n"
+                step_title = r.get('action').replace('_', ' ').title()
+                rich_text += f"- {step_status} **Step {r.get('step')}**: {step_title}\n"
             summary = "Executed task queue"
             
-        if rich_text == f"### ✓ {raw_msg}\n\n":
-            rich_text = f"### ✓ {raw_msg}"
+        elif metadata:
+            rich_text = f"### ✓ {title}\n\n{raw_msg}\n\n"
+            for key, val in metadata.items():
+                rich_text += f"**{key}:** {val}\n"
+            summary = raw_msg[:40] + "..." if len(raw_msg) > 40 else raw_msg
+            
+        else:
+            # Fallback for generic actions
+            rich_text = f"### ✓ {title}\n\n{raw_msg}"
             summary = raw_msg[:40] + "..." if len(raw_msg) > 40 else raw_msg
             
         return rich_text.strip(), summary.strip()

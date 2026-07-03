@@ -13,7 +13,8 @@ class ShutdownTool(BaseTool):
     def execute(self, **kwargs) -> Dict[str, Any]:
         return {
             "status": "success",
-            "message": "Are you sure you want to shut down the PC?\nType:\nconfirm shutdown",
+            "title": "Shutdown Confirmation",
+            "message": "Are you sure you want to shut down the PC?\n\nType:\nconfirm shutdown",
             "pending_power_action": "shutdown"
         }
 
@@ -24,7 +25,8 @@ class RestartTool(BaseTool):
     def execute(self, **kwargs) -> Dict[str, Any]:
         return {
             "status": "success",
-            "message": "Are you sure you want to restart the PC?\nType:\nconfirm restart",
+            "title": "Restart Confirmation",
+            "message": "Are you sure you want to restart the PC?\n\nType:\nconfirm restart",
             "pending_power_action": "restart"
         }
 
@@ -65,6 +67,7 @@ class SleepTool(BaseTool):
         if not self._is_sleep_supported():
             return {
                 "status": "error",
+                "title": "Action Not Supported",
                 "message": "True Sleep (S3 or S0) is not supported or currently disabled on this system's configuration. Falling back to Hibernate is prevented by design."
             }
             
@@ -73,6 +76,7 @@ class SleepTool(BaseTool):
             subprocess.run(["powershell", "-Command", ps_command], check=True)
             return {
                 "status": "success",
+                "title": "Entering Sleep Mode",
                 "message": "System is going to sleep.",
                 "last_power_action": "sleep"
             }
@@ -80,6 +84,7 @@ class SleepTool(BaseTool):
             logger.error(f"Failed to sleep PC: {e}", exc_info=True)
             return {
                 "status": "error",
+                "title": "Execution Error",
                 "message": "Failed to execute sleep command."
             }
 
@@ -92,13 +97,15 @@ class LockScreenTool(BaseTool):
             subprocess.run(["rundll32.exe", "user32.dll,LockWorkStation"], check=True)
             return {
                 "status": "success",
-                "message": "Screen locked.",
+                "title": "Screen Locked",
+                "message": "The screen has been locked successfully.",
                 "last_power_action": "lock"
             }
         except subprocess.CalledProcessError as e:
             logger.error(f"Failed to lock screen: {e}", exc_info=True)
             return {
                 "status": "error",
+                "title": "Execution Error",
                 "message": "Failed to lock screen."
             }
 
@@ -110,6 +117,7 @@ class ConfirmPowerActionTool(BaseTool):
         if not pending_action or pending_action != action_type:
             return {
                 "status": "error",
+                "title": "No Pending Action",
                 "message": f"No pending {action_type} confirmation exists."
             }
             
@@ -121,10 +129,11 @@ class ConfirmPowerActionTool(BaseTool):
                 subprocess.run(["shutdown", "/r", "/t", "0"], check=True)
                 msg = "Restarting..."
             else:
-                return {"status": "error", "message": "Unknown action type."}
+                return {"status": "error", "title": "Invalid Action", "message": "Unknown action type."}
                 
             return {
                 "status": "success",
+                "title": "Action Confirmed",
                 "message": msg,
                 "last_power_action": action_type,
                 "clear_pending": True
@@ -133,6 +142,7 @@ class ConfirmPowerActionTool(BaseTool):
             logger.error(f"Failed to execute {action_type}: {e}", exc_info=True)
             return {
                 "status": "error",
+                "title": "Execution Error",
                 "message": f"Failed to execute {action_type}."
             }
 
@@ -143,6 +153,7 @@ class CancelPowerActionTool(BaseTool):
     def execute(self, **kwargs) -> Dict[str, Any]:
         return {
             "status": "success",
+            "title": "Action Cancelled",
             "message": "Pending power action cancelled.",
             "clear_pending": True
         }

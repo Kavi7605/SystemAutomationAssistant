@@ -253,7 +253,12 @@ class CreateFolderTool(BaseTool):
             if target_path.exists():
                 return {
                     "status": "success", 
-                    "message": f"{folder_name} already exists.",
+                    "title": "Folder Already Exists",
+                    "message": "The requested folder is already present.",
+                    "metadata": {
+                        "Name": folder_name,
+                        "Location": str(target_path)
+                    },
                     "item_name": str(target_path)
                 }
                 
@@ -267,7 +272,12 @@ class CreateFolderTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"Folder created successfully at {target_path}", 
+                "title": "Folder Created Successfully",
+                "message": "The folder has been created.",
+                "metadata": {
+                    "Name": folder_name,
+                    "Location": str(target_path)
+                },
                 "item_name": str(target_path)
             }
         except Exception as e:
@@ -309,7 +319,12 @@ class CreateFileTool(BaseTool):
             if target_path.exists():
                 return {
                     "status": "success", 
-                    "message": f"{file_name} already exists.",
+                    "title": "File Already Exists",
+                    "message": "The requested file is already present.",
+                    "metadata": {
+                        "Name": file_name,
+                        "Location": str(target_path)
+                    },
                     "item_name": str(target_path)
                 }
             
@@ -325,7 +340,12 @@ class CreateFileTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"File created successfully at {target_path}", 
+                "title": "File Created Successfully",
+                "message": "The file has been created.",
+                "metadata": {
+                    "Name": file_name,
+                    "Location": str(target_path)
+                },
                 "item_name": str(target_path)
             }
         except Exception as e:
@@ -397,7 +417,12 @@ class RenameItemTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"Renamed {actual_source_name} to {target_name} successfully.", 
+                "title": "Item Renamed Successfully",
+                "message": f"'{actual_source_name}' was renamed successfully.", 
+                "metadata": {
+                    "New Name": target_name,
+                    "Location": str(target_path)
+                },
                 "item_name": str(target_path)
             }
         except Exception as e:
@@ -454,7 +479,12 @@ class DeleteItemTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"Found:\n{actual_name}\n\nAre you sure you want to delete it?\nType yes or no.", 
+                "title": "Delete Confirmation",
+                "message": f"Found:\n{actual_name}\n\nAre you sure you want to delete it?\nType yes or no.",
+                "metadata": {
+                    "Item": actual_name,
+                    "Location": str(target_path)
+                }
             }
         except Exception as e:
             logger.error(f"Failed to delete item: {e}", exc_info=True)
@@ -537,7 +567,11 @@ class CopyFileTool(BaseTool):
             msg_type = "Folder" if source_path.is_dir() else "File"
             return {
                 "status": "success", 
-                "message": f"{msg_type} copied successfully.", 
+                "title": f"{msg_type} Copied Successfully",
+                "message": f"'{actual_source_name}' was copied successfully.",
+                "metadata": {
+                    "Destination": str(target_path)
+                },
                 "item_name": target_path.name
             }
         except Exception as e:
@@ -618,6 +652,7 @@ class MoveFileTool(BaseTool):
             if target_path_obj.exists():
                 return {
                     "status": "failed",
+                    "title": "Cannot Move Item",
                     "message": f"Cannot move. {target_path_obj.name} already exists at destination."
                 }
                 
@@ -698,7 +733,12 @@ class OpenItemTool(BaseTool):
             
             return {
                 "status": "success", 
-                "message": f"Opened {actual_name} successfully.", 
+                "title": "Item Opened Successfully",
+                "message": f"'{actual_name}' has been opened.", 
+                "metadata": {
+                    "Item": actual_name,
+                    "Location": str(target_path)
+                },
                 "item_name": str(target_path)
             }
         except Exception as e:
@@ -753,9 +793,36 @@ class FindItemTool(BaseTool):
                 context_manager.update_filesystem_state("last_found_item", str(target_path))
                 context_manager.update_filesystem_state("last_resolved_absolute_path", str(target_path))
             
+            
+            import os
+            import datetime
+            
+            size_str = "Unknown"
+            mod_str = "Unknown"
+            type_str = "Folder" if target_path.is_dir() else "File"
+            
+            try:
+                if target_path.is_file():
+                    size_bytes = os.path.getsize(target_path)
+                    size_kb = size_bytes / 1024
+                    size_str = f"{size_kb:.1f} KB"
+                
+                mtime = os.path.getmtime(target_path)
+                mod_str = datetime.datetime.fromtimestamp(mtime).strftime("%Y-%m-%d %I:%M %p")
+            except Exception:
+                pass
+            
             return {
                 "status": "success", 
-                "message": f"Found: {actual_name}\nPath: {target_path}", 
+                "title": "Item Found",
+                "message": "The item was successfully located.",
+                "metadata": {
+                    "Name": actual_name,
+                    "Location": str(target_path),
+                    "Type": type_str,
+                    "Size": size_str if target_path.is_file() else "N/A",
+                    "Last Modified": mod_str
+                },
                 "item_name": str(target_path)
             }
         except Exception as e:
@@ -804,7 +871,11 @@ class ConfirmDeleteTool(BaseTool):
                 
                 return {
                     "status": "success", 
-                    "message": f"{item_type} deleted successfully.", 
+                    "title": f"{item_type} Deleted",
+                    "message": f"The {item_type.lower()} has been removed successfully.",
+                    "metadata": {
+                        "Previous Location": str(target_path)
+                    },
                     "item_name": str(target_path)
                 }
             else:

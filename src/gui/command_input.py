@@ -68,6 +68,16 @@ class CommandInput(QFrame):
             self.execute_btn.setEnabled(True)
         self.voice_toggled.emit(self._voice_active)
 
+    def reset_voice_state(self):
+        self._voice_active = False
+        self._pulse.stop()
+        self.mic_btn.setText("🎤 Ready")
+        self.mic_btn.setStyleSheet("")
+        self.mic_btn.setEnabled(True)
+        self.input.setEnabled(True)
+        self.execute_btn.setEnabled(True)
+        self.input.setPlaceholderText("Type or speak a command...")
+
     def set_enabled(self, enabled: bool):
         self.input.setEnabled(enabled)
         self.execute_btn.setEnabled(enabled)

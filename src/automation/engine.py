@@ -774,18 +774,17 @@ class AutomationEngine:
 
     def start(self):
         """Starts the interactive CLI loop."""
-        print("Assistant ready! Type 'exit' or 'quit' to stop.")
-        print("-" * 50)
+        logger.info("Assistant CLI ready! Type 'exit' or 'quit' to stop.")
+        logger.info("-" * 50)
         
         voice_listener = None
         
         while True:
             try:
-                print("\n[T] Type Command | [V] Voice Command | [Q] Quit")
-                mode = input("Select mode: ").strip().upper()
+                mode = input("\n[T] Type Command | [V] Voice Command | [Q] Quit\nSelect mode: ").strip().upper()
                 
                 if mode in ['Q', 'QUIT', 'EXIT']:
-                    print("Exiting...")
+                    logger.info("Exiting CLI...")
                     break
                 elif mode == 'V':
                     if not voice_listener:
@@ -793,12 +792,12 @@ class AutomationEngine:
                             from src.voice.voice_listener import VoiceListener
                             voice_listener = VoiceListener()
                         except FileNotFoundError as e:
-                            print(f"\nVoice initialization failed: {e}")
+                            logger.error(f"Voice initialization failed: {e}")
                             continue
                             
                     result = voice_listener.listen()
                     if not result or not result.get("transcript"):
-                        print("\nNo speech detected.")
+                        logger.info("No speech detected.")
                         continue
                         
                     transcript = result["transcript"]
@@ -806,7 +805,7 @@ class AutomationEngine:
                     device_used = result.get("device", "unknown")
                     duration = result.get("duration", 0)
                     
-                    print(f"\nRaw Transcript:\n{transcript}\n")
+                    logger.info(f"Raw Transcript: {transcript}")
                     
                     logger.info("Voice Engine: Faster-Whisper")
                     logger.info(f"Model: {model_used}")
@@ -816,41 +815,62 @@ class AutomationEngine:
                     
                     proceed = input("Proceed? [Y/N]: ").strip().upper()
                     if proceed == 'Y':
-                        print("Executing...")
-                        self.process_command(transcript, source="voice")
+                        logger.info("Executing...")
+                        result_dict = self.process_command(transcript, source="voice")
+                        self._print_result(result_dict)
                     else:
-                        print("Command cancelled.")
+                        logger.info("Command cancelled.")
                         continue
                 elif mode == 'T':
                     user_input = input("Enter command: ").strip()
                     if user_input.lower() in ['exit', 'quit']:
-                        print("Exiting...")
+                        logger.info("Exiting...")
                         break
                     if not user_input:
                         continue
-                    self.process_command(user_input, source="keyboard")
+                    result_dict = self.process_command(user_input, source="keyboard")
+                    self._print_result(result_dict)
                 else:
                     # Fallback for old behavior if user directly types the command
                     user_input = mode
                     if user_input.lower() in ['exit', 'quit']:
-                        print("Exiting...")
+                        logger.info("Exiting...")
                         break
                     if not user_input:
                         continue
-                    self.process_command(user_input, source="keyboard")
+                    result_dict = self.process_command(user_input, source="keyboard")
+                    self._print_result(result_dict)
             except KeyboardInterrupt:
-                print("\nExiting...")
+                logger.info("Command cancelled via KeyboardInterrupt.")
+                continue
+            except EOFError:
+                logger.info("Exiting CLI...")
                 break
             except Exception as e:
                 logger.error(f"Unexpected error in main loop: {e}", exc_info=True)
-                print(f"\nAn unexpected error occurred: {e}. Please try again.")
+                logger.error(f"An unexpected error occurred: {e}. Please try again.")
 
-    def process_command(self, user_input: str, source: str = "keyboard") -> None:
+    def _print_result(self, result_dict: Optional[Dict[str, Any]]):
+        if not result_dict:
+            return
+        from src.utils.response_formatter import ResponseFormatter
+        exec_result = result_dict.get("execution_result", {})
+        status = exec_result.get("status")
+        if status in ["completed", "partial_success"] and "successful" in exec_result:
+            formatted = ResponseFormatter.format_queue_summary(
+                successful=exec_result.get("successful", 0),
+                failed=exec_result.get("failed", 0)
+            )
+        else:
+            formatted = ResponseFormatter.format_response(exec_result)
+        print(f"\n{formatted}")
+
+    def process_command(self, user_input: str, source: str = "keyboard") -> Optional[Dict[str, Any]]:
         """
         Main entry point for processing a natural language command.
         """
         if not user_input.strip():
-            return
+            return None
             
         user_input_clean = user_input.strip()
         
@@ -859,21 +879,19 @@ class AutomationEngine:
             if user_input_clean.lower() in ["cancel", "never mind", "stop"]:
                 self.context_manager.state["pending_disambiguation"] = None
                 self.context_manager.save()
-                print("\n-> Selection cancelled.")
-                return
+                return {"execution_result": {"status": "cancelled", "message": "Selection cancelled."}}
                 
             if user_input_clean.isdigit():
                 parsed_json = {
                     "action": "resolve_disambiguation",
                     "parameters": {"selected_index": int(user_input_clean)}
                 }
-                self._execute_parsed_commands(user_input, ["resolve_disambiguation"], [parsed_json], source)
-                return
+                return self._execute_parsed_commands(user_input, ["resolve_disambiguation"], [parsed_json], source)
                 
             # If the user types a new command, implicitly cancel the pending disambiguation
             self.context_manager.state["pending_disambiguation"] = None
             self.context_manager.save()
-            print("\n-> Implicitly cancelled pending selection to process new command.")
+            logger.info("Implicitly cancelled pending selection to process new command.")
             
         user_input_lower = re.sub(r'[\?!.]+$', '', user_input.lower().strip())
         user_input_lower = re.sub(r'\s+', ' ', user_input_lower).strip()
@@ -951,14 +969,12 @@ class AutomationEngine:
                 for i, task in enumerate(expanded_tasks, 1):
                     logger.info(f"Sequence Task {i}: {task}")
                 logger.info("Executing deterministic sequence.")
-                self._execute_parsed_commands(user_input, expanded_tasks, parsed_commands, source)
-                return
+                return self._execute_parsed_commands(user_input, expanded_tasks, parsed_commands, source)
 
         # 1. Check for deterministic semantic routing
         if len(expanded_tasks) == 1 and isinstance(expanded_tasks[0], dict):
             logger.info("Single conditional command detected. Bypassing Planner and routing directly.")
-            self._execute_parsed_commands(user_input, [user_input], expanded_tasks, source)
-            return
+            return self._execute_parsed_commands(user_input, [user_input], expanded_tasks, source)
             
         semantic_json = None
         if len(expanded_tasks) == 1:
@@ -989,8 +1005,7 @@ class AutomationEngine:
                 tasks = [user_input]
                 
             logger.info("Bypassing TaskPlanner for deterministic semantic operation.")
-            self._execute_parsed_commands(user_input, tasks, parsed_commands, source)
-            return
+            return self._execute_parsed_commands(user_input, tasks, parsed_commands, source)
         
         filesystem_keywords = [
             "create file", "create folder", "open folder", "open file",
@@ -1081,12 +1096,12 @@ class AutomationEngine:
             else:
                 logger.error(f"Failed to parse task: {task}", exc_info=True)
         
-        self._execute_parsed_commands(user_input, tasks, parsed_commands, source)
+        return self._execute_parsed_commands(user_input, tasks, parsed_commands, source)
 
-    def _execute_parsed_commands(self, user_input: str, tasks: list, parsed_commands: list, source: str = "keyboard") -> None:
+    def _execute_parsed_commands(self, user_input: str, tasks: list, parsed_commands: list, source: str = "keyboard") -> Dict[str, Any]:
         if not parsed_commands:
             logger.error("Failed to generate any valid JSON commands. Please check the logs.", exc_info=True)
-            return
+            return {"execution_result": {"status": "error", "message": "Failed to generate any valid JSON commands."}}
             
         if hasattr(self, 'command_expander') and self.command_expander:
             logger.info("Running Command Expander...")
@@ -1099,11 +1114,9 @@ class AutomationEngine:
         for cmd in expanded_commands:
             if isinstance(cmd, dict) and cmd.get("type") == "conditional":
                 logger.info(f"Conditional commands are parsed successfully but execution is not implemented yet. Node: {cmd}")
-                print("\n-> Conditional commands are parsed successfully but execution is not implemented yet.")
                 continue
             if isinstance(cmd, dict) and cmd.get("action") == "conditional":
                 logger.info(f"Conditional commands are parsed successfully but execution is not implemented yet. Node: {cmd}")
-                print("\n-> Conditional commands are parsed successfully but execution is not implemented yet.")
                 continue
             executable_commands.append(cmd)
             
@@ -1125,17 +1138,7 @@ class AutomationEngine:
             source=source
         )
         
-        logger.info("Execution Result:")
-        if exec_result.get("status") == "success":
-            msg = exec_result.get('message')
-            logger.info(f"[OK] {msg}")
-            print(f"\n-> {msg}")
-        elif exec_result.get("status") == "completed":
-            logger.info("Execution Summary:")
-            logger.info(f"Successful: {exec_result.get('successful')}")
-            logger.info(f"Failed: {exec_result.get('failed')}")
-            print(f"\n-> Execution Summary:\n   Successful: {exec_result.get('successful')}\n   Failed: {exec_result.get('failed')}")
-        else:
-            msg = exec_result.get('message')
-            logger.error(f"[FAIL] Failed: {msg}", exc_info=True)
-            print(f"\n-> Failed: {msg}")
+        history = self.history_manager.get_recent_commands(limit=1)
+        if history:
+            return history[-1]
+        return {"execution_result": exec_result, "parsed_command": parsed_commands}

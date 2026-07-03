@@ -43,6 +43,8 @@ brain/
 
 verify_integrity.py
 
+ui_prototype/
+
 # Windows
 Thumbs.db
 Desktop.ini

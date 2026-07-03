@@ -68,14 +68,11 @@ class ExecutionWorker(QObject):
     @Slot()
     def run(self):
         try:
-            with open(os.devnull, 'w') as fnull:
-                with contextlib.redirect_stdout(fnull):
-                    self.engine.process_command(self.command, source="keyboard")
-            history = self.engine.history_manager.get_recent_commands(limit=1)
-            if history:
-                self.finished.emit(history[-1])
+            result = self.engine.process_command(self.command, source="keyboard")
+            if result:
+                self.finished.emit(result)
             else:
-                self.finished.emit({"execution_result": {"status": "error", "message": "No history entry found."}})
+                self.finished.emit({"execution_result": {"status": "error", "message": "Command execution returned nothing."}})
         except Exception as e:
             logger.error(f"ExecutionWorker error: {e}", exc_info=True)
             self.finished.emit({"execution_result": {"status": "error", "message": str(e)}})
@@ -108,6 +105,13 @@ class VoiceWorker(QObject):
         except Exception as e:
             logger.error(f"VoiceWorker error: {e}", exc_info=True)
             self.error.emit(str(e))
+        finally:
+            # Ensure listener state is reset if it crashed
+            if self.listener:
+                try:
+                    self.listener.stop()
+                except Exception:
+                    pass
 
 
 class AutomationBackend(QObject):
@@ -261,8 +265,11 @@ class AutomationBackend(QObject):
         return self.engine.context_manager.get_context_snapshot()
 
     def shutdown(self):
+        self.exec_worker.deleteLater()
         self.exec_thread.quit()
         self.exec_thread.wait()
+        
+        self.voice_worker.deleteLater()
         self.voice_thread.quit()
         self.voice_thread.wait()
         

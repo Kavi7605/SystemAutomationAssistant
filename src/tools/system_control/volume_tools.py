@@ -72,7 +72,12 @@ class MuteVolumeTool(BaseTool):
             VolumeManager.set_mute(True)
             return {
                 "status": "success", 
-                "message": "Muting system volume",
+                "title": "Volume Muted",
+                "message": "System volume has been muted.",
+                "metadata": {
+                    "Volume Level": f"{VolumeManager.get_volume()}%",
+                    "Status": "Muted"
+                },
                 "is_muted": True,
                 "volume_level": VolumeManager.get_volume()
             }
@@ -89,7 +94,12 @@ class UnmuteVolumeTool(BaseTool):
             VolumeManager.set_mute(False)
             return {
                 "status": "success", 
-                "message": "Unmuting system volume",
+                "title": "Volume Unmuted",
+                "message": "System volume has been unmuted.",
+                "metadata": {
+                    "Volume Level": f"{VolumeManager.get_volume()}%",
+                    "Status": "Unmuted"
+                },
                 "is_muted": False,
                 "volume_level": VolumeManager.get_volume()
             }
@@ -107,7 +117,12 @@ class IncreaseVolumeTool(BaseTool):
             new_vol = VolumeManager.set_volume(old_vol + 5)
             return {
                 "status": "success", 
-                "message": f"Increasing volume from {old_vol}% to {new_vol}%",
+                "title": "Volume Increased",
+                "message": f"Volume increased from {old_vol}% to {new_vol}%.",
+                "metadata": {
+                    "New Volume": f"{new_vol}%",
+                    "Muted": str(VolumeManager.get_mute())
+                },
                 "old_volume": old_vol,
                 "new_volume": new_vol,
                 "is_muted": VolumeManager.get_mute(),
@@ -127,7 +142,12 @@ class DecreaseVolumeTool(BaseTool):
             new_vol = VolumeManager.set_volume(old_vol - 5)
             return {
                 "status": "success", 
-                "message": f"Decreasing volume from {old_vol}% to {new_vol}%",
+                "title": "Volume Decreased",
+                "message": f"Volume decreased from {old_vol}% to {new_vol}%.",
+                "metadata": {
+                    "New Volume": f"{new_vol}%",
+                    "Muted": str(VolumeManager.get_mute())
+                },
                 "old_volume": old_vol,
                 "new_volume": new_vol,
                 "is_muted": VolumeManager.get_mute(),
@@ -169,7 +189,12 @@ class SetVolumeTool(BaseTool):
             new_vol = VolumeManager.set_volume(level)
             return {
                 "status": "success", 
-                "message": f"Volume set to {new_vol}%.",
+                "title": "Volume Set",
+                "message": f"Volume was set to {new_vol}%.",
+                "metadata": {
+                    "Volume Level": f"{new_vol}%",
+                    "Muted": str(VolumeManager.get_mute())
+                },
                 "volume_level": new_vol,
                 "is_muted": VolumeManager.get_mute()
             }
@@ -185,13 +210,15 @@ class GetVolumeStatusTool(BaseTool):
         try:
             vol = VolumeManager.get_volume()
             muted = VolumeManager.get_mute()
-            
             mute_str = "Yes" if muted else "No"
-            message = f"Volume Status\n-------------\nVolume: {vol}%\nMuted: {mute_str}"
-            
             return {
                 "status": "success", 
-                "message": message,
+                "title": "Volume Status",
+                "message": "Current volume settings retrieved.",
+                "metadata": {
+                    "Volume Level": f"{vol}%",
+                    "Muted": mute_str
+                },
                 "volume_level": vol,
                 "is_muted": muted
             }

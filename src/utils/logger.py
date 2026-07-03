@@ -29,11 +29,6 @@ def setup_logger(name="system_assistant") -> logging.Logger:
         datefmt='%Y-%m-%d %H:%M:%S'
     )
 
-    # Console Handler
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-
     # File Handler
     log_dir = "logs"
     if not os.path.exists(log_dir):

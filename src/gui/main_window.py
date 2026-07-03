@@ -92,19 +92,16 @@ class MainWindow(QMainWindow):
     def _on_voice_recognized(self, text: str):
         self._reset_voice_ui()
         self.sidebar.status_card.update_status("Voice", "Ready")
-        self.handle_command(text)
+        self.command_input.set_text(text)
+        self.command_input.focus()
         
     def _on_voice_error(self, error_msg: str):
         self._reset_voice_ui()
         self.sidebar.status_card.update_status("Voice", "Ready")
-        self.chat.add_assistant_message(f"🎤 Voice Error: {error_msg}")
+        self.chat.add_assistant_message("I couldn't understand that.\n\nPlease try again.")
         
     def _reset_voice_ui(self):
-        self.command_input._voice_active = False
-        self.command_input._pulse.stop()
-        self.command_input.mic_btn.setStyleSheet("")
-        self.command_input.input.setPlaceholderText("Type or speak a command...")
-        self.command_input.input.setEnabled(True)
+        self.command_input.reset_voice_state()
 
     def chat_clear(self):
         reply = QMessageBox.question(self, 'Clear Chat', 'Clear current conversation?',

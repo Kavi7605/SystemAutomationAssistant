@@ -34,7 +34,7 @@ def test_create_folder():
     # Test duplicate
     res2 = tool.execute("reports")
     assert res2["status"] == "success"
-    assert "already exists" in res2["message"]
+    assert "already present" in res2["message"]
     
 def test_create_file():
     tool = CreateFileTool()
@@ -49,7 +49,7 @@ def test_create_file():
     # Test duplicate
     res2 = tool.execute("notes.txt")
     assert res2["status"] == "success"
-    assert "already exists" in res2["message"]
+    assert "already present" in res2["message"]
 
 def test_rename_item():
     CreateFileTool().execute("old.txt")

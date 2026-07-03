@@ -30,7 +30,7 @@ class VoiceListener:
             # Put float32 frames into queue
             q.put(indata.copy())
 
-        print("Listening...")
+        logger.info("VoiceListener starting...")
         
         audio_buffer = []
         is_recording = False
@@ -62,10 +62,10 @@ class VoiceListener:
                                 break
 
                             
+        except sd.PortAudioError as e:
+            logger.error(f"Microphone error (PortAudio): {e}")
         except Exception as e:
             logger.error(f"Voice listener error: {e}", exc_info=True)
-            print("\nError accessing microphone. Make sure you have a microphone connected.")
-            return {}
 
         if not audio_buffer:
             return {}

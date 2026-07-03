@@ -68,14 +68,38 @@ class OpenApplicationTool(BaseTool):
                         os.startfile(target_path)
                         logger.info("Launch success via os.startfile.")
                         
-                    return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
+                    return {
+                        "status": "success", 
+                        "title": "Application Launched",
+                        "message": f"{original_name.capitalize()} opened successfully.",
+                        "metadata": {
+                            "Application": original_name.capitalize(),
+                            "Target": target_path
+                        }
+                    }
                     
                 except FileNotFoundError:
                     logger.error(f"Verification result: FAILED. File not found: {target_path}", exc_info=True)
-                    return {"status": "application_not_found", "message": f"Application {original_name} could not be found."}
+                    return {
+                        "status": "failed", 
+                        "title": "Application Not Found",
+                        "message": f"Application {original_name} could not be found.",
+                        "suggestions": [
+                            "Check if the application is installed",
+                            "Verify the application name spelling"
+                        ]
+                    }
                 except OSError as e:
                     logger.error(f"Verification result: FAILED. OS Error: {e}", exc_info=True)
-                    return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
+                    return {
+                        "status": "failed", 
+                        "title": "Launch Failed",
+                        "message": f"Application {original_name} failed to launch.",
+                        "suggestions": [
+                            "Check your permissions",
+                            "Try running the command again"
+                        ]
+                    }
             
             # 2. Subprocess execution for unresolved/relative PATH binaries
             else:
@@ -83,13 +107,37 @@ class OpenApplicationTool(BaseTool):
                 try:
                     process = subprocess.Popen(cmd_list)
                     logger.info(f"Launch success. PID: {process.pid}")
-                    return {"status": "success", "message": f"{original_name.capitalize()} opened successfully"}
+                    return {
+                        "status": "success", 
+                        "title": "Application Launched",
+                        "message": f"{original_name.capitalize()} opened successfully.",
+                        "metadata": {
+                            "Application": original_name.capitalize(),
+                            "Target": target_path
+                        }
+                    }
                 except FileNotFoundError:
                     logger.error(f"Verification result: FAILED. Unresolved application not in PATH: {target_path}", exc_info=True)
-                    return {"status": "application_not_found", "message": f"Application {original_name} could not be found in PATH."}
+                    return {
+                        "status": "failed", 
+                        "title": "Application Not Found",
+                        "message": f"Application {original_name} could not be found in PATH.",
+                        "suggestions": [
+                            "Check if the application is installed",
+                            "Ensure the application is added to your PATH environment variable"
+                        ]
+                    }
                 except OSError as e:
                     logger.error(f"Verification result: FAILED. OS Error: {e}", exc_info=True)
-                    return {"status": "failed", "message": f"Application {original_name} failed to launch: {str(e)}"}
+                    return {
+                        "status": "failed", 
+                        "title": "Launch Failed",
+                        "message": f"Application {original_name} failed to launch.",
+                        "suggestions": [
+                            "Check your permissions",
+                            "Try running the command again"
+                        ]
+                    }
                     
         except Exception as e:
             logger.error(f"Exception while opening application {original_name}: {e}", exc_info=True)
@@ -160,9 +208,24 @@ class CloseApplicationTool(BaseTool):
                     
             if closed_count > 0:
                 logger.info(f"{application_name.capitalize()} closed successfully ({closed_count} processes terminated)")
-                return {"status": "success", "message": f"{application_name.capitalize()} closed successfully"}
+                return {
+                    "status": "success", 
+                    "title": "Application Closed",
+                    "message": f"{application_name.capitalize()} has been closed.",
+                    "metadata": {
+                        "Application": application_name.capitalize(),
+                        "Processes Terminated": str(closed_count)
+                    }
+                }
             else:
-                return {"status": "failed", "message": f"Could not find any running process matching '{application_name}'"}
+                return {
+                    "status": "info", 
+                    "title": "Application Not Running",
+                    "message": f"Could not find any running process matching '{application_name}'.",
+                    "metadata": {
+                        "Application": application_name.capitalize()
+                    }
+                }
                 
         except Exception as e:
             logger.error(f"Error closing {application_name}: {e}", exc_info=True)

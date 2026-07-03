@@ -89,6 +89,12 @@ from src.tools.system_control.power_actions_tools import (
 logger = setup_logger("system_assistant")
 
 def main():
+    try:
+        import sys
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+        
     print("Initializing System Automation Assistant...")
     
     try:

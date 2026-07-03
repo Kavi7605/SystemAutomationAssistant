@@ -2,7 +2,6 @@ import os
 import difflib
 from typing import Dict, Any
 
-DEBUG_PATH_RESOLUTION = False
 
 class ResolvedPath:
     def __init__(self, path: str):
@@ -109,10 +108,7 @@ class PathResolver:
         remaining = remaining.replace('\\', ' ').replace('/', ' ')
         current_path = base_path
         
-        if DEBUG_PATH_RESOLUTION:
-            print(f"Base detected: {current_path}")
-            if remaining:
-                print("Matched:")
+
 
         while remaining:
             try:
@@ -195,13 +191,11 @@ class PathResolver:
             best_match = best_matches[0]
             current_path = os.path.join(current_path, best_match)
             
-            if DEBUG_PATH_RESOLUTION:
-                print(f"\u2192 {best_match}")
+
                 
             remaining = " ".join(rem_words[best_consumed_words:]).strip()
 
-        if DEBUG_PATH_RESOLUTION:
-            print(f"\nResolved:\n{current_path}")
+
 
         res = ResolvedPath(current_path)
         cls._cache[query_lower] = res

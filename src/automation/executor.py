@@ -103,7 +103,7 @@ class Executor:
                         if hasattr(obj, 'isoformat'): return obj.isoformat()
                         return str(obj)
                     formatted = json.dumps(snapshot, indent=2, default=_serialize)
-                    print(f"\n[DEBUG] Context Snapshot:\n{formatted}\n")
+                    logger.debug(f"Context Snapshot:\n{formatted}")
                     return {"status": "success", "message": f"Context Snapshot:\n{formatted}"}
                 else:
                     return {"status": "failed", "message": "ContextManager not initialized."}
@@ -372,7 +372,16 @@ class Executor:
             if self.context_manager:
                 self.context_manager.mark_action_failed(action)
             logger.error(f"Error executing {action}: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {
+                "status": "failed", 
+                "title": "System Error",
+                "message": f"The automation engine encountered a technical error while executing '{action.replace('_', ' ')}'.",
+                "suggestions": [
+                    "Try repeating the command",
+                    "Try rephrasing your request",
+                    "Ensure you have necessary permissions"
+                ]
+            }
 
     def _get_action_description(self, cmd: Dict[str, Any]) -> str:
         action = cmd.get("action", "unknown")
@@ -513,46 +522,37 @@ class Executor:
             return f"Executing {action.replace('_', ' ').title()}"
 
     def _execute_queue(self, commands: List[Dict[str, Any]], stop_on_failure: bool = True) -> Dict[str, Any]:
+        from src.utils.response_formatter import ResponseFormatter
         total_steps = len(commands)
         successful = 0
         failed = 0
         results = []
 
-        print("")
         for i, cmd in enumerate(commands, 1):
 
             action = cmd.get("action", "unknown")
             desc = self._get_action_description(cmd)
             
-            if action not in ["is_window_open", "get_current_window", "list_open_windows"]:
-                print(f"[{i}/{total_steps}] {desc}")
-                
             logger.info(f"Queue step {i}/{total_steps}: {desc}")
             
             result = self._execute_single(cmd)
             
-            if result.get("status") in ["success", "completed", "partial_success"]:
-                msg = result.get("message", "Success")
-                if action in ["is_window_open", "get_current_window", "list_open_windows"]:
-                    print(f"[{i}/{total_steps}] {msg}\n")
-                else:
-                    print(f"[OK] {msg}\n")
-                logger.info(f"Queue step {i} success: {msg}")
+            is_success = result.get("status") in ["success", "completed", "partial_success"]
+            
+            if is_success:
                 successful += 1
+                logger.info(f"Queue step {i} success: {result.get('message', '')}")
             else:
-                error_msg = result.get('message', 'Unknown error')
-                print(f"[FAIL] {error_msg}\n")
-                logger.error(f"Queue step {i} failed: {error_msg}", exc_info=True)
                 failed += 1
+                logger.error(f"Queue step {i} failed: {result.get('message', 'Unknown error')}", exc_info=True)
                 
             results.append({
                 "step": i,
-                "action": cmd.get("action", "unknown"),
+                "action": action,
                 "result": result
             })
             
-            if result.get("status") not in ["success", "completed", "partial_success"] and stop_on_failure:
-                print(f"Queue aborted due to failure at step {i}.")
+            if not is_success and stop_on_failure:
                 logger.warning(f"Queue aborted at step {i} due to failure.")
                 break
 

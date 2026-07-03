@@ -49,19 +49,29 @@ class ChatWidget(QWidget):
         outer.addWidget(self.scroll)
 
         self._thinking_row = None
+        self._force_scroll_bottom = False
         
+        self.scroll.verticalScrollBar().rangeChanged.connect(self._on_scroll_range_changed)
+        
+    def _on_scroll_range_changed(self, min_val, max_val):
+        if self._force_scroll_bottom:
+            self.scroll.verticalScrollBar().setValue(max_val)
+            self._force_scroll_bottom = False
     def resizeEvent(self, event):
         super().resizeEvent(event)
-        # Update max width of all bubbles to 70% of chat width
-        max_w = int(self.width() * 0.7)
-        for i in range(self.vbox.count() - 1): # Exclude stretch
+        self._update_bubble_widths()
+
+    def _update_bubble_widths(self):
+        # Base width off viewport to avoid scrollbar jitter
+        max_w = max(300, int(self.scroll.viewport().width() * 0.80))
+        for i in range(self.vbox.count()):
             item = self.vbox.itemAt(i)
             if item and item.widget():
                 row_widget = item.widget()
-                # Find the ChatBubble in the row
                 for child in row_widget.children():
                     if isinstance(child, ChatBubble):
-                        child.setMaximumWidth(max_w)
+                        if child.maximumWidth() != max_w:
+                            child.setMaximumWidth(max_w)
 
     def clear(self):
         # Remove all items except the stretch at the end
@@ -82,9 +92,27 @@ class ChatWidget(QWidget):
         wrapper.setLayout(row)
         self.vbox.insertWidget(self.vbox.count() - 1, wrapper)
         fade_in(widget)
-        # Apply current max width
-        widget.setMaximumWidth(int(self.width() * 0.7) if self.width() > 0 else 600)
-        self._scroll_to_bottom()
+        # Determine if we should auto-scroll (user is already near bottom)
+        bar = self.scroll.verticalScrollBar()
+        is_at_bottom = bar.value() >= bar.maximum() - 30
+        if is_at_bottom:
+            self._force_scroll_bottom = True
+
+        # Apply current max width to all bubbles to emulate resizeEvent repair
+        self._update_bubble_widths()
+        
+        # Streamline layout updates
+        wrapper.show()
+        self.vbox.invalidate()
+        
+        from PySide6.QtWidgets import QApplication
+        QApplication.processEvents()
+        
+        # Failsafe scroll if adjustment was instant
+        if self._force_scroll_bottom:
+            bar.setValue(bar.maximum())
+            self._force_scroll_bottom = False
+            
         return wrapper
 
     def add_user_message(self, text: str):
@@ -121,6 +149,9 @@ class ChatWidget(QWidget):
         label = self._stream_bubble.findChild(QLabel)
         if label:
             label.setText(current_text)
+            
+            # Efficient layout update for word-wrapping
+            self.container.adjustSize()
             
         self._stream_index = end_idx
         
