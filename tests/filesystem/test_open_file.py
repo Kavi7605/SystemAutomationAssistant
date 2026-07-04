@@ -51,8 +51,6 @@ def test_open_file():
         print("   Result:", res5["status"])
         print("   Message:", res5["message"])
         assert res5["status"] == "failed"
-        assert "File does not exist" in res5["message"]
+        assert "file does not exist" in res5["message"]
 
     print("\nAll OpenFileTool tests passed!")
-
-

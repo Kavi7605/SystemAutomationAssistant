@@ -17,13 +17,13 @@ class ClickTool(BaseTool):
                 pyautogui.click(x=int(x), y=int(y))
             else:
                 pyautogui.click()
-            return {"status": "success", "message": "Click executed successfully"}
+            return {"status": "success", "title": "Mouse Clicked", "message": "The mouse click was executed successfully."}
         except pyautogui.FailSafeException:
             logger.warning("PyAutoGUI fail-safe triggered during click.")
-            return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
+            return {"status": "failed", "title": "Fail-safe Triggered", "message": "PyAutoGUI fail-safe was triggered (mouse moved to a corner)."}
         except Exception as e:
             logger.error(f"Error executing click: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -47,13 +47,13 @@ class DoubleClickTool(BaseTool):
                 pyautogui.doubleClick(x=int(x), y=int(y))
             else:
                 pyautogui.doubleClick()
-            return {"status": "success", "message": "Double-click executed successfully"}
+            return {"status": "success", "title": "Mouse Double-Clicked", "message": "The mouse double-click was executed successfully."}
         except pyautogui.FailSafeException:
             logger.warning("PyAutoGUI fail-safe triggered during double-click.")
-            return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
+            return {"status": "failed", "title": "Fail-safe Triggered", "message": "PyAutoGUI fail-safe was triggered (mouse moved to a corner)."}
         except Exception as e:
             logger.error(f"Error executing double-click: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -77,13 +77,13 @@ class RightClickTool(BaseTool):
                 pyautogui.rightClick(x=int(x), y=int(y))
             else:
                 pyautogui.rightClick()
-            return {"status": "success", "message": "Right-click executed successfully"}
+            return {"status": "success", "title": "Mouse Right-Clicked", "message": "The mouse right-click was executed successfully."}
         except pyautogui.FailSafeException:
             logger.warning("PyAutoGUI fail-safe triggered during right-click.")
-            return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
+            return {"status": "failed", "title": "Fail-safe Triggered", "message": "PyAutoGUI fail-safe was triggered (mouse moved to a corner)."}
         except Exception as e:
             logger.error(f"Error executing right-click: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -102,18 +102,18 @@ class TypeTextTool(BaseTool):
 
     def execute(self, text: str, **kwargs) -> Dict[str, Any]:
         if not text:
-            return {"status": "failed", "message": "Missing text parameter"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing text parameter parameter."}
         
         try:
             logger.info(f"Executing type_text action. text='{text}'")
             pyautogui.write(text)
-            return {"status": "success", "message": f"Typed text: {text}"}
+            return {"status": "success", "title": "Text Typed", "message": f"Successfully typed the text: {text}"}
         except pyautogui.FailSafeException:
             logger.warning("PyAutoGUI fail-safe triggered during type_text.")
-            return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
+            return {"status": "failed", "title": "Fail-safe Triggered", "message": "PyAutoGUI fail-safe was triggered (mouse moved to a corner)."}
         except Exception as e:
             logger.error(f"Error executing type_text: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -132,18 +132,18 @@ class HotkeyTool(BaseTool):
 
     def execute(self, keys: List[str], **kwargs) -> Dict[str, Any]:
         if not keys:
-            return {"status": "failed", "message": "Missing keys parameter"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing keys parameter parameter."}
         
         try:
             logger.info(f"Executing hotkey action. keys={keys}")
             pyautogui.hotkey(*keys)
-            return {"status": "success", "message": f"Pressed hotkey: {' + '.join(keys)}"}
+            return {"status": "success", "title": "Hotkey Pressed", "message": f"Successfully pressed the hotkey combination: {' + '.join(keys)}"}
         except pyautogui.FailSafeException:
             logger.warning("PyAutoGUI fail-safe triggered during hotkey.")
-            return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
+            return {"status": "failed", "title": "Fail-safe Triggered", "message": "PyAutoGUI fail-safe was triggered (mouse moved to a corner)."}
         except Exception as e:
             logger.error(f"Error executing hotkey: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -166,20 +166,20 @@ class ScrollTool(BaseTool):
 
     def execute(self, direction: str, **kwargs) -> Dict[str, Any]:
         if not direction:
-            return {"status": "failed", "message": "Missing direction parameter"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing direction parameter parameter."}
             
         amount = 500 if direction.lower() == "up" else -500
             
         try:
             logger.info(f"Executing scroll action. direction={direction}, amount={amount}")
             pyautogui.scroll(amount)
-            return {"status": "success", "message": f"Scrolled {direction}"}
+            return {"status": "success", "title": "Scrolled", "message": f"Successfully scrolled the page {direction}."}
         except pyautogui.FailSafeException:
             logger.warning("PyAutoGUI fail-safe triggered during scroll.")
-            return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
+            return {"status": "failed", "title": "Fail-safe Triggered", "message": "PyAutoGUI fail-safe was triggered (mouse moved to a corner)."}
         except Exception as e:
             logger.error(f"Error executing scroll: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -202,18 +202,18 @@ class MoveMouseTool(BaseTool):
 
     def execute(self, x: int, y: int, **kwargs) -> Dict[str, Any]:
         if x is None or y is None:
-            return {"status": "failed", "message": "Missing x or y coordinate"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing x or y coordinate parameter."}
             
         try:
             logger.info(f"Executing move_mouse action. x={x}, y={y}")
             pyautogui.moveTo(int(x), int(y))
-            return {"status": "success", "message": f"Moved mouse to ({x}, {y})"}
+            return {"status": "success", "title": "Mouse Moved", "message": f"Successfully moved the mouse cursor to ({x}, {y})."}
         except pyautogui.FailSafeException:
             logger.warning("PyAutoGUI fail-safe triggered during move_mouse.")
-            return {"status": "failed", "message": "Fail-safe triggered (mouse moved to a corner)."}
+            return {"status": "failed", "title": "Fail-safe Triggered", "message": "PyAutoGUI fail-safe was triggered (mouse moved to a corner)."}
         except Exception as e:
             logger.error(f"Error executing move_mouse: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {

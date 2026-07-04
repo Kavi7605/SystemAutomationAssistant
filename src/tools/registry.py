@@ -25,13 +25,13 @@ class ToolRegistry:
         """Executes a tool by name with the given arguments."""
         tool = self.get_tool(name)
         if not tool:
-            return {"status": "failed", "message": f"Tool '{name}' not found in registry."}
+            return {"status": "failed", "title": "Operation Failed", "message": f"Tool '{name}' not found in registry."}
         
         try:
             return tool.execute(**kwargs)
         except Exception as e:
             logger.error(f"Error executing tool '{name}': {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Execution Error", "message": str(e)}
 
     def get_all_schemas(self) -> List[Dict[str, Any]]:
         """Returns the schemas of all registered tools."""

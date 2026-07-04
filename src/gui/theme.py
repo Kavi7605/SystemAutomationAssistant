@@ -35,6 +35,9 @@ def stylesheet() -> str:
         background-color: {PANEL};
         border-top: 1px solid {BORDER};
     }}
+    QLabel {{
+        background: transparent;
+    }}
     QLabel#title {{
         font-size: 15px;
         font-weight: 600;

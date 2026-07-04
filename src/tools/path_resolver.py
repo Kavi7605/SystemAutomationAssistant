@@ -45,7 +45,7 @@ class PathResolver:
     @classmethod
     def _resolve_internal(cls, query: str) -> Dict[str, Any]:
         if not query or query == ".":
-            return {"status": "failed", "message": "No base location specified"}
+            return {"status": "failed", "title": "Operation Failed", "message": "No base location specified"}
 
         query_lower = query.lower().strip()
 
@@ -68,12 +68,12 @@ class PathResolver:
         home_path = os.path.expanduser("~")
         
         bases = {
-            "c drive": "C:\\",
-            "d drive": "D:\\",
-            "e drive": "E:\\",
-            "c:\\": "C:\\",
-            "d:\\": "D:\\",
-            "e:\\": "E:\\",
+            "c drive": "C:\\\\",
+            "d drive": "D:\\\\",
+            "e drive": "E:\\\\",
+            "c:\\": "C:\\\\",
+            "d:\\": "D:\\\\",
+            "e:\\": "E:\\\\",
             "downloads": os.path.join(home_path, "Downloads"),
             "desktop": get_real_desktop_path(),
             "documents": os.path.join(home_path, "Documents"),
@@ -81,7 +81,8 @@ class PathResolver:
             "videos": os.path.join(home_path, "Videos"),
             "music": os.path.join(home_path, "Music"),
             "home directory": home_path,
-            "this pc": "C:\\",
+            "this pc": "C:\\\\",
+            "computer": "C:\\\\",
             "workspace": os.path.abspath(os.environ.get("AUTOMATION_WORKSPACE", os.path.join(os.getcwd(), "automation_workspace")))
         }
         if onedrive_path:
@@ -102,7 +103,7 @@ class PathResolver:
                 res = ResolvedPath(query)
                 cls._cache[query_lower] = res
                 return {"status": "success", "resolved_path": res}
-            return {"status": "failed", "message": "No base location specified"}
+            return {"status": "failed", "title": "Operation Failed", "message": "No base location specified"}
 
         remaining = query[consumed_len:].strip()
         remaining = remaining.replace('\\', ' ').replace('/', ' ')

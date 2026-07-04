@@ -23,7 +23,9 @@ class ChatBubble(QFrame):
         self.label.setStyleSheet(f"color: {text_color}; font-size: 13px; background: transparent;")
         layout.addWidget(self.label)
         
-        self.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
+        policy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
+        policy.setHeightForWidth(True)
+        self.setSizePolicy(policy)
         self.setMaximumWidth(800) # Fallback, updated dynamically
 
 
@@ -57,21 +59,6 @@ class ChatWidget(QWidget):
         if self._force_scroll_bottom:
             self.scroll.verticalScrollBar().setValue(max_val)
             self._force_scroll_bottom = False
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        self._update_bubble_widths()
-
-    def _update_bubble_widths(self):
-        # Base width off viewport to avoid scrollbar jitter
-        max_w = max(300, int(self.scroll.viewport().width() * 0.80))
-        for i in range(self.vbox.count()):
-            item = self.vbox.itemAt(i)
-            if item and item.widget():
-                row_widget = item.widget()
-                for child in row_widget.children():
-                    if isinstance(child, ChatBubble):
-                        if child.maximumWidth() != max_w:
-                            child.setMaximumWidth(max_w)
 
     def clear(self):
         # Remove all items except the stretch at the end
@@ -82,6 +69,7 @@ class ChatWidget(QWidget):
                 
     def _add_row(self, widget: QFrame, is_user: bool):
         row = QHBoxLayout()
+            
         if is_user:
             row.addStretch(1)
             row.addWidget(widget)
@@ -97,16 +85,8 @@ class ChatWidget(QWidget):
         is_at_bottom = bar.value() >= bar.maximum() - 30
         if is_at_bottom:
             self._force_scroll_bottom = True
-
-        # Apply current max width to all bubbles to emulate resizeEvent repair
-        self._update_bubble_widths()
         
-        # Streamline layout updates
         wrapper.show()
-        self.vbox.invalidate()
-        
-        from PySide6.QtWidgets import QApplication
-        QApplication.processEvents()
         
         # Failsafe scroll if adjustment was instant
         if self._force_scroll_bottom:
@@ -149,9 +129,8 @@ class ChatWidget(QWidget):
         label = self._stream_bubble.findChild(QLabel)
         if label:
             label.setText(current_text)
-            
-            # Efficient layout update for word-wrapping
-            self.container.adjustSize()
+            label.updateGeometry()
+            self._stream_bubble.updateGeometry()
             
         self._stream_index = end_idx
         

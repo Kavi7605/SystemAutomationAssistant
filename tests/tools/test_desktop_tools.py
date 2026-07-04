@@ -57,7 +57,7 @@ def test_click_tool_failsafe(mock_click, click_tool):
     mock_click.side_effect = pyautogui.FailSafeException("Fail-safe triggered")
     result = click_tool.execute()
     assert result["status"] == "failed"
-    assert "Fail-safe" in result["message"]
+    assert "fail-safe" in result["message"].lower()
 
 @patch('pyautogui.doubleClick')
 def test_double_click_tool(mock_double_click, double_click_tool):
@@ -122,4 +122,4 @@ def test_move_mouse_tool_failsafe(mock_move, move_mouse_tool):
     mock_move.side_effect = pyautogui.FailSafeException("Fail-safe")
     result = move_mouse_tool.execute(x=0, y=0)
     assert result["status"] == "failed"
-    assert "Fail-safe" in result["message"]
+    assert "fail-safe" in result["message"].lower()

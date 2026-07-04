@@ -48,82 +48,78 @@ class ResponseFormatter:
         """
         Formats a single result dictionary into a polished CLI string.
         """
-        status = result.get("status", "unknown")
+        status = result.get("status", "info")
         title = result.get("title")
         message = result.get("message", "")
         metadata = result.get("metadata", {})
         suggestions = result.get("suggestions", [])
+        action_name = result.get("action", "")
         
         icons = cls._get_icons()
         
-        # Override for ambiguous (search results)
-        if status == "ambiguous":
-            icon = icons.get("question", "?")
-            if not title:
-                title = "Multiple matches were found"
-            
-            parts = [title, ""]
-            matches = result.get("matches", [])
-            for i, match in enumerate(matches, 1):
-                # Basic parsing if match is just a path string
-                # We expect the tool to pass better matches if possible, but fallback to strings
-                match_str = str(match)
-                import os
-                name = os.path.basename(match_str)
-                parent = os.path.basename(os.path.dirname(match_str)) if os.path.dirname(match_str) else "Unknown"
-                
-                parts.append(f"{i}.")
-                parts.append(name)
-                parts.append(parent)
-                parts.append("")
-                
-            parts.append("Choose a number or type Cancel.")
-            return "\n".join(parts)
-
-        # 1. Map status to icon and default title
+        # 1. Map status to icon and determine fallback titles
         if status in ["success", "completed", "partial_success"]:
-            icon = icons.get("success", "")
-            if not title:
-                title = "Success"
-        elif status == "failed":
-            icon = icons.get("error", "")
-            if not title:
-                title = "Error"
+            icon = icons.get("success", "✓")
+            fallback_title = "Success"
+        elif status == "failed" or status == "error":
+            icon = icons.get("error", "✗")
+            fallback_title = "Error"
+        elif status == "warning":
+            icon = icons.get("warning", "⚠")
+            fallback_title = "Warning"
         elif status == "info":
-            icon = icons.get("info", "")
-            if not title:
-                title = "Information"
+            icon = icons.get("info", "ℹ")
+            fallback_title = "Information"
+        elif status == "interactive":
+            icon = icons.get("question", "?")
+            fallback_title = "Interactive Selection"
+        elif status == "cancelled":
+            icon = icons.get("info", "ℹ")
+            fallback_title = "Operation Cancelled"
         else:
-            icon = icons.get("info", "")
-            if not title:
-                title = "Result"
+            icon = icons.get("info", "ℹ")
+            fallback_title = "Operation Result"
+            
+        # Title resolution chain: Provided Title -> Action derived -> Fallback
+        if not title:
+            if action_name:
+                title = action_name.replace("_", " ").title()
+            else:
+                title = fallback_title
                 
-        # Handle specific confirmation override based on message content
-        if "delete" in message.lower() and "are you sure" in message.lower():
-            icon = icons.get("warning", "")
-            title = "Delete Confirmation"
+        # Handle specific confirmation override based on message content if status isn't already warning/interactive
+        # (Legacy support, though Executor should ideally provide this explicitly now)
+        if "delete" in message.lower() and "are you sure" in message.lower() and status != "warning":
+            icon = icons.get("warning", "⚠")
+            if not result.get("title"):
+                title = "Delete Confirmation"
             
         # 2. Build the formatted string
-        parts = [f"{icon} {title}\n"]
+        parts = [f"{icon} **{title}**\n"]
         
-        # 3. Add Metadata
+        # 3. Add Message
+        if message:
+            parts.append(f"{message}\n")
+                
+        # 4. Add Metadata
         if metadata:
             for key, value in metadata.items():
-                parts.append(f"{key}:")
+                parts.append(f"**{key}**")
                 parts.append(f"{value}\n")
                 
-        # 4. Add Message
-        if message:
-            # Clean up message for delete confirmation to avoid repeating the raw prompt
-            if title == "Delete Confirmation":
-                parts.append("This action cannot be undone.\n")
-                parts.append("Type:\n\nyes\nno\ncancel")
-            else:
-                parts.append(f"{message}\n")
-                
-        # 5. Add Suggestions
+        # 5. Interactive Selection Specifics
+        if status == "interactive" and result.get("matches"):
+            matches = result.get("matches", [])
+            for i, match in enumerate(matches, 1):
+                parts.append(f"{i}. {match}")
+            parts.append("\nReply with:")
+            for i in range(1, len(matches) + 1):
+                parts.append(str(i))
+            parts.append("cancel\n")
+            
+        # 6. Add Suggestions
         if suggestions:
-            parts.append("Try:\n")
+            parts.append("**Suggestions**\n")
             for sug in suggestions:
                 parts.append(f"• {sug}")
             parts.append("")

@@ -44,7 +44,7 @@ def test_wait_until_window_timeout(mock_wm, wait_tool):
             result = wait_tool.execute(wait_type="window", window_name="steam", timeout=30)
             
             assert result["status"] == "failed"
-            assert "Timeout" in result["message"]
+            assert "Timed out" in result["message"]
 
 def test_wait_until_app_open_success(wait_tool):
     with patch("src.tools.wait_tool.time.time", side_effect=[0, 0, 1]):
@@ -75,4 +75,4 @@ def test_wait_until_window_closed_timeout(mock_wm, wait_tool):
             result = wait_tool.execute(wait_type="window_closed", window_name="steam", timeout=30)
             
             assert result["status"] == "failed"
-            assert "Timeout" in result["message"]
+            assert "Timed out" in result["message"]

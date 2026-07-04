@@ -105,8 +105,8 @@ class TestStateAwareExecution:
         
         # Check specific messages
         assert "Action executed" in result["results"][0]["result"]["message"]
-        assert "Steam is already focused" in result["results"][1]["result"]["message"]
-        assert "Steam is already focused" in result["results"][2]["result"]["message"]
+        assert "Steam is already the active window" in result["results"][1]["result"]["message"]
+        assert "Steam is already the active window" in result["results"][2]["result"]["message"]
 
     def test_history_validation(self):
         # Execute open steam 3 times, with it already being open after the first
@@ -120,7 +120,8 @@ class TestStateAwareExecution:
         
         self.executor.execute(commands)
         
-        # The context_manager.mark_app_opened should be called 3 times
-        # because we now record user intent even if execution is skipped
+        # Wait, if they return 'info', they might be considered successful by the pipeline.
+        # But wait, `_execute_single` marks it failed if it's not success, completed, partial_success, info, interactive, cancelled.
+        # Since I added 'info' to success statuses in Executor._execute_single, mark_app_opened should still be called.
         assert self.context_manager_mock.mark_app_opened.call_count == 3
         self.context_manager_mock.mark_app_opened.assert_called_with("steam")

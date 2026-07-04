@@ -332,22 +332,29 @@ Output: [
         prompt = f'Input: "{user_input}"\nOutput:'
         
         for attempt in range(2):
-            try:
-                # We use force_json=False because Llama3 handles raw arrays better without format restrictions
-                result = self.client.generate(prompt=prompt, system=self.system_prompt, force_json=False)
-                
-                if isinstance(result, list):
-                    tasks = [str(task) for task in result]
-                    logger.info(f"TaskPlanner successfully generated {len(tasks)} tasks.")
-                    return tasks
-                elif isinstance(result, dict):
-                    logger.error(f"TaskPlanner attempt {attempt+1}: Received JSON object instead of array. Retrying...", exc_info=True)
+            # We use force_json=False because Llama3 handles raw arrays better without format restrictions
+            result = self.client.generate(prompt=prompt, system=self.system_prompt, force_json=False)
+            
+            if isinstance(result, dict) and "error" in result:
+                if result["error"] == "OLLAMA_OFFLINE":
+                    logger.warning("Ollama is offline. Skipping planner retries.")
+                    return [] # Fallback to deterministic mode
+                elif result["error"] == "JSON_DECODE":
+                    logger.error(f"TaskPlanner attempt {attempt+1}: JSON Decode Error. Retrying...")
                     continue
                 else:
-                    logger.warning(f"TaskPlanner attempt {attempt+1}: Unexpected response format {type(result)}. Retrying...")
-                    
-            except Exception as e:
-                logger.error(f"Failed to plan tasks on attempt {attempt+1} due to an exception: {e}", exc_info=True)
+                    logger.error(f"TaskPlanner attempt {attempt+1}: Internal error {result['message']}. Retrying...")
+                    continue
+
+            if isinstance(result, list):
+                tasks = [str(task) for task in result]
+                logger.info(f"TaskPlanner successfully generated {len(tasks)} tasks.")
+                return tasks
+            elif isinstance(result, dict):
+                logger.error(f"TaskPlanner attempt {attempt+1}: Received JSON object instead of array. Retrying...")
+                continue
+            else:
+                logger.warning(f"TaskPlanner attempt {attempt+1}: Unexpected response format {type(result)}. Retrying...")
                 
-        logger.error("TaskPlanner failed completely after 2 attempts.", exc_info=True)
+        logger.error("TaskPlanner failed completely after 2 attempts.")
         return []

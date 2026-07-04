@@ -107,7 +107,7 @@ class GetDisplayStatusTool(BaseTool):
         try:
             monitors = DisplayManager.get_all_monitors_info()
             if not monitors:
-                return {"status": "failed", "message": "No monitors detected."}
+                return {"status": "failed", "title": "Operation Failed", "message": "No monitors detected."}
                 
             primary = DisplayManager.get_primary_monitor_info()
             
@@ -142,4 +142,4 @@ class GetDisplayStatusTool(BaseTool):
                 "primary_refresh_rate": primary.get("refresh_rate")
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to get display status: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to get display status: {e}"}

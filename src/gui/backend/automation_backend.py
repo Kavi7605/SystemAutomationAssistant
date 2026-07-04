@@ -75,7 +75,17 @@ class ExecutionWorker(QObject):
                 self.finished.emit({"execution_result": {"status": "error", "message": "Command execution returned nothing."}})
         except Exception as e:
             logger.error(f"ExecutionWorker error: {e}", exc_info=True)
-            self.finished.emit({"execution_result": {"status": "error", "message": str(e)}})
+            self.finished.emit({
+                "execution_result": {
+                    "status": "failed",
+                    "title": "System Error",
+                    "message": "The automation engine encountered an unexpected technical error.",
+                    "suggestions": [
+                        "Please check logs/system.log for details.",
+                        "Try repeating the command."
+                    ]
+                }
+            })
 
 class VoiceWorker(QObject):
     recognized = Signal(str)

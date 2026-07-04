@@ -34,7 +34,7 @@ class TestContextInspection:
         result = self.executor.execute({"action": "get_current_app"})
         
         assert result["status"] == "success"
-        assert "No active application tracked" in result["message"]
+        assert "No active application is currently being tracked" in result["message"]
 
     def test_get_previous_app(self):
         self.state_manager_mock.get_last_active_app.return_value = "steam"
@@ -48,7 +48,7 @@ class TestContextInspection:
         result = self.executor.execute({"action": "get_previous_app"})
         
         assert result["status"] == "success"
-        assert "No previous application available" in result["message"]
+        assert "No previous application is being tracked" in result["message"]
 
     def test_get_opened_history(self):
         self.context_manager_mock.get_open_history.return_value = ["steam", "discord"]

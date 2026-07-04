@@ -90,8 +90,8 @@ def test_get_brightness_status(mock_get):
     
     assert result["status"] == "success"
     assert result["brightness_level"] == 75
-    assert "Brightness Status" in result["message"]
-    assert "Brightness: 75%" in result["message"]
+    assert result["title"] == "Brightness Status"
+    assert result["message"] == "Current screen brightness retrieved."
 
 def test_brightness_manager_clamping():
     with patch('src.tools.system_control.brightness_tools.sbc.set_brightness') as mock_set, \

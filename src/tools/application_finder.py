@@ -135,7 +135,7 @@ class ApplicationFinder:
             return False
             
         path_lower = path.lower()
-        if path_lower.startswith("shell:appsfolder\\"):
+        if path_lower.startswith("shell:appsfolder\\\\"):
             return True
             
         if not os.path.exists(path) or not os.path.isfile(path):

@@ -60,15 +60,27 @@ class IncreaseBrightnessTool(BaseTool):
         try:
             old_bright = BrightnessManager.get_brightness()
             new_bright = BrightnessManager.set_brightness(old_bright + 10)
+            if new_bright == old_bright:
+                return {
+                    "status": "info",
+                    "title": "Brightness Already Set",
+                    "message": f"Brightness is already at {new_bright}%.",
+                    "metadata": {"Brightness Level": f"{new_bright}%"},
+                    "old_brightness": old_bright,
+                    "new_brightness": new_bright,
+                    "brightness_level": new_bright
+                }
             return {
                 "status": "success", 
-                "message": f"Increasing brightness from {old_bright}% to {new_bright}%",
+                "title": "Brightness Increased",
+                "message": f"Screen brightness has been increased from {old_bright}% to {new_bright}%.",
+                "metadata": {"New Brightness": f"{new_bright}%"},
                 "old_brightness": old_bright,
                 "new_brightness": new_bright,
                 "brightness_level": new_bright
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to increase brightness: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to increase brightness: {e}"}
 
 
 class DecreaseBrightnessTool(BaseTool):
@@ -79,15 +91,27 @@ class DecreaseBrightnessTool(BaseTool):
         try:
             old_bright = BrightnessManager.get_brightness()
             new_bright = BrightnessManager.set_brightness(old_bright - 10)
+            if new_bright == old_bright:
+                return {
+                    "status": "info",
+                    "title": "Brightness Already Set",
+                    "message": f"Brightness is already at {new_bright}%.",
+                    "metadata": {"Brightness Level": f"{new_bright}%"},
+                    "old_brightness": old_bright,
+                    "new_brightness": new_bright,
+                    "brightness_level": new_bright
+                }
             return {
                 "status": "success", 
-                "message": f"Decreasing brightness from {old_bright}% to {new_bright}%",
+                "title": "Brightness Decreased",
+                "message": f"Screen brightness has been decreased from {old_bright}% to {new_bright}%.",
+                "metadata": {"New Brightness": f"{new_bright}%"},
                 "old_brightness": old_bright,
                 "new_brightness": new_bright,
                 "brightness_level": new_bright
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to decrease brightness: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to decrease brightness: {e}"}
 
 
 class SetBrightnessTool(BaseTool):
@@ -108,25 +132,37 @@ class SetBrightnessTool(BaseTool):
         level = kwargs.get("level")
         
         if level is None:
-            return {"status": "failed", "message": "Brightness must be a number between 0 and 100."}
+            return {"status": "failed", "title": "Operation Failed", "message": "Brightness must be a number between 0 and 100."}
             
         try:
             level = int(level)
         except ValueError:
-            return {"status": "failed", "message": "Brightness must be a number between 0 and 100."}
+            return {"status": "failed", "title": "Operation Failed", "message": "Brightness must be a number between 0 and 100."}
             
         if not (0 <= level <= 100):
-            return {"status": "failed", "message": "Brightness must be a number between 0 and 100."}
+            return {"status": "failed", "title": "Operation Failed", "message": "Brightness must be a number between 0 and 100."}
             
         try:
+            old_bright = BrightnessManager.get_brightness()
+            if old_bright == level:
+                return {
+                    "status": "info",
+                    "title": "Brightness Already Set",
+                    "message": f"Brightness is already set to {level}%.",
+                    "metadata": {"Brightness Level": f"{level}%"},
+                    "brightness_level": level
+                }
+                
             new_bright = BrightnessManager.set_brightness(level)
             return {
                 "status": "success", 
-                "message": f"Setting brightness to {new_bright}%",
+                "title": "Brightness Set",
+                "message": f"Screen brightness was set to {new_bright}%.",
+                "metadata": {"Brightness Level": f"{new_bright}%"},
                 "brightness_level": new_bright
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to set brightness: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to set brightness: {e}"}
 
 
 class GetBrightnessStatusTool(BaseTool):
@@ -136,12 +172,12 @@ class GetBrightnessStatusTool(BaseTool):
     def execute(self, **kwargs) -> Dict[str, Any]:
         try:
             bright = BrightnessManager.get_brightness()
-            message = f"Brightness Status\n----------------\nBrightness: {bright}%"
-            
             return {
                 "status": "success", 
-                "message": message,
+                "title": "Brightness Status",
+                "message": "Current screen brightness retrieved.",
+                "metadata": {"Brightness Level": f"{bright}%"},
                 "brightness_level": bright
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to get brightness status: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to get brightness status: {e}"}

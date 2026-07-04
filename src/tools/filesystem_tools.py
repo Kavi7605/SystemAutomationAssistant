@@ -147,7 +147,7 @@ def resolve_smart_item(item_name: str, preferred_extension: str = None, target_f
             if folder_res["status"] == "success":
                 search_roots.append(str(folder_res["path"]))
             else:
-                return {"status": "failed", "message": f"Could not resolve target folder: {target_folder}"}
+                return {"status": "failed", "title": "Operation Failed", "message": f"Could not resolve target folder: {target_folder}"}
                 
     # Build global fallback order
     if context_manager:
@@ -242,7 +242,7 @@ class CreateFolderTool(BaseTool):
 
     def execute(self, folder_name: str, target_folder: str = None, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not folder_name:
-            return {"status": "failed", "message": "Missing folder_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing folder_name parameter."}
             
         try:
             target_parent = _resolve_target_parent(target_folder, context_manager)
@@ -282,7 +282,7 @@ class CreateFolderTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to create folder: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to create folder: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to create folder: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -308,7 +308,7 @@ class CreateFileTool(BaseTool):
 
     def execute(self, file_name: str, target_folder: str = None, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not file_name:
-            return {"status": "failed", "message": "Missing file_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing file_name parameter."}
             
         try:
             target_parent = _resolve_target_parent(target_folder, context_manager)
@@ -350,7 +350,7 @@ class CreateFileTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to create file: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to create file: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to create file: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -376,7 +376,7 @@ class RenameItemTool(BaseTool):
 
     def execute(self, source_name: str, target_name: str, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not source_name or not target_name:
-            return {"status": "failed", "message": "Missing source_name or target_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing source_name or target_name parameter."}
             
         try:
             preferred_extension = kwargs.get("preferred_extension")
@@ -391,7 +391,7 @@ class RenameItemTool(BaseTool):
                     "target_key": "source_name"
                 }
             elif resolution["status"] == "not_found":
-                return {"status": "failed", "message": f"{source_name} does not exist."}
+                return {"status": "failed", "title": "Operation Failed", "message": f"{source_name} does not exist."}
             elif resolution["status"] == "failed":
                 return resolution
                 
@@ -427,7 +427,7 @@ class RenameItemTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to rename item: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to rename item: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to rename item: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -453,7 +453,7 @@ class DeleteItemTool(BaseTool):
 
     def execute(self, item_name: str, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not item_name:
-            return {"status": "failed", "message": "Missing item_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing item_name parameter."}
             
         try:
             preferred_extension = kwargs.get("preferred_extension")
@@ -468,7 +468,7 @@ class DeleteItemTool(BaseTool):
                     "target_key": "item_name"
                 }
             elif resolution["status"] == "not_found":
-                return {"status": "failed", "message": f"{item_name} does not exist."}
+                return {"status": "failed", "title": "Operation Failed", "message": f"{item_name} does not exist."}
             elif resolution["status"] == "failed":
                 return resolution
                 
@@ -488,7 +488,7 @@ class DeleteItemTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to delete item: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to delete item: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to delete item: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -510,7 +510,7 @@ class CopyFileTool(BaseTool):
 
     def execute(self, source_name: str, target_name: str, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not source_name or not target_name:
-            return {"status": "failed", "message": "Missing source_name or target_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing source_name or target_name parameter."}
             
         try:
             preferred_extension = kwargs.get("preferred_extension")
@@ -525,7 +525,7 @@ class CopyFileTool(BaseTool):
                     "target_key": "source_name"
                 }
             elif resolution["status"] == "not_found":
-                return {"status": "failed", "message": f"{source_name} does not exist."}
+                return {"status": "failed", "title": "Operation Failed", "message": f"{source_name} does not exist."}
             elif resolution["status"] == "failed":
                 return resolution
                 
@@ -576,7 +576,7 @@ class CopyFileTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to copy file: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to copy file: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to copy file: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -602,7 +602,7 @@ class MoveFileTool(BaseTool):
 
     def execute(self, source_name: str, target_path: str, preferred_extension: str = None, target_folder: str = None, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not source_name or not target_path:
-            return {"status": "failed", "message": "Missing source_name or target_path"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing source_name or target_path parameter."}
             
         try:
             if " to " in target_path and not target_folder:
@@ -620,7 +620,7 @@ class MoveFileTool(BaseTool):
                     "target_key": "source_name"
                 }
             elif resolution["status"] == "not_found":
-                return {"status": "failed", "message": f"{source_name} does not exist."}
+                return {"status": "failed", "title": "Operation Failed", "message": f"{source_name} does not exist."}
             elif resolution["status"] == "failed":
                 return resolution
                 
@@ -631,7 +631,7 @@ class MoveFileTool(BaseTool):
             
             if target_res["status"] == "ambiguous":
                 matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(target_res["matches"]))
-                return {"status": "failed", "message": f"Multiple matching target folders found:\n{matches_str}"}
+                return {"status": "failed", "title": "Operation Failed", "message": f"Multiple matching target folders found:\n{matches_str}"}
                 
             if target_res["status"] == "success":
                 target_path_obj = target_res["path"]
@@ -676,7 +676,7 @@ class MoveFileTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to move file: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to move file: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to move file: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -701,7 +701,7 @@ class OpenItemTool(BaseTool):
 
     def execute(self, item_name: str, preferred_extension: str = None, target_folder: str = None, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not item_name:
-            return {"status": "failed", "message": "Missing item_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing item_name parameter."}
             
         try:
             resolution = resolve_smart_item(item_name, preferred_extension, target_folder)
@@ -714,7 +714,7 @@ class OpenItemTool(BaseTool):
                     "target_key": "item_name"
                 }
             elif resolution["status"] == "not_found":
-                return {"status": "failed", "message": "Folder not found."} # Fallback text
+                return {"status": "failed", "title": "Operation Failed", "message": "Folder not found."} # Fallback text
             elif resolution["status"] == "failed":
                 return resolution
                 
@@ -743,7 +743,7 @@ class OpenItemTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to open workspace item: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to open item: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to open item: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -765,7 +765,7 @@ class FindItemTool(BaseTool):
 
     def execute(self, item_name: str, target_folder: str = None, preferred_extension: str = None, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not item_name:
-            return {"status": "failed", "message": "Missing item_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing item_name parameter."}
             
         try:
             resolution = resolve_smart_item(item_name, target_folder=target_folder, context_manager=context_manager)
@@ -778,7 +778,7 @@ class FindItemTool(BaseTool):
                     "target_key": "item_name"
                 }
             elif resolution["status"] == "not_found":
-                return {"status": "failed", "message": f"Item '{item_name}' not found."}
+                return {"status": "failed", "title": "Operation Failed", "message": f"Item '{item_name}' not found."}
             elif resolution["status"] == "failed":
                 return resolution
                 
@@ -827,7 +827,7 @@ class FindItemTool(BaseTool):
             }
         except Exception as e:
             logger.error(f"Failed to find item: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to find item: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to find item: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -849,12 +849,12 @@ class ConfirmDeleteTool(BaseTool):
 
     def execute(self, context_manager=None, **kwargs) -> Dict[str, Any]:
         if not context_manager:
-            return {"status": "failed", "message": "ContextManager not available."}
+            return {"status": "failed", "title": "Operation Failed", "message": "ContextManager not available."}
             
         fs_state = context_manager.get_filesystem_context()
         pending = fs_state.get("pending_delete")
         if not pending:
-            return {"status": "failed", "message": "No pending deletion."}
+            return {"status": "failed", "title": "Operation Failed", "message": "No pending deletion."}
             
         try:
             target_path = Path(pending)
@@ -880,10 +880,10 @@ class ConfirmDeleteTool(BaseTool):
                 }
             else:
                 context_manager.update_filesystem_state("pending_delete", None)
-                return {"status": "failed", "message": "Item to delete no longer exists."}
+                return {"status": "failed", "title": "Operation Failed", "message": "Item to delete no longer exists."}
         except Exception as e:
             logger.error(f"Failed to confirm delete: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Failed to confirm delete: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to confirm delete: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {

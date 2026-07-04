@@ -69,6 +69,18 @@ class MuteVolumeTool(BaseTool):
     
     def execute(self, **kwargs) -> Dict[str, Any]:
         try:
+            if VolumeManager.get_mute():
+                return {
+                    "status": "info",
+                    "title": "Volume Already Muted",
+                    "message": "System volume is already muted.",
+                    "metadata": {
+                        "Volume Level": f"{VolumeManager.get_volume()}%",
+                        "Status": "Muted"
+                    },
+                    "is_muted": True,
+                    "volume_level": VolumeManager.get_volume()
+                }
             VolumeManager.set_mute(True)
             return {
                 "status": "success", 
@@ -82,7 +94,7 @@ class MuteVolumeTool(BaseTool):
                 "volume_level": VolumeManager.get_volume()
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to mute volume: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to mute volume: {e}"}
 
 
 class UnmuteVolumeTool(BaseTool):
@@ -91,6 +103,18 @@ class UnmuteVolumeTool(BaseTool):
     
     def execute(self, **kwargs) -> Dict[str, Any]:
         try:
+            if not VolumeManager.get_mute():
+                return {
+                    "status": "info",
+                    "title": "Volume Already Unmuted",
+                    "message": "System volume is already unmuted.",
+                    "metadata": {
+                        "Volume Level": f"{VolumeManager.get_volume()}%",
+                        "Status": "Unmuted"
+                    },
+                    "is_muted": False,
+                    "volume_level": VolumeManager.get_volume()
+                }
             VolumeManager.set_mute(False)
             return {
                 "status": "success", 
@@ -104,7 +128,7 @@ class UnmuteVolumeTool(BaseTool):
                 "volume_level": VolumeManager.get_volume()
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to unmute volume: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to unmute volume: {e}"}
 
 
 class IncreaseVolumeTool(BaseTool):
@@ -129,7 +153,7 @@ class IncreaseVolumeTool(BaseTool):
                 "volume_level": new_vol
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to increase volume: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to increase volume: {e}"}
 
 
 class DecreaseVolumeTool(BaseTool):
@@ -154,7 +178,7 @@ class DecreaseVolumeTool(BaseTool):
                 "volume_level": new_vol
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to decrease volume: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to decrease volume: {e}"}
 
 
 class SetVolumeTool(BaseTool):
@@ -175,17 +199,31 @@ class SetVolumeTool(BaseTool):
         level = kwargs.get("level")
         
         if level is None:
-            return {"status": "failed", "message": "Missing 'level' parameter."}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'level' parameter. parameter."}
             
         try:
             level = int(level)
         except ValueError:
-            return {"status": "failed", "message": "Volume must be a number between 0 and 100."}
+            return {"status": "failed", "title": "Operation Failed", "message": "Volume must be a number between 0 and 100."}
             
         if not (0 <= level <= 100):
-            return {"status": "failed", "message": "Volume must be a number between 0 and 100."}
+            return {"status": "failed", "title": "Operation Failed", "message": "Volume must be a number between 0 and 100."}
             
         try:
+            old_vol = VolumeManager.get_volume()
+            if old_vol == level:
+                return {
+                    "status": "info",
+                    "title": "Volume Already Set",
+                    "message": f"Volume is already set to {level}%.",
+                    "metadata": {
+                        "Volume Level": f"{level}%",
+                        "Muted": str(VolumeManager.get_mute())
+                    },
+                    "volume_level": level,
+                    "is_muted": VolumeManager.get_mute()
+                }
+                
             new_vol = VolumeManager.set_volume(level)
             return {
                 "status": "success", 
@@ -199,7 +237,7 @@ class SetVolumeTool(BaseTool):
                 "is_muted": VolumeManager.get_mute()
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to set volume: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to set volume: {e}"}
 
 
 class GetVolumeStatusTool(BaseTool):
@@ -223,4 +261,4 @@ class GetVolumeStatusTool(BaseTool):
                 "is_muted": muted
             }
         except Exception as e:
-            return {"status": "failed", "message": f"Failed to get volume status: {e}"}
+            return {"status": "error", "title": "Execution Error", "message": f"Failed to get volume status: {e}"}

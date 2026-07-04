@@ -13,6 +13,12 @@ def fade_in(widget: QWidget, duration: int = 220):
     anim.setEndValue(1.0)
     anim.setEasingCurve(QEasingCurve.OutCubic)
     anim.start(QPropertyAnimation.DeleteWhenStopped)
+    
+    # Critical fix for QScrollArea: QGraphicsOpacityEffect causes rendering overlap
+    # and disappearing widgets when the layout is resized or invalidated if left attached.
+    # We remove the effect completely once the animation finishes.
+    anim.finished.connect(lambda: widget.setGraphicsEffect(None))
+    
     widget._fade_anim = anim  # keep reference alive
     return anim
 

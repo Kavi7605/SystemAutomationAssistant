@@ -51,6 +51,15 @@ class Executor:
             return {"status": "failed", "message": msg}
 
         try:
+            if action == "error":
+                return {
+                    "status": "failed",
+                    "error_type": parameters.get("error_type", "INTERNAL"),
+                    "title": parameters.get("title", "Error"),
+                    "message": parameters.get("message", "An unexpected error occurred."),
+                    "suggestions": parameters.get("suggestions", [])
+                }
+                
             if action == "clarify":
                 # The Planner has requested clarification from the user
                 message = parameters.get("message", "Could you please clarify your request?")
@@ -97,16 +106,52 @@ class Executor:
                 
             if action == "debug_context":
                 if self.context_manager:
-                    import json
                     snapshot = self.context_manager.get_context_snapshot()
-                    def _serialize(obj):
-                        if hasattr(obj, 'isoformat'): return obj.isoformat()
-                        return str(obj)
-                    formatted = json.dumps(snapshot, indent=2, default=_serialize)
-                    logger.debug(f"Context Snapshot:\n{formatted}")
-                    return {"status": "success", "message": f"Context Snapshot:\n{formatted}"}
+                    fs_state = snapshot.get("filesystem_state", {})
+                    sys_state = snapshot.get("system_state", {})
+                    
+                    app_active = snapshot.get("current_active_app") or "None"
+                    app_opened = snapshot.get("last_opened_app") or "None"
+                    app_focused = snapshot.get("last_focused_app") or "None"
+                    
+                    file_created = fs_state.get("last_created_file") or "None"
+                    folder_created = fs_state.get("last_created_folder") or "None"
+                    file_found = fs_state.get("last_found_file") or "None"
+                    
+                    vol = sys_state.get("volume_level")
+                    vol_str = f"{vol}%" if vol is not None else "Unknown"
+                    bright = sys_state.get("brightness_level")
+                    bright_str = f"{bright}%" if bright is not None else "Unknown"
+                    wifi = sys_state.get("wifi_connected")
+                    wifi_str = "Connected" if wifi else ("Disconnected" if wifi is False else "Unknown")
+                    power = sys_state.get("power_plan") or "Unknown"
+                    res = sys_state.get("primary_resolution") or "Unknown"
+                    
+                    msg = (
+                        "**Application**\n"
+                        f"• Active Window: {app_active}\n"
+                        f"• Last Opened: {app_opened}\n"
+                        f"• Last Focused: {app_focused}\n\n"
+                        "**Files**\n"
+                        f"• Last Created File: {file_created}\n"
+                        f"• Last Created Folder: {folder_created}\n"
+                        f"• Last Found File: {file_found}\n\n"
+                        "**System**\n"
+                        f"• Volume: {vol_str}\n"
+                        f"• Brightness: {bright_str}\n"
+                        f"• Wi-Fi: {wifi_str}\n"
+                        f"• Power Plan: {power}\n"
+                        f"• Resolution: {res}"
+                    )
+                    
+                    return {
+                        "status": "success", 
+                        "title": "Current Session", 
+                        "message": msg,
+                        "suggestions": ["Show system state", "Clear context"]
+                    }
                 else:
-                    return {"status": "failed", "message": "ContextManager not initialized."}
+                    return {"status": "failed", "title": "Context Unavailable", "message": "ContextManager not initialized."}
                     
             if action == "debug_state":
                 if self.state_manager:
@@ -118,9 +163,9 @@ class Executor:
                         if hasattr(obj, 'isoformat'): return obj.isoformat()
                         return str(obj)
                     formatted = json.dumps(snapshot, indent=2, default=_serialize)
-                    return {"status": "success", "message": f"State Snapshot:\n{formatted}"}
+                    return {"status": "success", "title": "System State Snapshot", "message": f"State Snapshot:\n{formatted}"}
                 else:
-                    return {"status": "failed", "message": "ApplicationStateManager not initialized."}
+                    return {"status": "failed", "title": "State Unavailable", "message": "ApplicationStateManager not initialized."}
                     
             if action == "get_current_app":
                 if self.state_manager:
@@ -128,19 +173,17 @@ class Executor:
                     self._sync_active_apps()
                     current = self.state_manager.get_current_active_app()
                     if current:
-                        return {"status": "success", "message": f"Current app: {current}"}
-                    return {"status": "success", "message": "No active application tracked."}
-                return {"status": "failed", "message": "ApplicationStateManager not initialized."}
+                        return {"status": "success", "title": "Current Application", "message": f"The currently active application is {current}."}
+                    return {"status": "success", "title": "Current Application", "message": "No active application is currently being tracked."}
+                return {"status": "failed", "title": "System Error", "message": "ApplicationStateManager not initialized."}
                 
             if action == "get_previous_app":
                 if self.state_manager:
-                    self.state_manager.refresh_active_window()
-                    self._sync_active_apps()
-                    prev = self.state_manager.get_last_active_app()
-                    if prev:
-                        return {"status": "success", "message": f"Previous app: {prev}"}
-                    return {"status": "success", "message": "No previous application available."}
-                return {"status": "failed", "message": "ApplicationStateManager not initialized."}
+                    app = self.state_manager.get_last_active_app()
+                    if app:
+                        return {"status": "success", "title": "Previous Application", "message": f"The previously active application was {app}."}
+                    return {"status": "success", "title": "Previous Application", "message": "No previous application is being tracked."}
+                return {"status": "failed", "title": "System Error", "message": "ApplicationStateManager not initialized."}
                 
             if action == "get_opened_history":
                 if self.context_manager:
@@ -182,7 +225,7 @@ class Executor:
                         if self.context_manager:
                             self.context_manager.mark_action_success(action)
                             self.context_manager.mark_app_opened(app_name)
-                        return {"status": "success", "message": f"{app_name.title()} is already running."}
+                        return {"status": "info", "title": "Application Already Running", "message": f"{app_name.title()} is already running."}
                         
             elif action == "close_application":
                 app_name = parameters.get("application_name")
@@ -193,7 +236,7 @@ class Executor:
                         if self.context_manager:
                             self.context_manager.mark_action_success(action)
                             self.context_manager.mark_app_closed(app_name)
-                        return {"status": "success", "message": f"{app_name.title()} is already closed."}
+                        return {"status": "info", "title": "Application Not Running", "message": f"{app_name.title()} is already closed."}
                         
             elif action == "focus_window":
                 window_name = parameters.get("window_name")
@@ -205,7 +248,7 @@ class Executor:
                         if self.context_manager:
                             self.context_manager.mark_action_success(action)
                             self.context_manager.mark_app_focused(window_name)
-                        return {"status": "success", "message": f"{window_name.title()} is already focused."}
+                        return {"status": "info", "title": "Window Already Focused", "message": f"{window_name.title()} is already the active window."}
                 
             if action == "confirm_power_action":
                 if self.context_manager:
@@ -235,9 +278,9 @@ class Executor:
                     self.context_manager.save()
                     
                     matches_str = "\n".join(f"{i+1}. {m}" for i, m in enumerate(result.get("matches", [])))
-                    result["message"] = f"Multiple matching items found:\n\n{matches_str}\n\nType the number to select an item.\nType 'cancel' to abort."
-                    # Change status to failure so it prints as a user prompt rather than "Success"
-                    result["status"] = "failed"
+                    result["message"] = f"I found {len(result.get('matches', []))} matching items."
+                    result["status"] = "interactive"
+                    result["title"] = "Multiple Matches Found"
                     return result
             
             # Fallback logic for open_application
@@ -354,6 +397,9 @@ class Executor:
                 elif action == "cancel_power_action":
                     if self.context_manager and result.get("clear_pending"):
                         self.context_manager.update_system_state("pending_power_action", None)
+                    result["status"] = "cancelled"
+                    result["title"] = "Operation Cancelled"
+                    result["message"] = "The power action was cancelled.\nNothing has been changed."
                 
                 elif action == "get_current_window":
                     if self.state_manager:
@@ -363,10 +409,14 @@ class Executor:
                     if self.context_manager and title:
                         self.context_manager.update_active_window(title)
             
-            if result.get("status") not in ["success", "completed", "partial_success"]:
+            if result.get("status") not in ["success", "completed", "partial_success", "interactive", "info", "cancelled"]:
                 if self.context_manager:
                     self.context_manager.mark_action_failed(action)
             
+            # Inject action name to result for formatting if not explicitly passed
+            if "action" not in result:
+                result["action"] = action
+                
             return result
         except Exception as e:
             if self.context_manager:
@@ -537,7 +587,7 @@ class Executor:
             
             result = self._execute_single(cmd)
             
-            is_success = result.get("status") in ["success", "completed", "partial_success"]
+            is_success = result.get("status") in ["success", "completed", "partial_success", "info", "interactive"]
             
             if is_success:
                 successful += 1

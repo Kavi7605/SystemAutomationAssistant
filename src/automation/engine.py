@@ -879,7 +879,7 @@ class AutomationEngine:
             if user_input_clean.lower() in ["cancel", "never mind", "stop"]:
                 self.context_manager.state["pending_disambiguation"] = None
                 self.context_manager.save()
-                return {"execution_result": {"status": "cancelled", "message": "Selection cancelled."}}
+                return {"execution_result": {"status": "cancelled", "title": "Operation Cancelled", "message": "The selection was cancelled.\nNothing has been changed."}}
                 
             if user_input_clean.isdigit():
                 parsed_json = {

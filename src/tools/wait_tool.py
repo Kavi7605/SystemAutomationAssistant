@@ -19,52 +19,52 @@ class WaitTool(BaseTool):
         try:
             if wait_type == "seconds":
                 if seconds is None:
-                    return {"status": "failed", "message": "Missing 'seconds' parameter for wait_seconds"}
+                    return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'seconds' parameter for wait_seconds"}
                 return self.wait_seconds(seconds)
             elif wait_type == "window":
                 if not window_name:
-                    return {"status": "failed", "message": "Missing 'window_name' parameter for wait_until_window"}
+                    return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'window_name' parameter for wait_until_window"}
                 return self.wait_until_window(window_name, timeout)
             elif wait_type == "window_closed":
                 if not window_name:
-                    return {"status": "failed", "message": "Missing 'window_name' parameter for wait_until_window_closed"}
+                    return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'window_name' parameter for wait_until_window_closed"}
                 return self.wait_until_window_closed(window_name, timeout)
             elif wait_type == "app":
                 if not app_name:
-                    return {"status": "failed", "message": "Missing 'app_name' parameter for wait_until_app_open"}
+                    return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'app_name' parameter for wait_until_app_open"}
                 return self.wait_until_app_open(app_name, timeout)
             elif wait_type == "app_closed":
                 if not app_name:
-                    return {"status": "failed", "message": "Missing 'app_name' parameter for wait_until_app_closed"}
+                    return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'app_name' parameter for wait_until_app_closed"}
                 return self.wait_until_app_closed(app_name, timeout)
             else:
-                return {"status": "failed", "message": f"Unknown wait_type: {wait_type}"}
+                return {"status": "failed", "title": "Unknown Action", "message": f"Unknown wait_type: {wait_type}"}
         except Exception as e:
             logger.error(f"WaitTool error: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Wait Operation Failed", "message": str(e)}
 
     def wait_seconds(self, seconds: int) -> Dict[str, Any]:
         seconds = int(seconds)
         time.sleep(seconds)
-        return {"status": "success", "message": f"Waited {seconds} seconds"}
+        return {"status": "success", "title": "Wait Complete", "message": f"Successfully waited for {seconds} seconds."}
 
     def wait_until_window(self, window_name: str, timeout: int = 30) -> Dict[str, Any]:
         start_time = time.time()
         while time.time() - start_time < timeout:
             matches = WindowManager.find_windows(window_name)
             if matches:
-                return {"status": "success", "message": f"Window '{window_name}' appeared"}
+                return {"status": "success", "title": "Window Appeared", "message": f"The window '{window_name}' has appeared."}
             time.sleep(0.5)
-        return {"status": "failed", "message": f"Timeout waiting for window '{window_name}'"}
+        return {"status": "failed", "title": "Wait Timeout", "message": f"Timed out waiting for the window '{window_name}' to appear."}
 
     def wait_until_window_closed(self, window_name: str, timeout: int = 30) -> Dict[str, Any]:
         start_time = time.time()
         while time.time() - start_time < timeout:
             matches = WindowManager.find_windows(window_name)
             if not matches:
-                return {"status": "success", "message": f"Window '{window_name}' closed"}
+                return {"status": "success", "title": "Window Closed", "message": f"The window '{window_name}' has been closed."}
             time.sleep(0.5)
-        return {"status": "failed", "message": f"Timeout waiting for window '{window_name}' to close"}
+        return {"status": "failed", "title": "Wait Timeout", "message": f"Timed out waiting for the window '{window_name}' to close."}
 
     def wait_until_app_open(self, app_name: str, timeout: int = 30) -> Dict[str, Any]:
         start_time = time.time()
@@ -86,11 +86,11 @@ class WaitTool(BaseTool):
                 try:
                     proc_name = proc.info['name']
                     if proc_name and target_match in proc_name.lower():
-                        return {"status": "success", "message": f"Application '{app_name}' opened"}
+                        return {"status": "success", "title": "Application Opened", "message": f"The application '{app_name}' has opened successfully."}
                 except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                     pass
             time.sleep(0.5)
-        return {"status": "failed", "message": f"Timeout waiting for application '{app_name}'"}
+        return {"status": "failed", "title": "Wait Timeout", "message": f"Timed out waiting for the application '{app_name}' to open."}
 
     def wait_until_app_closed(self, app_name: str, timeout: int = 30) -> Dict[str, Any]:
         start_time = time.time()
@@ -119,9 +119,9 @@ class WaitTool(BaseTool):
                     pass
             
             if not found:
-                return {"status": "success", "message": f"Application '{app_name}' closed"}
+                return {"status": "success", "title": "Application Closed", "message": f"The application '{app_name}' has been closed successfully."}
             time.sleep(0.5)
-        return {"status": "failed", "message": f"Timeout waiting for application '{app_name}' to close"}
+        return {"status": "failed", "title": "Wait Timeout", "message": f"Timed out waiting for the application '{app_name}' to close."}
 
     def get_schema(self) -> Dict[str, Any]:
         return {

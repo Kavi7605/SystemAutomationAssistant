@@ -559,9 +559,52 @@ Output:
         """
         prompt = f"User input: {user_input}\nConvert this into the specified JSON format."
         
-        try:
-            result = self.client.generate(prompt=prompt, system=self.system_prompt)
-            return result
-        except Exception as e:
-            logger.error(f"Failed to parse command: {e}", exc_info=True)
-            return None
+        result = self.client.generate(prompt=prompt, system=self.system_prompt)
+        
+        if isinstance(result, dict) and "error" in result:
+            logger.warning(f"CommandParser received error from LLM: {result['error']}")
+            
+            error_type = result.get("error", "INTERNAL")
+            message = result.get("message", "An unexpected error occurred.")
+            
+            if error_type == "OLLAMA_OFFLINE":
+                return {
+                    "action": "error",
+                    "parameters": {
+                        "error_type": "OLLAMA_OFFLINE",
+                        "title": "Local AI Unavailable",
+                        "message": "Unable to connect to the local AI service.",
+                        "suggestions": [
+                            "Make sure Ollama is running.",
+                            "Verify the selected model is installed.",
+                            "Try again in a few moments."
+                        ]
+                    }
+                }
+            elif error_type == "JSON_DECODE":
+                return {
+                    "action": "error",
+                    "parameters": {
+                        "error_type": "JSON_DECODE",
+                        "title": "Unable to Understand",
+                        "message": "The assistant was unable to parse the response.",
+                        "suggestions": [
+                            "Please rephrase the command.",
+                            "Try splitting complex tasks into simpler ones."
+                        ]
+                    }
+                }
+            else:
+                return {
+                    "action": "error",
+                    "parameters": {
+                        "error_type": "INTERNAL",
+                        "title": "Internal Error",
+                        "message": "An internal error occurred during execution.",
+                        "suggestions": [
+                            "Please check logs/system.log for details."
+                        ]
+                    }
+                }
+                
+        return result

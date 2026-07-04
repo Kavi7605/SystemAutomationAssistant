@@ -176,7 +176,7 @@ class MinimizeWindowTool(BaseTool):
         if target in ["current window", "active window", ""]:
             win_info = WindowManager.get_current_window()
             if win_info["hwnd"] == 0:
-                return {"status": "failed", "message": "No active window found."}
+                return {"status": "failed", "title": "Operation Failed", "message": "No active window found."}
             
             if win_info["state"] == "Minimized":
                 return {"status": "success", "message": f"{win_info['title']} is already minimized.", "window": win_info}
@@ -188,7 +188,7 @@ class MinimizeWindowTool(BaseTool):
             
         matches = WindowManager.find_windows(target)
         if not matches:
-            return {"status": "failed", "message": f"Window not found: {target}"}
+            return {"status": "failed", "title": "Operation Failed", "message": f"Window not found: {target}"}
             
         if len(matches) > 1:
             titles = []
@@ -231,7 +231,7 @@ class MaximizeWindowTool(BaseTool):
         if target in ["current window", "active window", ""]:
             win_info = WindowManager.get_current_window()
             if win_info["hwnd"] == 0:
-                return {"status": "failed", "message": "No active window found."}
+                return {"status": "failed", "title": "Operation Failed", "message": "No active window found."}
             
             if win_info["state"] == "Maximized":
                 return {"status": "success", "message": f"{win_info['title']} is already maximized.", "window": win_info}
@@ -243,7 +243,7 @@ class MaximizeWindowTool(BaseTool):
             
         matches = WindowManager.find_windows(target)
         if not matches:
-            return {"status": "failed", "message": f"Window not found: {target}"}
+            return {"status": "failed", "title": "Operation Failed", "message": f"Window not found: {target}"}
             
         if len(matches) > 1:
             titles = []
@@ -286,7 +286,7 @@ class RestoreWindowTool(BaseTool):
         if target in ["current window", "active window", ""]:
             win_info = WindowManager.get_current_window()
             if win_info["hwnd"] == 0:
-                return {"status": "failed", "message": "No active window found."}
+                return {"status": "failed", "title": "Operation Failed", "message": "No active window found."}
                 
             WindowManager.set_window_state(win_info["hwnd"], "restore")
             logger.info(f"Restoring window: {win_info['title']}")
@@ -295,7 +295,7 @@ class RestoreWindowTool(BaseTool):
             
         matches = WindowManager.find_windows(target)
         if not matches:
-            return {"status": "failed", "message": f"Window not found: {target}"}
+            return {"status": "failed", "title": "Operation Failed", "message": f"Window not found: {target}"}
             
         if len(matches) > 1:
             titles = []
@@ -333,11 +333,11 @@ class FocusWindowTool(BaseTool):
     def execute(self, **kwargs) -> Dict[str, Any]:
         target = kwargs.get("window_name", "")
         if not target:
-            return {"status": "failed", "message": "Missing 'window_name' parameter."}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'window_name' parameter. parameter."}
             
         matches = WindowManager.find_windows(target)
         if not matches:
-            return {"status": "failed", "message": f"Window not found: {target}"}
+            return {"status": "failed", "title": "Operation Failed", "message": f"Window not found: {target}"}
             
         if len(matches) > 1:
             titles = []
@@ -368,7 +368,7 @@ class GetCurrentWindowTool(BaseTool):
     def execute(self, **kwargs) -> Dict[str, Any]:
         win_info = WindowManager.get_current_window()
         if win_info["hwnd"] == 0:
-            return {"status": "failed", "message": "No active window found."}
+            return {"status": "failed", "title": "Operation Failed", "message": "No active window found."}
             
         logger.info("Retrieved current active window")
         
@@ -416,7 +416,7 @@ class IsWindowOpenTool(BaseTool):
     def execute(self, **kwargs) -> Dict[str, Any]:
         target = kwargs.get("window_name", "")
         if not target:
-            return {"status": "failed", "message": "Missing 'window_name' parameter."}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing 'window_name' parameter. parameter."}
             
         matches = WindowManager.find_windows(target)
         if not matches:

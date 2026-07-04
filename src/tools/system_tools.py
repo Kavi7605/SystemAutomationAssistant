@@ -24,7 +24,7 @@ class OpenApplicationTool(BaseTool):
 
     def execute(self, application_name: str, **kwargs) -> Dict[str, Any]:
         if not application_name:
-            return {"status": "failed", "message": "Missing application_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "The application name is missing."}
             
         logger.info("\n--- Application Launch Request ---")
         logger.info(f"Requested app: {application_name}")
@@ -71,7 +71,7 @@ class OpenApplicationTool(BaseTool):
                     return {
                         "status": "success", 
                         "title": "Application Launched",
-                        "message": f"{original_name.capitalize()} opened successfully.",
+                        "message": f"{original_name.capitalize()} has been opened successfully.",
                         "metadata": {
                             "Application": original_name.capitalize(),
                             "Target": target_path
@@ -110,7 +110,7 @@ class OpenApplicationTool(BaseTool):
                     return {
                         "status": "success", 
                         "title": "Application Launched",
-                        "message": f"{original_name.capitalize()} opened successfully.",
+                        "message": f"{original_name.capitalize()} has been opened successfully.",
                         "metadata": {
                             "Application": original_name.capitalize(),
                             "Target": target_path
@@ -141,7 +141,7 @@ class OpenApplicationTool(BaseTool):
                     
         except Exception as e:
             logger.error(f"Exception while opening application {original_name}: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            return {"status": "error", "title": "Application Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -167,7 +167,7 @@ class CloseApplicationTool(BaseTool):
 
     def execute(self, application_name: str, **kwargs) -> Dict[str, Any]:
         if not application_name:
-            return {"status": "failed", "message": "Missing application_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "The application name is missing."}
             
         logger.info(f"Attempting to close application: {application_name}")
         search_name = application_name.lower().replace(".exe", "")
@@ -211,7 +211,7 @@ class CloseApplicationTool(BaseTool):
                 return {
                     "status": "success", 
                     "title": "Application Closed",
-                    "message": f"{application_name.capitalize()} has been closed.",
+                    "message": f"{application_name.capitalize()} has been closed successfully.",
                     "metadata": {
                         "Application": application_name.capitalize(),
                         "Processes Terminated": str(closed_count)
@@ -221,15 +221,15 @@ class CloseApplicationTool(BaseTool):
                 return {
                     "status": "info", 
                     "title": "Application Not Running",
-                    "message": f"Could not find any running process matching '{application_name}'.",
+                    "message": f"{application_name.capitalize()} is not currently running.",
                     "metadata": {
                         "Application": application_name.capitalize()
                     }
                 }
                 
         except Exception as e:
-            logger.error(f"Error closing {application_name}: {e}", exc_info=True)
-            return {"status": "failed", "message": str(e)}
+            logger.error(f"Exception while closing application {application_name}: {e}", exc_info=True)
+            return {"status": "error", "title": "Close Application Error", "message": str(e)}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -266,13 +266,14 @@ class TakeScreenshotTool(BaseTool):
             logger.info("Screenshot saved")
             return {
                 "status": "success", 
+                "title": "Screenshot Captured",
                 "message": "Screenshot captured successfully", 
                 "file_path": filepath
             }
         except Exception as e:
             tb_str = traceback.format_exc()
             logger.error(f"Screenshot failed: {e}\nTraceback:\n{tb_str}", exc_info=True)
-            return {"status": "failed", "message": "Screenshot failed"}
+            return {"status": "failed", "title": "Screenshot Failed", "message": "An error occurred while attempting to take a screenshot."}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -291,7 +292,7 @@ class SearchWebTool(BaseTool):
 
     def execute(self, query: str, **kwargs) -> Dict[str, Any]:
         if not query:
-            return {"status": "failed", "message": "Missing query"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "The search query is missing."}
             
         logger.info(f"Searching web for: {query}")
         
@@ -299,16 +300,16 @@ class SearchWebTool(BaseTool):
             socket.create_connection(("8.8.8.8", 53), timeout=3)
         except OSError:
             logger.error("Internet unavailable for web search", exc_info=True)
-            return {"status": "failed", "message": "Internet unavailable"}
+            return {"status": "failed", "title": "No Internet", "message": "Internet connection is currently unavailable."}
             
         try:
             search_url = f"https://www.google.com/search?q={query}"
             webbrowser.open_new_tab(search_url)
             logger.info(f"Web search initiated for: {query}")
-            return {"status": "success", "message": f"Searched web for '{query}'"}
+            return {"status": "success", "title": "Web Search Executed", "message": f"Successfully searched the web for '{query}'."}
         except Exception as e:
-            logger.error(f"Web search failed: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Web search failed: {str(e)}"}
+            logger.error(f"Search tool error: {e}", exc_info=True)
+            return {"status": "error", "title": "Web Search Failed", "message": f"Web search encountered an error: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -333,7 +334,7 @@ class OpenUrlTool(BaseTool):
 
     def execute(self, url: str, **kwargs) -> Dict[str, Any]:
         if not url:
-            return {"status": "failed", "message": "Missing url"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing url parameter."}
             
         logger.info(f"Opening URL: {url}")
         
@@ -344,12 +345,12 @@ class OpenUrlTool(BaseTool):
                 
             success = webbrowser.open(url)
             if success:
-                return {"status": "success", "message": f"Opened URL: {url}"}
+                return {"status": "success", "title": "URL Opened", "message": f"Successfully opened the URL: {url}"}
             else:
-                return {"status": "failed", "message": f"Failed to open URL: {url}"}
+                return {"status": "failed", "title": "Failed to Open URL", "message": f"Unable to open the URL: {url}"}
         except Exception as e:
             logger.error(f"Failed to open URL {url}: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Error opening URL: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"An error occurred while opening URL: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -374,7 +375,7 @@ class OpenFolderTool(BaseTool):
 
     def execute(self, folder_name: str, base_path: str = None, **kwargs) -> Dict[str, Any]:
         if not folder_name:
-            return {"status": "failed", "message": "Missing folder_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing folder_name parameter."}
             
         logger.info(f"Requested to open folder: {folder_name} in base_path: {base_path}")
         
@@ -394,9 +395,9 @@ class OpenFolderTool(BaseTool):
                 if os.path.exists(full_path) and os.path.isdir(full_path):
                     logger.info(f"Resolved path: {full_path}")
                     os.startfile(full_path)
-                    return {"status": "success", "message": f"Opened folder: {full_path}", "path": full_path}
+                    return {"status": "success", "title": "Folder Opened", "message": f"The folder '{folder_name}' has been opened successfully.", "metadata": {"Path": full_path}}
                 else:
-                    return {"status": "failed", "message": f"Resolved path is not a valid directory: {full_path}"}
+                    return {"status": "failed", "title": "Invalid Path", "message": f"The resolved path is not a valid directory: {full_path}"}
             else:
                 # Fallback search strategy if no base_path is provided
                 from src.tools.system_tools import get_real_desktop_path
@@ -422,15 +423,15 @@ class OpenFolderTool(BaseTool):
                     if res["status"] == "success" and res["resolved_path"].is_directory:
                         found_path = res["resolved_path"].path
                     else:
-                        return {"status": "failed", "message": f"Folder does not exist: {folder_name} in default locations."}
+                        return {"status": "failed", "title": "Folder Not Found", "message": f"The requested folder does not exist: {folder_name} in default locations."}
                         
                 logger.info(f"Resolved path: {found_path}")
                 os.startfile(found_path)
-                return {"status": "success", "message": f"Opened folder: {found_path}", "path": found_path}
+                return {"status": "success", "title": "Folder Opened", "message": f"The folder '{folder_name}' has been opened successfully.", "metadata": {"Path": found_path}}
                 
         except Exception as e:
             logger.error(f"Failed to open folder: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Error opening folder: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"An error occurred while opening folder: {str(e)}"}
 
     def get_schema(self) -> Dict[str, Any]:
         return {
@@ -472,7 +473,7 @@ class OpenFileTool(BaseTool):
 
     def execute(self, file_name: str, path: str = None, **kwargs) -> Dict[str, Any]:
         if not file_name:
-            return {"status": "failed", "message": "Missing file_name"}
+            return {"status": "failed", "title": "Missing Parameters", "message": "Missing file_name parameter."}
             
         logger.info(f"Requested to open file: {file_name} in {path}")
         
@@ -503,7 +504,7 @@ class OpenFileTool(BaseTool):
                         break
                         
                 if not found_path:
-                    return {"status": "failed", "message": f"File does not exist: {file_name} in default locations."}
+                    return {"status": "failed", "title": "File Not Found", "message": f"The requested file does not exist: {file_name} in default locations."}
                     
                 full_path = found_path
             else:
@@ -517,15 +518,15 @@ class OpenFileTool(BaseTool):
                 full_path = os.path.join(resolved_base_path, file_name)
                 
                 if not os.path.exists(full_path):
-                    return {"status": "failed", "message": f"File does not exist: {full_path}"}
+                    return {"status": "failed", "title": "File Not Found", "message": f"The requested file does not exist: {full_path}"}
                     
                 if not os.path.isfile(full_path):
-                    return {"status": "failed", "message": f"Path is not a file: {full_path}"}
+                    return {"status": "failed", "title": "Invalid Path", "message": f"The requested path is not a file: {full_path}"}
                     
             logger.info(f"Resolved file path: {full_path}")
             os.startfile(full_path)
-            return {"status": "success", "message": f"Opened file: {full_path}", "path": full_path}
+            return {"status": "success", "title": "File Opened", "message": f"The file '{file_name}' has been opened successfully.", "metadata": {"Path": full_path}}
                 
         except Exception as e:
             logger.error(f"Failed to open file: {e}", exc_info=True)
-            return {"status": "failed", "message": f"Error opening file: {str(e)}"}
+            return {"status": "error", "title": "Execution Error", "message": f"An error occurred while opening file: {str(e)}"}

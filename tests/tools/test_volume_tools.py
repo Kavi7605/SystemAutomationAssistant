@@ -11,9 +11,10 @@ from src.tools.system_control.volume_tools import (
     GetVolumeStatusTool
 )
 
+@patch('src.tools.system_control.volume_tools.VolumeManager.get_mute', return_value=False)
 @patch('src.tools.system_control.volume_tools.VolumeManager.set_mute')
 @patch('src.tools.system_control.volume_tools.VolumeManager.get_volume', return_value=50)
-def test_mute_volume_tool(mock_get_vol, mock_set_mute):
+def test_mute_volume_tool(mock_get_vol, mock_set_mute, mock_get_mute):
     tool = MuteVolumeTool()
     result = tool.execute()
     
@@ -22,9 +23,10 @@ def test_mute_volume_tool(mock_get_vol, mock_set_mute):
     assert result["is_muted"] is True
     assert result["volume_level"] == 50
 
+@patch('src.tools.system_control.volume_tools.VolumeManager.get_mute', return_value=True)
 @patch('src.tools.system_control.volume_tools.VolumeManager.set_mute')
 @patch('src.tools.system_control.volume_tools.VolumeManager.get_volume', return_value=50)
-def test_unmute_volume_tool(mock_get_vol, mock_set_mute):
+def test_unmute_volume_tool(mock_get_vol, mock_set_mute, mock_get_mute):
     tool = UnmuteVolumeTool()
     result = tool.execute()
     

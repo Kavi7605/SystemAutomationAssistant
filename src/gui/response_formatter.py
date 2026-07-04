@@ -10,103 +10,122 @@ class ResponseFormatter:
     
     @staticmethod
     def format_result(action: str, result: Dict[str, Any]) -> Tuple[str, str]:
-        status = result.get("status", "unknown")
+        status = result.get("status", "unknown").lower()
         raw_msg = result.get("message", "Executed.")
-        title = result.get("title", action.replace('_', ' ').title())
+        title = result.get("title")
+        
+        # Priority 1: Never display Unknown
+        if not title or title.lower() == "unknown":
+            title = action.replace('_', ' ').title()
+            if title.lower() == "unknown":
+                title = "Operation Result"
+            
         metadata = result.get("metadata", {})
         suggestions = result.get("suggestions", [])
         
-        # 1. Handle Failures
-        if status not in ["success", "completed", "partial_success"]:
-            summary = f"Failed: {title}"
-            rich_error = f"### ❌ {title} Failed\n\n**Reason:**\n{raw_msg}\n"
-            if suggestions:
-                rich_error += "\n**Suggestions:**\n"
-                for sug in suggestions:
-                    rich_error += f"- {sug}\n"
-            return rich_error.strip(), summary
+        # Determine Icon and Summary based on Status
+        if status in ["success", "completed", "partial_success"]:
+            icon = "✓"
+        elif status == "info":
+            icon = "ℹ"
+        else: # failed or error
+            icon = "❌"
             
-        # 2. Extract standard properties from result if available
-        item_name = result.get("item_name") or result.get("path")
-        source = result.get("source_name")
-        target = result.get("target_name") or result.get("target_path")
-        
-        # 3. Action-Specific Formatting
-        rich_text = f"### ✓ {title}\n\n"
-        
-        if "volume" in action or "mute" in action:
-            rich_text += f"**Status:** {raw_msg}\n"
-            if "volume_level" in result:
-                rich_text += f"\n**Level:** {result['volume_level']}%\n"
-            summary = raw_msg
+        # Extract a concise subtitle
+        subtitle = "Just now"
+        if metadata:
+            # use the first metadata value if available
+            first_key = list(metadata.keys())[0]
+            val = metadata[first_key]
+            # keep it short
+            subtitle = str(val)[:50] + ("..." if len(str(val)) > 50 else "")
             
-        elif "brightness" in action:
-            rich_text += f"**Status:** {raw_msg}\n"
-            if "brightness_level" in result:
-                rich_text += f"\n**Level:** {result['brightness_level']}%\n"
-            summary = raw_msg
+        summary = {
+            "status": status,
+            "title": title,
+            "subtitle": subtitle
+        }
             
-        elif action in ["open_application", "close_application"]:
-            app_name = item_name or "Application"
-            state = "Running" if "open" in action else "Closed"
-            rich_text = f"### ✓ {app_name.title()} {state}\n\n**Application:** {app_name.title()}\n**Status:** {state}\n\n{raw_msg}"
-            summary = raw_msg
-            
-        elif action in ["create_folder", "create_file", "delete_item"]:
-            item_type = "Folder" if "folder" in action else "File"
-            if action == "delete_item": item_type = "Item"
-            name = os.path.basename(item_name) if item_name else "Unknown"
-            
-            rich_text = f"### ✓ {item_type} {'Created' if 'create' in action else 'Deleted'}\n\n"
-            rich_text += f"{raw_msg}\n\n"
-            if item_name:
-                rich_text += f"**Target:**\n`{item_name}`\n"
-            summary = raw_msg
-            
-        elif action in ["move_file", "copy_file"]:
-            op = "Moved" if "move" in action else "Copied"
-            rich_text = f"### ✓ File {op}\n\n"
-            if source:
-                rich_text += f"**From:**\n`{source}`\n\n"
-            if target:
-                rich_text += f"**To:**\n`{target}`\n\n"
-            rich_text += f"**Status:** {raw_msg}"
-            summary = raw_msg
-            
-        elif action == "search_web":
-            rich_text = f"### ✓ Web Search\n\n{raw_msg}"
-            summary = "Performed web search"
-            
-        elif action == "list_open_windows":
+        # Priority 3: Consistent Layout for everything
+        # --- TITLE ---
+        if status in ["success", "completed", "partial_success", "info"]:
+            rich_text = f"### {icon} {title}\n\n"
+        else:
+            rich_text = f"### {icon} {title} Failed\n\n"
+
+        # Special Action Overrides (e.g., list_open_windows, execute_queue)
+        # Priority 4 & 5: Format specific output lists nicely
+        if action == "list_open_windows":
+            # Turn raw window string into a clean list
             lines = raw_msg.split('\n')
-            rich_text = "### ✓ Open Windows\n\n"
+            clean_lines = []
             for line in lines:
-                if line.strip() and not line.startswith("Found"):
-                    rich_text += f"- {line.strip()}\n"
-            summary = "Listed open windows"
-            
+                if line.strip() and not line.lower().startswith("found"):
+                    clean_lines.append(f"1. {line.strip()}")
+            if clean_lines:
+                raw_msg = f"{len(clean_lines)} windows are currently open.\n\n" + "\n".join(clean_lines)
+            else:
+                raw_msg = "No open windows found."
+                
         elif action == "execute_queue":
             results = result.get("results", [])
             successful = result.get('successful', 0)
             failed = result.get('failed', 0)
-            
-            rich_text = f"### Execution Summary\n\n"
-            rich_text += f"**Completed:** {successful} | **Failed:** {failed}\n\n"
+            raw_msg = f"**Completed:** {successful} | **Failed:** {failed}\n\n"
             for r in results:
                 step_status = "✓" if r.get('result', {}).get('status') in ['success', 'completed'] else "❌"
-                step_title = r.get('action').replace('_', ' ').title()
-                rich_text += f"- {step_status} **Step {r.get('step')}**: {step_title}\n"
-            summary = "Executed task queue"
+                step_title = r.get('action', 'Unknown Action').replace('_', ' ').title()
+                raw_msg += f"- {step_status} **Step {r.get('step')}**: {step_title}\n"
+                
+        elif action == "debug_context" or action == "debug_state":
+            # Priority 4: Redesign Current Session
+            state = result.get("state", {})
+            rich_text = "### Current Session\n\n"
             
-        elif metadata:
-            rich_text = f"### ✓ {title}\n\n{raw_msg}\n\n"
-            for key, val in metadata.items():
-                rich_text += f"**{key}:** {val}\n"
-            summary = raw_msg[:40] + "..." if len(raw_msg) > 40 else raw_msg
+            # Application
+            app_state = state.get('active_application', {})
+            rich_text += "#### Application\n────────────────────\n\n"
+            rich_text += f"**Active Window**\n{app_state.get('window_title', 'None')}\n\n"
+            rich_text += f"**Last Opened**\n{state.get('recent_activity', {}).get('last_opened_app', 'None')}\n\n"
+            rich_text += f"**Last Focused**\n{state.get('recent_activity', {}).get('last_focused_app', 'None')}\n\n"
             
+            # Files
+            fs_state = state.get('filesystem', {})
+            rich_text += "#### Files\n────────────────────\n\n"
+            rich_text += f"**Last Created File**\n{fs_state.get('last_created_file', 'None')}\n\n"
+            rich_text += f"**Last Created Folder**\n{fs_state.get('last_created_folder', 'None')}\n\n"
+            rich_text += f"**Last Found File**\n{fs_state.get('last_found_file', 'None')}\n\n"
+            
+            # System
+            sys_state = state.get('system_state', {})
+            rich_text += "#### System\n────────────────────\n\n"
+            rich_text += f"**Volume**\n{sys_state.get('volume', 'Unknown')}%\n\n"
+            rich_text += f"**Brightness**\n{sys_state.get('brightness', 'Unknown')}%\n\n"
+            rich_text += f"**Wi-Fi**\n{sys_state.get('wifi_status', 'Unknown')}\n\n"
+            
+            summary = {
+                "status": "success",
+                "title": "Current session viewed",
+                "subtitle": "Just now"
+            }
+            return rich_text.strip(), summary
+
+        # --- MESSAGE ---
+        if status not in ["success", "completed", "partial_success", "info"]:
+            # It's an error, add "Reason" if no other message is provided
+            rich_text += f"**Reason:**\n{raw_msg}\n\n"
         else:
-            # Fallback for generic actions
-            rich_text = f"### ✓ {title}\n\n{raw_msg}"
-            summary = raw_msg[:40] + "..." if len(raw_msg) > 40 else raw_msg
+            rich_text += f"{raw_msg}\n\n"
             
-        return rich_text.strip(), summary.strip()
+        # --- METADATA ---
+        if metadata:
+            for key, val in metadata.items():
+                rich_text += f"**{key}**\n{val}\n\n"
+                
+        # --- SUGGESTIONS ---
+        if suggestions:
+            rich_text += "**Suggestions**\n\n"
+            for sug in suggestions:
+                rich_text += f"- {sug}\n"
+                
+        return rich_text.strip(), summary

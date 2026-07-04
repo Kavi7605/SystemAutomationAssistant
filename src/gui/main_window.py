@@ -71,9 +71,12 @@ class MainWindow(QMainWindow):
         history = self.backend.get_recent_actions()
         for entry in history[-20:]: # max 20
             res = entry.get("execution_result", {})
+            action = entry.get("parsed_command", {}).get("action", "unknown")
             msg = res.get("message", "")
             if msg:
-                self.sidebar.add_action(msg)
+                from src.gui.response_formatter import ResponseFormatter
+                _, summary = ResponseFormatter.format_result(action, res)
+                self.sidebar.add_action(summary)
                 
     def _handle_voice_toggle(self, active: bool):
         if self.backend:
