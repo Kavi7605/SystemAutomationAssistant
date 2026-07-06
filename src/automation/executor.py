@@ -572,7 +572,6 @@ class Executor:
             return f"Executing {action.replace('_', ' ').title()}"
 
     def _execute_queue(self, commands: List[Dict[str, Any]], stop_on_failure: bool = True) -> Dict[str, Any]:
-        from src.utils.response_formatter import ResponseFormatter
         total_steps = len(commands)
         successful = 0
         failed = 0

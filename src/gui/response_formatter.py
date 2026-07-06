@@ -1,6 +1,4 @@
-import json
 from typing import Dict, Any, Tuple
-import os
 
 class ResponseFormatter:
     """
@@ -52,6 +50,16 @@ class ResponseFormatter:
             rich_text = f"### {icon} {title}\n\n"
         else:
             rich_text = f"### {icon} {title} Failed\n\n"
+
+        # Conversational Overrides
+        if "Opened" in title and status in ["success", "completed"]:
+            raw_msg = f"{title.replace(' Opened', '')} has been opened successfully. You can continue with your next command."
+            
+        if "exists" in raw_msg.lower():
+            raw_msg = "The folder already exists at the specified location. No changes were made."
+            
+        if status in ["failed", "error"] and "file" in raw_msg.lower():
+            raw_msg = "I couldn't complete the request because the specified file could not be located. Try checking the filename or provide the full path."
 
         # Special Action Overrides (e.g., list_open_windows, execute_queue)
         # Priority 4 & 5: Format specific output lists nicely

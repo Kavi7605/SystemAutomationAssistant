@@ -2,7 +2,7 @@ from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QScrollArea, QFrame, QSizePolicy
 )
 from PySide6.QtCore import Qt, QTimer
-from .theme import ACCENT, PANEL_ALT, TEXT, TEXT_SECONDARY
+from .theme import ACCENT, PANEL_ALT, TEXT
 from .animations import fade_in, ThinkingDots
 
 

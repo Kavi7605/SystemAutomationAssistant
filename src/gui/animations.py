@@ -1,7 +1,6 @@
 """Reusable animation helpers: fade-in, slide-in, pulse, and a typing-dots widget."""
-from PySide6.QtCore import QPropertyAnimation, QEasingCurve, Qt, QTimer, Signal
+from PySide6.QtCore import QPropertyAnimation, QEasingCurve, QTimer
 from PySide6.QtWidgets import QGraphicsOpacityEffect, QWidget, QHBoxLayout, QLabel
-from PySide6.QtGui import QColor
 
 
 def fade_in(widget: QWidget, duration: int = 220):

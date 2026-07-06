@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLineEdit, QPushButton
 from PySide6.QtCore import Qt, Signal
 from .animations import PulseGlow
-from .theme import ACCENT, DANGER
+from .theme import ACCENT
 
 
 class CommandInput(QFrame):

@@ -1,8 +1,6 @@
-import random
 from PySide6.QtWidgets import QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, QMessageBox
-from PySide6.QtCore import QTimer
 
-from .theme import stylesheet, SUCCESS, DANGER, WARNING, ACCENT
+from .theme import stylesheet, SUCCESS, DANGER, WARNING
 from .top_bar import TopBar
 from .chat_widget import ChatWidget
 from .command_input import CommandInput

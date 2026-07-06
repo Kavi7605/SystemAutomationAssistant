@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import (
-    QFrame, QVBoxLayout, QHBoxLayout, QLabel, QScrollArea, QWidget, QProgressBar, QSizePolicy
+    QFrame, QVBoxLayout, QHBoxLayout, QLabel, QScrollArea, QWidget
 )
 from PySide6.QtCore import Qt
-from .theme import PANEL, PANEL_ALT, TEXT_SECONDARY, SUCCESS, ACCENT, DANGER, BORDER
+from .theme import TEXT_SECONDARY, SUCCESS, ACCENT, DANGER, BORDER
 from .animations import fade_in
 
 
