@@ -29,7 +29,6 @@ def test_workspace(tmp_path, monkeypatch):
 def engine(test_workspace):
     from src.automation.executor import Executor
     from src.tools.registry import ToolRegistry
-    from src.core.history_manager import HistoryManager
     from src.tools.filesystem_tools import (
         CreateFileTool, CreateFolderTool, DeleteItemTool, 
         RenameItemTool, CopyFileTool, MoveFileTool, OpenItemTool, ConfirmDeleteTool

@@ -44,11 +44,23 @@ class Executor:
         parameters = command_json.get("parameters", {})
 
         if not action or action == "unknown":
-            return {"status": "failed", "message": "Unknown or unsupported action."}
+            return {
+                "status": "failed", 
+                "title": "Unknown Action",
+                "message": "Unknown or unsupported action.",
+                "metadata": {},
+                "suggestions": []
+            }
             
         if action == "unsupported":
             msg = parameters.get("message", "This action is not supported.")
-            return {"status": "failed", "message": msg}
+            return {
+                "status": "failed", 
+                "title": "Unsupported Action",
+                "message": msg,
+                "metadata": {},
+                "suggestions": []
+            }
 
         try:
             if action == "error":

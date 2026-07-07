@@ -1,50 +1,92 @@
+# ==========================================================
 # Virtual Environment
+# ==========================================================
 venv/
+.venv/
 
+# ==========================================================
 # Python
+# ==========================================================
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
-# IDE
+# Build / Distribution
+build/
+dist/
+*.egg-info/
+
+# ==========================================================
+# IDEs
+# ==========================================================
 .idea/
-*.iml
 .vscode/
+*.iml
 
-# Generated Content
-screenshots/
-logs/
-generated_files/
-docs/
-data/
-automation_workspace/
-
-# Whisper Models
-models/
-
-# Vosk Models
-data/vosk-model-small-en-us-0.15/
-*.zip
-
-# Runtime Data
-data/history.json
-data/application_index.json
-
-# Environment
-.env
-
-# Testing
+# ==========================================================
+# Testing & Cache
+# ==========================================================
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.cache/
+
+# Test directories
 test_env/
 test_create_file_dir/
 test_open_file_dir/
 test_scratch/
 
-brain/
+# ==========================================================
+# Runtime / Generated Files
+# ==========================================================
+logs/
+screenshots/
+generated_files/
+
+# Runtime data
+data/history.json
+data/application_index.json
+
+# Ignore local runtime workspace if not required in Git
+# Uncomment if these are generated locally:
+# automation_workspace/
+# brain/
+
+# ==========================================================
+# AI Models
+# ==========================================================
+models/
+data/vosk-model-small-en-us-0.15/
+*.zip
+
+# ==========================================================
+# Environment
+# ==========================================================
+.env
+
+# ==========================================================
+# Temporary Files
+# ==========================================================
+*.log
+*.tmp
 
 verify_integrity.py
+tree_after_day28.txt
+stress_test_output*.txt
 
+# ==========================================================
+# Legacy / Prototype
+# ==========================================================
 ui_prototype/
 
+# ==========================================================
 # Windows
+# ==========================================================
 Thumbs.db
 Desktop.ini
+
+/brain
+/data
+/docs
+/automation_workspace

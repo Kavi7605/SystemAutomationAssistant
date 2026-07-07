@@ -1,19 +1,13 @@
 import pytest
-import os
-import shutil
-from pathlib import Path
 from src.tools.path_resolver import PathResolver
 from src.tools.filesystem_tools import (
-    resolve_smart_item,
     CreateFolderTool,
     CreateFileTool,
     RenameItemTool,
     MoveFileTool,
     CopyFileTool,
-    OpenItemTool,
     FindItemTool,
     ConfirmDeleteTool,
-    CancelDeleteTool,
     DeleteItemTool
 )
 from src.context.context_manager import ContextManager

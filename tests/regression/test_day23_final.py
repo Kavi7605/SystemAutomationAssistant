@@ -1,9 +1,4 @@
-import pytest
-import os
-from unittest.mock import patch, MagicMock
-from pathlib import Path
-from src.automation.engine import AutomationEngine
-from src.context.context_manager import ContextManager
+from unittest.mock import patch
 
 def test_known_windows_folders(engine):
     e = engine
