@@ -313,7 +313,7 @@ class Executor:
                 if action == "open_application" and "fallback" in result.get("message", "").lower():
                     action = "open_url"
                     
-            if result.get("status") in ["success", "partial_success"]:
+            if result.get("status") in ["success", "partial_success", "info"]:
                 if self.context_manager:
                     self.context_manager.mark_action_success(action)
                     if action in ["create_folder", "create_file", "rename_item", "copy_file", "move_file", "open_workspace_item", "open_folder", "open_file"]:
