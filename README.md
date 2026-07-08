@@ -29,19 +29,43 @@ Unlike traditional AI assistants that depend entirely on Large Language Models f
 
 ---
 
-## 🖥 Screenshots
+## 📊 Repository Stats
 
-> *(Add screenshots here after recording the final demo.)*
+| Metric | Value |
+|---|---|
+| **Project Duration** | 30 Days |
+| **Python Files** | 40+ |
+| **Automated Tests** | 536+ |
+| **Architecture** | Hybrid AI |
+| **Platform** | Windows Desktop |
 
-### Main Window
-```text
-[ Placeholder: Main GUI Screen showing the Chat Interface ]
-```
+---
 
-### Recent Actions & System Status
-```text
-[ Placeholder: Sidebar with active state and history ]
-```
+## 📌 Highlights
+
+- Hybrid Deterministic + AI Architecture
+- Context-Aware Desktop Automation
+- Voice Commands
+- Native Windows Automation
+- Modern PySide6 Desktop GUI
+- 536+ Automated Tests
+- Production Ready
+
+---
+
+## 🎯 Example Commands
+
+- *Open Chrome*
+- *Create folder Projects*
+- *Set brightness to 30%*
+- *Mute volume*
+- *Take screenshot*
+- *Search Google for ChatGPT*
+- *Open Notepad and maximize it*
+- *Open WhatsApp then focus it*
+- *Create notes.txt then open it*
+- *Delete folder Test*
+- *Turn Wi-Fi off*
 
 ---
 
@@ -60,27 +84,53 @@ Unlike traditional AI assistants that depend entirely on Large Language Models f
 
 <details>
 <summary><b>📂 Filesystem Automation</b></summary>
-Create files, Create folders, Rename, Delete, Copy, Move, Open files, Search files, Folder navigation
+
+- Create Files
+- Create Folders
+- Rename Files
+- Delete Files
+- Copy Files
+- Move Files
+- Search Files
+- Open Files
+- Folder Navigation
 </details>
 
 <details>
 <summary><b>🖥 Application Management</b></summary>
-Open applications, Close applications, Detect running applications
+
+- Open Applications
+- Close Applications
+- Detect Running Applications
 </details>
 
 <details>
 <summary><b>🪟 Window Management</b></summary>
-Focus windows, Minimize, Maximize, Restore, List open windows, Active window detection
+
+- Focus Windows
+- Minimize
+- Maximize
+- Restore
+- List Open Windows
+- Active Window Detection
 </details>
 
 <details>
 <summary><b>🌐 Browser Automation</b></summary>
-Launch browser, Open websites, Google search
+
+- Launch Browser
+- Open Websites
+- Google Search
 </details>
 
 <details>
 <summary><b>⚙ System Controls</b></summary>
-Volume, Brightness, Screenshot, Wi-Fi, Power management
+
+- Volume Control
+- Brightness Control
+- Screenshot
+- Wi-Fi Management
+- Power Management
 </details>
 
 ---
@@ -130,13 +180,24 @@ SystemAutomationAssistant/
 │   ├── gui/            # PySide6 components
 │   ├── llm/            # Ollama integrations
 │   ├── nlp/            # NLP pipelines
+│   ├── parser/         # Deterministic parsers
 │   ├── planner/        # AI task planners
 │   ├── tools/          # Action handlers
+│   ├── utils/          # Helper utilities
 │   └── voice/          # STT integration
 ├── tests/              # 536+ pytest suite
 ├── gui_main.py         # Entry point (GUI)
 └── main.py             # Entry point (CLI)
 ```
+
+---
+
+## 💻 Requirements
+
+- Windows 10/11
+- Python 3.13+
+- Ollama
+- 8 GB RAM Recommended
 
 ---
 
